@@ -16,6 +16,22 @@ export const menus = [
         ]
     },
     {
+        'name': 'Employees',
+        'icon': 'widgets',
+        'link': false,
+        'open': false,
+        
+        'sub': [
+            {
+                'name': 'Add Employees',
+                'link': 'employees/add-employees',
+                'icon': 'dashboard',
+                'chip': false,
+                'open': false,
+            }
+        ]
+    },
+    {
         'name': 'Material Widget',
         'icon': 'widgets',
         'link': false,

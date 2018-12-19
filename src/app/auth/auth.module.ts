@@ -23,6 +23,7 @@ import { DashboardCrmModule } from '../dashboard-crm/dashboard-crm.module';
 
 import { CoreModule } from '../core/core.module';
 import { LoginModule } from '../login/login.module';
+import { EmployeesModule } from '../employees/employees.module';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { LoginModule } from '../login/login.module';
         CoreModule,
         MatSidenavModule,
         PerfectScrollbarModule,
+        EmployeesModule,
     ],
     declarations: [AuthComponent],
     providers: [

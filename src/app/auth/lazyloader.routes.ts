@@ -2,13 +2,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { DashboardCrmComponent } from '../dashboard-crm/dashboard-crm.component';
 import { LoginComponent } from '../login/login.component';
+import { EmployeesComponent } from '../employees/employees.component';
+import { AddEmployeesComponent } from '../employees/add-employees/add-employees.component';
 
 export const appRoutes: Routes = [{
     path: '', component: AuthComponent, children: [
+
         { path: 'dashboard', component: DashboardCrmComponent },
         { path: 'login', component: LoginComponent },
-      
-        { path: 'material-widgets', loadChildren: '../material-widgets/material-widgets.module#MaterialWidgetsModule' },
+        { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule'  },
+        // { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule' },
+         { path: 'material-widgets', loadChildren: '../material-widgets/material-widgets.module#MaterialWidgetsModule' },
         { path: 'tables', loadChildren: '../tables/tables.module#TablesModule' },
         { path: 'maps', loadChildren: '../maps/maps.module#MapsModule' },
         { path: 'charts', loadChildren: '../charts/charts.module#ChartsModule' },
