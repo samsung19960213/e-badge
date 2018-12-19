@@ -1,14 +1,16 @@
 import { AddEmployeesComponent } from "./add-employees/add-employees.component";
 import { EmployeesRouterModule } from "./employees.router";
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTabsModule, MatSelectModule, MatOption, MatOptionModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { EmployeesComponent } from "./employees.component";
 import { appRoutes } from "../dashboard-accounts/dashboard-accounts.module";
-// import { FormsRouterModule } from "../forms/forms.router";
-// import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { EmployeesTableComponent } from "./employees-table/employees-table.component";
+import { HttpClientModule } from "@angular/common/http";
+import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
+import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
 
 
 @NgModule({
@@ -17,6 +19,7 @@ import { appRoutes } from "../dashboard-accounts/dashboard-accounts.module";
         CommonModule,
         FlexLayoutModule,
         MatButtonModule,
+        MatTableModule,
         MatButtonToggleModule,
         MatInputModule,
         MatToolbarModule,
@@ -26,6 +29,7 @@ import { appRoutes } from "../dashboard-accounts/dashboard-accounts.module";
         MatCheckboxModule,
         MatListModule,
         MatChipsModule,
+        HttpClientModule,
         CoreModule,
         CommonModule,
 		// FormsRouterModule,
@@ -35,14 +39,18 @@ import { appRoutes } from "../dashboard-accounts/dashboard-accounts.module";
 		MatCardModule,
 		MatTabsModule,
 		MatIconModule,
-		 MatInputModule,
+         MatInputModule,
+         MatPaginatorModule,
 		//  ReactiveFormsModule,
 		//  FormsModule,
         EmployeesRouterModule
      ],
     declarations: [   
         AddEmployeesComponent,
-        EmployeesComponent
+        EmployeesComponent,
+        EmployeesTableComponent,
+        ActiveEmployeesComponent,
+        DeactivatedEmployeesComponent
     ],
     exports: [
     ],

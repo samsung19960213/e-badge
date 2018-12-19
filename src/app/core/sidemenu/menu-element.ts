@@ -28,7 +28,30 @@ export const menus = [
                 'icon': 'dashboard',
                 'chip': false,
                 'open': false,
+            },
+            {
+                'name': 'Employee List',
+                'link': 'employees/employee-table',
+                'icon': 'indeterminate_check_box',
+                'chip': false,
+                'open': false,
+            },
+            {
+                'name': 'Active Employees',
+                'link': 'employees/active-employees',
+                'icon': 'indeterminate_check_box',
+                'chip': false,
+                'open': false,
+            },
+            {
+                'name': 'Inactive Employees',
+                'link': 'employees/deactivated-employees',
+                'icon': 'indeterminate_check_box',
+                'chip': false,
+                'open': false,
             }
+
+
         ]
     },
     {
