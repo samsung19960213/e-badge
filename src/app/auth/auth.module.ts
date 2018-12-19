@@ -25,7 +25,6 @@ import { CoreModule } from '../core/core.module';
 import { LoginModule } from '../login/login.module';
 import { EmployeesModule } from '../employees/employees.module';
 
-
 @NgModule({
     imports: [
         CommonModule,
