@@ -1,12 +1,16 @@
 .table-header {
-	background-color: #327ebd;
-	color: white;
+	background-color: white;
+	color:black;
 	padding: 0 5px;
 }
 .table-container {
 	padding: 5px 15px 15px 15px;
 }
 .table-component-holder {
-	border: 1px solid #327ebd;
+	border: 1px solid #73c0ff;
 	background-color: white;
+}
+mat-header-cell{
+background-color: #73c0ff;
+color:white;
 }

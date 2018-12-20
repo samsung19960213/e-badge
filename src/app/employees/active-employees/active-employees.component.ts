@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ActiveEmployeesComponent implements OnInit {
 
-	public displayedColumns = ['select','id', 'firstName', 'employeeCode', 'email', 'phone', 'age', ];
+	public displayedColumns = ['firstName', 'employeeCode', 'email', 'designation', 'department' ];
   showNavListCode;
 
 	selection = new SelectionModel<string>(true, []);

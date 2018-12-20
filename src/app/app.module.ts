@@ -11,6 +11,9 @@ import { CommonModule } from '@angular/common';
 // import { EmployeesModule } from './employees/employees.module';
 import { GuardedRoutesComponent } from './guarded-routes/guarded-routes.component';
 import { EmployeesModule } from './employees/employees.module';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { AbsenteesComponent } from './attendance/absentees/absentees.component';
+import { PresentComponent } from './attendance/present/present.component';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
@@ -20,6 +23,8 @@ import { EmployeesModule } from './employees/employees.module';
 @NgModule({
   declarations: [
     AppComponent,
+
+
 
     
     

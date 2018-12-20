@@ -2,8 +2,10 @@ import { Url } from '../../Url';
 import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
 // import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
 import { MatPaginator, MatSort } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
+import { id } from '@swimlane/ngx-charts/release/utils';
+import { json } from 'd3';
 
 
 @Component({
@@ -13,9 +15,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EmployeesTableComponent implements OnInit {
 
-	public displayedColumns = ['select','id', 'firstName', 'employeeCode', 'email', 'phone', 'age', ];
+	public displayedColumns = ['employeeCode','Name','email', 'designation', 'department', 'status' ];
   showNavListCode;
-
+  ID: any;
+  userId: number[]= [];
 	selection = new SelectionModel<string>(true, []);
   dataSource = [];
 
@@ -44,9 +47,39 @@ export class EmployeesTableComponent implements OnInit {
 	    if (this.selection.isEmpty()) { return false; }
 
 	    if (this.filter.nativeElement.value) {
-	      return this.selection.selected.length == this.dataSource.length;
+       
+        return this.selection.selected.length == this.dataSource.length;
+     
 	    } else {
-	      return this.selection.selected.length == this.dataSource.length;
+      // this.dataSource.forEach(data => this.userId.push(data.id));
+      // console.log(this.userId);
+        return this.selection.selected.length == this.dataSource.length;
+        
+      }
+    }
+    deactivateAll() {
+      for( var id of this.userId) {
+        this.deactivate(id);
+       
+      }
+    }
+deactivate(id: number) {
+ 
+//   return new Promise((resolve, reject) => {
+//     this.http.post(Url.API_URL + 'api/employee/deactivate/'  )
+//         .subscribe((response: any) => {
+//             resolve(response);
+//         }, reject);
+// });
+}
+
+    selectAll() {
+      if(this.isAllSelected()){
+   
+      console.log('selected');
+      }
+      else {
+        console.log('not selected');
       }
     }
       masterToggle() {
@@ -59,6 +92,18 @@ export class EmployeesTableComponent implements OnInit {
         } else {
           this.dataSource.forEach(data => this.selection.select(data.id));
         }
+    }
+    selectUser(id: number) {
+      const realId = this.userId.indexOf(id);
+      if(realId !== -1) {
+        this.userId.splice(realId,1);
+        console.log(this.userId);
+      }
+      else {
+        this.userId.push(id);
+        console.log(this.userId);
+      }
+
     }
 	}
 

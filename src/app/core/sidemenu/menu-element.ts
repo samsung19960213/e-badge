@@ -55,6 +55,33 @@ export const menus = [
         ]
     },
     {
+        'name': 'Attendance',
+        'icon': 'widgets',
+        'link': false,
+        'open': false,
+        
+        'sub': [
+            {
+                'name': 'Absentees List',
+                'link': 'attendance/absentees',
+                'icon': 'dashboard',
+                'chip': false,
+                'open': false,
+            },
+            {
+                'name': 'Present List',
+                'link': 'attendance/present',
+                'icon': 'dashboard',
+                'chip': false,
+                'open': false,
+            },
+           
+           
+
+        ]
+    },
+
+    {
         'name': 'Material Widget',
         'icon': 'widgets',
         'link': false,

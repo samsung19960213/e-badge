@@ -57,21 +57,22 @@
 				</ng-container>
 
 				<!-- Color Column -->
-				<ng-container matColumnDef="age">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Age </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.age}} </mat-cell>
-				</ng-container>
+				
 
         
 				<ng-container matColumnDef="email">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> E-Mail </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource" > {{dataSource.contactEmail}} </mat-cell>
 				</ng-container>
+				<ng-container matColumnDef="designation">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.designationName}} </mat-cell>
+				</ng-container>
 
         
-				<ng-container matColumnDef="phone">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.mobileNo}} </mat-cell>
+				<ng-container matColumnDef="department">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Department</mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.departmentName}} </mat-cell>
 				</ng-container>
 
 				
