@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { EmployeeDetails } from './employee.model';
 
 @Component({
   selector: 'app-add-employees',
@@ -8,38 +9,53 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AddEmployeesComponent implements OnInit {
 
-  public profileForm: FormGroup;
-  // submitted = false;
-  // hide;
-  // constructor(public form: FormBuilder) {
-  //   this.profileForm = this.form.group({
-  //     username: ['', { validators: [Validators.minLength(6)], updateOn: 'blur' }],
-  //     email: ['', Validators.required],
-  //     number: ['', { validators: [Validators.minLength(10)], updateOn: 'blur' }],
-  //     pwd: ['', Validators.required]
-  //   });
-
-  // }
-  // get number() {
-  //   return this.profileForm.get('number');
-  // }
-  // get username() {
-  //   return this.profileForm.get('username');
-  // }
-  // get email() {
-  //   return this.profileForm.get('email');
-  // }
-  // checkUserExists() {
+ user: FormGroup;
+  employeeDetails:any;
 
 
-  //         this.profileForm.value.userName.setErrors({ userExists: `User Name  already exists` });
-
-  // }
-  // onSubmit() {
-  //   console.log('');
-  //   this.submitted = true;
-  // }
+  constructor(){
+    this.employeeDetails = new EmployeeDetails();
+  }
+  
   ngOnInit() {
+    this.user = new FormGroup({
+    useractive:new FormControl('', [Validators.required]), 
+    useraddressLine1:new FormControl('', [Validators.required]), 
+    useraddressLine2: new FormControl('', [Validators.required]),
+    userage:new FormControl('', [Validators.required]), 
+    useralternateContactNo: new FormControl('', [Validators.required]),
+    userbloodGroup: new FormControl('', [Validators.required]),
+    usercity: new FormControl('', [Validators.required]),
+    usercontactEmail: new FormControl('', [Validators.required]),
+    usercountry: new FormControl('', [Validators.required]),
+    userdateOfBirth: new FormControl('', [Validators.required]),
+    userdepartmentId: new FormControl('', [Validators.required]),
+    userdepartmentName: new FormControl('', [Validators.required]),
+    userdesignationId: new FormControl('', [Validators.required]),
+    userdesignationName: new FormControl('', [Validators.required]),
+    userdistict: new FormControl('', [Validators.required]),
+    useremployeeCode: new FormControl('', [Validators.required]),
+    useremployeeImage: new FormControl('', [Validators.required]),
+    userfirstName: new FormControl('', [Validators.required]),
+    userformerComapnyJoinDate: new FormControl('', [Validators.required]),
+    userformerCompanyEndDate: new FormControl('', [Validators.required]),
+    userformerCompanyName: new FormControl('', [Validators.required]),
+    usergender: new FormControl('', [Validators.required]),
+    userid: new FormControl('', [Validators.required]),
+    userisUser: new FormControl('', [Validators.required]),
+    userjoiningDate: new FormControl('', [Validators.required]),
+    userlandmark: new FormControl('', [Validators.required]),
+    userlastName: new FormControl('', [Validators.required]),
+    usermedicalInfo: new FormControl('', [Validators.required]),
+    usermobileNo: new FormControl('', [Validators.required]),
+    userpincode: new FormControl('', [Validators.required]),
+    userqualification: new FormControl('', [Validators.required]),
+    userstate: new FormControl('', [Validators.required]),
+    useruserRoleId: new FormControl('', [Validators.required]),
+    userworkExperince: new FormControl('', [Validators.required]),
+    usersalary:new FormControl('', [Validators.required]),
+    usershiftId:new FormControl('', [Validators.required]),
+    });
   }
 
 }

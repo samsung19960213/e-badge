@@ -1,7 +1,7 @@
 import { AddEmployeesComponent } from "./add-employees/add-employees.component";
 import { EmployeesRouterModule } from "./employees.router";
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -11,6 +11,7 @@ import { EmployeesTableComponent } from "./employees-table/employees-table.compo
 import { HttpClientModule } from "@angular/common/http";
 import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
 import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -24,6 +25,9 @@ import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivat
         MatInputModule,
         MatToolbarModule,
         MatIconModule,
+        MatRadioModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatSelectModule,
         MatOptionModule,
         MatCheckboxModule,
