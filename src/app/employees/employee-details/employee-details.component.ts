@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Validators,FormBuilder,FormGroup } from '@angular/forms';
+import { Validators,FormBuilder,FormGroup, FormControl } from '@angular/forms';
 import { EmailValidator } from '@angular/forms';
 import { Chart } from 'chart.js';
+import { Url } from '../../Url';
+import { EmployeeDetails } from '../employee.model';
+import { HttpClient } from '@angular/common/http';
+import { EmployeesService } from '../employees.service';
 
 @Component({
   selector: 'app-employee-details',
@@ -10,41 +14,78 @@ import { Chart } from 'chart.js';
   styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent implements OnInit {
-  public profileForm:FormGroup;
-  submitted = false;
-  hide;
-    constructor(public form: FormBuilder) { 
-        this.profileForm = this.form.group({
-               username:['',{validators: [Validators.minLength(6)], updateOn: 'blur'}],
-              email:['',Validators.required],
-              number:[ '',{validators: [Validators.minLength(10)], updateOn: 'blur'}],
-              pwd:['',Validators.required]
-           });
-  
-    }
-    get number() {
-    return this.profileForm.get('number');
+ 
+  empId:number
+  user: FormGroup;
+  employeeDetails: any;
+
+
+  constructor(private http: HttpClient, public empService: EmployeesService) {
+    this.employeeDetails = new EmployeeDetails();
   }
-    get username() {
-    return this.profileForm.get('username');
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.createBarGraph();
+  },500)
+this.empId=this.empService.getEmployeeId();
+  this.getDetails(this.empId);
+    this.user = new FormGroup({
+      useractive: new FormControl('', [Validators.required]),
+      useraddressLine1: new FormControl('', [Validators.required]),
+      useraddressLine2: new FormControl('', [Validators.required]),
+      userage: new FormControl('', [Validators.required]),
+      useralternateContactNo: new FormControl('', [Validators.required]),
+      userbloodGroup: new FormControl('', [Validators.required]),
+      usercity: new FormControl('', [Validators.required]),
+      usercontactEmail: new FormControl('', [Validators.required]),
+      usercountry: new FormControl('', [Validators.required]),
+      userdateOfBirth: new FormControl('', [Validators.required]),
+      userdepartmentId: new FormControl('', [Validators.required]),
+      userdepartmentName: new FormControl('', [Validators.required]),
+      userdesignationId: new FormControl('', [Validators.required]),
+      userdesignationName: new FormControl('', [Validators.required]),
+      userdistict: new FormControl('', [Validators.required]),
+      useremployeeCode: new FormControl('', [Validators.required]),
+      useremployeeImage: new FormControl('', [Validators.required]),
+      userfirstName: new FormControl('', [Validators.required]),
+      userformerComapnyJoinDate: new FormControl('', [Validators.required]),
+      userformerCompanyEndDate: new FormControl('', [Validators.required]),
+      userformerCompanyName: new FormControl('', [Validators.required]),
+      usergender: new FormControl('', [Validators.required]),
+      userid: new FormControl('', [Validators.required]),
+      userisUser: new FormControl('', [Validators.required]),
+      userjoiningDate: new FormControl('', [Validators.required]),
+      userlandmark: new FormControl('', [Validators.required]),
+      userlastName: new FormControl('', [Validators.required]),
+      usermedicalInfo: new FormControl('', [Validators.required]),
+      usermobileNo: new FormControl('', [Validators.required]),
+      userpincode: new FormControl('', [Validators.required]),
+      userqualification: new FormControl('', [Validators.required]),
+      userstate: new FormControl('', [Validators.required]),
+      useruserRoleId: new FormControl('', [Validators.required]),
+      userworkExperince: new FormControl('', [Validators.required]),
+      usersalary: new FormControl('', [Validators.required]),
+      usershiftId: new FormControl('', [Validators.required]),
+      userreportingManagerId:new FormControl('', [Validators.required]),
+    });
   }
-   get email() {
-    return this.profileForm.get('email');
+  getDetails(id:number) {
+   
+
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + '/api/employee/'+id )
+        .subscribe((response: any) => {
+          console.log(response);
+          resolve(response);
+          this.employeeDetails = response;
+        }, reject);
+       
+    });
+
   }
-    // checkUserExists() {
-      
-         
-    //         this.profileForm.value.userName.setErrors({ userExists: `User Name  already exists` });
-         
-    // }
-   onSubmit() { 
-     console.log('');
-     this.submitted = true; }
-    ngOnInit() {
-      setTimeout(() => {
-        this.createBarGraph();
-    },500)
-    }
+
+
   
     createBarGraph() {
       new Chart('dash-bar-graph', {

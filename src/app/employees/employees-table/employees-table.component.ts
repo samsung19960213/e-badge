@@ -9,6 +9,7 @@ import { json } from 'd3';
 import { Router } from '@angular/router';
 import { EmployeesRouterModule } from '../employees.router';
 import { EmployeeDetailsComponent } from '../employee-details/employee-details.component';
+import { EmployeesService } from '../employees.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class EmployeesTableComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild('filter') filter: ElementRef;
-  constructor(private http: HttpClient, public route: Router) {}
+  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService) {}
   	ngOnInit() {
     this.userSalaryList();
     }
@@ -68,6 +69,7 @@ export class EmployeesTableComponent implements OnInit {
     }
     employeeDetails(id:number) {
       console.log(id);
+    this.empService.setEmployeeId(id);
      this.route.navigateByUrl('auth/employees/employee-details');
     }
 deactivate(id: number) {

@@ -13,6 +13,7 @@ import { ActiveEmployeesComponent } from "./active-employees/active-employees.co
 import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
 import { EmployeeDetailsComponent } from "./employee-details/employee-details.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { EmployeesService } from "./employees.service";
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
     exports: [
     ],
     providers: [
+        
     ]
 })
 export class EmployeesModule {

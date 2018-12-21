@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { EmployeeDetails } from './employee.model';
+
 import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
+import { EmployeeDetails } from '../employee.model';
 
 @Component({
   selector: 'app-add-employees',

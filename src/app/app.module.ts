@@ -15,6 +15,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
 import { AbsenteesComponent } from './attendance/absentees/absentees.component';
 import { PresentComponent } from './attendance/present/present.component';
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
+import { EmployeesService } from './employees/employees.service';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
@@ -42,7 +43,7 @@ import { EmployeeDetailsComponent } from './employees/employee-details/employee-
     
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [EmployeesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
