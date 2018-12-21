@@ -10,10 +10,10 @@
                   <!-- <button mat-fab (click)="imgFileInput.click()">
                       <mat-icon>insert_photo</mat-icon>
                   </button> -->
-                  <!-- <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>
-                          <span *ngIf="companyInfoDetails.companyLogo != null">
-                              <img src="{{companyInfoDetails.companyLogo}}" alt="Logo" height="42" width="42">
-                          </span> -->
+                  <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>
+                          <span *ngIf="employeeDetails.employeeImage != null">
+                              <img src="{{employeeDetails.employeeImage}}" alt="Logo" height="250" width="200" style="border-radius:20px;box-shadow:0px 0px 10px black;">
+                          </span>
               </div>
           </div>
 
