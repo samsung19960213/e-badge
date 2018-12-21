@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
 import { EmployeeDetails } from '../employee.model';
+import "aws-sdk/dist/aws-sdk.min";
+
+
 
 @Component({
   selector: 'app-add-employees',
@@ -73,5 +76,22 @@ export class AddEmployeesComponent implements OnInit {
     });
 
   }
+  fileEvent(fileInput: any) {
+		let windows: any = window;
+		let AWSService = windows.AWS;
+	
+		let file = fileInput.target.files[0];
+		let region = 'Asia Pacific (Mumbai)';
+		AWSService.config.accessKeyId = Url.AWS_AccessKeyId;		
+		AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+		let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
+		let params = { Key: file.name, Body: file };
+		let fileEveThis = this;
+		bucket.upload(params, function (error, response) {
+      console.log(response.Location);
+			fileEveThis.employeeDetails.employeeImage = response.Location;
+		});
+	}
+
 
 }
