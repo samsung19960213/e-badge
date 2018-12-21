@@ -1,2 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@font-face {
+    font-family:light;
+    src: url("/assets/fonts/Mostardesign - Sofia Pro Light.otf") format("opentype");
+    }
+    
+    @font-face {
+    font-family:med ;
+    src: url("/assets/fonts/Mostardesign - Sofia Pro Medium.otf" ) format("opentype");
+    }
+    @font-face {
+    font-family: reg;
+    src: url("/assets/fonts/Mostardesign - Sofia Pro Regular.otf" ) format("opentype");
+    }
+    @font-face {
+    font-family: semi;
+    src: url("/assets/fonts/Mostardesign - Sofia Pro Semi Bold.otf") format("opentype");
+    }
+
+    form, h1,h2,h3,h4,h5,p,span,mat-form-field{
+        font-family:light;
+    } 
+    

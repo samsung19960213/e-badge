@@ -1,0 +1,35 @@
+.form-header {
+	background-color: #327ebd;
+	color: white;
+	padding: 0 5px;
+}
+.mat-form-field{
+	padding-left:10px;
+}
+.validation-message{
+	background-color: #00BCD4;
+}
+.container{
+	padding-left:10px;
+	padding-right:10px;
+}
+.form-container {
+	padding: 5px 15px 15px 15px;
+}
+.form-component-holder {
+	border: 1px solid #327ebd;
+	background-color: white;
+}
+.dash-bar-graph-holder {
+    margin: 10px 5px;
+    background-color:white;
+}
+.nav-item {
+ transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+ cursor: default;
+
+ &:hover {
+   transform: translate(0, -8px);
+   box-shadow: 0 20px 20px rgba(0, 0, 0, .16)
+ }
+}

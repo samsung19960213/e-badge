@@ -11,6 +11,8 @@ import { EmployeesTableComponent } from "./employees-table/employees-table.compo
 import { HttpClientModule } from "@angular/common/http";
 import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
 import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
+import { EmployeeDetailsComponent } from "./employee-details/employee-details.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -41,8 +43,8 @@ import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivat
 		MatIconModule,
          MatInputModule,
          MatPaginatorModule,
-		//  ReactiveFormsModule,
-		//  FormsModule,
+		 ReactiveFormsModule,
+		 FormsModule,
         EmployeesRouterModule
      ],
     declarations: [   
@@ -50,7 +52,8 @@ import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivat
         EmployeesComponent,
         EmployeesTableComponent,
         ActiveEmployeesComponent,
-        DeactivatedEmployeesComponent
+        DeactivatedEmployeesComponent,
+        EmployeeDetailsComponent
     ],
     exports: [
     ],

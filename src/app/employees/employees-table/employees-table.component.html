@@ -84,7 +84,7 @@
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;"
 				[class.example-selected-row]="selection.isSelected(dataSource.id)"
-				(click)="selection.toggle(dataSource.id)">
+				(click)="employeeDetails(dataSource.id)">
 				</mat-row>
 			</mat-table>
 

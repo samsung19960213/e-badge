@@ -29,6 +29,7 @@ export const menus = [
                 'chip': false,
                 'open': false,
             },
+       
             {
                 'name': 'Employee List',
                 'link': 'employees/employee-table',
