@@ -5,6 +5,7 @@ import { EmployeesComponent } from "./employees.component";
 import { EmployeesTableComponent } from "./employees-table/employees-table.component";
 import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
 import { DeactivatedEmployeesComponent } from "./deactivated-employees/deactivated-employees.component";
+import { EmployeeDetailsComponent } from "./employee-details/employee-details.component";
 
 
 
@@ -15,6 +16,7 @@ const employeesRoutes: Routes = [
     {path: 'employee-table', component: EmployeesTableComponent},
     {path: 'active-employees',component: ActiveEmployeesComponent},
     {path: 'deactivated-employees', component: DeactivatedEmployeesComponent},
+    {path: 'employee-details', component: EmployeeDetailsComponent},
     { path: '', component: EmployeesComponent},
   
 ];

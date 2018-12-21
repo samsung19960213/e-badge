@@ -6,6 +6,9 @@ import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { id } from '@swimlane/ngx-charts/release/utils';
 import { json } from 'd3';
+import { Router } from '@angular/router';
+import { EmployeesRouterModule } from '../employees.router';
+import { EmployeeDetailsComponent } from '../employee-details/employee-details.component';
 
 
 @Component({
@@ -25,7 +28,7 @@ export class EmployeesTableComponent implements OnInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild('filter') filter: ElementRef;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public route: Router) {}
   	ngOnInit() {
     this.userSalaryList();
     }
@@ -62,6 +65,10 @@ export class EmployeesTableComponent implements OnInit {
         this.deactivate(id);
        
       }
+    }
+    employeeDetails(id:number) {
+      console.log(id);
+     this.route.navigateByUrl('auth/employees/employee-details');
     }
 deactivate(id: number) {
  

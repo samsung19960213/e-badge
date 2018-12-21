@@ -14,6 +14,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { AbsenteesComponent } from './attendance/absentees/absentees.component';
 import { PresentComponent } from './attendance/present/present.component';
+import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
@@ -23,6 +24,7 @@ import { PresentComponent } from './attendance/present/present.component';
 @NgModule({
   declarations: [
     AppComponent,
+   
 
 
 

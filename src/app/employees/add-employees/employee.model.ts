@@ -2,7 +2,11 @@ export class EmployeeDetails {
     active: number;
     addressLine1: string;
     addressLine2: string;
+<<<<<<< HEAD
     // age: number;
+=======
+    age: number;
+>>>>>>> 76c1873c69bc331781dcfacad69ac2c64c5fee64
     alternateContactNo: string;
     bloodGroup: string;
     city: string;
@@ -32,10 +36,16 @@ export class EmployeeDetails {
     qualification: string;
     state: string;
     userRoleId: number;
+<<<<<<< HEAD
     experinces: number;
     salary:number;
     shiftId:number;
     reportingManagerId:number;
+=======
+    workExperince: number;
+    salary:number;
+    shiftId:number;
+>>>>>>> 76c1873c69bc331781dcfacad69ac2c64c5fee64
     
 
 
@@ -46,8 +56,13 @@ export class EmployeeDetails {
         this.active = employeeDetails.active || 0;
         this.addressLine1 = employeeDetails.addressLine1 || '';
         this.addressLine2 = employeeDetails.addressLine2 || '';
+<<<<<<< HEAD
         this.reportingManagerId = employeeDetails.reportingManagerId || 0;
         // this.age = employeeDetails.age || 0;
+=======
+
+        this.age = employeeDetails.age || 0;
+>>>>>>> 76c1873c69bc331781dcfacad69ac2c64c5fee64
         this.alternateContactNo = employeeDetails.alternateContactNo || '';
         this.bloodGroup = employeeDetails.bloodGroup || '';
         this.city = employeeDetails.city || '';
@@ -77,7 +92,11 @@ export class EmployeeDetails {
         this.qualification = employeeDetails.qualification || '';
         this.state = employeeDetails.state || '';
         this.userRoleId = employeeDetails.userRoleId || 0;
+<<<<<<< HEAD
         this.experinces = employeeDetails.experinces || '';
+=======
+        this.workExperince = employeeDetails.workExperince || '';
+>>>>>>> 76c1873c69bc331781dcfacad69ac2c64c5fee64
         this.salary = employeeDetails.salary || 0;
         this.shiftId = employeeDetails.shiftId || 0;
 
