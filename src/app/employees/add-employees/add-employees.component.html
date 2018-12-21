@@ -20,10 +20,10 @@
             <form [formGroup]="user" fxLayout="column" fxFlex="100">
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
                     <mat-radio-group [(ngModel)]="employeeDetails.active" formControlName="useractive" name="useractive" class="example-radio-button">
-                        <mat-radio-button [value]="1" class="example-radio-button">
+                        <mat-radio-button [value]=1 class="example-radio-button">
                             Active User
                         </mat-radio-button>
-                        <mat-radio-button [value]="0" class="example-radio-button" style="margin-left: 100px">
+                        <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
                             Inactive User
                         </mat-radio-button>
                     </mat-radio-group>
@@ -64,7 +64,7 @@
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select placeholder="Gender" [(ngModel)]="employeeDetails.gender" formControlName="usergender" name="usergender">
+                        <mat-select type="number" placeholder="Gender" [(ngModel)]="employeeDetails.gender" formControlName="usergender" name="usergender">
                             <mat-option value="male">Male</mat-option>
                             <mat-option value="female">Female </mat-option>
                             <mat-option value="others">Others</mat-option>
@@ -74,10 +74,10 @@
 
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
                     <mat-radio-group [(ngModel)]="employeeDetails.isUser" formControlName="userisUser" name="userisUser" class="example-radio-button">
-                        <mat-radio-button [value]="1" class="example-radio-button">
+                        <mat-radio-button [value]=1 class="example-radio-button">
                             User
                         </mat-radio-button>
-                        <mat-radio-button [value]="0" class="example-radio-button" style="margin-left: 100px">
+                        <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
                             Employee
                         </mat-radio-button>
                     </mat-radio-group>
@@ -161,26 +161,27 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select placeholder="Department" [(ngModel)]="employeeDetails.designationId" formControlName="userdesignationId" name="userdesignationId">
-                            <mat-option value="1">Administration</mat-option>
-                            <mat-option value="2">HR</mat-option>
-                            <mat-option value="3">Software Development</mat-option>
-                            <mat-option value="4">Business Development</mat-option>
-                            <mat-option value="5">Medical Billing </mat-option>
-                            <mat-option value="6">House Keepinf</mat-option>
+                        <mat-select type="number" placeholder="Department" [(ngModel)]="employeeDetails.departmentId" formControlName="userdepartmentId" name="userdepartmentId">
+                            <mat-option value=1>Administration</mat-option>
+                            <mat-option value=2>HR</mat-option>
+                            <mat-option value=3>Software Development</mat-option>
+                            <mat-option value=4>Business Development</mat-option>
+                            <mat-option value=5>Medical Billing </mat-option>
+                            <mat-option value=6>House Keepinf</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select placeholder="Designation" [(ngModel)]="employeeDetails.designationId" formControlName="userdesignationId" name="userdesignationId">
-                            <mat-option value="1">Trainee Engineer</mat-option>
-                            <mat-option value="2">Software Engineer</mat-option>
-                            <mat-option value="3">Senior Tester</mat-option>
-                            <mat-option value="4">Teach Lead</mat-option>
-                            <mat-option value="5">Team Lead</mat-option>
-                            <mat-option value="6">Senior Team Lead</mat-option>
-                            <mat-option value="7">Manager</mat-option>
-                            <mat-option value="8">Director</mat-option>
-                            <mat-option value="9">Business Development Manager</mat-option>
+                        <mat-select  type="number" placeholder="Designation" [(ngModel)]="employeeDetails.designationId" formControlName="userdesignationId" name="userdesignationId">
+                            <mat-option value=1>CTO</mat-option>
+                            <mat-option value=2>Director</mat-option>
+                            <mat-option value=3>Manager</mat-option>
+                            <mat-option value=4>Senior Team Lead</mat-option>
+                            <mat-option value=5>Senior Tester</mat-option>
+                            <mat-option value=6>Software Engineer</mat-option>
+                            <mat-option value=7>Team Lead</mat-option>
+                            <mat-option value=8>Teach Lead</mat-option>
+                            <mat-option value=9>Trainee Engineer</mat-option>
+                            <mat-option value=9>Business Development Manager</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -198,7 +199,7 @@
                             name="usermedicalInfo">
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Work Experience" [(ngModel)]="employeeDetails.workExperince" formControlName="userworkExperince"
+                        <input matInput type="text" placeholder="Work Experience" [(ngModel)]="employeeDetails.experinces" formControlName="userworkExperince"
                             name="userworkExperince">
                     </mat-form-field>
                 </div>
@@ -208,19 +209,23 @@
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId">
-                            <mat-option value="1">General Shift</mat-option>
-                            <mat-option value="2">Night Shift</mat-option>
+                            <mat-option value=1>General Shift</mat-option>
+                            <mat-option value=2>Night Shift</mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select placeholder="User Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId" name="useruserRoleId">
-                            <mat-option value="1">User</mat-option>
-                            <mat-option value="2">Reporting Manager</mat-option>
+                        <mat-select type="number" placeholder="User Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId" name="useruserRoleId">
+                            <mat-option value=2>User</mat-option>
+                            <mat-option value=3>Reporting Manager</mat-option>
                         </mat-select>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="30" class="form2Input">
+                        <input matInput type="number" placeholder="Reporting manager Id" [(ngModel)]="employeeDetails.reportingManagerId" formControlName="userreportingManagerId"
+                            name="userreportingManagerId">
                     </mat-form-field>
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px">
-                    <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-left: 300px">Submit</button>
+                    <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-left: 300px" (click)="saveDetails(employeeDetails)">Submit</button>
 
                     <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button>
                 </div>
