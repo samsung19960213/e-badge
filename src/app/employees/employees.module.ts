@@ -1,7 +1,7 @@
 import { AddEmployeesComponent } from "./add-employees/add-employees.component";
 import { EmployeesRouterModule } from "./employees.router";
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -26,6 +26,9 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
         MatInputModule,
         MatToolbarModule,
         MatIconModule,
+        MatRadioModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatSelectModule,
         MatOptionModule,
         MatCheckboxModule,
