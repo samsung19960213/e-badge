@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Url } from '../Url';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,9 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 })
 
 export class LoginComponent implements OnInit {
+ userImg: string;
+ name: string;
 
-  // constructor(private http: HttpClient, private router: Router) { }
   // login(login: any) {
   //   console.log(login.value);
   //   return new Promise((resolve, reject) => {
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              public fb: FormBuilder,private http: HttpClient) {
+              public fb: FormBuilder,private http: HttpClient, public userService: UserService) {
   }
 
   ngOnInit() {
@@ -90,14 +93,20 @@ export class LoginComponent implements OnInit {
     // }
   }
   login(login: any) {
-    console.log(login.value);
+
+
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/login', login.value)
           .subscribe((response: any) => {
               resolve(response);
+              this.userImg= response.userImage;
+              this.name= response.userName;
+              this.userService.setUserinfo(response.userName, response.userImage);
               this.router.navigateByUrl('auth/dashboard');
           }, reject);
   });
+
+
   }
 }
 

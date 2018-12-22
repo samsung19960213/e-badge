@@ -76,7 +76,7 @@ this.empId=this.empService.getEmployeeId();
    
 
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/employee/'+id )
+      this.http.get(Url.API_URL + '/api/employee/employee/'+id )
         .subscribe((response: any) => {
           console.log(response);
           resolve(response);
@@ -109,28 +109,28 @@ this.empId=this.empService.getEmployeeId();
                         backgroundColor: 'rgba(92, 107, 192, .7)',
                         borderColor: 'rgba(92, 107, 192, .7)',
                         data: [70,70,70,70,70,70,70,70],
-                        label: 'Dataset',
+                        label: 'Attendance',
                         fill: 'false'
                     },
                     {
                         backgroundColor: 'rgba(66, 165, 245, .7)',
                         borderColor: 'rgba(69, 39, 160, .7)',
                         data: [80, 88, 67, 95, 76, 60, 67, 95,95,66],
-                        label: 'Dataset',
+                        label: 'Attendance',
                         fill: 'false'
                     },
                     {
                         backgroundColor: 'rgba(38, 166, 154, .7)',
                         borderColor: 'rgba(69, 39, 160, .7)',
                         data: [60, 88, 70, 67, 27, 83, 78, 88,95,60],
-                        label: 'Dataset',
+                        label: 'Attendance',
                         fill: 'false'
                     },
                     {
                         backgroundColor: 'rgba(102, 187, 106, .7)',
                         borderColor: 'rgba(255, 99, 132)',
                         data: [75, 55, 55, 95, 66, 88, 70, 78,77,100],
-                        label: 'Dataset',
+                        label: 'Attendance',
                         fill: 'false'
                     }
                 ]
@@ -152,7 +152,7 @@ this.empId=this.empService.getEmployeeId();
                 },
                 title: {
                     display: true,
-                    text: 'SALES GRAPH'
+                    text: 'ATTENDANCE GRAPH'
                 }
             }
         })

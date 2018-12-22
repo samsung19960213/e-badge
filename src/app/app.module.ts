@@ -17,6 +17,8 @@ import { PresentComponent } from './attendance/present/present.component';
 import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 import { EmployeesService } from './employees/employees.service';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
+import { UserService } from './user.service';
+
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
@@ -45,7 +47,7 @@ import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
     
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService],
+  providers: [EmployeesService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

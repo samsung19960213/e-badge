@@ -21,7 +21,7 @@ export const ToolbarHelpers = {
 	],
 
 	currentUser: {
-		photoURL: 'assets/images/avatars/hari.jpg',
-		currentUserName: 'Hari Krishna'
+		photoURL: 'https://s3.ap-south-1.amazonaws.com/ebadge-images/Aaqil+Ashique.jpeg',
+		currentUserName: 'Aaqil Ashique'
 	}
 };

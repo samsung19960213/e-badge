@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/core';
+import { UserService } from '../../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cdk-user-menu',
@@ -7,9 +9,9 @@ import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/cor
 })
 export class UserMenuComponent implements OnInit {
 	isOpen: boolean = false;
-
+name:string;
   	//currentUser = null;
-  	Hari;
+Aaqil;
   	
 
   	@Input() currentUser = null;
@@ -26,10 +28,15 @@ export class UserMenuComponent implements OnInit {
   	}
   	
     
-  	constructor(private elementRef: ElementRef) { }
+  	constructor(private elementRef: ElementRef, public userService: UserService,private route: Router) { }
 
 
   	ngOnInit() {
+		this.currentUser.currentUserName=this.userService.getUserName();
+		console.log(this.userService.getUserName);
+		this.currentUser.photoURL = this.userService.getUserImg();  
   	}
-
+logout() {
+	this.route.navigateByUrl('/login');
+}
 }

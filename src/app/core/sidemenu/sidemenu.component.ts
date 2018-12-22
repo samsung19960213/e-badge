@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { menus } from './menu-element';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'cdk-sidemenu',
@@ -10,10 +11,13 @@ export class SidemenuComponent implements OnInit {
 
     @Input() iconOnly:boolean = false;
     public menus = menus;
+    photoURL:string;
 
-    constructor() { }
+    constructor(public userService: UserService) { }
 
     ngOnInit() {
+      this.photoURL = this.userService.getUserImg();  
     }
+
 
 }
