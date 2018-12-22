@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { Validators,FormBuilder,FormGroup, FormControl } from '@angular/forms';
 import { EmailValidator } from '@angular/forms';
@@ -7,6 +7,8 @@ import { Url } from '../../Url';
 import { EmployeeDetails } from '../employee.model';
 import { HttpClient } from '@angular/common/http';
 import { EmployeesService } from '../employees.service';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-employee-details',
@@ -20,7 +22,7 @@ export class EmployeeDetailsComponent implements OnInit {
   employeeDetails: any;
 
 
-  constructor(private http: HttpClient, public empService: EmployeesService) {
+  constructor(private http: HttpClient, public empService: EmployeesService,  public dialog: MatDialog) {
     this.employeeDetails = new EmployeeDetails();
   }
 
@@ -145,5 +147,42 @@ this.empId=this.empService.getEmployeeId();
             }
         })
   }
+  deactiveDetails(){
+ this.message();
   }
-  
+  confirm1: string
+  message(): void {
+      let dialogRef = this.dialog.open(MessagePopup, {
+          width: '300px',
+
+       
+
+      });
+  }
+  }
+  @Component({
+    selector: 'message-popup',
+    templateUrl: 'message-popup.html',
+    styleUrls: ['employee-details.component.scss'],
+})
+
+export class MessagePopup {
+   
+    
+    verifyOtpForm: FormGroup;
+
+    constructor(
+        public dialogVerify: MatDialogRef<MessagePopup>, private formBuilder: FormBuilder,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+        this.otpForm();
+    }
+
+    cancel(): void {
+        this.dialogVerify.close();
+    }
+
+    otpForm() {
+       
+    }
+
+}
