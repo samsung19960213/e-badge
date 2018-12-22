@@ -1,7 +1,7 @@
 import { AddEmployeesComponent } from "./add-employees/add-employees.component";
 import { EmployeesRouterModule } from "./employees.router";
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule, MatDialog } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule, MatDialog, MatDialogModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -11,9 +11,10 @@ import { EmployeesTableComponent } from "./employees-table/employees-table.compo
 import { HttpClientModule } from "@angular/common/http";
 import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
 import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
-import { EmployeeDetailsComponent, MessagePopup } from "./employee-details/employee-details.component";
+import { EmployeeDetailsComponent, MessagePopup} from "./employee-details/employee-details.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { EmployeesService } from "./employees.service";
+import { MessagePopupModule } from "./employee-details/messagePopup.module";
 
 
 @NgModule({
@@ -45,12 +46,14 @@ import { EmployeesService } from "./employees.service";
 		MatCardModule,
 		MatTabsModule,
         MatIconModule,
-        MatDialog,
+        MatDialogModule,
          MatInputModule,
          MatPaginatorModule,
 		 ReactiveFormsModule,
 		 FormsModule,
-        EmployeesRouterModule
+         EmployeesRouterModule,
+         MessagePopupModule
+        
      ],
     declarations: [   
         AddEmployeesComponent,
@@ -59,8 +62,10 @@ import { EmployeesService } from "./employees.service";
         ActiveEmployeesComponent,
         DeactivatedEmployeesComponent,
         EmployeeDetailsComponent,
-        MessagePopup
+   
+       
     ],
+    entryComponents: [MessagePopup],
     exports: [
     ],
     providers: [

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Component } from '@angular/core';
 
 import { Validators,FormBuilder,FormGroup, FormControl } from '@angular/forms';
 import { EmailValidator } from '@angular/forms';
@@ -150,39 +150,46 @@ this.empId=this.empService.getEmployeeId();
   deactiveDetails(){
  this.message();
   }
-  confirm1: string
+
   message(): void {
       let dialogRef = this.dialog.open(MessagePopup, {
           width: '300px',
 
        
 
-      });
-  }
-  }
-  @Component({
+
+  });
+}
+}
+
+@Component({
     selector: 'message-popup',
-    templateUrl: 'message-popup.html',
-    styleUrls: ['employee-details.component.scss'],
+    templateUrl: './messagePopup.html',
+    styleUrls: ['./employee-details.component.scss']
 })
 
 export class MessagePopup {
+   id:number;
    
-    
-    verifyOtpForm: FormGroup;
-
-    constructor(
-        public dialogVerify: MatDialogRef<MessagePopup>, private formBuilder: FormBuilder,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.otpForm();
-    }
-
-    cancel(): void {
-        this.dialogVerify.close();
-    }
-
-    otpForm() {
-       
-    }
-
+    constructor(private http: HttpClient,
+        public message: MatDialogRef<MessagePopup>,@Inject(MAT_DIALOG_DATA) public data:any,  private empService: EmployeesService) {}
+ngOnInit() {
+    this.id =this.empService.getEmployeeId();
 }
+        closeMessage(): void {
+            this.message.close();
+        }
+        deactivate() {
+ console.log(this.id);
+                  return new Promise((resolve, reject) => {
+                    this.http.get(Url.API_URL + 'api/employee/deactivate/'+ this.id  )
+                        .subscribe((response: any) => {
+                            resolve(response);
+                        }, reject);
+            this.message.close();
+
+                });
+                }
+              
+                
+        }
