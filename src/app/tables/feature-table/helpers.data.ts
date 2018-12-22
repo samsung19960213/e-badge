@@ -393,6 +393,7 @@ export class ExampleDataSource extends DataSource<any> {
 
   filteredData: UserData[] = [];
   renderedData: UserData[] = [];
+  
 
   constructor(private _exampleDatabase: ExampleDatabase,
               private _paginator: MatPaginator,

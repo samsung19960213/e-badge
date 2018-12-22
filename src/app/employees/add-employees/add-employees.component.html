@@ -207,7 +207,7 @@
                         <input matInput type="text" placeholder="Salary" [(ngModel)]="employeeDetails.salary" formControlName="usersalary" name="usersalary">
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId">
+                        <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number">
                             <mat-option value=1>General Shift</mat-option>
                             <mat-option value=2>Night Shift</mat-option>
                         </mat-select>
@@ -228,8 +228,8 @@
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px">
                     <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-left: 300px" (click)="saveDetails(employeeDetails)">Submit</button>
-
-                    <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button>
+<!-- 
+                    <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button> -->
                 </div>
             </form>
         </div>

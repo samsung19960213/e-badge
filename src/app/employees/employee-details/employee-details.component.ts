@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { Validators,FormBuilder,FormGroup, FormControl } from '@angular/forms';
 import { EmailValidator } from '@angular/forms';
@@ -87,7 +87,17 @@ this.empId=this.empService.getEmployeeId();
 
   }
 
+  updateDetails(employeeDetails){
+    console.log(employeeDetails);
 
+    return new Promise((resolve, reject) => {
+      this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
+        .subscribe((response: any) => {
+          resolve(response);
+        }, reject);
+       alert('success')
+    }); 
+  }
   
     createBarGraph() {
       new Chart('dash-bar-graph', {
@@ -189,7 +199,7 @@ ngOnInit() {
             this.message.close();
 
                 });
-                }
-              
+   
                 
         }
+    }

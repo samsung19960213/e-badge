@@ -208,15 +208,15 @@
                       <input matInput type="text" placeholder="Salary" [(ngModel)]="employeeDetails.salary" formControlName="usersalary" name="usersalary">
                   </mat-form-field>
                   <mat-form-field fxFlex="30" class="form2Input">
-                      <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId">
-                          <mat-option value=1>General Shift</mat-option>
-                          <mat-option value=2>Night Shift</mat-option>
+                      <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number">
+                          <mat-option [value]=1>General Shift</mat-option>
+                          <mat-option [value]=2>Night Shift</mat-option>
                       </mat-select>
                   </mat-form-field>
                   <mat-form-field fxFlex="30" class="form2Input">
                       <mat-select type="number" placeholder="User Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId" name="useruserRoleId">
-                          <mat-option value=2>User</mat-option>
-                          <mat-option value=3>Reporting Manager</mat-option>
+                          <mat-option [value]=2>User</mat-option>
+                          <mat-option [value]=3>Reporting Manager</mat-option>
                       </mat-select>
                   </mat-form-field>
                   <mat-form-field fxFlex="30" class="form2Input">
@@ -225,9 +225,9 @@
                   </mat-form-field>
               </div>
               <div style="margin-top: 20px;margin-bottom: 30px">
-                  <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-left: 300px" (click)="deactiveDetails()">Deactivate</button>
+                  <button mat-raised-button color="accent" fxFlex="50" style="width:150px;margin-left: 300px" (click)="deactiveDetails()">DeactivateUser</button>
 
-                  <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px" (click)="updateDetails()">Update</button>
+                  <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px" (click)="updateDetails(employeeDetails)">Update</button>
               </div>
               <br>
               <br>

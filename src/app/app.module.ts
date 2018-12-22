@@ -9,9 +9,14 @@ import { HttpClientModule } from '@angular/common/http'
 import { CommonModule } from '@angular/common';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 // import { EmployeesModule } from './employees/employees.module';
-
+import { GuardedRoutesComponent } from './guarded-routes/guarded-routes.component';
+import { EmployeesModule } from './employees/employees.module';
+import { AttendanceComponent } from './attendance/attendance.component';
+import { AbsenteesComponent } from './attendance/absentees/absentees.component';
+import { PresentComponent } from './attendance/present/present.component';
+import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
 import { EmployeesService } from './employees/employees.service';
-
+import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
@@ -21,6 +26,7 @@ import { EmployeesService } from './employees/employees.service';
 @NgModule({
   declarations: [
     AppComponent,
+    EmployeeFilterPipe
    
 
 
@@ -39,8 +45,7 @@ import { EmployeesService } from './employees/employees.service';
     
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService,
-  ],
+  providers: [EmployeesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

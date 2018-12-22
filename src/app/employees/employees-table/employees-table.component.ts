@@ -23,6 +23,7 @@ export class EmployeesTableComponent implements OnInit {
   showNavListCode;
   ID: any;
   userId: number[]= [];
+  searchTerm:string;
 	selection = new SelectionModel<string>(true, []);
   dataSource = [];
 
@@ -32,6 +33,7 @@ export class EmployeesTableComponent implements OnInit {
   constructor(private http: HttpClient, public route: Router, private empService: EmployeesService) {}
   	ngOnInit() {
     this.userSalaryList();
+    this.dataSource;
     }
 
     userSalaryList(): Promise<any> {
@@ -55,8 +57,7 @@ export class EmployeesTableComponent implements OnInit {
         return this.selection.selected.length == this.dataSource.length;
      
 	    } else {
-      // this.dataSource.forEach(data => this.userId.push(data.id));
-      // console.log(this.userId);
+
         return this.selection.selected.length == this.dataSource.length;
         
       }
@@ -99,7 +100,7 @@ deactivate(id: number) {
         } else if (this.filter.nativeElement.value) {
           this.dataSource.forEach(data => this.selection.select(data.id));
         } else {
-          this.dataSource.forEach(data => this.selection.select(data.id));
+          this.dataSource.forEach(data => this.selection.select(data.email));
         }
     }
     selectUser(id: number) {
