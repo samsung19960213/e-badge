@@ -13,7 +13,10 @@
 .form-container {
 	padding: 5px 15px 15px 15px;
 }
-
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+	background-color: #5c6bc0 !important;
+	
+}
 .form-component-holder {
 	border: 1px solid #327ebd;
 	background-color: white;

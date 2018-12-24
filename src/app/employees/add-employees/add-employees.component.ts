@@ -5,6 +5,8 @@ import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
 import { EmployeeDetails } from '../employee.model';
 import "aws-sdk/dist/aws-sdk.min";
+import { MatDatepickerInputEvent } from '@angular/material';
+import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.data';
 
 
 
@@ -18,52 +20,66 @@ export class AddEmployeesComponent implements OnInit {
   user: FormGroup;
   employeeDetails: any;
   shiftDetails: any;
+  startDate = new Date(1990, 0, 1);
+	date = new FormControl(new Date());
+	serializedDate = new FormControl((new Date()).toISOString())
+	minDate = new Date(2000, 0, 1);
+	maxDate = new Date(2020, 0, 1);
+	events: string[] = [];
+	myFilter = (d: Date): boolean => {
+		const day = d.getDay();
+		
+		return day !== 0 && day !== 6;
+	}
 
-  constructor(private http: HttpClient) {
+	addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+		this.events.push(`${type}: ${event.value}`);
+	}
+  constructor(private http: HttpClient,public formBuilder:FormBuilder) {
     this.employeeDetails = new EmployeeDetails();
     
   }
 
   ngOnInit() {
-    this.user = new FormGroup({
-      useractive: new FormControl('', [Validators.required]),
-      useraddressLine1: new FormControl('', [Validators.required]),
-      useraddressLine2: new FormControl('', [Validators.required]),
-      userage: new FormControl('', [Validators.required]),
-      useralternateContactNo: new FormControl('', [Validators.required]),
-      userbloodGroup: new FormControl('', [Validators.required]),
-      usercity: new FormControl('', [Validators.required]),
-      usercontactEmail: new FormControl('', [Validators.required]),
-      usercountry: new FormControl('', [Validators.required]),
-      userdateOfBirth: new FormControl('', [Validators.required]),
-      userdepartmentId: new FormControl('', [Validators.required]),
-      userdepartmentName: new FormControl('', [Validators.required]),
-      userdesignationId: new FormControl('', [Validators.required]),
-      userdesignationName: new FormControl('', [Validators.required]),
-      userdistict: new FormControl('', [Validators.required]),
-      useremployeeCode: new FormControl('', [Validators.required]),
-      useremployeeImage: new FormControl('', [Validators.required]),
-      userfirstName: new FormControl('', [Validators.required]),
-      userformerComapnyJoinDate: new FormControl('', [Validators.required]),
-      userformerCompanyEndDate: new FormControl('', [Validators.required]),
-      userformerCompanyName: new FormControl('', [Validators.required]),
-      usergender: new FormControl('', [Validators.required]),
-      userid: new FormControl('', [Validators.required]),
-      userisUser: new FormControl('', [Validators.required]),
-      userjoiningDate: new FormControl('', [Validators.required]),
-      userlandmark: new FormControl('', [Validators.required]),
-      userlastName: new FormControl('', [Validators.required]),
-      usermedicalInfo: new FormControl('', [Validators.required]),
-      usermobileNo: new FormControl('', [Validators.required]),
-      userpincode: new FormControl('', [Validators.required]),
-      userqualification: new FormControl('', [Validators.required]),
-      userstate: new FormControl('', [Validators.required]),
-      useruserRoleId: new FormControl('', [Validators.required]),
-      userworkExperince: new FormControl('', [Validators.required]),
-      usersalary: new FormControl('', [Validators.required]),
-      usershiftId: new FormControl('', [Validators.required]),
-      userreportingManagerId: new FormControl('', [Validators.required]),
-      userShiftid: new FormControl('', [Validators.required]),
+    this.user = this.formBuilder.group({
+      useractive:  ['', [Validators.required]],
+      useraddressLine1:  ['', [Validators.required]],
+      useraddressLine2:  ['', [Validators.required]],
+      userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
+      useralternateContactNo:  ['', [Validators.required]],
+      userbloodGroup: ['', [Validators.required]],
+      usercity:  ['', [Validators.required]],
+      usercontactEmail:  ['', [Validators.required]],
+      usercountry:  ['', [Validators.required]],
+      userdateOfBirth: ['', [Validators.required]],
+      userdepartmentId:  ['', [Validators.required]],
+      userdepartmentName:  ['', [Validators.required]],
+      userdesignationId:  ['', [Validators.required]],
+      userdesignationName: ['', [Validators.required]],
+      userdistict:  ['', [Validators.required]],
+      useremployeeCode:  ['', [Validators.required]],
+      useremployeeImage: ['', [Validators.required]],
+      userfirstName:  ['', [Validators.required,Validators.min(9999)]],
+      userformerComapnyJoinDate: ['', [Validators.required]],
+      userformerCompanyEndDate: ['', [Validators.required]],
+      userformerCompanyName:  ['', [Validators.required]],
+      usergender:  ['', [Validators.required]],
+      userid:  ['', [Validators.required]],
+      userisUser: ['', [Validators.required]],
+      userjoiningDate:  ['', [Validators.required]],
+      userlandmark:  ['', [Validators.required]],
+      userlastName:  ['', [Validators.required]],
+      usermedicalInfo: ['', [Validators.required]],
+      usermobileNo: ['', [Validators.required]],
+      userpincode:  ['', [Validators.required]],
+      userqualification: ['', [Validators.required]],
+      userstate:  ['', [Validators.required]],
+      useruserRoleId:  ['', [Validators.required]],
+      userworkExperince:  ['', [Validators.required]],
+      usersalary:  ['', [Validators.required]],
+      usershiftId: ['', [Validators.required]],
+      userreportingManagerId: ['', [Validators.required]],
+      userShiftid: ['', [Validators.required]],
       
     });
   }
@@ -95,6 +111,6 @@ export class AddEmployeesComponent implements OnInit {
       fileEveThis.employeeDetails.employeeImage = response.Location;
     });
   }
-
+  datepickerHelpers: any = DATEPICKER_HELPERS;
 
 }
