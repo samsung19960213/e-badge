@@ -17,7 +17,7 @@ import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.da
 })
 export class AddEmployeesComponent implements OnInit {
 
-  user: FormGroup;
+  userForm: FormGroup;
   employeeDetails: any;
   shiftDetails: any;
   startDate = new Date(1990, 0, 1);
@@ -41,7 +41,7 @@ export class AddEmployeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.formBuilder.group({
+    this.userForm = this.formBuilder.group({
       useractive:  ['', [Validators.required]],
       useraddressLine1:  ['', [Validators.required]],
       useraddressLine2:  ['', [Validators.required]],
