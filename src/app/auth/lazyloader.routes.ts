@@ -11,6 +11,7 @@ export const appRoutes: Routes = [{
         { path: 'dashboard', component: DashboardCrmComponent },
         { path: 'login', component: LoginComponent },
         { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule'  },
+        { path: 'leaves', loadChildren: '../leaves/leaves.module#LeavesModule'  },
         { path: 'attendance', loadChildren: '../attendance/attendance.module#AttendanceModule'  },
         // { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule' },
          { path: 'material-widgets', loadChildren: '../material-widgets/material-widgets.module#MaterialWidgetsModule' },

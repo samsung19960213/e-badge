@@ -25,6 +25,7 @@ import { CoreModule } from '../core/core.module';
 import { LoginModule } from '../login/login.module';
 import { EmployeesModule } from '../employees/employees.module';
 import { AttendanceModule } from '../attendance/attendance.module';
+import { LeavesModule } from '../leaves/leaves.module';
 
 @NgModule({
     imports: [
@@ -40,7 +41,8 @@ import { AttendanceModule } from '../attendance/attendance.module';
         MatSidenavModule,
         PerfectScrollbarModule,
         EmployeesModule,
-        AttendanceModule
+        AttendanceModule,
+        LeavesModule
     ],
     declarations: [AuthComponent],
     providers: [

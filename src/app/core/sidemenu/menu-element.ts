@@ -81,6 +81,23 @@ export const menus = [
 
         ]
     },
+   
+    {
+        'name': 'Leave',
+        'icon': 'widgets',
+        'link': false,
+        'open': false,
+        
+        'sub': [
+            {
+                'name': 'Leave Requests',
+                'link': 'leaves/leave-list',
+                'icon': 'dashboard',
+                'chip': false,
+                'open': false,
+            },         
+        ]
+    },
 
     {
         'name': 'Material Widget',

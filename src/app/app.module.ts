@@ -7,17 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http'
 import { CommonModule } from '@angular/common';
-// import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-// import { EmployeesModule } from './employees/employees.module';
-import { GuardedRoutesComponent } from './guarded-routes/guarded-routes.component';
-import { EmployeesModule } from './employees/employees.module';
-import { AttendanceComponent } from './attendance/attendance.component';
-import { AbsenteesComponent } from './attendance/absentees/absentees.component';
-import { PresentComponent } from './attendance/present/present.component';
-import { EmployeeDetailsComponent } from './employees/employee-details/employee-details.component';
+
 import { EmployeesService } from './employees/employees.service';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { UserService } from './user.service';
+import { LeaveService } from './leaves/leaves.service';
+
 
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
@@ -28,7 +23,8 @@ import { UserService } from './user.service';
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeFilterPipe
+    EmployeeFilterPipe,
+
    
 
 
@@ -47,7 +43,7 @@ import { UserService } from './user.service';
     
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService, UserService],
+  providers: [EmployeesService, UserService, LeaveService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
