@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LeaveDetailsComponent implements OnInit {
 id: number;
+dataSource: any;
     constructor(public form: FormBuilder, public leaveService: LeaveService,public http: HttpClient ) { 
         
   
@@ -26,10 +27,11 @@ id: number;
    
 
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/api/leave/'+id )
+      this.http.get(Url.API_URL + '/api/leave/'+id )
         .subscribe((response: any) => {
           console.log(response);
           resolve(response);
+          this.dataSource = response;
           console.log(response);
           
         }, reject);

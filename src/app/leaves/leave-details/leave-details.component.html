@@ -10,21 +10,21 @@
         
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Name" >
+            <input matInput placeholder="Name" [(ngModel)]="dataSource.FirstName" >
           </mat-form-field>
          
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="From Date" >
+            <input matInput placeholder="From Date" [(ngModel)]="dataSource.fromDate">
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="To Date">
+            <input matInput type="text" placeholder="To Date"[(ngModel)]="dataSource.toDate">
           </mat-form-field>
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Reason" >
+            <input matInput placeholder="Reason" [(ngModel)]="dataSource.reason" >
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
             <input matInput type="text" placeholder="Status">
@@ -32,10 +32,10 @@
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Description" >
+            <input matInput placeholder="Description" [(ngModel)]="dataSource.description">
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="Available Leaves">
+            <input matInput type="text" placeholder="Available Leaves" [(ngModel)]="dataSource.availableLeaves">
           </mat-form-field>
         </div>
       </form>
