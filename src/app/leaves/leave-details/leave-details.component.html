@@ -5,18 +5,46 @@
       <h1 class="mat-headline center-align">Leave Details </h1>
     </mat-toolbar>
     <div [hidden]="submitted" fxLayout="column" class="widgetHolder-content" fxLayoutAlign="space-around stretch" style="background-color: white;margin-top: 10px;margin-left: 60px">
+     <br><br>
       <form [formGroup]="user" fxLayout="column" fxFlex="100">
         
-        <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Enter Your First Name" >
+            <input matInput placeholder="Name" >
           </mat-form-field>
-
+         
+        </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="Enter Your Last Name">
+            <input matInput placeholder="From Date" >
+          </mat-form-field>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput type="text" placeholder="To Date">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput placeholder="Reason" >
+          </mat-form-field>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput type="text" placeholder="Status">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput placeholder="Description" >
+          </mat-form-field>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput type="text" placeholder="Available Leaves">
           </mat-form-field>
         </div>
       </form>
+      <div style="margin-top: 20px;margin-bottom: 30px"  fxLayoutAlign="center center" fxFlex="1 0 auto">
+        <button mat-raised-button color="primary" class="btn btn-primary center-block" fxFlex="20" 
+            (click)="saveDetails(employeeDetails)">Submit</button>
+        <!-- 
+        <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button> -->
+    </div>
     </div>
   </div>
 </div>
