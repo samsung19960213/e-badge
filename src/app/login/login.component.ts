@@ -13,8 +13,8 @@ import { UserService } from '../user.service';
 })
 
 export class LoginComponent implements OnInit {
- userImg: string;
- name: string;
+  userImg: string;
+  name: string;
 
   // login(login: any) {
   //   console.log(login.value);
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              public fb: FormBuilder,private http: HttpClient, public userService: UserService) {
+    public fb: FormBuilder, private http: HttpClient, public userService: UserService) {
   }
 
   ngOnInit() {
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       ]
       ],
       'password': ['', [
-        
+
         Validators.minLength(6),
         Validators.maxLength(25)
       ]
@@ -93,22 +93,24 @@ export class LoginComponent implements OnInit {
     // }
   }
   login(login: any) {
+    console.log(login.value);
 
 
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/login', login.value)
-          .subscribe((response: any) => {
-              resolve(response);
-              this.userImg= response.userImage;
-              this.name= response.userName;
-              this.userService.setUserinfo(response.userName, response.userImage);
-              this.router.navigateByUrl('auth/dashboard');
-          }, reject);
-  });
+        .subscribe((response: any) => {
+          resolve(response);
+          this.userImg = response.userImage;
+          this.name = response.userName;
+          this.userService.setUserinfo(response.userName, response.userImage);
+          this.router.navigateByUrl('auth/dashboard');
+        }, reject);
+    });
 
 
   }
 }
+
 
 
 

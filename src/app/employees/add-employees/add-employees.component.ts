@@ -17,10 +17,11 @@ export class AddEmployeesComponent implements OnInit {
 
   user: FormGroup;
   employeeDetails: any;
-
+  shiftDetails: any;
 
   constructor(private http: HttpClient) {
     this.employeeDetails = new EmployeeDetails();
+    
   }
 
   ngOnInit() {
@@ -61,7 +62,9 @@ export class AddEmployeesComponent implements OnInit {
       userworkExperince: new FormControl('', [Validators.required]),
       usersalary: new FormControl('', [Validators.required]),
       usershiftId: new FormControl('', [Validators.required]),
-      userreportingManagerId:new FormControl('', [Validators.required]),
+      userreportingManagerId: new FormControl('', [Validators.required]),
+      userShiftid: new FormControl('', [Validators.required]),
+      
     });
   }
   saveDetails(employeeDetails: EmployeeDetails) {
@@ -72,26 +75,26 @@ export class AddEmployeesComponent implements OnInit {
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
-       alert('success')
+      alert('success')
     });
 
   }
   fileEvent(fileInput: any) {
-		let windows: any = window;
-		let AWSService = windows.AWS;
-	
-		let file = fileInput.target.files[0];
-		let region = 'Asia Pacific (Mumbai)';
-		AWSService.config.accessKeyId = Url.AWS_AccessKeyId;		
-		AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
-		let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
-		let params = { Key: file.name, Body: file };
-		let fileEveThis = this;
-		bucket.upload(params, function (error, response) {
+    let windows: any = window;
+    let AWSService = windows.AWS;
+
+    let file = fileInput.target.files[0];
+    let region = 'Asia Pacific (Mumbai)';
+    AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
+    AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+    let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
+    let params = { Key: file.name, Body: file };
+    let fileEveThis = this;
+    bucket.upload(params, function (error, response) {
       console.log(response.Location);
-			fileEveThis.employeeDetails.employeeImage = response.Location;
-		});
-	}
+      fileEveThis.employeeDetails.employeeImage = response.Location;
+    });
+  }
 
 
 }
