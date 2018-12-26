@@ -10,41 +10,46 @@
         
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Name" [(ngModel)]="dataSource.FirstName" >
+            <input matInput placeholder="Name" formControlName="id" name="id"[(ngModel)]="dataSource.id" >
+          </mat-form-field>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput placeholder="Apply Date" formControlName="requestTime" name="requestTime"[(ngModel)]="dataSource.requestTime">
           </mat-form-field>
          
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="From Date" [(ngModel)]="dataSource.fromDate">
+            <input matInput placeholder="From Date" formControlName="fromDate" name="fromDate"[(ngModel)]="dataSource.fromDate">
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="To Date"[(ngModel)]="dataSource.toDate">
-          </mat-form-field>
-        </div>
-        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
-          <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Reason" [(ngModel)]="dataSource.reason" >
-          </mat-form-field>
-          <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="Status">
+            <input matInput type="text" formControlName="toDate" name="toDate"placeholder="To Date"[(ngModel)]="dataSource.toDate">
           </mat-form-field>
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput placeholder="Description" [(ngModel)]="dataSource.description">
+            <input matInput placeholder="Reason" formControlName="reason" name="reason" [(ngModel)]="dataSource.reason" >
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="Available Leaves" [(ngModel)]="dataSource.availableLeaves">
+            <input matInput type="text" formControlName="status"  name="status" placeholder="Status" [(ngModel)]= "dataSource.status"> 
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput placeholder="Description" formControlName="description" name="description" [(ngModel)]="dataSource.description">
+          </mat-form-field>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput type="text" placeholder="Available Leaves" formControlName="availableLeaves" name="availableLeaves" [(ngModel)]="dataSource.availableLeaves">
           </mat-form-field>
         </div>
       </form>
-      <div style="margin-top: 20px;margin-bottom: 30px"  fxLayoutAlign="center center" fxFlex="1 0 auto">
-        <button mat-raised-button color="primary" class="btn btn-primary center-block" fxFlex="20" 
-            (click)="saveDetails(employeeDetails)">Submit</button>
-        <!-- 
-        <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button> -->
-    </div>
+
+      <div style="margin-top: 20px;margin-bottom: 30px"  fxLayoutAlign="start center" fxFlex="1 0 auto">
+        <div style="margin-top: 20px;margin-bottom: 30px;margin-left:175px;">
+          <button mat-raised-button color="accent" [disabled]="dataSource.status !='PENDING'" fxFlex="50" style="width:150px;margin-left: 300px" (click)="accept()">Approve</button>
+
+          <button mat-raised-button color="warn" [disabled]="dataSource.status !='PENDING'" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px" (click)="reject()">Reject</button>
+      </div>
+        </div> 
     </div>
   </div>
 </div>
