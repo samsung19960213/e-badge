@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
  userImg: string;
  name: string;
  userId:number;
+ password:string;
+ email:string;
 
   // login(login: any) {
   //   console.log(login.value);
@@ -102,7 +104,9 @@ export class LoginComponent implements OnInit {
               resolve(response);
               this.userImg= response.userImage;
               this.name= response.userName;
-              this.userService.setUserinfo(response.userName, response.userImage);
+              this.userId= response.userId;
+              // this.name= response.userName;
+              this.userService.setUserinfo(response.userName, response.userImage,response.id,response.email,response.password);
               this.userId= response.userRoleId;
               if(this.userId==1){
                 this.router.navigateByUrl('auth/dashboard');
