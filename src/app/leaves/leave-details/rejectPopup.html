@@ -1,0 +1,12 @@
+<div class="text-center">
+    <h3 class="text">Please provide the reason for Rejecting Leave</h3>
+    <form class="example-form">
+      
+      <mat-form-field class="example-full-width" style="width:300px;">
+        <textarea matInput name="reason"[(ngModel)]="reason" placeholder="Reason"></textarea>
+      </mat-form-field>
+
+    </form>
+    <button mat-raised-button color="primary" (click)="rejectLeave()">Submit</button>
+    <button style="margin-left:10px;"  mat-raised-button color="primary" (click)="closeMessage()">Close</button>
+  </div>

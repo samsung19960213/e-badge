@@ -10,8 +10,9 @@ import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LeavesComponent } from "./leaves.component";
 import { LeaveListComponent } from "./leave-list/leave-list.component";
-import { LeaveDetailsComponent } from "./leave-details/leave-details.component";
+import { LeaveDetailsComponent, RejectPopup } from "./leave-details/leave-details.component";
 import { LeavesRouterModule } from "./leaves.router";
+import { RejectModule } from "./leave-details/reject.module";
 
 
 
@@ -45,13 +46,15 @@ import { LeavesRouterModule } from "./leaves.router";
 		MatCardModule,
 		MatTabsModule,
         MatIconModule,
+        
         MatDialogModule,
          MatInputModule,
      MatDatepickerModule,
      MatNativeDateModule,
 		 ReactiveFormsModule,
          FormsModule,
-         LeavesRouterModule
+         LeavesRouterModule,
+         RejectModule
         
         
         
@@ -63,7 +66,7 @@ import { LeavesRouterModule } from "./leaves.router";
    
        
     ],
-    entryComponents: [],
+    entryComponents: [RejectPopup],
     exports: [
     ],
     providers: [

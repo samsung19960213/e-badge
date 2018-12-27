@@ -6,7 +6,7 @@ import { LazyLoadModule } from './lazy-load/lazy-load.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http'
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { EmployeesService } from './employees/employees.service';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
@@ -43,7 +43,7 @@ import { LeaveService } from './leaves/leaves.service';
     
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService, UserService, LeaveService],
+  providers: [EmployeesService, UserService, LeaveService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

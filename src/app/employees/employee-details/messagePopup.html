@@ -1,7 +1,18 @@
 <div class="text-center">
-  <h3>Please provide the reason for deactivating the user</h3>
-  <textarea type="text" id="reason" class="md-textarea form-control" rows="7"width="full"></textarea>
-  <br>
+  <h3 class="text">Please provide the reason for Deactivation</h3>
+  <form class="example-form">
+    
+    <mat-form-field class="example-full-width" style="width:300px;">
+      <textarea matInput name="reason"[(ngModel)]="reason" placeholder="Reason"></textarea>
+    </mat-form-field>
+
+  </form>
   <button mat-raised-button color="primary" (click)="deactivate()">Submit</button>
-  <button mat-raised-button color="primary" (click)="closeMessage()">Close</button>
+  
+<button style="float: right;" mat-raised-button color="accent" onclick="document.getElementById('fileToUpload').click()">
+  UploadDocument
+  <mat-icon>attach_file</mat-icon>
+  <input #fileToUpload id="fileToUpload" type="file" (change)="handleFileInput($event.target.files)" style="display:none;">
+</button>
+
 </div>

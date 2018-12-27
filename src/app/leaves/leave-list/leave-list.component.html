@@ -11,31 +11,24 @@
 				</mat-form-field>
 				<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
 					<mat-form-field>
-						<input matInput [matDatepicker]="picker" placeholder="Choose a date">
+						<input matInput [matDatepicker]="picker" placeholder="From Date"  [(ngModel)]="from" >
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-						<mat-datepicker #picker></mat-datepicker>
+						<mat-datepicker #picker ></mat-datepicker>
 					</mat-form-field>
+					<!-- <mat-form-field>
+						<input matInput [matDatepicker]="picker1" placeholder="To Date"  [(ngModel)]="to" >
+						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+						<mat-datepicker #picker1 ></mat-datepicker>
+					</mat-form-field> -->
 				</div>
 			</div>
-			<!-- <div fxLayout="row" class="example-header example-selection-header mat-headline center-align "
-				*ngIf="!selection.isEmpty()">
-				{{selection.selected.length}}
-				{{selection.selected.length == 1 ? 'user' : 'users'}}
-				selected
-			</div> -->
+			
 
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;" >
 
-				<!--- Note that these columns can be defined in any order.
-				The actual rendered columns are set as a property on the row definition" -->
-
-				<!-- Checkbox Column -->
 				<ng-container matColumnDef="select">
 					<mat-header-cell *matHeaderCellDef>
-						<!-- <mat-checkbox (change)="$event ? masterToggle() : null "
-							[checked]="isAllSelected() && selectAll()"
-							[indeterminate]="selection.hasValue() && !isAllSelected()">
-							</mat-checkbox> -->
+					
 					</mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
 						<mat-checkbox (click)="$event.stopPropagation()"
@@ -48,7 +41,7 @@
 				<!-- ID Column -->
 				<ng-container matColumnDef="Name">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.id}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.userName}} </mat-cell>
 				</ng-container>
 
 				<!-- Progress Column -->
