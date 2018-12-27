@@ -13,6 +13,7 @@ import {
         MatOptionModule,
         MatRadioModule,
         MatDialogModule,
+        MatFormFieldModule,
        } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
@@ -41,10 +42,12 @@ import { ChangePasswordModule } from './profile/changePassword.module';
         MatInputModule,
 
         MatToolbarModule,
+        MatFormFieldModule,
         MatIconModule,
         MatCheckboxModule,
         MatListModule,
         MatChipsModule,
+        MatInputModule,
         MatDialogModule,
         ChangePasswordModule,
         CoreModule,

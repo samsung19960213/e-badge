@@ -7,6 +7,7 @@ import { EmployeeDetails } from '../employee.model';
 import "aws-sdk/dist/aws-sdk.min";
 import { MatDatepickerInputEvent } from '@angular/material';
 import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.data';
+import { ShiftDetails } from '../shift.model';
 
 
 
@@ -16,71 +17,72 @@ import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.da
   styleUrls: ['./add-employees.component.scss']
 })
 export class AddEmployeesComponent implements OnInit {
-
+  shiftList:any;
   userForm: FormGroup;
   employeeDetails: any;
   shiftDetails: any;
   startDate = new Date(1990, 0, 1);
-	date = new FormControl(new Date());
-	serializedDate = new FormControl((new Date()).toISOString())
-	minDate = new Date(2000, 0, 1);
-	maxDate = new Date(2020, 0, 1);
-	events: string[] = [];
-	myFilter = (d: Date): boolean => {
-		const day = d.getDay();
-		
-		return day !== 0 && day !== 6;
-	}
+  date = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString())
+  minDate = new Date(2000, 0, 1);
+  maxDate = new Date(2020, 0, 1);
+  events: string[] = [];
+  myFilter = (d: Date): boolean => {
+    const day = d.getDay();
 
-	addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-		this.events.push(`${type}: ${event.value}`);
-	}
-  constructor(private http: HttpClient,public formBuilder:FormBuilder) {
+    return day !== 0 && day !== 6;
+  }
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.events.push(`${type}: ${event.value}`);
+  }
+  constructor(private http: HttpClient, public formBuilder: FormBuilder) {
     this.employeeDetails = new EmployeeDetails();
-    
+    this.shiftDetails = new ShiftDetails();
   }
 
   ngOnInit() {
+    this.shift();
     this.userForm = this.formBuilder.group({
-      useractive:  ['', [Validators.required]],
-      useraddressLine1:  ['', [Validators.required]],
-      useraddressLine2:  ['', [Validators.required]],
+      useractive: ['', [Validators.required]],
+      useraddressLine1: ['', [Validators.required]],
+      useraddressLine2: ['', [Validators.required]],
       //userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
-      useralternateContactNo:  ['', [Validators.required]],
+      useralternateContactNo: ['', [Validators.required]],
       userbloodGroup: ['', [Validators.required]],
-      usercity:  ['', [Validators.required]],
-      usercontactEmail:  ['', [Validators.required,Validators.email]],
-      usercountry:  ['', [Validators.required]],
+      usercity: ['', [Validators.required]],
+      usercontactEmail: ['', [Validators.required, Validators.email]],
+      usercountry: ['', [Validators.required]],
       userdateOfBirth: ['', [Validators.required]],
-      userdepartmentId:  ['', [Validators.required]],
+      userdepartmentId: ['', [Validators.required]],
       //userdepartmentName:  ['', [Validators.required]],
-      userdesignationId:  ['', [Validators.required]],
+      userdesignationId: ['', [Validators.required]],
       //userdesignationName: ['', [Validators.required]],
-      userdistict:  ['', [Validators.required]],
-      useremployeeCode:  ['', [Validators.required]],
+      userdistict: ['', [Validators.required]],
+      useremployeeCode: ['', [Validators.required]],
       //useremployeeImage: ['', [Validators.required]],
-      userfirstName:  ['', [Validators.required,Validators.maxLength(25)]],
+      userfirstName: ['', [Validators.required, Validators.maxLength(25)]],
       userformerComapnyJoinDate: ['', [Validators.required]],
       userformerCompanyEndDate: ['', [Validators.required]],
-      userformerCompanyName:  ['', [Validators.required]],
-      usergender:  ['', [Validators.required]],
+      userformerCompanyName: ['', [Validators.required]],
+      usergender: ['', [Validators.required]],
       //userid:  ['', [Validators.required]],
       userisUser: ['', [Validators.required]],
-      userjoiningDate:  ['', [Validators.required]],
-      userlandmark:  ['', [Validators.required]],
-      userlastName:  ['', [Validators.required]],
+      userjoiningDate: ['', [Validators.required]],
+      userlandmark: ['', [Validators.required]],
+      userlastName: ['', [Validators.required]],
       usermedicalInfo: ['', [Validators.required]],
       usermobileNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      userpincode:  ['', [Validators.required,Validators.maxLength(6)]],
+      userpincode: ['', [Validators.required, Validators.maxLength(6)]],
       userqualification: ['', [Validators.required]],
-      userstate:  ['', [Validators.required]],
-      useruserRoleId:  ['', [Validators.required]],
-      userworkExperince:  ['', [Validators.required]],
-      usersalary:  ['', [Validators.required]],
+      userstate: ['', [Validators.required]],
+      useruserRoleId: ['', [Validators.required]],
+      userworkExperince: ['', [Validators.required]],
+      usersalary: ['', [Validators.required]],
       usershiftId: ['', [Validators.required]],
       userreportingManagerId: ['', [Validators.required]],
-      
-      
+
+
     });
   }
   saveDetails(employeeDetails: EmployeeDetails) {
@@ -95,6 +97,20 @@ export class AddEmployeesComponent implements OnInit {
     });
 
   }
+
+  shift(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + '/api/shift/all')
+        .subscribe((response: any) => {
+          this.shiftList = response;
+          console.log(this.shiftList);
+          resolve(response);
+        }, reject);
+
+    });
+  }
+
   fileEvent(fileInput: any) {
     let windows: any = window;
     let AWSService = windows.AWS;

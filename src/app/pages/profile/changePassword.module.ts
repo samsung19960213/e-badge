@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { ChangePassword } from "./profile.component";
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatIconModule } from "@angular/material";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 const routes = [
@@ -11,14 +13,21 @@ const routes = [
 
 @NgModule({
     declarations: [
-      ChangePassword
-    ],
-    imports : [
+        ChangePassword
 
+    ],
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatIconModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
 
 })
 
-export class ChangePasswordModule{
+export class ChangePasswordModule {
 
 }

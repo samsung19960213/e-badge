@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
               this.name= response.userName;
               this.userId= response.userId;
               // this.name= response.userName;
-              this.userService.setUserinfo(response.userName, response.userImage,response.id,response.email,response.password);
+              this.userService.setUserinfo(response.userName, response.userImage,response.id,response.password,response.email,);
               this.userId= response.userRoleId;
               if(this.userId==1){
                 this.router.navigateByUrl('auth/dashboard');

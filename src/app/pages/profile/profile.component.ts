@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Url } from '../../Url';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormControl, Validators, FormGroup, NgForm } from '@angular/forms';
 import { EmployeeDetails } from '../../employees/employee.model';
 import { EmployeesService } from '../../employees/employees.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../user.service';
+import { PasswordDetails } from '../pages.model';
 
 @Component({
   selector: 'app-profile',
@@ -15,17 +16,18 @@ import { UserService } from '../../user.service';
 export class ProfileComponent implements OnInit {
   userId: number
   user: FormGroup;
+ 
   employeeDetails: any;
 
 
-  constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog,public userService:UserService) {
+  constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public userService: UserService) {
     this.employeeDetails = new EmployeeDetails();
   }
 
   ngOnInit() {
-   
+
     this.userId = this.userService.getuserId();
-     this.getDetails(this.userId);
+    this.getDetails(this.userId);
     this.user = new FormGroup({
       useractive: new FormControl('', [Validators.required]),
       useraddressLine1: new FormControl('', [Validators.required]),
@@ -64,7 +66,11 @@ export class ProfileComponent implements OnInit {
       usersalary: new FormControl('', [Validators.required]),
       usershiftId: new FormControl('', [Validators.required]),
       userreportingManagerId: new FormControl('', [Validators.required]),
+      userPassword: new FormControl('', [Validators.required]),
+      newPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
     });
+   
   }
   getDetails(id: number) {
 
@@ -81,31 +87,18 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  // updateDetails(employeeDetails) {
-  //   console.log(employeeDetails);
-
-  //   return new Promise((resolve, reject) => {
-  //     this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
-  //       .subscribe((response: any) => {
-  //         resolve(response);
-  //       }, reject);
-  //     alert('success')
-  //   });
-  // }
+ 
   changePassword() {
     this.changePasswordDialog();
-}
+  }
 
-changePasswordDialog(): void {
+  changePasswordDialog(): void {
     let dialogRef = this.dialog.open(ChangePassword, {
-        width: '300px',
-
-
-
+      width: '450px',
 
     });
-}
-  
+  }
+
 }
 @Component({
   selector: 'change-password',
@@ -114,26 +107,48 @@ changePasswordDialog(): void {
 })
 export class ChangePassword {
   id: number;
+  userForm:FormGroup;
+  changePasswordRequest:any;
+  loginEmail: string;
+  loginPassword: string;
 
   constructor(private http: HttpClient,
-      public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private empService: EmployeesService) { }
-  // ngOnInit() {
-  //     this.id = this.empService.getEmployeeId();
-  // }
-  closePopup(): void {
-      this.message.close();
+    public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { }
+ ngOnInit() {
+this.loginEmail =this.userService.getuserEmail();
+this.loginPassword = this.userService.getuserPassword();
+  this.userForm = new FormGroup({
+    userEmail:new FormControl('', [Validators.required]),
+    userPassword: new FormControl('', [Validators.required]),
+    newPassword: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
+  });
+   }
+  closeMessage(): void {
+    this.message.close();
   }
-  // deactivate() {
-  //     console.log(this.id);
-  //     return new Promise((resolve, reject) => {
-  //         this.http.get(Url.API_URL + 'api/employee/deactivate/' + this.id)
-  //             .subscribe((response: any) => {
-  //                 resolve(response);
-  //             }, reject);
-  //         this.message.close();
-
-  //     });
-
-
-  // }
+  onSubmit(form: NgForm) {
+    console.log(form.value)
+    
+    this.changePasswordRequest = form.value;
+    if(this.loginPassword === this.changePasswordRequest.userPassword){
+    if(this.changePasswordRequest.newPassword === this.changePasswordRequest.confirmPassword){
+    console.log(this.changePasswordRequest);
+    return new Promise((resolve, reject) => {
+      this.http.post(Url.API_URL + '/api/user/changePassword',this.changePasswordRequest )
+        .subscribe((response: any) => {
+          resolve(response);
+        }, reject);
+      alert('success')
+      this.message.close();
+    });
+  }
+  else {
+    alert('Passwords do not match');
+  }
+}
+else{
+  alert('Your current password is wrong');
+}
+  }
 }
