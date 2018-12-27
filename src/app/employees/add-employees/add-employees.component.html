@@ -345,9 +345,11 @@
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number"
                             required>
-                            <mat-option value=1>General Shift</mat-option>
-                            <mat-option value=2>Night Shift</mat-option>
-
+                            <mat-option *ngFor="let shift of shiftList" [value]="shift.id">
+                                <span>{{shift.shiftName}}</span>
+                            </mat-option>
+                           
+  
                             <mat-error *ngIf="userForm.controls.usershiftId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                 This field is required
                             </mat-error>

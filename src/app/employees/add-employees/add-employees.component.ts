@@ -20,7 +20,7 @@ export class AddEmployeesComponent implements OnInit {
   shiftList:any;
   userForm: FormGroup;
   employeeDetails: any;
-  shiftDetails: any;
+  // shiftDetails= new ShiftDetails();
   startDate = new Date(1990, 0, 1);
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString())
@@ -38,9 +38,9 @@ export class AddEmployeesComponent implements OnInit {
   }
   constructor(private http: HttpClient, public formBuilder: FormBuilder) {
     this.employeeDetails = new EmployeeDetails();
-    this.shiftDetails = new ShiftDetails();
+   
   }
-
+  
   ngOnInit() {
     this.shift();
     this.userForm = this.formBuilder.group({
@@ -84,6 +84,7 @@ export class AddEmployeesComponent implements OnInit {
 
 
     });
+    this.shiftList = [];
   }
   saveDetails(employeeDetails: EmployeeDetails) {
     console.log(employeeDetails);
@@ -103,8 +104,10 @@ export class AddEmployeesComponent implements OnInit {
 
       this.http.get(Url.API_URL + '/api/shift/all')
         .subscribe((response: any) => {
+          console.log(response[0].shiftName)
           this.shiftList = response;
-          console.log(this.shiftList);
+         
+          console.log(this.shiftList[1].shiftName)
           resolve(response);
         }, reject);
 
