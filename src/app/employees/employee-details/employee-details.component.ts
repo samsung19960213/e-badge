@@ -20,7 +20,7 @@ export class EmployeeDetailsComponent implements OnInit {
     empId: number
     user: FormGroup;
     employeeDetails: any;
-
+attendance:[]= [];
 
     constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog) {
         this.employeeDetails = new EmployeeDetails();
@@ -32,6 +32,7 @@ export class EmployeeDetailsComponent implements OnInit {
         }, 500)
         this.empId = this.empService.getEmployeeId();
         this.getDetails(this.empId);
+        this.getAttendance(this.empId);
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
             useraddressLine1: new FormControl('', [Validators.required]),
@@ -98,17 +99,36 @@ export class EmployeeDetailsComponent implements OnInit {
             alert('success')
         });
     }
+    getAttendance(id:number){
+        return new Promise((resolve, reject) => {
+            this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/1/2018-12-22/2018-12-24')
+                .subscribe((response: any) => {
+                    console.log(response);
+                    length=response.length;
+                    for(var i=0; i< length; i++){
+                    var str = response[i].timeSum; 
+                    console.log(response[i].timeSum);
+                    var splitted = str.split(":", 3); 
+                    console.log(splitted)
+                    }
+                    resolve(response);
+                   
+                }, reject);
+
+        });
+       
+    }
 
     createBarGraph() {
         new Chart('dash-bar-graph', {
             type: 'bar',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep", "Oct", "Nov","Dec"],
                 datasets: [
                     {
                         backgroundColor: 'rgba(92, 107, 192, .7)',
                         borderColor: 'rgba(92, 107, 192, .7)',
-                        data: [70, 70, 70, 70, 70, 70, 70, 70],
+                        data: ['70', '70', 70, 70, 70, 70, 70, 70,'70','70','70','70'],
                         label: 'Attendance',
                         fill: 'false'
                     },
@@ -129,7 +149,7 @@ export class EmployeeDetailsComponent implements OnInit {
                     {
                         backgroundColor: 'rgba(102, 187, 106, .7)',
                         borderColor: 'rgba(255, 99, 132)',
-                        data: [75, 55, 55, 95, 66, 88, 70, 78, 77, 100],
+                        data: [75, '55', 55, 95, 66, 88, 70, 78, 77, 100],
                         label: 'Attendance',
                         fill: 'false'
                     }

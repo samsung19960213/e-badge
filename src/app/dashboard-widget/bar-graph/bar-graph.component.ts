@@ -26,7 +26,7 @@ export class BarGraphComponent implements OnInit {
                     {
                         backgroundColor: 'rgba(92, 107, 192, .7)',
                         borderColor: 'rgba(92, 107, 192, .7)',
-                        data: [70, 88, 77, 93, 82, 100, 70, 67,78,99],
+                        data: ["00:50", 88, 77, 93, 82, 100, 70, 67,78,99],
                         label: 'Dataset',
                         fill: 'false'
                     },
