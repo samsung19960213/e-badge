@@ -2,9 +2,12 @@
 import { Url } from '../../Url';
 import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
 // import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { EmployeesService } from '../employees.service';
+import { UserData } from '../../tables/interfaces';
 
 
 @Component({
@@ -14,55 +17,82 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ActiveEmployeesComponent implements OnInit {
 
-	public displayedColumns = ['firstName', 'employeeCode', 'email', 'designation', 'department' ];
+	public displayedColumns = ['employeeCode','Name','email', 'designation', 'department','qrCode' ];
   showNavListCode;
+  ID: any;
+  tableList=[];
+  userId: number[]= [];
+  searchTerm:string;
+  userModel :any;
 
-	selection = new SelectionModel<string>(true, []);
-  dataSource = [];
+  dataSource = new MatTableDataSource<Employeetable>();
+
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild('filter') filter: ElementRef;
-  constructor(private http: HttpClient) {}
+  @ViewChild('filter') filter: ElementRef;
+  filterValue:string;
+  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService) {}
   	ngOnInit() {
-    this.userSalaryList();
-    }
+      this.ActiveEmployeeList().then(data => {
+        this.dataSource.data =data;
+      })
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort =this.sort;
+  
+   
+    console.log(this.dataSource);
+    
+    
 
-    userSalaryList(): Promise<any> {
+  }
+  
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  
+    ActiveEmployeeList(): Promise<any> {
       return new Promise((resolve, reject) => {
-
         this.http.get(Url.API_URL + 'api/employee/active')
         .subscribe((response: any) => {
-          this.dataSource = response;
-          console.log(this.dataSource);
           resolve(response);
         },reject);
-      
+       
       });
     }
-    isAllSelected(): boolean {
-	    if (!this.dataSource) { return false; }
-	    if (this.selection.isEmpty()) { return false; }
-
-	    if (this.filter.nativeElement.value) {
-	      return this.selection.selected.length == this.dataSource.length;
-	    } else {
-	      return this.selection.selected.length == this.dataSource.length;
-      }
-    }
-      masterToggle() {
-        if (!this.dataSource) { return; }
   
-        if (this.isAllSelected()) {
-          this.selection.clear();
-        } else if (this.filter.nativeElement.value) {
-          this.dataSource.forEach(data => this.selection.select(data.id));
-        } else {
-          this.dataSource.forEach(data => this.selection.select(data.id));
-        }
+  
+    employeeDetails(id:number) {
+      console.log(id);
+    this.empService.setEmployeeId(id);
+     this.route.navigateByUrl('auth/employees/employee-details');
+    }
+
+
+
+
+    downloadQR(id:string){
+      console.log(id);
+      return new Promise((resolve, reject) => {
+            this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/1')
+                .subscribe((response: any) => {
+                    resolve(response);
+                }, reject);
+        });
+
     }
 	}
-
+  export interface Employeetable {
+    employeeCode:string;
+    Name:string;
+    email:string;
+    designation:string;
+    department:string; 
+    status:string;
+  }
 
 
 

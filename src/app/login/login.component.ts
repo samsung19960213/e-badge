@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
 
 
     return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + 'api/login', login.value)
+      this.http.post(Url.API_URL + '/api/login', login.value)
           .subscribe((response: any) => {
               resolve(response);
               this.userImg= response.userImage;

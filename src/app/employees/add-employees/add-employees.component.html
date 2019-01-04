@@ -268,14 +268,12 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select type="number" placeholder="Department" [(ngModel)]="employeeDetails.departmentId" formControlName="userdepartmentId"
+                        <mat-select type="number" (ngModelChange)="reportMgr($event)"  placeholder="Department" [(ngModel)]="employeeDetails.departmentId" formControlName="userdepartmentId"
                             name="userdepartmentId" required>
-                            <mat-option value=1>Administration</mat-option>
-                            <mat-option value=2>HR</mat-option>
-                            <mat-option value=3>Software Development</mat-option>
-                            <mat-option value=4>Business Development</mat-option>
-                            <mat-option value=5>Medical Billing </mat-option>
-                            <mat-option value=6>House Keepinf</mat-option>
+                            <mat-option *ngFor="let department of departmentList " [value]="department.id">
+                                <span>{{department.departmentName}}</span>
+                            </mat-option>
+                           
                         </mat-select>
 
                         <mat-error *ngIf="userForm.controls.userdepartmentId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
@@ -285,40 +283,29 @@
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select type="number" placeholder="Designation" [(ngModel)]="employeeDetails.designationId" formControlName="userdesignationId"
                             name="userdesignationId" required>
-                            <mat-option value=1>CTO</mat-option>
-                            <mat-option value=2>Director</mat-option>
-                            <mat-option value=3>Manager</mat-option>
-                            <mat-option value=4>Senior Team Lead</mat-option>
-                            <mat-option value=5>Senior Tester</mat-option>
-                            <mat-option value=6>Software Engineer</mat-option>
-                            <mat-option value=7>Team Lead</mat-option>
-                            <mat-option value=8>Teach Lead</mat-option>
-                            <mat-option value=9>Trainee Engineer</mat-option>
-                            <mat-option value=9>Business Development Manager</mat-option>
+                            <mat-option *ngFor="let designation of designationList" [value]="designation.id">
+                                <span>{{designation.designationName}}</span>
+                            </mat-option>
+
+                            
                         </mat-select>
                         <mat-error *ngIf="userForm.controls.userdesignationId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Employee Code" [(ngModel)]="employeeDetails.employeeCode" formControlName="useremployeeCode"
-                            name="useremployeeCode" required>
-                        <mat-error *ngIf="userForm.controls.useremployeeCode.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field>
+                      
+                        <input matInput [matDatepicker]="pickerJoining" placeholder="Joining Date" [(ngModel)]="employeeDetails.joiningDate" formControlName="userjoiningDate"
+                        name="userjoiningDate" required>
+                    <mat-datepicker-toggle matSuffix [for]="pickerJoining"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerJoining></mat-datepicker>
+                    <mat-error *ngIf="userForm.controls.userjoiningDate.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        This field is required
+                    </mat-error>
+                </mat-form-field>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                    <mat-form-field fxFlex="30" class="form2Input">
-                      
-                            <input matInput [matDatepicker]="pickerJoining" placeholder="Joining Date" [(ngModel)]="employeeDetails.joiningDate" formControlName="userjoiningDate"
-                            name="userjoiningDate" required>
-                        <mat-datepicker-toggle matSuffix [for]="pickerJoining"></mat-datepicker-toggle>
-                        <mat-datepicker #pickerJoining></mat-datepicker>
-                        <mat-error *ngIf="userForm.controls.userjoiningDate.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field>
+                   
                     <mat-form-field fxFlex="30" class="form2Input">
                         <input matInput type="text" placeholder="Medical Info" [(ngModel)]="employeeDetails.medicalInfo" formControlName="usermedicalInfo"
                             name="usermedicalInfo" required>
@@ -333,8 +320,6 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
-                </div>
-                <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
                         <input matInput type="text" placeholder="Salary" [(ngModel)]="employeeDetails.salary" formControlName="usersalary" name="usersalary"
                             required>
@@ -342,6 +327,9 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
+                </div>
+                <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                  
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number"
                             required>
@@ -365,20 +353,23 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
-
-                </div>
-                <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
                       
-                            <mat-select type="number" placeholder="Reporting manager name" [(ngModel)]="employeeDetails.reportingManagerId" formControlName="userreportingManagerId"
-                            name="userreportingManagerId" required>
-                            <mat-option value=1>Aaqil</mat-option>
-                            <!-- <mat-option value=3>Reporting Manager</mat-option> -->
-                        </mat-select>
-                        <mat-error *ngIf="userForm.controls.userreportingManagerId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field>
+                        <mat-select type="number" placeholder="Reporting manager name" [(ngModel)]="employeeDetails.reportingManagerId" formControlName="userreportingManagerId"
+                        name="userreportingManagerId" required>
+                         <mat-option *ngFor="let manager of managerList" [value]="manager.id">
+                                <span>{{manager.firstName + " "+ manager.lastName}}</span>
+                            </mat-option>
+                       
+                        <!-- <mat-option value=3>Reporting Manager</mat-option> -->
+                    </mat-select>
+                    <mat-error *ngIf="userForm.controls.userreportingManagerId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        This field is required
+                    </mat-error>
+                </mat-form-field>
+                </div>
+                <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                  
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
                     <button mat-raised-button color="primary"  [disabled]="!userForm.valid" style="width:150px;margin-left: -60px"

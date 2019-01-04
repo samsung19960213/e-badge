@@ -18,6 +18,10 @@ import { ShiftDetails } from '../shift.model';
 })
 export class AddEmployeesComponent implements OnInit {
   shiftList:any;
+  departmentList: any;
+  designationList:any;
+  managerList:any;
+  reportingMgr:any;
   userForm: FormGroup;
   employeeDetails: any;
   // shiftDetails= new ShiftDetails();
@@ -43,6 +47,8 @@ export class AddEmployeesComponent implements OnInit {
   
   ngOnInit() {
     this.shift();
+    this.designation();
+    this.department();
     this.userForm = this.formBuilder.group({
       useractive: ['', [Validators.required]],
       useraddressLine1: ['', [Validators.required]],
@@ -59,7 +65,7 @@ export class AddEmployeesComponent implements OnInit {
       userdesignationId: ['', [Validators.required]],
       //userdesignationName: ['', [Validators.required]],
       userdistict: ['', [Validators.required]],
-      useremployeeCode: ['', [Validators.required]],
+      // useremployeeCode: ['', [Validators.required]],
       //useremployeeImage: ['', [Validators.required]],
       userfirstName: ['', [Validators.required, Validators.maxLength(25)]],
       userformerComapnyJoinDate: ['', [Validators.required]],
@@ -90,7 +96,7 @@ export class AddEmployeesComponent implements OnInit {
     console.log(employeeDetails);
 
     return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
+      this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
@@ -113,13 +119,52 @@ export class AddEmployeesComponent implements OnInit {
 
     });
   }
+  reportMgr(id:string): Promise<any> {
+    console.log(id);
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + '/api/employee/getReportingManager/'+ id )
+        .subscribe((response: any) => {
+          console.log(response);
+         this.managerList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  designation(): Promise<any> {
+    
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + '/api/desigantion/findallDesignation' )
+        .subscribe((response: any) => {
+          console.log(response);
+         this.designationList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  department(): Promise<any> {
+    
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + '/api/department/all' )
+        .subscribe((response: any) => {
+          console.log(response);
+         this.departmentList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
 
   fileEvent(fileInput: any) {
     let windows: any = window;
     let AWSService = windows.AWS;
 
     let file = fileInput.target.files[0];
-    let region = 'Asia Pacific (Mumbai)';
+  
     AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
     AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
     let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });

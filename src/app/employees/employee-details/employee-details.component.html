@@ -6,12 +6,12 @@
       </mat-toolbar>
       <div [hidden]="submitted" fxLayout="column" class="widgetHolder-content" fxLayoutAlign="space-around stretch" style="background-color: white;margin-top: 10px;margin-left: 60px">
           <div class="toolbar px-24 py-8" style="align-items: center;place-content:space-between;">
-              <div class="product-image media" fxLayoutAlign="center center">
+              <div *ngIf="employeeDetails.employeeImage != null" class="product-image media" fxLayoutAlign="center center">
                   <!-- <button mat-fab (click)="imgFileInput.click()">
                       <mat-icon>insert_photo</mat-icon>
                   </button> -->
                   <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>
-                          <span *ngIf="employeeDetails.employeeImage != null">
+                          <span >
                               <img src="{{employeeDetails.employeeImage}}" alt="Logo" height="250" width="200" style="border-radius:20px;box-shadow:0px 0px 10px black;">
                           </span>
               </div>
@@ -20,10 +20,10 @@
           <form [formGroup]="user" fxLayout="column" fxFlex="100">
               <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
                   <mat-radio-group [(ngModel)]="employeeDetails.active" formControlName="useractive" name="useractive" class="example-radio-button">
-                      <mat-radio-button [value]=1 class="example-radio-button">
+                      <mat-radio-button *ngIf ="employeeDetails.active == 1" [value]=1 class="example-radio-button">
                           Active User
                       </mat-radio-button>
-                      <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
+                      <mat-radio-button  *ngIf ="employeeDetails.active == 0" [value]=0 class="example-radio-button" style="margin-left: 100px">
                           Inactive User
                       </mat-radio-button>
                   </mat-radio-group>
@@ -31,7 +31,7 @@
               <div>
                   <h2>Personal Details</h2>
               </div>
-              <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
+              <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" >
                   <mat-form-field fxFlex="30" class="form2Input">
                       <input matInput placeholder="Enter Your First Name" [(ngModel)]="employeeDetails.firstName" formControlName="userfirstName"
                           name="userfirstName">
@@ -209,21 +209,24 @@
                   </mat-form-field>
                   <mat-form-field fxFlex="30" class="form2Input">
                       <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number">
-                          <mat-option value=1>General Shift</mat-option>
-                          <mat-option value=2>Night Shift</mat-option>
+                          <mat-option [value]=1>General Shift</mat-option>
+                          <mat-option [value]=2>Night Shift</mat-option>
                       </mat-select>
                   </mat-form-field>
                   <mat-form-field fxFlex="30" class="form2Input">
-                      <mat-select type="number" placeholder="User Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId" name="useruserRoleId">
+                      <mat-select  placeholder="User Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId" name="useruserRoleId">
                           <mat-option [value]=2>User</mat-option>
                           <mat-option [value]=3>Reporting Manager</mat-option>
                       </mat-select>
                   </mat-form-field>
+              </div>
+                  <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                   <mat-form-field fxFlex="30" class="form2Input">
                       <input matInput type="number" placeholder="Reporting manager Id" [(ngModel)]="employeeDetails.reportingManagerId" formControlName="userreportingManagerId"
                           name="userreportingManagerId">
                   </mat-form-field>
-              </div>
+                </div>
+              
               <div style="margin-top: 20px;margin-bottom: 30px">
                   <button mat-raised-button color="accent" fxFlex="50" style="width:150px;margin-left: 300px" (click)="deactiveDetails()">DeactivateUser</button>
 

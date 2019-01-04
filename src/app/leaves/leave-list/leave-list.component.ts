@@ -1,7 +1,7 @@
 import { Url } from '../../Url';
 import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
 // import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
-import { MatPaginator, MatSort, MatTableDataSource, DateAdapter } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, DateAdapter, MatDatepickerInputEvent } from '@angular/material';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 
@@ -33,18 +33,36 @@ export class LeaveListComponent implements OnInit {
 	@ViewChild('filter') filter: ElementRef;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
-    this.userSalaryList();
+    this.firstDate();
    
     this.dataSource.paginator =this.paginator;
     }
+    events: string[] = [];
 
-    userSalaryList(): Promise<any> {
+    fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
+      
+      let latest_date =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+      console.log(latest_date);
+      return new Promise((resolve, reject) => {
+        // 
+                this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
+                
+                // this.http.get(Url.API_URL + 'api/leave/findall')
+                .subscribe((response: any) => {
+                  this.dataSource = response;
+                  console.log(this.dataSource);
+                  resolve(response);
+                },reject);
+              
+              });
+    }
+    firstDate(): Promise<any> {
       let latest_date =this.datePipe.transform(this.date, 'yyyy-MM-dd');
       return new Promise((resolve, reject) => {
 // 
-        // this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
+        this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
         
-        this.http.get(Url.API_URL + 'api/leave/findall')
+        // this.http.get(Url.API_URL + 'api/leave/findall')
         .subscribe((response: any) => {
           this.dataSource = response;
           console.log(this.dataSource);
