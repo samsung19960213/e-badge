@@ -33,8 +33,9 @@ export class LeaveListComponent implements OnInit {
 	@ViewChild('filter') filter: ElementRef;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
-    this.firstDate();
-   
+    this.firstDate().then(data => {
+      this.dataSource.data =data;
+    })
     this.dataSource.paginator =this.paginator;
     }
     events: string[] = [];

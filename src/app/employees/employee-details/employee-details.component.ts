@@ -20,19 +20,23 @@ export class EmployeeDetailsComponent implements OnInit {
     empId: number
     user: FormGroup;
     employeeDetails: any;
-attendance:[]= [];
+    attendance:any[]=[];
+    dates:any[]=[];
 
     constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog) {
         this.employeeDetails = new EmployeeDetails();
     }
 
     ngOnInit() {
+        this.empId = this.empService.getEmployeeId();
+        this.getAttendance(this.empId);
+        
+      
+        this.getDetails(this.empId);
         setTimeout(() => {
             this.createBarGraph();
         }, 500)
-        this.empId = this.empService.getEmployeeId();
-        this.getDetails(this.empId);
-        this.getAttendance(this.empId);
+      
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
             useraddressLine1: new FormControl('', [Validators.required]),
@@ -101,18 +105,20 @@ attendance:[]= [];
     }
     getAttendance(id:number){
         return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/1/2018-12-22/2018-12-24')
+            this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/'+ id + '/2018-12-01/2018-12-30')
                 .subscribe((response: any) => {
                     console.log(response);
                     length=response.length;
                     for(var i=0; i< length; i++){
                     var str = response[i].timeSum; 
-                    console.log(response[i].timeSum);
+                    this.dates.push(response[i].date);
                     var splitted = str.split(":", 3); 
                     console.log(splitted)
+                    this.attendance.push(splitted[0]);
                     }
                     resolve(response);
-                   
+                    console.log(this.dates);
+                   console.log(this.attendance);
                 }, reject);
 
         });
@@ -123,42 +129,53 @@ attendance:[]= [];
         new Chart('dash-bar-graph', {
             type: 'bar',
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug","Sep", "Oct", "Nov","Dec"],
+                labels: this.dates,
                 datasets: [
                     {
                         backgroundColor: 'rgba(92, 107, 192, .7)',
                         borderColor: 'rgba(92, 107, 192, .7)',
-                        data: ['70', '70', 70, 70, 70, 70, 70, 70,'70','70','70','70'],
+                        data: this.attendance,
                         label: 'Attendance',
                         fill: 'false'
                     },
-                    {
-                        backgroundColor: 'rgba(66, 165, 245, .7)',
-                        borderColor: 'rgba(69, 39, 160, .7)',
-                        data: [80, 88, 67, 95, 76, 60, 67, 95, 95, 66],
-                        label: 'Attendance',
-                        fill: 'false'
-                    },
-                    {
-                        backgroundColor: 'rgba(38, 166, 154, .7)',
-                        borderColor: 'rgba(69, 39, 160, .7)',
-                        data: [60, 88, 70, 67, 27, 83, 78, 88, 95, 60],
-                        label: 'Attendance',
-                        fill: 'false'
-                    },
-                    {
-                        backgroundColor: 'rgba(102, 187, 106, .7)',
-                        borderColor: 'rgba(255, 99, 132)',
-                        data: [75, '55', 55, 95, 66, 88, 70, 78, 77, 100],
-                        label: 'Attendance',
-                        fill: 'false'
-                    }
+                    // {
+                    //     backgroundColor: 'rgba(66, 165, 245, .7)',
+                    //     borderColor: 'rgba(69, 39, 160, .7)',
+                    //     data: [80, 88, 67, 95, 76, 60, 67, 95, 95, 66],
+                    //     label: 'Attendance',
+                    //     fill: 'false'
+                    // },
+                    // {
+                    //     backgroundColor: 'rgba(38, 166, 154, .7)',
+                    //     borderColor: 'rgba(69, 39, 160, .7)',
+                    //     data: [60, 88, 70, 67, 27, 83, 78, 88, 95, 60],
+                    //     label: 'Attendance',
+                    //     fill: 'false'
+                    // },
+                    // {
+                    //     backgroundColor: 'rgba(102, 187, 106, .7)',
+                    //     borderColor: 'rgba(255, 99, 132)',
+                    //     data: [75, '55', 55, 95, 66, 88, 70, 78, 77, 100],
+                    //     label: 'Attendance',
+                    //     fill: 'false'
+                    // }
                 ]
             },
             options: {
+                responsive: true,
                 legend: {
                     display: false
                 },
+                scales : {
+                    yAxes: [{
+                       ticks: {
+                          steps : 3,
+                          stepValue :5,
+                          max :14,
+                          min:0,
+                        }
+                    }] 
+                  },
                 elements: {
                     line: {
                         tension: 0.000001

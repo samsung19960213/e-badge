@@ -1,6 +1,6 @@
 
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -11,6 +11,7 @@ import { AttendanceRouterModule } from "./attendance.router";
 import { AbsenteesComponent } from "./absentees/absentees.component";
 import { PresentComponent } from "./present/present.component";
 import { AttendanceComponent } from "./attendance.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 
 
@@ -25,6 +26,10 @@ import { AttendanceComponent } from "./attendance.component";
         MatInputModule,
         MatToolbarModule,
         MatIconModule,
+        MatPaginatorModule,
+        MatRadioModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatSelectModule,
         MatOptionModule,
         MatCheckboxModule,
@@ -39,11 +44,14 @@ import { AttendanceComponent } from "./attendance.component";
 		MatToolbarModule,
 		MatCardModule,
 		MatTabsModule,
-		MatIconModule,
+        MatIconModule,
+        
+        MatDialogModule,
          MatInputModule,
-         MatPaginatorModule,
-		//  ReactiveFormsModule,
-		//  FormsModule,
+     MatDatepickerModule,
+     MatNativeDateModule,
+		 ReactiveFormsModule,
+         FormsModule,
         AttendanceRouterModule
      ],
     declarations: [   
