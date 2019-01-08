@@ -12,13 +12,19 @@ export class ProfileCardComponent implements OnInit {
     public skill;
     photoURL:string;
     username:string;
+    designation:string;
+    Department:string;
+    Lname:string;
     public proj;
     constructor(public userService: UserService) { }
 
     ngOnInit() {
-      this.username = this.userService.getUserName();
-   
-      this.photoURL = this.userService.getUserImg();  
+      this.Lname = this.userService.Lname;
+      this.username = this.userService.username;
+   this.designation =this.userService.Designation;
+   this.Department = this.userService.Department;
+      this.photoURL = this.userService.userImg;
+      
     }
 
 }

@@ -15,9 +15,13 @@ import { UserService } from '../user.service';
 export class LoginComponent implements OnInit {
  userImg: string;
  name: string;
+ Lname:string;
  userId:number;
  password:string;
  email:string;
+ designation:string;
+ department:string;
+ employeeId:string;
 
   // login(login: any) {
   //   console.log(login.value);
@@ -102,17 +106,14 @@ export class LoginComponent implements OnInit {
       this.http.post(Url.API_URL + '/api/login', login.value)
           .subscribe((response: any) => {
               resolve(response);
-              this.userImg= response.userImage;
-              this.name= response.userName;
-              this.userId= response.userId;
-              // this.name= response.userName;
-              this.userService.setUserinfo(response.userName, response.userImage,response.id,response.password,response.email,);
+             
+              this.userService.setUserinfo(response.userName, response.userImage,response.id,response.password,response.email,response.department,response.designation,response.employeeId,response.lastName);
               this.userId= response.userRoleId;
-              if(this.userId==1){
+              // if(this.userId==1)
                 this.router.navigateByUrl('auth/dashboard');
-              }else{
-                alert('Invalid username and password');
-              }
+              // // }else{
+              //   alert('Invalid username and password');
+              // // }
             
           }, reject);
   });

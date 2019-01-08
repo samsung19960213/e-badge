@@ -1,4 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Url } from '../../Url';
+import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { LeaveService } from '../../leaves/leaves.service';
 
 
 @Component({
@@ -8,9 +13,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
-
+    constructor(private http: HttpClient, public datePipe: DatePipe,public route: Router,public leaveService:LeaveService) {}
   ngOnInit() {
+      this.firstDate();
   }
 
   today: number = Date.now();
@@ -66,12 +71,25 @@ export class SidebarComponent implements OnInit {
         },
     ];
 
-    messages = [
-        {from: 'Catherin', subject: 'Shopping', content: 'hi there??'},
-        {from: 'Jack', subject: 'Function', content: 'yes'},
-        {from: 'Karina', subject: 'Get together', content: 'nice'},
-        {from: 'Micheal', subject: 'Trip', content: 'ya.. I will'},
-        {from: 'Ashik', subject: 'Meeting', content: 'Time??'},
-        {from: 'Joy', subject: 'Party', content: 'Lets enjoy'},
-    ];
+    messages = [];
+    firstDate(): Promise<any> {
+        let latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');
+        return new Promise((resolve, reject) => {
+   
+      this.http.get(Url.API_URL + 'api/leave/leaverequestlist')
+        
+          .subscribe((response: any) => {
+         
+           this.messages=response;
+            console.log(this.messages);
+            resolve(response);
+          },reject);
+        
+        });
+      }
+      leaveRoute(id:number) {
+          
+        this.leaveService.setLeaveId(id);
+        this.route.navigateByUrl('auth/leaves/leave-details');
+      }
 }

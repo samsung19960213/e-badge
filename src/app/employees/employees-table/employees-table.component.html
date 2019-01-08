@@ -72,8 +72,8 @@
 				<ng-container matColumnDef="status">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
-						<p *ngIf='dataSource.active == 0'> Inactive</p>
-						<p *ngIf='dataSource.active == 1'> Active</p>
+						<p *ngIf='dataSource.active == 0' style="color:red"><b> Inactive</b></p>
+						<p *ngIf='dataSource.active == 1' style="color:green"> <b>Active</b></p>
 					</mat-cell>
 				</ng-container>
 

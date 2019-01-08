@@ -54,15 +54,15 @@
     <mat-tab label="Notifications">
         <div class="sidebar">
             <div>
-                <h3 style="margin: 10px 14px 0;">Friends</h3>
+                <h3 style="margin: 10px 14px 0;">Notification</h3>
 
                 <mat-list>
-                    <mat-list-item *ngFor="let message of messages">
+                    <mat-list-item *ngFor="let message of messages" (click)="leaveRoute(message.id)">
                         <img matListAvatar src="assets/images/avatars/friend1.jpeg" alt="...">
-                        <h3 matLine style="margin: 0; font-weight: bold;"> {{message.from}} </h3>
+                        <h3 matLine style="margin: 0; font-weight: bold;"> {{message.userName}} </h3>
                         <p matLine>
-                            <span> {{message.subject}} </span>
-                            <span> -- {{message.content}} </span>
+                            <span> {{message.reason}} </span>
+                            
                         </p>
                     </mat-list-item>
                 </mat-list>
@@ -80,7 +80,7 @@
         <h3 class="mat-subheading-2" style="margin: 10px 14px 0;">Server Statistics</h3>
         <div>
             <mat-list-item>
-                <h5>CPU Load</h5>
+                <h5>Employees Present</h5>
                 <mat-progress-bar [color]="'accent'" [mode]="'buffer'" [value]="'70'" [bufferValue]="100">></mat-progress-bar>
             </mat-list-item>
         </div>
@@ -94,12 +94,12 @@
         </div>
 
 
-        <div>
+        <!-- <div>
             <mat-list-item>
                 <h5>CPU Temp</h5>
                 <mat-progress-bar [color]="'warn'" [mode]="'buffer'" [value]="'43'" [bufferValue]="100"></mat-progress-bar>
             </mat-list-item>
-        </div>
+        </div> -->
 
     </div>
 </mat-nav-list>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AgmMap } from '@agm/core';
 import { Url } from '../Url';
 import { HttpClient } from '@angular/common/http';
@@ -10,16 +10,17 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class DashboardCrmComponent implements OnInit {
-activeEmployees:number=8;
-presentEmployees:number=0;
-leaveRequest:number=1;
-lateEntries:number=0;
-    public dashCard = [
-        { colorDark: '#5C6BC0', colorLight: '#7986CB', number: this.activeEmployees, title: 'TOTAL NO EMPLOYEES', icon: 'group' },
+activeEmployees:number;
+presentEmployees:number;
+leaveRequest:number;
+numb: {};
+lateEntries:number;
+ public dashCard = [
+        { colorDark: '#5C6BC0', colorLight: '#7986CB', number: this.activeEmployees, title: 'TOTAL NO EMPLOYEES', icon: 'group',link:'/auth/employees/employee-table' },
       
-        { colorDark: '#26A69A', colorLight: '#4DB6AC', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'group' },
-        { colorDark: '#66BB6A', colorLight: '#81C784', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'account_balance' },
-        { colorDark: '#cc99ff', colorLight: '#e6ccff', number: this.leaveRequest, title: 'LEAVE REQUEST', icon: 'account_balance' }
+        { colorDark: '#26A69A', colorLight: '#4DB6AC', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'group',link:'/auth/employees/active-employees' },
+        { colorDark: '#66BB6A', colorLight: '#81C784', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'account_balance', link:'' },
+        { colorDark: '#cc99ff', colorLight: '#e6ccff', number: this.leaveRequest, title: 'LEAVE REQUEST', icon: 'account_balance', link:'/auth/leaves/leave-list'}
     ];
 
     tableData = [
@@ -40,22 +41,27 @@ lateEntries:number=0;
     constructor(private http: HttpClient) { }
 
     ngOnInit() {
+        this.getDashboardCounts().then(data => {
+         this.numb =data;
+          })
+           
         console.log("hiiuiiiii");
-        this.getDashboardCounts();
+      
         setTimeout(() => {
 			console.log(this.mapContainer.nativeElement.offsetHeight);
 			// let h = this.mapContainer.nativeElement.offsetHeight - 10;
 			// this.height = String(h) + 'px';
 		},300);
     }
+  
 getDashboardCounts() {
     return new Promise((resolve, reject) => {
         this.http.get(Url.API_URL + '/api/employee/getdashBoardCounts' )
             .subscribe((response: any) => {
                 console.log(response);
-                this.activeEmployees=response.getActiveEmployees;
-                this.presentEmployees =response.getPresentEmployees;
-                this.leaveRequest= response.getPendingLeaveRequest;
+                this.dashCard[0].number=response.getActiveEmployees;
+                this.dashCard[1].number =response.getPresentEmployees;
+                this.dashCard[3].number = response.getPendingLeaveRequest;
                 console.log(this.activeEmployees);
                 resolve(response);
               
