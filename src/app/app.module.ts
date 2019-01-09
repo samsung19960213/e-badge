@@ -12,6 +12,8 @@ import { EmployeesService } from './employees/employees.service';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { UserService } from './user.service';
 import { LeaveService } from './leaves/leaves.service';
+import { PendingLeavesComponent } from './leaves/pending-leaves/pending-leaves.component';
+import { LateComersComponent } from './attendance/late-comers/late-comers.component';
 
 
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -24,6 +26,8 @@ import { LeaveService } from './leaves/leaves.service';
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
+
+   
 
    
 

@@ -1,18 +1,18 @@
 
 @mixin auth($theme) {
-    $primary: map-get($theme, primary);
+    $primary: map-get($theme, black);
     $accent: map-get($theme, accent);
     $warn: map-get($theme, warn);
 
     
     .sidenav{
-        background: mat-color($primary,400);    
+        background: rgb(24, 24, 24); 
         overflow: hidden;
         position: relative;
         width: 250px;
     }
     .drawer{
-        background: mat-color($primary,400);    
+        background: rgb(24, 24, 24);    
         overflow: hidden;
         position: relative;
         width: 80px;

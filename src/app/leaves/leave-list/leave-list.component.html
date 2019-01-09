@@ -74,7 +74,11 @@
         
 				<ng-container matColumnDef="status">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.status}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource">
+						<p *ngIf='dataSource.status == "PENDING"' style="color:blue"><b> PENDING</b></p>
+						<p *ngIf='dataSource.status == "REJECTED"' style="color:red"><b> REJECTED</b></p>
+						<p *ngIf='dataSource.status == "APPROVED"' style="color:green"><b> ACCEPTED</b></p>
+					</mat-cell>
 				</ng-container>
 
 

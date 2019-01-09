@@ -13,6 +13,7 @@ import { LeaveListComponent } from "./leave-list/leave-list.component";
 import { LeaveDetailsComponent, RejectPopup } from "./leave-details/leave-details.component";
 import { LeavesRouterModule } from "./leaves.router";
 import { RejectModule } from "./leave-details/reject.module";
+import { PendingLeavesComponent } from "./pending-leaves/pending-leaves.component";
 
 
 
@@ -62,7 +63,8 @@ import { RejectModule } from "./leave-details/reject.module";
     declarations: [   
     LeavesComponent,
     LeaveListComponent,
-    LeaveDetailsComponent
+    LeaveDetailsComponent,
+    PendingLeavesComponent,
    
        
     ],

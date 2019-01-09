@@ -7,7 +7,7 @@
         <div [hidden]="submitted" fxLayout="column" class="widgetHolder-content" fxLayoutAlign="space-around stretch" style="background-color: white;margin-top: 10px;margin-left: 60px">
             <div class="toolbar px-24 py-8" style="align-items: center;place-content:space-between;">
                 <div class="product-image media" fxLayoutAlign="center center">
-                    <button mat-fab (click)="imgFileInput.click()" style="background: #5c6bc0;">
+                    <button mat-fab (click)="imgFileInput.click()" style="background:  rgb(46, 46, 46);">
                         <mat-icon>insert_photo</mat-icon>
                     </button>
                     <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>

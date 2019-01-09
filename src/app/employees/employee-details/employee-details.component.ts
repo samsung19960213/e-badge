@@ -7,8 +7,9 @@ import { Url } from '../../Url';
 import { EmployeeDetails } from '../employee.model';
 import { HttpClient } from '@angular/common/http';
 import { EmployeesService } from '../employees.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDatepickerInputEvent } from '@angular/material';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-employee-details',
@@ -22,20 +23,30 @@ export class EmployeeDetailsComponent implements OnInit {
     employeeDetails: any;
     attendance:any[]=[];
     dates:any[]=[];
+    empID:number;
+    date = new Date();
+    year = this.date.getFullYear();
+    month = this.date.getMonth();
+    
+    firstDay = new Date(this.year, this.month, 1);
+    lastDay = new Date(this.year, this.month + 1, 0);
+    startDate:string;
+    endDate:string;
 
-    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog) {
+    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe) {
         this.employeeDetails = new EmployeeDetails();
     }
 
     ngOnInit() {
         this.empId = this.empService.getEmployeeId();
-        this.getAttendance(this.empId);
+        let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+        let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+        
+        this.getAttendance(fromDate,toDate);
         
       
         this.getDetails(this.empId);
-        setTimeout(() => {
-            this.createBarGraph();
-        }, 500)
+      
       
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
@@ -103,28 +114,47 @@ export class EmployeeDetailsComponent implements OnInit {
             alert('success')
         });
     }
-    getAttendance(id:number){
-        return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/'+ id + '/2018-12-01/2018-12-30')
-                .subscribe((response: any) => {
-                    console.log(response);
-                    length=response.length;
-                    for(var i=0; i< length; i++){
-                    var str = response[i].timeSum; 
-                    this.dates.push(response[i].date);
-                    var splitted = str.split(":", 3); 
-                    console.log(splitted)
-                    this.attendance.push(splitted[0]);
-                    }
-                    resolve(response);
-                    console.log(this.dates);
-                   console.log(this.attendance);
-                }, reject);
-
-        });
-       
+    getAttendance(firstDay:string, lastDay:string){
+         
+        this.startDate =this.datePipe.transform(firstDay, 'yyyy-MM-dd');
+        this.endDate =this.datePipe.transform(lastDay, 'yyyy-MM-dd');
+        this.attendance=[];
+        this.dates=[];
+        
+       return new Promise((resolve, reject) => {
+           this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/'+ this.empId + '/'+ this.startDate + '/'+ this.endDate)
+               .subscribe((response: any) => {
+                   console.log(response);
+                   length=response.length;
+                   for(var i=0; i< length; i++){
+                   var str = response[i].timeSum; 
+                   this.dates.push(response[i].date);
+                   var splitted = str.split(":", 3); 
+                   console.log(splitted)
+                   this.attendance.push(splitted[0]);
+                   }
+                   resolve(response);
+                   console.log(this.dates);
+                  console.log(this.attendance);
+                  this.createBarGraph();
+               }, reject);
+   
+       });
     }
-
+    fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
+      
+        let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+        let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+        console.log(toDate);
+        this.getAttendance(fromDate, toDate);
+       
+      }
+       toDate(type: string, event: MatDatepickerInputEvent<Date>) {
+        let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+        let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+        console.log(toDate);
+    this.getAttendance(fromDate, toDate);
+       }
     createBarGraph() {
         new Chart('dash-bar-graph', {
             type: 'bar',
@@ -169,9 +199,9 @@ export class EmployeeDetailsComponent implements OnInit {
                 scales : {
                     yAxes: [{
                        ticks: {
-                          steps : 3,
-                          stepValue :5,
-                          max :14,
+                          steps : 2,
+                          stepValue :4,
+                          max :16,
                           min:0,
                         }
                     }] 

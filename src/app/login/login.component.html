@@ -1,13 +1,16 @@
-<div fxLayout="column" fxFlexFill fxLayoutAlign="center center" style="background-image:url('../../../assets/login11.jpg');
+<div fxLayout="column" fxFlexFill fxLayoutAlign="center center" style="background-image:url('../../../assets/bg-2.jpg');
 height: 100%;
-background-repeat: no-repeat;
+width:100%;
+
 background-position: center;
-background-size: cover; ">
+background-repeat: no-repeat;
+background-size: cover;">
     <div fxLayout="column" >
    
         <div class=" mat-elevation-z4">
             <mat-card>
-                <mat-card-title>User login
+                <img src="../../assets/eBadge logo.png" style="height:100px; padding-left:24%;" >
+                <mat-card-title style="margin-left:20%;">User login
                     <!-- <a class="redirect" [routerLink]="['/register']">Register an account</a> -->
                 </mat-card-title>
                 <mat-card-content>
@@ -26,7 +29,7 @@ background-size: cover; ">
                         <div *ngIf="formErrors.password" class="help is-danger">
                             {{ formErrors.password }}
                         </div>
-                        <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid" >log in</button>
+                        <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid" >Login</button>
                     </form>
                 </mat-card-content>
             </mat-card>

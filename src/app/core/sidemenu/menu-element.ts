@@ -2,22 +2,14 @@ export const menus = [
     {
         'name': 'Dashboard',
         'icon': 'dashboard',
-        'link': false,
+        'link': '/auth/dashboard',
         'open': false,
         'chip': { 'value': 1, 'color': 'accent' },
-        'sub': [
-            {
-                'name': 'Dashboard',
-                'link': '/auth/dashboard',
-                'icon': 'dashboard',
-                'chip': false,
-                'open': true,
-            }
-        ]
+       
     },
     {
         'name': 'Employees',
-        'icon': 'widgets',
+        'icon': 'people',
         'link': false,
         'open': false,
         
@@ -25,7 +17,7 @@ export const menus = [
             {
                 'name': 'Add Employees',
                 'link': 'employees/add-employees',
-                'icon': 'dashboard',
+                'icon': 'person_add',
                 'chip': false,
                 'open': false,
             },
@@ -33,21 +25,21 @@ export const menus = [
             {
                 'name': 'Employee List',
                 'link': 'employees/employee-table',
-                'icon': 'indeterminate_check_box',
+                'icon': 'people',
                 'chip': false,
                 'open': false,
             },
             {
                 'name': 'Active Employees',
                 'link': 'employees/active-employees',
-                'icon': 'indeterminate_check_box',
+                'icon': 'people',
                 'chip': false,
                 'open': false,
             },
             {
                 'name': 'Inactive Employees',
                 'link': 'employees/deactivated-employees',
-                'icon': 'indeterminate_check_box',
+                'icon': 'people_outline',
                 'chip': false,
                 'open': false,
             }
@@ -57,7 +49,7 @@ export const menus = [
     },
     {
         'name': 'Attendance',
-        'icon': 'widgets',
+        'icon': 'account_box',
         'link': false,
         'open': false,
         
@@ -65,14 +57,21 @@ export const menus = [
             {
                 'name': 'Absentees List',
                 'link': 'attendance/absentees',
-                'icon': 'dashboard',
+                'icon': 'account_circle',
                 'chip': false,
                 'open': false,
             },
             {
                 'name': 'Present List',
                 'link': 'attendance/present',
-                'icon': 'dashboard',
+                'icon': 'account_circle',
+                'chip': false,
+                'open': false,
+            },
+            {
+                'name': 'Late Comers List',
+                'link': 'attendance/late-comers',
+                'icon': 'account_circle',
                 'chip': false,
                 'open': false,
             },
@@ -84,7 +83,7 @@ export const menus = [
    
     {
         'name': 'Leave',
-        'icon': 'widgets',
+        'icon': 'inbox',
         'link': false,
         'open': false,
         
@@ -92,7 +91,14 @@ export const menus = [
             {
                 'name': 'Leave Requests',
                 'link': 'leaves/leave-list',
-                'icon': 'dashboard',
+                'icon': 'drafts',
+                'chip': false,
+                'open': false,
+            },     
+            {
+                'name': 'Pending Leaves',
+                'link': 'leaves/pending-leaves',
+                'icon': 'mail',
                 'chip': false,
                 'open': false,
             },         

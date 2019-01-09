@@ -91,5 +91,6 @@ export class SidebarComponent implements OnInit {
           
         this.leaveService.setLeaveId(id);
         this.route.navigateByUrl('auth/leaves/leave-details');
+        
       }
 }

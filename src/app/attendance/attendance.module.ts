@@ -12,6 +12,7 @@ import { AbsenteesComponent } from "./absentees/absentees.component";
 import { PresentComponent } from "./present/present.component";
 import { AttendanceComponent } from "./attendance.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { LateComersComponent } from "./late-comers/late-comers.component";
 
 
 
@@ -45,7 +46,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 		MatCardModule,
 		MatTabsModule,
         MatIconModule,
-        
+        MatToolbarModule,
         MatDialogModule,
          MatInputModule,
      MatDatepickerModule,
@@ -57,7 +58,8 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
     declarations: [   
         AttendanceComponent,
        AbsenteesComponent,
-       PresentComponent
+       PresentComponent,
+       LateComersComponent,
     ],
     exports: [
     ],

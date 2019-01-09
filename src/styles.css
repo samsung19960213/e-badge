@@ -26,3 +26,6 @@
        padding: 0px !important;
     }
     
+    mat-primary{
+        background-color: #73c0ff;
+    }
