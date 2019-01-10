@@ -16,17 +16,11 @@
               <mat-datepicker #picker ></mat-datepicker>
             </mat-form-field> -->
             <mat-form-field>
-              <input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="firstDay"
+              <input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="date"
                    (dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-            <mat-form-field>
-              <input matInput [matDatepicker]="picker1" placeholder="To Date"  [(ngModel)]="lastDay" 
-              (dateInput)="toDate('input', $event)" (dateChange)="to('change', $event)">
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1 ></mat-datepicker>
-            </mat-form-field>
           </div>
         </div>
         

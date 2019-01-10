@@ -26,14 +26,6 @@ export class LateComersComponent implements OnInit {
   userId: number[]= [];
   searchTerm:string;
   date = new Date();
-    year = this.date.getFullYear();
-    month = this.date.getMonth();
-    
-    firstDay = new Date(this.year, this.month, 1);
-    lastDay = new Date(this.year, this.month + 1, 0);
-    startDate:string;
-    endDate:string;
-    
 	selection = new SelectionModel<string>(true, []);
   dataSource = new MatTableDataSource<any>()
 
@@ -43,9 +35,8 @@ export class LateComersComponent implements OnInit {
 	@ViewChild('filter') filter: ElementRef;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
-      let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-      let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-    this.getData(fromDate, toDate);
+      let Datenow =this.datePipe.transform(this.date, 'yyyy-MM-dd');
+    this.getData(Datenow);
     this.dataSource.paginator =this.paginator;
     }
     
@@ -54,15 +45,13 @@ export class LateComersComponent implements OnInit {
 
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
       
-      let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
       let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-      console.log(toDate);
-      this.getData(fromDate,toDate);
+      this.getData(fromDate);
      
     }
-    getData(fromDate:any, toDate:any){
+    getData(fromDate:any, ){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate)
+                this.http.get(Url.API_URL + 'api/attendance/lateentry/'+ fromDate )
                 .subscribe((response: any) => {
                   this.dataSource = response;
                   console.log(this.dataSource);
@@ -71,36 +60,11 @@ export class LateComersComponent implements OnInit {
               
               });
     }
-    toDate(type: string, event: MatDatepickerInputEvent<Date>) {
-      let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-      let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-      console.log(toDate);
-      this.getData(fromDate,toDate);
-     
-    
-    }
-    firstDate(): Promise<any> {
-      let latest_date =this.datePipe.transform(this.date, 'yyyy-MM-dd');
-      return new Promise((resolve, reject) => {
-// 
-        this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
-        
-        // this.http.get(Url.API_URL + 'api/leave/findall')
-        .subscribe((response: any) => {
-          this.dataSource = response;
-          console.log(this.dataSource);
-          resolve(response);
-        },reject);
-      
-      });
-    }
-   
-    leaveDetails(id:number) {
-      console.log(id);
-    this.leaveService.setLeaveId(id);
-     this.route.navigateByUrl('auth/leaves/leave-details');
-    }
   
+
+
+   
+   
 	}
 
 
