@@ -19,16 +19,11 @@
 
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;">
 
-				<!--- Note that these columns can be defined in any order.
-				The actual rendered columns are set as a property on the row definition" -->
+				
 
-				<!-- Checkbox Column -->
 				<ng-container matColumnDef="select">
 					<mat-header-cell *matHeaderCellDef>
-						<!-- <mat-checkbox (change)="$event ? masterToggle() : null "
-							[checked]="isAllSelected() && selectAll()"
-							[indeterminate]="selection.hasValue() && !isAllSelected()">
-							</mat-checkbox> -->
+					
 					</mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
 						<!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="selectUser(dataSource.id) && $event ? selection.toggle(dataSource.id) : null"

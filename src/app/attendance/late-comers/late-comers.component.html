@@ -38,46 +38,29 @@
                 </mat-checkbox>
             </mat-cell>
           </ng-container>
-  
+          <ng-container matColumnDef="employeeCode" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </mat-header-cell>
+            <mat-cell *matCellDef="let dataSource"> {{dataSource.employeeCode}} </mat-cell>
+          </ng-container>
           <!-- ID Column -->
           <ng-container matColumnDef="Name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource"> {{dataSource.userName}} </mat-cell>
+            <mat-cell *matCellDef="let dataSource"> {{dataSource.firstName}} {{dataSource.secondName}} </mat-cell>
           </ng-container>
   
           <!-- Progress Column -->
-          <ng-container matColumnDef="fromDate" >
-            <mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate}} </mat-cell>
+          <ng-container matColumnDef="Date" >
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+            <mat-cell *matCellDef="let dataSource"> {{dataSource.date}} </mat-cell>
           </ng-container>
   
           <!-- Name Column -->
           
-          <ng-container matColumnDef="toDate">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource" > {{dataSource.toDate}} </mat-cell>
+          <ng-container matColumnDef="Time">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Check In Time </mat-header-cell>
+            <mat-cell *matCellDef="let dataSource" > {{dataSource.checkInTime}} </mat-cell>
           </ng-container>
           <!-- Color Column -->
-          <ng-container matColumnDef="reason">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Reason </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource" > {{dataSource.reason}} </mat-cell>
-          </ng-container>
-  
-          
-  
-          
-          <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource">
-              <p *ngIf='dataSource.status == "PENDING"' style="color:blue"><b> PENDING</b></p>
-              <p *ngIf='dataSource.status == "REJECTED"' style="color:red"><b> REJECTED</b></p>
-              <p *ngIf='dataSource.status == "APPROVED"' style="color:green"><b> ACCEPTED</b></p>
-            </mat-cell>
-          </ng-container>
-  
-  
-    
-          
           
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let dataSource; columns: displayedColumns;"

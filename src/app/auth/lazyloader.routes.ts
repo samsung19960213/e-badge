@@ -13,6 +13,7 @@ export const appRoutes: Routes = [{
         { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule'  },
         { path: 'leaves', loadChildren: '../leaves/leaves.module#LeavesModule'  },
         { path: 'attendance', loadChildren: '../attendance/attendance.module#AttendanceModule'  },
+        {path: 'office', loadChildren: '../office/office.module#OfficeModule'},
         // { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule' },
          { path: 'material-widgets', loadChildren: '../material-widgets/material-widgets.module#MaterialWidgetsModule' },
         { path: 'tables', loadChildren: '../tables/tables.module#TablesModule' },

@@ -18,10 +18,10 @@ import { LeaveService } from '../../leaves/leaves.service';
 })
 export class LateComersComponent implements OnInit {
 
-  public displayedColumns = ['Name', 'fromDate', 'toDate', 'reason', 'status' ];
+  public displayedColumns = ['employeeCode', 'Name', 'Date', 'Time' ];
   showNavListCode;
   ID: any;
-  
+  time:any[]=[];
   
   userId: number[]= [];
   searchTerm:string;
@@ -54,6 +54,15 @@ export class LateComersComponent implements OnInit {
                 this.http.get(Url.API_URL + 'api/attendance/lateentry/'+ fromDate )
                 .subscribe((response: any) => {
                   this.dataSource = response;
+                  console.log(this.dataSource);
+                  var length = response.length;
+                  for( var i=0;i<length;i++){
+                  var splitted = response[i].checkInTime.split("T", 2);
+                  
+                  this.dataSource[i].checkInTime= splitted[1]
+                   
+                  }
+
                   console.log(this.dataSource);
                   resolve(response);
                 },reject);

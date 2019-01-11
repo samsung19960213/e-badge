@@ -124,7 +124,7 @@ export class BarGraphComponent implements OnInit {
                 },
                 title: {
                     display: true,
-                    text: 'ATTENDANCE GRAPH'
+                    text: 'Weekly Attendance Graph '
                 }
             }
         })
