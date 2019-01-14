@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 
 const routes = [
     {
-        path: './leaves/leave-details',
+        path: './leaves',
         component:RejectPopup
     }
 ];

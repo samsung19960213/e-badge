@@ -15,6 +15,7 @@ import { LeaveService } from './leaves/leaves.service';
 import { PendingLeavesComponent } from './leaves/pending-leaves/pending-leaves.component';
 import { LateComersComponent } from './attendance/late-comers/late-comers.component';
 import { OfficeComponent } from './office/office.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { OfficeComponent } from './office/office.component';
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
+  
 
 
    

@@ -109,17 +109,24 @@ export class ChangePassword {
   id: number;
   userForm:FormGroup;
   changePasswordRequest:any;
+  sendData={
+    email:'',
+    password:'',
+    newPassword:'',
+    id:0,
+  }
   loginEmail: string;
   loginPassword: string;
 
   constructor(private http: HttpClient,
     public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { }
  ngOnInit() {
+   this.id=this.userService.userId;
 this.loginEmail =this.userService.getuserEmail();
 this.loginPassword = this.userService.getuserPassword();
   this.userForm = new FormGroup({
-    userEmail:new FormControl('', [Validators.required]),
-    userPassword: new FormControl('', [Validators.required]),
+    email:new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     newPassword: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
   });
@@ -131,11 +138,13 @@ this.loginPassword = this.userService.getuserPassword();
     console.log(form.value)
     
     this.changePasswordRequest = form.value;
+    
     if(this.loginPassword === this.changePasswordRequest.userPassword){
     if(this.changePasswordRequest.newPassword === this.changePasswordRequest.confirmPassword){
+  
     console.log(this.changePasswordRequest);
     return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + '/api/user/changePassword',this.changePasswordRequest )
+      this.http.post(Url.API_URL + 'api/user/changePassword',this.changePasswordRequest )
         .subscribe((response: any) => {
           resolve(response);
         }, reject);

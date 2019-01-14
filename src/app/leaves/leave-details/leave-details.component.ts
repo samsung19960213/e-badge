@@ -5,6 +5,7 @@ import { LeaveService } from '../leaves.service';
 import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leave-details',
@@ -16,7 +17,7 @@ export class LeaveDetailsComponent implements OnInit {
   user: FormGroup;
 
   dataSource: any;
-  constructor(public form: FormBuilder, public leaveService: LeaveService, public http: HttpClient, public dialog: MatDialog) {
+  constructor(public form: FormBuilder, public leaveService: LeaveService, public http: HttpClient, public dialog: MatDialog, public router: Router) {
 
 
   }
@@ -59,7 +60,7 @@ export class LeaveDetailsComponent implements OnInit {
         .subscribe((response: any) => {
           console.log(response);
           resolve(response);
-
+          this.router.navigateByUrl('auth/leaves/leave-list');
 
         }, reject);
       this.getDetails(this.id);
@@ -87,7 +88,7 @@ export class RejectPopup {
   id: number;
 reason:string;
   constructor(private http: HttpClient,
-    public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any,public leaveService:LeaveService) { }
+    public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any,public leaveService:LeaveService, public router: Router) { }
   ngOnInit() {
     this.id =this.leaveService.getLeaveId();
   }
@@ -107,7 +108,9 @@ reason:string;
         }, reject
         );
       alert('success');
+      this.router.navigateByUrl('auth/leaves/leave-list');
         this.message.close();
+        
       // this.getDetails(this.id);
     });
   }

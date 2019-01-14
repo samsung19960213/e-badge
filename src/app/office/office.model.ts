@@ -7,6 +7,7 @@ export class companyDetails {
   timezone:string;
   casualleaves:number;
   carryLeaves:number;
+  id:number;
     
 constructor(companyDetails?) {
     companyDetails = companyDetails || {};
@@ -17,5 +18,6 @@ constructor(companyDetails?) {
     this.timezone = companyDetails.timezone || '';
     this.casualleaves = companyDetails.casualleaves || null;
     this.carryLeaves = companyDetails.carryLeaves || null;
+    this.id = companyDetails.id|| null;
     }
 }

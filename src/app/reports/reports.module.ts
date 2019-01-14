@@ -1,7 +1,7 @@
 
 
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule, MatDialog, MatDialogModule, MatDatepicker, MatDatepickerToggle, MatDatepickerModule, MatNativeDateModule, MatStepperModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule, MatDialog, MatDialogModule, MatDatepicker, MatDatepickerToggle, MatDatepickerModule, MatNativeDateModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
@@ -9,8 +9,8 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
-import { OfficeComponent } from "./office.component";
-import { OfficeRouterModule } from "./office.router";
+import { ReportsComponent } from "./reports.component";
+import { ReportsRouterModule } from "./reports.router";
 
 
 
@@ -51,15 +51,12 @@ import { OfficeRouterModule } from "./office.router";
      MatNativeDateModule,
 		 ReactiveFormsModule,
          FormsModule,
-        OfficeRouterModule,
-        MatStepperModule,
-        
+         ReportsRouterModule,
         
         
      ],
     declarations: [   
- OfficeComponent,
-   
+ReportsComponent   
        
     ],
    
@@ -69,5 +66,5 @@ import { OfficeRouterModule } from "./office.router";
         
     ]
 })
-export class OfficeModule {
+export class ReportsModule {
 }

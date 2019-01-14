@@ -16,7 +16,6 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { EmployeesService } from "./employees.service";
 import { MessagePopupModule } from "./employee-details/messagePopup.module";
 
-
 @NgModule({
     imports: [
         MatCardModule,
@@ -66,6 +65,7 @@ import { MessagePopupModule } from "./employee-details/messagePopup.module";
         ActiveEmployeesComponent,
         DeactivatedEmployeesComponent,
         EmployeeDetailsComponent,
+      
    
        
     ],

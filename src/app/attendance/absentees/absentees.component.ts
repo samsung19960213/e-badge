@@ -43,7 +43,7 @@ export class AbsenteesComponent implements OnInit {
 
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
       
-      let latest_date =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+      let latest_date =this.datePipe.transform(event.value, 'dd-MMM-yyyy');
       console.log(latest_date);
       return new Promise((resolve, reject) => {
         // 
@@ -59,7 +59,7 @@ export class AbsenteesComponent implements OnInit {
               });
     }
     firstDate(): Promise<any> {
-      let latest_date =this.datePipe.transform(this.date, 'yyyy-MM-dd');
+      let latest_date =this.datePipe.transform(this.date, 'dd-MMM-yyyy');
       return new Promise((resolve, reject) => {
 // 
         this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
