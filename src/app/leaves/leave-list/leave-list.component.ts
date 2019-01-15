@@ -34,7 +34,7 @@ export class LeaveListComponent implements OnInit {
     endDate:string;
     
 	selection = new SelectionModel<string>(true, []);
-  dataSource = new MatTableDataSource<any>()
+  dataSource = new MatTableDataSource<LeaveListTable>()
 
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,6 +44,7 @@ export class LeaveListComponent implements OnInit {
   	ngOnInit() {
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+  
     this.getData(fromDate, toDate);
     this.dataSource.paginator =this.paginator;
     }
@@ -103,4 +104,11 @@ export class LeaveListComponent implements OnInit {
 	}
 
 
+export class LeaveListTable {
 
+  userName:string;
+  fromDate:string;
+  toDate:string;
+reason:string; 
+  status:string;
+}

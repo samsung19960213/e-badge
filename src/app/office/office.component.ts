@@ -28,16 +28,30 @@ export class OfficeComponent implements OnInit {
     return day !== 0 && day !== 6;
   }
   private fieldArray: Array<any> = [];
+  private fieldArray1: Array<any> = [];
+  private fieldArray2: Array<any> = [];
   private newAttribute: any = {};
 
   addFieldValue() {
       this.fieldArray.push(this.newAttribute)
       this.newAttribute = {};
   }
+  addFieldValue2() {
+    this.fieldArray2.push(this.newAttribute)
+    this.newAttribute = {};
+}
 
+  addFieldValue1() {
+    this.fieldArray1.push(this.newAttribute)
+    this.newAttribute = {};
+}
   deleteFieldValue(index) {
       this.fieldArray.splice(index, 1);
   }
+  
+  deleteFieldValue1(index) {
+    this.fieldArray1.splice(index, 1);
+}
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
@@ -48,6 +62,8 @@ export class OfficeComponent implements OnInit {
   
   ngOnInit() {
     this.DepartmentList();
+    this.DesignationList();
+    this.ShiftList();
     this.userForm = this.formBuilder.group({
       userCompanyName: ['', [Validators.required]],
       userSuperAdmin: ['', [Validators.required]],
@@ -82,13 +98,24 @@ export class OfficeComponent implements OnInit {
      
     });
   }
-  DesignationList(): Promise<any> {
+  ShiftList(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/department/all')
+      this.http.get(Url.API_URL + 'api/shift/all')
       .subscribe((response: any) => {
         resolve(response);
-        this.fieldArray=response;
-        console.log(this.fieldArray);
+        this.fieldArray2=response;
+        console.log(this.fieldArray2);
+      },reject);
+     
+    });
+  }
+  DesignationList(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/desigantion/findallDesignation')
+      .subscribe((response: any) => {
+        resolve(response);
+        this.fieldArray1=response;
+        console.log(this.fieldArray1);
       },reject);
      
     });

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
+import { UserService } from '../../user.service';
+import { HttpClient } from '@angular/common/http';
+import { Url } from '../../Url';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'cdk-doughnut-graph',
@@ -7,15 +11,36 @@ import { Chart } from 'chart.js';
   styleUrls: ['./doughnut-graph.component.scss']
 })
 export class DoughnutGraphComponent implements OnInit {
-
-  constructor() { }
+totalEmployees:number;
+presentEmployees:number;
+lateEntries:number;
+date=new Date();
+absentEmployees:number;
+  constructor(public http: HttpClient, public datePipe: DatePipe) { }
 
   ngOnInit() {
-      setTimeout(() => {
-          this.createDoughnutGraph();
-      },500)
-
+    let today =this.datePipe.transform(this.date, 'yyyy-MM-dd');
+    this.getDashboardCounts(today);
   }
+  getDashboardCounts(date:string) {
+    return new Promise((resolve, reject) => {
+        this.http.get(Url.API_URL + '/api/employee/getdashBoardCounts/'+date )
+            .subscribe((response: any) => {
+                console.log(response);
+                 this.totalEmployees=response.getActiveEmployees;
+                 this.presentEmployees=response.getPresentEmployees;
+                 this.lateEntries=response.getLateEntryEmployees;
+                 this.absentEmployees= response.getActiveEmployees-response.getPresentEmployees;
+                
+                resolve(response);
+                this.createDoughnutGraph();
+
+
+
+            }, reject);
+
+    });
+}
     randomNumber(min=0, max=0) {
         if(min==0 || max== 0)
             return Math.round(Math.random() * 100);
@@ -37,20 +62,20 @@ export class DoughnutGraphComponent implements OnInit {
         new Chart('doughnut-graph-graph', {
             type: 'doughnut',
             data: {
-            labels: ['Data '],
+            labels: ['Total Employees ', 'Presesnt Employees', 'Absent Employees', 'Late Entries'],
             datasets: [ {
                 data: [
-                    this.randomNumber(),
-                    this.randomNumber(),
-                    this.randomNumber(),
-                    this.randomNumber(),
+                    this.totalEmployees,
+                    this.presentEmployees,
+                    this.absentEmployees,
+                    this.lateEntries,
                 ],
                 backgroundColor: [
                     'rgba(255, 99, 132,.7)',
                     'rgba(92, 107, 192,.7)',
                     'rgba(66, 165, 245,.7)',
                     'rgba(38, 166, 154,.7)',
-                    'rgba(102, 187, 106,.7)'
+                    
                 ],
             }]},
             options: {
