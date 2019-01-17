@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Url } from '../Url';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              public fb: FormBuilder,private http: HttpClient, public userService: UserService) {
+              public fb: FormBuilder,private http: HttpClient, public userService: UserService,public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -102,20 +103,35 @@ export class LoginComponent implements OnInit {
   login(login: any) {
 
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, error) => {
       this.http.post(Url.API_URL + '/api/login', login.value)
           .subscribe((response: any) => {
               resolve(response);
              
               this.userService.setUserinfo(response.userName, response.userImage,response.id,response.password,response.email,response.department,response.designation,response.employeeId,response.lastName);
               this.userId= response.userRoleId;
-              // if(this.userId==1)
+              if(this.userId==1) {
+              
+                this.snackBar.open('Login Successful', 'OK', {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                });
+              
                 this.router.navigateByUrl('auth/dashboard');
-              // // }else{
-              //   alert('Invalid username and password');
-              // // }
+              }else{
+               
+                this.snackBar.open('You are not authorised to login', 'OK', {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                });
+              }
             
-          }, reject);
+          }, (error:any) => { 
+            this.snackBar.open('Username / Password is incorrect', 'OK', {
+              duration: 2000,
+              verticalPosition: 'top',
+            });
+           }  );
   });
 
 

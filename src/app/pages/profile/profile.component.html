@@ -20,12 +20,12 @@
       <form [formGroup]="user" fxLayout="column" fxFlex="100">
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
           <mat-radio-group [(ngModel)]="employeeDetails.active" formControlName="useractive" name="useractive" class="example-radio-button">
-            <mat-radio-button [value]=1 class="example-radio-button">
-              Active User
-            </mat-radio-button>
-            <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
-              Inactive User
-            </mat-radio-button>
+              <mat-radio-button *ngIf ="employeeDetails.active == 1" [value]=1 class="example-radio-button">
+                  Active User
+              </mat-radio-button>
+              <mat-radio-button  *ngIf ="employeeDetails.active == 0" [value]=0 class="example-radio-button" style="margin-left: 100px">
+                  Inactive User
+              </mat-radio-button>
           </mat-radio-group>
         </div>
         <div>

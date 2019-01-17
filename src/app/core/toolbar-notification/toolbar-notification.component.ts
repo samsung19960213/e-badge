@@ -43,8 +43,9 @@ export class ToolbarNotificationComponent implements OnInit {
     	
   	}
 
-  	delete(notification) {
-    
+  	delete(id:number) {
+      this.notifications.splice(id,1);
+     
     }
     firstDate(): Promise<any> {
       let latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');

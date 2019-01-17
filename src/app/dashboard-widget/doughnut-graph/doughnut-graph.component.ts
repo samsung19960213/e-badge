@@ -62,19 +62,18 @@ absentEmployees:number;
         new Chart('doughnut-graph-graph', {
             type: 'doughnut',
             data: {
-            labels: ['Total Employees ', 'Presesnt Employees', 'Absent Employees', 'Late Entries'],
+            labels: ['Total Employees ', 'Presesnt Employees', 'Absent Employees'],
             datasets: [ {
                 data: [
                     this.totalEmployees,
                     this.presentEmployees,
                     this.absentEmployees,
-                    this.lateEntries,
+                   
                 ],
                 backgroundColor: [
                     'rgba(255, 99, 132,.7)',
                     'rgba(92, 107, 192,.7)',
                     'rgba(66, 165, 245,.7)',
-                    'rgba(38, 166, 154,.7)',
                     
                 ],
             }]},
@@ -96,7 +95,7 @@ absentEmployees:number;
                 },
                 title: {
                     display: true,
-                    text: 'LEAD GRAPH'
+                    text: 'ATTENDANCE GRAPH'
                 }
             }
 

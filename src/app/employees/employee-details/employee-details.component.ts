@@ -7,7 +7,7 @@ import { Url } from '../../Url';
 import { EmployeeDetails } from '../employee.model';
 import { HttpClient } from '@angular/common/http';
 import { EmployeesService } from '../employees.service';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDatepickerInputEvent } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
@@ -33,7 +33,7 @@ export class EmployeeDetailsComponent implements OnInit {
     startDate:string;
     endDate:string;
 
-    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe) {
+    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe, public snackBar: MatSnackBar) {
         this.employeeDetails = new EmployeeDetails();
     }
 
@@ -111,7 +111,11 @@ export class EmployeeDetailsComponent implements OnInit {
                 .subscribe((response: any) => {
                     resolve(response);
                 }, reject);
-            alert('success')
+            
+            this.snackBar.open('Updated Successful', 'OK', {
+                duration: 2000,
+                verticalPosition: 'top',
+              });
         });
     }
     getAttendance(firstDay:string, lastDay:string){

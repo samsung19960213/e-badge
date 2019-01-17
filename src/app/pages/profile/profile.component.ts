@@ -3,7 +3,7 @@ import { Url } from '../../Url';
 import { FormControl, Validators, FormGroup, NgForm } from '@angular/forms';
 import { EmployeeDetails } from '../../employees/employee.model';
 import { EmployeesService } from '../../employees/employees.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../user.service';
 import { PasswordDetails } from '../pages.model';
@@ -119,11 +119,12 @@ export class ChangePassword {
   loginPassword: string;
 
   constructor(private http: HttpClient,
-    public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { }
+    public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService, public snackBar: MatSnackBar) { }
  ngOnInit() {
    this.id=this.userService.userId;
 this.loginEmail =this.userService.getuserEmail();
 this.loginPassword = this.userService.getuserPassword();
+console.log(this.loginPassword);
   this.userForm = new FormGroup({
     email:new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -139,8 +140,8 @@ this.loginPassword = this.userService.getuserPassword();
     
     this.changePasswordRequest = form.value;
     
-    if(this.loginPassword === this.changePasswordRequest.userPassword){
-    if(this.changePasswordRequest.newPassword === this.changePasswordRequest.confirmPassword){
+    
+    if(this.changePasswordRequest.newPassword == this.changePasswordRequest.confirmPassword){
   
     console.log(this.changePasswordRequest);
     return new Promise((resolve, reject) => {
@@ -148,16 +149,21 @@ this.loginPassword = this.userService.getuserPassword();
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
-      alert('success')
+        this.snackBar.open('Password changed Successful', 'OK', {
+          duration: 2000,
+          verticalPosition: 'top',
+        });
       this.message.close();
     });
   }
   else {
-    alert('Passwords do not match');
+    this.snackBar.open('Passwords do not match', 'OK', {
+      duration: 2000,
+      verticalPosition: 'top',
+    });
+    
   }
 }
-else{
-  alert('Your current password is wrong');
-}
-  }
+
+
 }

@@ -4,7 +4,7 @@ import { LeaveService } from '../leaves.service';
 
 import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -88,7 +88,7 @@ export class RejectPopup {
   id: number;
 reason:string;
   constructor(private http: HttpClient,
-    public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any,public leaveService:LeaveService, public router: Router) { }
+    public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any,public leaveService:LeaveService, public router: Router, public snackBar: MatSnackBar) { }
   ngOnInit() {
     this.id =this.leaveService.getLeaveId();
   }
@@ -107,7 +107,10 @@ reason:string;
 
         }, reject
         );
-      alert('success');
+        this.snackBar.open('Leave Rejected Successful', 'OK', {
+          duration: 2000,
+          verticalPosition: 'top',
+        });
       this.router.navigateByUrl('auth/leaves/leave-list');
         this.message.close();
         

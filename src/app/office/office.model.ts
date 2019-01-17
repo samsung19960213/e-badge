@@ -1,23 +1,23 @@
 
 export class companyDetails {
   companyname:string;
-  superadmin:string;
-  workinghours:number;
-  interval: string;
-  timezone:string;
-  casualleaves:number;
-  carryLeaves:number;
+  superAdminName:string;
+  minimumWorkingHoursPerDay:number;
+  lateEntryInterval: string;
+  timeZoneOfCompany:string;
+  casualLeaves:number;
+  carryOnLeaves:number;
   id:number;
     
 constructor(companyDetails?) {
     companyDetails = companyDetails || {};
     this.companyname= companyDetails.companyname || '';
-    this.superadmin = companyDetails.superadmin || '';
-    this.workinghours = companyDetails.workinghours || null;
-    this.interval = companyDetails.interval || '';
-    this.timezone = companyDetails.timezone || '';
-    this.casualleaves = companyDetails.casualleaves || null;
-    this.carryLeaves = companyDetails.carryLeaves || null;
+    this.superAdminName = companyDetails.superAdminName || '';
+    this.minimumWorkingHoursPerDay = companyDetails.minimumWorkingHoursPerDay || null;
+    this.lateEntryInterval = companyDetails.lateEntryInterval || '';
+    this.timeZoneOfCompany = companyDetails.timeZoneOfCompany || '';
+    this.casualLeaves = companyDetails.casualLeaves || null;
+    this.carryOnLeaves = companyDetails.carryOnLeaves || null;
     this.id = companyDetails.id|| null;
     }
 }

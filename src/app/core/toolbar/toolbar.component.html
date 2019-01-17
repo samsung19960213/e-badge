@@ -9,9 +9,9 @@
 
     <span class="spacer"></span>
 
-    <button  mat-icon-button (click)="searchOpen = !searchOpen" fxHide="true" [fxHide.gt-xs]="false">
+    <!-- <button  mat-icon-button (click)="searchOpen = !searchOpen" fxHide="true" [fxHide.gt-xs]="false">
         <i class="material-icons">search</i>
-    </button>
+    </button> -->
     <cdk-search-bar [open]="searchOpen"></cdk-search-bar>
 
     <cdk-fullscreen></cdk-fullscreen>
@@ -20,8 +20,8 @@
 
     <cdk-user-menu [currentUser]="toolbarHelpers?.currentUser"></cdk-user-menu>
     
-     <button mat-icon-button (click)="sidebar.toggle();">
+     <!-- <button mat-icon-button (click)="sidebar.toggle();">
         <i class="material-icons app-toolbar-menu">menu </i>
-    </button>
+    </button> -->
     
 </mat-toolbar>
