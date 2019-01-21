@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ElementRef, EventEmitter, Output, Host } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -14,7 +14,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ToolbarNotificationComponent implements OnInit {
 	cssPrefix = 'toolbar-notification';
-  	isOpen: boolean = false;
+    isOpen: boolean = false;
+    notilength:number;
   	@Input() notifications = [];
 
     // @HostListener('document:click', ['$event', '$event.target'])
@@ -27,8 +28,8 @@ export class ToolbarNotificationComponent implements OnInit {
     //          this.isOpen = false;
     //     }
     // }
-  	
- 
+  	@Output() delete = new EventEmitter();
+//  isOpen: boolean = false;
 
     constructor(private elementRef: ElementRef,private http: HttpClient, public datePipe: DatePipe,public route: Router,public leaveService:LeaveService) {}
     ngOnInit() {
@@ -42,11 +43,19 @@ export class ToolbarNotificationComponent implements OnInit {
   	select() {
     	
   	}
-
-  	delete(id:number) {
-      this.notifications.splice(id,1);
-     
+    notification0(){
+      console.log("HAII");
+    this.notilength=0;
     }
+  	ondelete(id:number) {
+      this.notifications.splice(id,1); }
+     
+    // onDelete(id){
+     
+    // this.delete.emit(id);
+    // }
+
+
     firstDate(): Promise<any> {
       let latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');
       return new Promise((resolve, reject) => {
@@ -58,6 +67,7 @@ export class ToolbarNotificationComponent implements OnInit {
          this.notifications=response;
           console.log(this.notifications);
           resolve(this.notifications);
+          this.notilength = this.notifications.length;
         },reject);
       
       });

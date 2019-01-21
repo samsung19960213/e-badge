@@ -46,27 +46,40 @@
 				</ng-container>
 				<ng-container matColumnDef="EmployeeCode">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.employeeCode}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.employeeid}} </mat-cell>
 				</ng-container>
 				<!-- ID Column -->
 				<ng-container matColumnDef="Name">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.firstName}} {{dataSource.secondName}} </mat-cell>
+					<mat-cell  *matCellDef="let dataSource" > {{dataSource.employeeName}} </mat-cell>
 				</ng-container>
 
 				<!-- Progress Column -->
-				<ng-container matColumnDef="email" >
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.employeeEmail}} </mat-cell>
-				</ng-container>
+				<ng-container matColumnDef="WorkingHours" >
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Working Days </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.WorkingDays}} days</mat-cell>
+				</ng-container>s
 
 				<!-- Name Column -->
-				<ng-container matColumnDef="Date">
-						<mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-						<mat-cell  *matCellDef="let dataSource" style="word-break:break-all;">
-							<span *ngFor = "let data of dataSource.attendance" >{{data.date }} </span><br>
+				<ng-container matColumnDef="WorkingDays">
+						<mat-header-cell *matHeaderCellDef mat-sort-header> Working Hours </mat-header-cell>
+						<mat-cell  *matCellDef="let dataSource" >
+							{{dataSource.WorkingHours}} Hrs
 						 </mat-cell>
 					</ng-container>
+					
+				<ng-container matColumnDef="DayWorked">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Days Worked </mat-header-cell>
+					<mat-cell  *matCellDef="let dataSource" >
+						{{dataSource.DayWorked}} days
+					 </mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="Average">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Average Working Hours/Day </mat-header-cell>
+					<mat-cell  *matCellDef="let dataSource" >
+						{{ dataSource.Average }} Hrs/day
+					 </mat-cell>
+				</ng-container>
 				<!-- <ng-container matColumnDef="Data">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Data </mat-header-cell>
 					<mat-cell  *matCellDef="let dataSource"style="word-wrap:break-word;" ><br><span *ngFor = "let data of dataSource.attendance">{{data.checkInTime }}</span><br> </mat-cell>
@@ -81,6 +94,7 @@
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;"
 				[class.example-selected-row]="selection.isSelected(dataSource.id)"
+				(click)="personalReport(dataSource.id)"
 				>
 				</mat-row>
 			</mat-table>

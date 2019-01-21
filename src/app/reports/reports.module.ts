@@ -11,6 +11,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 import { ReportsComponent } from "./reports.component";
 import { ReportsRouterModule } from "./reports.router";
+import { PersonalReportsComponent } from "./personal-reports/personal-reports.component";
 
 
 
@@ -56,7 +57,8 @@ import { ReportsRouterModule } from "./reports.router";
         
      ],
     declarations: [   
-ReportsComponent   
+ReportsComponent,
+PersonalReportsComponent,
        
     ],
    

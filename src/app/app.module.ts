@@ -12,17 +12,10 @@ import { EmployeesService } from './employees/employees.service';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { UserService } from './user.service';
 import { LeaveService } from './leaves/leaves.service';
-import { PendingLeavesComponent } from './leaves/pending-leaves/pending-leaves.component';
-import { LateComersComponent } from './attendance/late-comers/late-comers.component';
-import { OfficeComponent } from './office/office.component';
-import { ReportsComponent } from './reports/reports.component';
+
 
 
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -30,15 +23,6 @@ import { ReportsComponent } from './reports/reports.component';
     EmployeeFilterPipe,
   
 
-
-   
-
-   
-
-
-
-    
-    
   ],
   imports: [
     BrowserModule,

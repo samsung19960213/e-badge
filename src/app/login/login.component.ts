@@ -110,21 +110,21 @@ export class LoginComponent implements OnInit {
              
               this.userService.setUserinfo(response.userName, response.userImage,response.id,response.password,response.email,response.department,response.designation,response.employeeId,response.lastName);
               this.userId= response.userRoleId;
-              if(this.userId==1) {
+              // if(this.userId==1) {
               
-                this.snackBar.open('Login Successful', 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top',
-                });
+              //   this.snackBar.open('Login Successful', 'OK', {
+              //     duration: 2000,
+              //     verticalPosition: 'top',
+              //   });
               
                 this.router.navigateByUrl('auth/dashboard');
-              }else{
+              // }else{
                
-                this.snackBar.open('You are not authorised to login', 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top',
-                });
-              }
+              //   this.snackBar.open('You are not authorised to login', 'OK', {
+              //     duration: 2000,
+              //     verticalPosition: 'top',
+              //   });
+              // }
             
           }, (error:any) => { 
             this.snackBar.open('Username / Password is incorrect', 'OK', {
