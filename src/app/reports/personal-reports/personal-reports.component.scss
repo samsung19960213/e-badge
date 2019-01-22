@@ -18,11 +18,15 @@ mat-cell{
 	word-wrap:break-word;
 	word-break: break-all;
 }
+table{
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	
+}
 span{
 	word-wrap:break-word;
 }
 .button-header {
-	background-color: #327ebd;
+	background-color: #102646;
 	color: white;
 	padding: 0 5px;
 }
@@ -30,7 +34,7 @@ span{
 	padding: 5px 15px 15px 15px;
 }
 .button-component-holder {
-	border: 1px solid #327ebd;
+	border: 1px solid #102646;
 	background-color: white;
 
 	h4 {
@@ -46,9 +50,20 @@ table {
 	width: 100%;
   }
   th{
-	background-color: #73c0ff;
+	background-color: #102646;
 	color:white;
+	padding: 0 5px;
+
+    align-items: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    min-height: inherit;
   }
  td{
-	 
+
+    
+    align-items: center;
+    overflow: hidden;
+    word-wrap: break-word;
+    min-height: inherit;
  }

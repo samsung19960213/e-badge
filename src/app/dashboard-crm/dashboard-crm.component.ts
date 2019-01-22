@@ -18,11 +18,11 @@ numb: {};
 date = new Date();
 lateEntries:number;
  public dashCard = [
-        { colorDark: '#5C6BC0', colorLight: '#7986CB', number: this.activeEmployees, title: 'TOTAL NO EMPLOYEES', icon: 'group',link:'/auth/employees/employee-table' },
+        { colorDark: '#294772', colorLight: '#375e97', number: this.activeEmployees, title: 'TOTAL NO EMPLOYEES', icon: 'group',link:'/auth/employees/employee-table' },
       
-        { colorDark: '#26A69A', colorLight: '#4DB6AC', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'people_outline',link:'/auth/employees/active-employees' },
-        { colorDark: '#66BB6A', colorLight: '#81C784', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'schedule', link:'/auth/attendance/late-comers' },
-        { colorDark: '#cc99ff', colorLight: '#e6ccff', number: this.leaveRequest, title: 'LEAVE REQUEST', icon: 'drafts', link:'/auth/leaves/leave-list'}
+        { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'people_outline',link:'/auth/employees/active-employees' },
+        { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'schedule', link:'/auth/attendance/late-comers' },
+        { colorDark: '#335417', colorLight: '#3f681c', number: this.leaveRequest, title: 'LEAVE REQUEST', icon: 'drafts', link:'/auth/leaves/leave-list'}
     ];
 
     tableData = [

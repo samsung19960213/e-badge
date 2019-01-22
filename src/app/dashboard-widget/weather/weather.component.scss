@@ -4,10 +4,10 @@
     margin: 10px;
     color:white;
     .weatherimage{
-        background-image: url('http://www.adventuresaroundscotland.com/uploads/2/4/2/9/24290443/20160707-114148-2_orig.jpg');
+        background-image: url('../../../assets/images/bg/Weather-Blog-Image.jpg');
         background-size: cover;
         height:326px;
-        box-shadow:inset 0 0 0 2000px rgb(66, 76, 134);      
+        box-shadow:inset 0 0 0 2000px #0c284e9a;      
     }
     
 }

@@ -67,8 +67,8 @@ export class BarGraphComponent implements OnInit {
                 labels:this.dates,
                 datasets: [
                     {
-                        backgroundColor: 'rgba(92, 107, 192, .7)',
-                        borderColor: 'rgba(92, 107, 192, .7)',
+                        backgroundColor: '#3f681c',
+                        borderColor: '#3f681c',
                         data: this.attendance,
                         label: 'Hours per day',
                         fill: 'false'
