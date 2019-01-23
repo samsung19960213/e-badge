@@ -14,14 +14,14 @@ export class EmployeeDetails {
     designationId: number;
     // designationName: string;
     distict: string;
-    employeeCode: string;
+    // employeeCode: string;
     employeeImage: string;
     firstName: string;
     formerComapnyJoinDate: string;
     formerCompanyEndDate: string;
     formerCompanyName: string;
     gender: string;
-    id: number;
+    // id: number;
     isUser: number;
     joiningDate: string;
     landmark: string;
@@ -42,7 +42,7 @@ export class EmployeeDetails {
 
     constructor(employeeDetails?) {
         employeeDetails = EmployeeDetails || {};
-        this.id = employeeDetails.id || null;
+        // this.id = employeeDetails.id || null;
         this.active = employeeDetails.active || 0;
         this.addressLine1 = employeeDetails.addressLine1 || '';
         this.addressLine2 = employeeDetails.addressLine2 || '';
@@ -59,7 +59,7 @@ export class EmployeeDetails {
         this.designationId = employeeDetails.designationId || 0;
         // this.designationName = employeeDetails.designationName || '';
         this.distict = employeeDetails.distict || '';
-        this.employeeCode = employeeDetails.employeeCode || '';
+        // this.employeeCode = employeeDetails.employeeCode || '';
         this.employeeImage = employeeDetails.employeeImage || '';
         this.firstName = employeeDetails.firstName || '';
         this.formerComapnyJoinDate = employeeDetails.formerComapnyJoinDate || '';

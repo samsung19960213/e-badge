@@ -16,16 +16,18 @@
 						<mat-datepicker #picker ></mat-datepicker>
 					</mat-form-field> -->
 					<mat-form-field>
-						<input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="from"
+						<input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="firstDay"
 							   (dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker #picker></mat-datepicker>
 					  </mat-form-field>
-					<!-- <mat-form-field>
-						<input matInput [matDatepicker]="picker1" placeholder="To Date"  [(ngModel)]="to" >
+					  <mat-form-field>
+						<input matInput [matDatepicker]="picker1" placeholder="To Date"  [(ngModel)]="lastDay" 
+						(dateInput)="toDate('input', $event)" (dateChange)="to('change', $event)">
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1 ></mat-datepicker>
-					</mat-form-field> -->
+					</mat-form-field>
+					
 				</div>
 			</div>
 			
@@ -45,22 +47,31 @@
 				</ng-container>
 
 				<!-- ID Column -->
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.employeeId}} </mat-cell>
+				</ng-container>
+
 				<ng-container matColumnDef="Name">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.userName}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.firstName  }} </mat-cell>
 				</ng-container>
 
 				<!-- Progress Column -->
 				<ng-container matColumnDef="fromDate" >
-					<mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.date}} </mat-cell>
 				</ng-container>
 
 				<!-- Name Column -->
 				
 				<ng-container matColumnDef="toDate">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.toDate}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Department </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.department}} </mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="Desgn">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.designation}} </mat-cell>
 				</ng-container>
 				<!-- Color Column -->
 				<ng-container matColumnDef="reason">
@@ -71,10 +82,7 @@
         
 
         
-				<ng-container matColumnDef="status">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.status}} </mat-cell>
-				</ng-container>
+				
 
 
   

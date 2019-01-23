@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 
 import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
+import { Url } from '../../Url';
+
 
 @Component({
   selector: 'app-personal-reports',
@@ -16,87 +18,115 @@ import { LeaveService } from '../../leaves/leaves.service';
   styleUrls: ['./personal-reports.component.scss']
 })
 export class PersonalReportsComponent implements OnInit {
+  public displayedColumns = ['EmployeeCode','Name', 'WorkingHours','WorkingDays',  'DayWorked', 'Average'];
+  showNavListCode;
+  ID: any;
+  avg=[]
   dataSource = ELEMENT_DATA;
+  average=[];
+ 
+  userId: number[]= [];
+  searchTerm:string;
+  date = new Date();
+    year = this.date.getFullYear();
+    month = this.date.getMonth();
+    
+    firstDay = new Date(this.year, this.month, 1);
+    lastDay = new Date(this.year, this.month + 1, 0);
+    startDate:string;
+    endDate:string;
+    selection = new SelectionModel<string>(true, []);
+  // dataSource = new MatTableDataSource<any>()
 
 
-  displayedColumns = ['id', 'name', 'weight', 'descriptions'];
-
-  spans = [];
-
-  tempRowId = null;
-  tempRowCount = null;
-
-  constructor() {
-    this.cacheSpan('Priority', d => d.id);
-    this.cacheSpan('Name', d => d.name);
-    this.cacheSpan('Weight', d => d.weight);
-  }
-ngOnInit() {}
-  /**
-   * Evaluated and store an evaluation of the rowspan for each row.
-   * The key determines the column it affects, and the accessor determines the
-   * value that should be checked for spanning.
-   */
-  cacheSpan(key, accessor) {
-    for (let i = 0; i < DATA.length;) {
-      let currentValue = accessor(DATA[i]);
-      let count = 1;
-
-      // Iterate through the remaining rows to see how many match
-      // the current value as retrieved through the accessor.
-      for (let j = i + 1; j < DATA.length; j++) {
-        if (currentValue != accessor(DATA[j])) {
-          break;
-        }
-
-        count++;
-      }
-
-      if (!this.spans[i]) {
-        this.spans[i] = {};
-      }
-
-      // Store the number of similar values that were found (the span)
-      // and skip i to the next unique row.
-      this.spans[i][key] = count;
-      i += count;
-    }
-  }
-
-  getRowSpan(col, index) {    
-    return this.spans[index] && this.spans[index][col];
-  }
-}
-
-export interface PeriodicElement {
-  id: number;
-  name: string;
-  weight: number[];
-  descriptions: string[];
-}
-
-const originalData = [
+	@ViewChild(MatPaginator) paginator: MatPaginator;
+	@ViewChild(MatSort) sort: MatSort;
+  @ViewChild('filter') filter: ElementRef;
   
-  { id: 1, name: '2018-12-14', weight: [1.0079,12], descriptions: ['row1', 'row2'] },
-  { id: 2, name: '2018-12-15', weight: [4.0026], descriptions: ['row1', 'row2', 'row3'] },
-  { id: 3, name: '2018-12-16', weight: [6.941,12], descriptions: ['row1', 'row2'] },
-  { id: 4, name: '2018-12-17', weight: [9.0122], descriptions: ['row1', 'row2', 'row3'] },
-  { id: 5, name: '2018-12-18', weight: [10.811], descriptions: ['row1'] },
-  { id: 6, name: '2018-12-19', weight: [12.010], descriptions: ['row1', 'row2', 'row3'] },
-  { id: 7, name: '2018-12-20', weight: [14.006], descriptions: ['row1'] },
-  { id: 8, name: '2018-12-21', weight: [15.999], descriptions: ['row1'] },
-  { id: 9, name: '2018-12-22', weight: [18.998], descriptions: ['row1', 'row2', 'row3'] },
-  { id: 10, name: '2018-12-23', weight: [20.179], descriptions: ['row1', 'row2', 'row3'] },
-]
+  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
+  	ngOnInit() {
+      let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+      let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+  this.averageHours()
+    // this.getData(fromDate, toDate);
+    // this.dataSource.paginator =this.paginator;
+    }
+    
+    
+    events: string[] = [];
 
-const DATA = originalData.reduce((current, next) => {
-  next.descriptions.forEach(b => {
-    current.push({ id: next.id, name: next.name, weight: next.weight, descriptions: b })
-  });
-  return current;
-}, []);
-console.log(DATA)
+    fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
+      
+      let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+      let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+      console.log(toDate);
+      // this.getData(fromDate,toDate);
+     
+    }
+    // getData(fromDate:any, toDate:any){
+    //   return new Promise((resolve, reject) => {
+    //             this.http.get(Url.API_URL + 'api/attendance/attendance/report/'+ fromDate +'/'+toDate)
+    //             .subscribe((response: any) => {
+    //             this.dataSource= response;
+    //               console.log(response);
+    //               resolve(response);
+    //             },reject);
+    //       });
+    // }
+    toDate(type: string, event: MatDatepickerInputEvent<Date>) {
+      let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+      let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+      console.log(toDate);
+      // this.getData(fromDate,toDate);
+     }
+   personalReport(id:number) {
+console.log(id);
+this.route.navigateByUrl('auth/reports/personal')
+   }
+   averageHours() {
+    length=this.dataSource.length;
+    for(var i=0; i< length; i++){
+                var str = this.dataSource[i].WorkingHours; 
+                var splitted = str.split(":", 3); 
+               
 
-const ELEMENT_DATA: PeriodicElement[] = DATA;
+                this.average.push(+splitted[0]/this.dataSource[i].DayWorked);
+                this.dataSource[i].Average=this.average[i];
+                }
+                console.log(this.average);
+
+   }
+    // leaveDetails(id:number) {
+    //   console.log(id);
+    // this.leaveService.setLeaveId(id);
+    //  this.route.navigateByUrl('auth/leaves/leave-details');
+    // }
+  
+	}
+  export interface PeriodicElement {
+    employeeid: string;
+    employeeName:string;
+    WorkingDays: number;
+    WorkingHours: string;
+    DayWorked: number;
+    Average:number;
+  }
+  
+  const ELEMENT_DATA: PeriodicElement[] = [
+    { employeeid: 'MSS001', employeeName: 'Abul Hasan', WorkingDays: 2,WorkingHours:'15:00:00', DayWorked: 2, Average:0  },
+    { employeeid: 'MSS002', employeeName: 'Shashi ', WorkingDays: 2, WorkingHours:'16:00:00', DayWorked: 2 ,Average:0},
+    { employeeid: 'MSS003', employeeName: 'Shabir', WorkingDays: 2, WorkingHours:'10:00:00', DayWorked: 2 ,Average:0},
+    { employeeid: 'MSS004', employeeName: 'Sadiya', WorkingDays: 2,WorkingHours:'14:00:00', DayWorked: 2  ,Average:0},
+    { employeeid: 'MSS005', employeeName: 'Irakkini', WorkingDays: 2,WorkingHours:'16:00:00', DayWorked: 2 ,Average:0},
+    { employeeid: 'MSS006', employeeName: 'Aravind', WorkingDays: 2,  WorkingHours:'19:00:00', DayWorked: 1,Average:0},
+    { employeeid: 'MSS007', employeeName: 'Aaqil', WorkingDays: 2,WorkingHours:'12:00:00', DayWorked: 2 ,Average:0},
+    { employeeid: 'MSS008', employeeName: 'Fawaz', WorkingDays: 2, WorkingHours:'15:00:00', DayWorked: 2,Average:0},
+    { employeeid: 'MSS009', employeeName: 'Muthu ', WorkingDays: 2,  WorkingHours:'17:00:00', DayWorked: 2,Average:0},
+    { employeeid: 'MSS010', employeeName: 'Mohan', WorkingDays: 2,  WorkingHours:'16:00:00', DayWorked: 2,Average:0},
+  ];
+
+
+
+
 
 

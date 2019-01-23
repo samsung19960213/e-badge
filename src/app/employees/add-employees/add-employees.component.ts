@@ -108,7 +108,7 @@ export class AddEmployeesComponent implements OnInit {
   shift(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + '/api/shift/all')
+      this.http.get(Url.API_URL + 'api/shift/all')
         .subscribe((response: any) => {
           console.log(response[0].shiftName)
           this.shiftList = response;
@@ -123,7 +123,7 @@ export class AddEmployeesComponent implements OnInit {
     console.log(id);
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + '/api/employee/getReportingManager/'+ id )
+      this.http.get(Url.API_URL + 'api/employee/getReportingManager/'+ id )
         .subscribe((response: any) => {
           console.log(response);
          this.managerList = response;
@@ -136,7 +136,7 @@ export class AddEmployeesComponent implements OnInit {
     
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + '/api/desigantion/findallDesignation' )
+      this.http.get(Url.API_URL + 'api/desigantion/all' )
         .subscribe((response: any) => {
           console.log(response);
          this.designationList = response;

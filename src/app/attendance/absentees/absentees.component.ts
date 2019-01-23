@@ -18,38 +18,53 @@ import { LeaveService } from '../../leaves/leaves.service';
 })
 export class AbsenteesComponent implements OnInit {
 
-  public displayedColumns = ['Name', 'fromDate', 'toDate', 'reason', 'status' ];
+  public displayedColumns = ['status','Name', 'fromDate', 'toDate','Desgn', 'reason'  ];
   showNavListCode;
+  
   ID: any;
-  date= new Date(); 
-  from: Date = new Date();
-  to: Date = new Date();
+  
+  
   userId: number[]= [];
   searchTerm:string;
+  date = new Date();
+    year = this.date.getFullYear();
+    month = this.date.getMonth();
+    
+    firstDay = new Date(this.year, this.month, 1);
+    lastDay = new Date(this.year, this.month + 1, 0);
+    startDate:string;
+    endDate:string;
+    
 	selection = new SelectionModel<string>(true, []);
-  dataSource = new MatTableDataSource<any>()
+  dataSource = new MatTableDataSource<LeaveListTable>()
+
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 	@ViewChild('filter') filter: ElementRef;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
-    this.firstDate().then(data => {
-      this.dataSource.data =data;
-    })
+      let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+      let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+  
+    this.getData(fromDate, toDate);
     this.dataSource.paginator =this.paginator;
     }
+    
+    
     events: string[] = [];
 
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
       
-      let latest_date =this.datePipe.transform(event.value, 'dd-MMM-yyyy');
-      console.log(latest_date);
+      let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+      let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+      console.log(toDate);
+      this.getData(fromDate,toDate);
+     
+    }
+    getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
-        // 
-                this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
-                
-                // this.http.get(Url.API_URL + 'api/leave/findall')
+                this.http.get(Url.API_URL + 'api/attendance/absentees/'+ fromDate +'/'+toDate)
                 .subscribe((response: any) => {
                   this.dataSource = response;
                   console.log(this.dataSource);
@@ -58,8 +73,16 @@ export class AbsenteesComponent implements OnInit {
               
               });
     }
+    toDate(type: string, event: MatDatepickerInputEvent<Date>) {
+      let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+      let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+      console.log(toDate);
+      this.getData(fromDate,toDate);
+     
+    
+    }
     firstDate(): Promise<any> {
-      let latest_date =this.datePipe.transform(this.date, 'dd-MMM-yyyy');
+      let latest_date =this.datePipe.transform(this.date, 'yyyy-MM-dd');
       return new Promise((resolve, reject) => {
 // 
         this.http.get(Url.API_URL + 'api/leave/request/'+ latest_date)
@@ -83,4 +106,11 @@ export class AbsenteesComponent implements OnInit {
 	}
 
 
+export class LeaveListTable {
 
+  userName:string;
+  fromDate:string;
+  toDate:string;
+reason:string; 
+  status:string;
+}
