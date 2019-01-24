@@ -8,6 +8,7 @@ import "aws-sdk/dist/aws-sdk.min";
 import { MatDatepickerInputEvent } from '@angular/material';
 import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.data';
 import { ShiftDetails } from '../shift.model';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -40,7 +41,7 @@ export class AddEmployeesComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe) {
     this.employeeDetails = new EmployeeDetails();
    
   }
@@ -93,6 +94,9 @@ export class AddEmployeesComponent implements OnInit {
     this.shiftList = [];
   }
   saveDetails(employeeDetails: EmployeeDetails) {
+  // this.datePipe.transform(this.employeeDetails.joiningDate, 'yyyy-MM-dd');
+  //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
+  //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
     console.log(employeeDetails);
 
     return new Promise((resolve, reject) => {
@@ -104,7 +108,23 @@ export class AddEmployeesComponent implements OnInit {
     });
 
   }
+join(type: string, event: MatDatepickerInputEvent<Date>){
+    this.employeeDetails.formerCompanyJoinDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+    
+  }
+  end(type: string, event: MatDatepickerInputEvent<Date>){
+    this.employeeDetails.formerCompanyEndDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+    
+  }
 
+  DOB(type: string, event: MatDatepickerInputEvent<Date>){
+    this.employeeDetails.dateOfBirth =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+    
+  }
+  joiningDate(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.employeeDetails.joiningDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+    
+  }
   shift(): Promise<any> {
     return new Promise((resolve, reject) => {
 

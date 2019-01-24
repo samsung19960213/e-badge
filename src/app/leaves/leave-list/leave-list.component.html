@@ -7,7 +7,7 @@
 		<div class="table-container">
 			<div class="example-header" style="padding: 10px 20px; ">
 				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
-					<input matInput #filter placeholder="Filter users" [(ngModel)]="searchTerm">
+					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 				</mat-form-field>
 				<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
 					<!-- <mat-form-field>
@@ -23,7 +23,7 @@
 					  </mat-form-field>
 					<mat-form-field>
 						<input matInput [matDatepicker]="picker1" placeholder="To Date"  [(ngModel)]="lastDay" 
-						(dateInput)="toDate('input', $event)" (dateChange)="to('change', $event)">
+						(dateInput)="toDate('input', $event)" (dateChange)="toDate('change', $event)">
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1 ></mat-datepicker>
 					</mat-form-field>
@@ -54,14 +54,14 @@
 				<!-- Progress Column -->
 				<ng-container matColumnDef="fromDate" >
 					<mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate  | date: 'longDate'}} </mat-cell>
 				</ng-container>
 
 				<!-- Name Column -->
 				
 				<ng-container matColumnDef="toDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.toDate}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.toDate  | date: 'longDate'}} </mat-cell>
 				</ng-container>
 				<!-- Color Column -->
 				<ng-container matColumnDef="reason">

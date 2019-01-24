@@ -12,6 +12,7 @@ import { EmployeesService } from './employees/employees.service';
 import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { UserService } from './user.service';
 import { LeaveService } from './leaves/leaves.service';
+import { ReportsService } from './reports/reports.service';
 
 
 
@@ -35,7 +36,7 @@ import { LeaveService } from './leaves/leaves.service';
     
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService, UserService, LeaveService,DatePipe],
+  providers: [EmployeesService, UserService, LeaveService,DatePipe, ReportsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

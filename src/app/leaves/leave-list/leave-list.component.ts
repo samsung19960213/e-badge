@@ -34,38 +34,52 @@ export class LeaveListComponent implements OnInit {
     endDate:string;
     
 	selection = new SelectionModel<string>(true, []);
-  dataSource = new MatTableDataSource<LeaveListTable>()
+dataSource:any;
 
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild('filter') filter: ElementRef;
+  @ViewChild('filter') filter: ElementRef;
+  filterValue:string;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
   
-    this.getData(fromDate, toDate);
-    this.dataSource.paginator =this.paginator;
+      this.getData(fromDate, toDate).then(data => {
+        this.dataSource = new MatTableDataSource<LeaveListTable>();
+        this.dataSource.data=data;
+        this.dataSource.sort =this.sort;
+    
+        this.dataSource.paginator =this.paginator;
+      })
+     
+    
     }
     
     
     events: string[] = [];
-
+    applyFilter(filterValue: string) {
+      filterValue = filterValue.trim(); // Remove whitespace
+      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+      this.dataSource.filter = filterValue;
+    }
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
       
       let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
       let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
       console.log(toDate);
-      this.getData(fromDate,toDate);
+      this.getData(fromDate,toDate).then(data=>{
+        this.dataSource.data=data;
+      })
+     
      
     }
     getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
                 this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate)
                 .subscribe((response: any) => {
-                  this.dataSource = response;
-                  console.log(this.dataSource);
+                 
                   resolve(response);
                 },reject);
               
@@ -75,7 +89,9 @@ export class LeaveListComponent implements OnInit {
       let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
       console.log(toDate);
-      this.getData(fromDate,toDate);
+      this.getData(fromDate,toDate).then(data=>{
+        this.dataSource.data=data;
+      })
      
     
     }

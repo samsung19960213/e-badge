@@ -27,17 +27,37 @@ export class LateComersComponent implements OnInit {
   searchTerm:string;
   date = new Date();
 	selection = new SelectionModel<string>(true, []);
-  dataSource = new MatTableDataSource<any>()
+  dataSource :any;
 
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild('filter') filter: ElementRef;
+  @ViewChild('filter') filter: ElementRef;
+  filterValue:string;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
+      this.dataSource = new MatTableDataSource<LateComersTable>()
       let Datenow =this.datePipe.transform(this.date, 'yyyy-MM-dd');
-    this.getData(Datenow);
-    this.dataSource.paginator =this.paginator;
+    this.getData(Datenow).then(data=> {
+      for( var i=0;i<this.dataSource.length;i++){
+        var splitted = this.dataSource.data[i].checkInTime.split("T", 2);
+        
+        this.dataSource.data[i].checkInTime= splitted[1]
+         
+        }
+      this.dataSource.data =data;
+      
+     
+        console.log(this.dataSource)
+      this.dataSource.sort =this.sort;
+  
+      this.dataSource.paginator =this.paginator;
+   
+    })
+   
+   
+   
+    
     }
     
     
@@ -46,24 +66,30 @@ export class LateComersComponent implements OnInit {
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
       
       let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-      this.getData(fromDate);
+      this.getData(fromDate).then(data=>{
+        for( var i=0;i<this.dataSource.length;i++){
+          var splitted = this.dataSource.data[i].checkInTime.split("T", 2);
+          
+          this.dataSource.data[i].checkInTime= splitted[1]
+           
+          }
+        this.dataSource.data=data;
+       
+      })
      
     }
-    getData(fromDate:any, ){
+    applyFilter(filterValue: string) {
+      filterValue = filterValue.trim(); // Remove whitespace
+      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+      this.dataSource.filter = filterValue;
+    }
+    getData(fromDate:any ){
       return new Promise((resolve, reject) => {
                 this.http.get(Url.API_URL + 'api/attendance/lateentry/'+ fromDate )
                 .subscribe((response: any) => {
-                  this.dataSource = response;
-                  console.log(this.dataSource);
-                  var length = response.length;
-                  for( var i=0;i<length;i++){
-                  var splitted = response[i].checkInTime.split("T", 2);
+                 
                   
-                  this.dataSource[i].checkInTime= splitted[1]
-                   
-                  }
 
-                  console.log(this.dataSource);
                   resolve(response);
                 },reject);
               
@@ -77,4 +103,22 @@ export class LateComersComponent implements OnInit {
 	}
 
 
+  export class LateComersTable {
+
+    attendanceId: number;
+    checkInTime: string;
+    checkOutTime: string;
+    date: string;
+    designation: string;
+    employeeCode: string;
+    employeeId: number;
+    employeeImage: string;
+    firstName: string;
+    leaveReason: string;
+    qrData: string;
+    secondName: string;
+    seconds: number;
+    workingHours: string;
+  }
+  
 

@@ -17,7 +17,7 @@ export class EmployeeDetails {
     // employeeCode: string;
     employeeImage: string;
     firstName: string;
-    formerComapnyJoinDate: string;
+    formerCompanyJoinDate: string;
     formerCompanyEndDate: string;
     formerCompanyName: string;
     gender: string;
@@ -62,11 +62,11 @@ export class EmployeeDetails {
         // this.employeeCode = employeeDetails.employeeCode || '';
         this.employeeImage = employeeDetails.employeeImage || '';
         this.firstName = employeeDetails.firstName || '';
-        this.formerComapnyJoinDate = employeeDetails.formerComapnyJoinDate || '';
+        this.formerCompanyJoinDate = employeeDetails.formerCompanyJoinDate || '';
         this.formerCompanyEndDate = employeeDetails.formerCompanyEndDate || '';
         this.formerCompanyName = employeeDetails.formerCompanyName || '';
         this.gender = employeeDetails.gender || '';
-        this.formerCompanyEndDate = employeeDetails.formerCompanyEndDate || '';
+        
         this.isUser = employeeDetails.isUser || 0;
         this.joiningDate = employeeDetails.joiningDate || '';
         this.landmark = employeeDetails.landmark || '';

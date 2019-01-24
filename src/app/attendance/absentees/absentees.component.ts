@@ -36,19 +36,26 @@ export class AbsenteesComponent implements OnInit {
     endDate:string;
     
 	selection = new SelectionModel<string>(true, []);
-  dataSource = new MatTableDataSource<LeaveListTable>()
-
+  // dataSource = new MatTableDataSource<LeaveListTable>();
+dataSource: any;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
-	@ViewChild('filter') filter: ElementRef;
+  @ViewChild('filter') filter: ElementRef;
+  filterValue:string;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
   
-    this.getData(fromDate, toDate);
-    this.dataSource.paginator =this.paginator;
+    this.getData(fromDate, toDate).then(data => {
+      this.dataSource = new MatTableDataSource<LeaveListTable>();
+      this.dataSource.data=data;
+      this.dataSource.sort =this.sort;
+  
+      this.dataSource.paginator =this.paginator;
+    })
+   
     }
     
     
@@ -58,16 +65,24 @@ export class AbsenteesComponent implements OnInit {
       
       let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
       let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-      console.log(toDate);
-      this.getData(fromDate,toDate);
+  
+      this.getData(fromDate,toDate).then(data=>{
+        this.dataSource.data=data;
+      })
+      
      
+    }
+    applyFilter(filterValue: string) {
+      filterValue = filterValue.trim(); // Remove whitespace
+      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+      this.dataSource.filter = filterValue;
     }
     getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
                 this.http.get(Url.API_URL + 'api/attendance/absentees/'+ fromDate +'/'+toDate)
                 .subscribe((response: any) => {
-                  this.dataSource = response;
-                  console.log(this.dataSource);
+                
+                 
                   resolve(response);
                 },reject);
               
@@ -76,8 +91,10 @@ export class AbsenteesComponent implements OnInit {
     toDate(type: string, event: MatDatepickerInputEvent<Date>) {
       let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-      console.log(toDate);
-      this.getData(fromDate,toDate);
+  
+      this.getData(fromDate,toDate).then(data=>{
+        this.dataSource.data=data;
+      })
      
     
     }
@@ -107,10 +124,14 @@ export class AbsenteesComponent implements OnInit {
 
 
 export class LeaveListTable {
+  employeeCode:string;
+  date: string;
+  department: string;
+  designation: string;
+  employeeId: number;
+  firstName: string;
+  lastName: string;
+  leaveDays: number;
+  reason: string;
 
-  userName:string;
-  fromDate:string;
-  toDate:string;
-reason:string; 
-  status:string;
 }
