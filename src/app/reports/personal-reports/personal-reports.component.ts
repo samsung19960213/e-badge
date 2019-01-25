@@ -50,7 +50,10 @@ Name:string;
     this.getData(fromDate, toDate).then(data=>{
       this.dataSource.data =data;
       this.dataSource.paginator =this.paginator;
+     
+
     })
+    this.dataSource.sort =this.sort;
     // this.dataSource.paginator =this.paginator;
   }
 

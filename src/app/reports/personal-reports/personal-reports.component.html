@@ -5,7 +5,7 @@
 			<i class="material-icons" style="color:black;padding-top:10px;">
 				arrow_back
 				</i></a>
-			<h1 class="mat-headline center-align text-center" >Personal Attendance Report of {{ Name }}</h1>
+			<h1 class="mat-headline center-align text-center" style="padding-left:10px;"><b>Personal Attendance Report of {{ Name }}</b></h1>
 		</mat-toolbar>
 		<div class="table-container">
 			<div class="example-header" style="padding: 10px 20px; ">
@@ -36,17 +36,7 @@
 
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;" >
 
-				<ng-container matColumnDef="select">
-					<mat-header-cell *matHeaderCellDef>
-					
-					</mat-header-cell>
-					<mat-cell *matCellDef="let dataSource">
-						<mat-checkbox (click)="$event.stopPropagation()"
-							(change)="selectUser(dataSource.id) && $event ? selection.toggle(dataSource.id) : null"
-							[checked]="selection.isSelected(dataSource.id)">
-							</mat-checkbox>
-					</mat-cell>
-				</ng-container>
+			
 				<ng-container matColumnDef="EmployeeCode">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.date | date: 'longDate'}} </mat-cell>

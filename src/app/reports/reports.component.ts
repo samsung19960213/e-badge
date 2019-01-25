@@ -54,7 +54,9 @@ export class ReportsComponent implements OnInit {
       this.dataSource.data=data;
       this.averageHours(this.dataSource.data.length);
         this.dataSource.paginator =this.paginator;
+        this.dataSource.sort=this.sort;
     })
+   
     
    
   }

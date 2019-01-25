@@ -25,9 +25,9 @@
                         <mat-radio-button [value]=1 class="example-radio-button">
                             Active User
                         </mat-radio-button>
-                        <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
+                        <!-- <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
                             Inactive User
-                        </mat-radio-button>
+                        </mat-radio-button> -->
                     </mat-radio-group>
                 </div>
                 <div>
@@ -111,7 +111,9 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
+                <div>
+                    <h2  class="text">User Type</h2>
+                </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
                     <mat-radio-group [(ngModel)]="employeeDetails.isUser" formControlName="userisUser" name="userisUser" class="example-radio-button">
                         <mat-radio-button [value]=1 class="example-radio-button">
@@ -344,7 +346,7 @@
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select type="number" placeholder="User Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId"
+                        <mat-select type="number" placeholder="Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId"
                             name="useruserRoleId"  required>
                             <mat-option value=2>User</mat-option>
                             <mat-option value=3>Reporting Manager</mat-option>

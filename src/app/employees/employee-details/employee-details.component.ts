@@ -21,7 +21,8 @@ export class EmployeeDetailsComponent implements OnInit {
     empId: number
     user: FormGroup;
     employeeDetails: any;
-    attendance:any[]=[];
+   attendance: any[]=[];
+   color:any[]=[];
     dates:any[]=[];
     empID:number;
     date = new Date();
@@ -124,6 +125,7 @@ export class EmployeeDetailsComponent implements OnInit {
         this.endDate =this.datePipe.transform(lastDay, 'yyyy-MM-dd');
         this.attendance=[];
         this.dates=[];
+        this.color=[];
         
        return new Promise((resolve, reject) => {
            this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/'+ this.empId + '/'+ this.startDate + '/'+ this.endDate)
@@ -135,7 +137,16 @@ export class EmployeeDetailsComponent implements OnInit {
                    this.dates.push(response[i].date);
                    var splitted = str.split(":", 3); 
                    console.log(splitted)
+                   
                    this.attendance.push(splitted[0]);
+                   if(splitted[0]> 8){
+                   this.color.push('#007c06');}
+                   else if(splitted[0]>5){
+                       this.color.push('#0075c4');
+                   }
+                   else{
+                       this.color.push('#c12e35');
+                   }
                    }
                    resolve(response);
                    console.log(this.dates);
@@ -166,10 +177,10 @@ export class EmployeeDetailsComponent implements OnInit {
                 labels: this.dates,
                 datasets: [
                     {
-                        backgroundColor: 'rgba(92, 107, 192, .7)',
+                        backgroundColor: this.color,
                         borderColor: 'rgba(92, 107, 192, .7)',
                         data: this.attendance,
-                        label: 'Attendance',
+                        label: 'Working Hours',
                         fill: 'false'
                     },
                     // {
@@ -198,7 +209,8 @@ export class EmployeeDetailsComponent implements OnInit {
             options: {
                 responsive: true,
                 legend: {
-                    display: false
+                    display: false,
+                    
                 },
                 scales : {
                     yAxes: [{
@@ -302,3 +314,7 @@ export class MessagePopup {
 
     }
 }
+// export class attendance{
+//     data:any[]=[];
+//     color:string;
+// }

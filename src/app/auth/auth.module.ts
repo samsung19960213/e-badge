@@ -7,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTabsModule } from '@angular/material';
+import { MatTabsModule, MatSortModule, MatPaginatorModule } from '@angular/material';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -37,6 +37,8 @@ import { OfficeModule } from '../office/office.module';
         LoginModule,
         MatButtonModule,
         MatIconModule,
+        MatSortModule,
+    MatPaginatorModule,
         MatTabsModule,
         CoreModule,
         MatSidenavModule,

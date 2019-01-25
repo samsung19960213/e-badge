@@ -112,11 +112,7 @@ export class LoginComponent implements OnInit {
               this.userId= response.userRoleId;
               if(this.userId==1) {
               
-                this.snackBar.open('Login Successful', 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top',
-                });
-              
+               
                 this.router.navigateByUrl('auth/dashboard');
               }else{
                

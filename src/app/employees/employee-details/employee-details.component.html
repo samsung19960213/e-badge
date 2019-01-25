@@ -26,17 +26,17 @@
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
                     <mat-radio-group [(ngModel)]="employeeDetails.active" formControlName="useractive" name="useractive"
                         class="example-radio-button">
-                        <mat-radio-button *ngIf="employeeDetails.active == 1" [value]=1 class="example-radio-button">
+                        <mat-radio-button  class="text"*ngIf="employeeDetails.active == 1" [value]=1 class="example-radio-button">
                             Active User
                         </mat-radio-button>
-                        <mat-radio-button *ngIf="employeeDetails.active == 0" [value]=0 class="example-radio-button"
+                        <mat-radio-button class="text" *ngIf="employeeDetails.active == 0" [value]=0 class="example-radio-button"
                             style="margin-left: 100px">
                             Inactive User
                         </mat-radio-button>
                     </mat-radio-group>
                 </div>
                 <div>
-                    <h2>Personal Details</h2>
+                    <h2 class="text">Personal Details</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -84,16 +84,16 @@
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto" style="margin-top: 20px">
                     <mat-radio-group [(ngModel)]="employeeDetails.isUser" formControlName="userisUser" name="userisUser"
                         class="example-radio-button">
-                        <mat-radio-button [value]=1 class="example-radio-button">
+                        <mat-radio-button class="text"[value]=1 class="example-radio-button">
                             User
                         </mat-radio-button>
-                        <mat-radio-button [value]=0 class="example-radio-button" style="margin-left: 100px">
+                        <mat-radio-button class="text" [value]=0 class="example-radio-button" style="margin-left: 100px">
                             Employee
                         </mat-radio-button>
                     </mat-radio-group>
                 </div>
                 <div style="margin-top: 10px">
-                    <h2>Present Address</h2>
+                    <h2 class="text">Present Address</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="45" class="form2Input">
@@ -135,7 +135,7 @@
                     </mat-form-field>
                 </div>
                 <div>
-                    <h2>Contact Details</h2>
+                    <h2 class="text">Contact Details</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -152,7 +152,7 @@
                     </mat-form-field>
                 </div>
                 <div>
-                    <h2>Previous Work Details</h2>
+                    <h2 class="text">Previous Work Details</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -169,7 +169,7 @@
                     </mat-form-field>
                 </div>
                 <div>
-                    <h2>Current Work Details</h2>
+                    <h2 class="text">Current Work Details</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -229,7 +229,7 @@
                 </div>
 
                 <div style="margin-top: 20px;margin-bottom: 30px">
-                    <button mat-raised-button color="accent" fxFlex="50" style="width:150px;margin-left: 300px" (click)="deactiveDetails()">DeactivateUser</button>
+                    <button mat-raised-button color="accent" fxFlex="50" style="width:150px;margin-left: 300px" (click)="deactiveDetails()">Deactivate User</button>
 
                     <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px"
                         (click)="updateDetails(employeeDetails)">Update</button>
