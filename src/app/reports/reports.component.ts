@@ -20,7 +20,7 @@ import { ReportsService } from './reports.service';
 })
 export class ReportsComponent implements OnInit {
 
-  public displayedColumns = ['EmployeeCode', 'Name', 'WorkingHours', 'WorkingDays', 'DayWorked', 'Average'];
+  public displayedColumns = ['employeeCode', 'firstName', 'workingDays', 'workingHours', 'daysWorked', 'average'];
   showNavListCode;
   ID: any;
   avg = [];
@@ -52,9 +52,11 @@ export class ReportsComponent implements OnInit {
     this.getData(fromDate, toDate).then(data=>{
       this.dataSource = new MatTableDataSource<PeriodicElement>()
       this.dataSource.data=data;
+      this.dataSource.sort=this.sort;
+      this.dataSource.paginator =this.paginator;
       this.averageHours(this.dataSource.data.length);
-        this.dataSource.paginator =this.paginator;
-        this.dataSource.sort=this.sort;
+       
+        
     })
    
     
@@ -101,12 +103,14 @@ export class ReportsComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  personalReport(id: number, name:string) {
+  personalReport(id: number, name:string, lname:string) {
     this.reportService.setName(name);
+    this.reportService.setLastName(lname);
     this.reportService.setReportid(id);
     this.route.navigateByUrl('auth/reports/personal')
   }
   averageHours(length: number) {
+    this.average=[];
     for (var i = 0; i < length; i++) {
       var str = this.dataSource.data[i].workingHours;
       var splitted = str.split(":", 3);

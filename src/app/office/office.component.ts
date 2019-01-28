@@ -173,7 +173,10 @@ addLeaveValue() {
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
-      console.log('success');
+        this.snackBar.open('Updated Successfully', 'OK', {
+          duration: 1000,
+          verticalPosition: 'top',
+        });
       setTimeout(function(){
       this.LeaveList();
         }, 3000);
@@ -192,16 +195,16 @@ addLeaveValue() {
     });
   }
   saveShift() {
-    return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + '/api/shift/save', this.ShiftArray)
-        .subscribe((response: any) => {
-          resolve(response);
-        }, reject);
-      console.log('success');
-      setTimeout(function(){
-      this.ShiftList();
-        }, 3000);
-    });
+    // return new Promise((resolve, reject) => {
+    //   this.http.post(Url.API_URL + '/api/shift/save', this.ShiftArray)
+    //     .subscribe((response: any) => {
+    //       resolve(response);
+    //     }, reject);
+      console.log(this.ShiftArray);
+      // setTimeout(function(){
+      // this.ShiftList();
+      //   }, 3000);
+    // });
   }
  saveHoliday( holidayarray: any[]) {
 console.log(holidayarray);
@@ -220,7 +223,10 @@ console.log(holidayarray);
   
  }
  
-
+saveAll(){
+  this.saveDesignation();
+  this.saveDepartment();
+}
 
 //   deleteFieldValue(index) {
 //       this.fieldArray.splice(index, 1);
@@ -256,6 +262,9 @@ console.log(holidayarray);
 
   }
   Office() {
+    this.saveHoliday(this.HolidayArray);
+    this.saveLeave();
+    this.saveShift();
     this.snackBar.open('Saved Successful', 'OK', {
       duration: 2000,
       verticalPosition: 'top',
@@ -317,8 +326,10 @@ console.log(holidayarray);
       this.http.get(Url.API_URL + 'api/leaveDates/all')
       .subscribe((response: any) => {
         resolve(response);
-        this.HolidayArray=response;
-      
+        for(var i=0; i<response.length;i++){
+          if(response[i].leaveName!='Weekend')
+        this.HolidayArray.push(response[i]);
+        }
       },reject);
      
     });

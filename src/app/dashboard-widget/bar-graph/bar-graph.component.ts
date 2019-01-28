@@ -18,7 +18,7 @@ export class BarGraphComponent implements OnInit {
     date = new Date();
     year = this.date.getFullYear();
     month = this.date.getMonth();
-    
+    color=[];
     firstDay = new Date(this.year, this.month, 1);
     lastDay = new Date(this.year, this.month + 1, 0);
     startDate:string;
@@ -38,7 +38,7 @@ export class BarGraphComponent implements OnInit {
          
      this.startDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
      this.endDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-     
+     this.color=[];
     return new Promise((resolve, reject) => {
         this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/'+ id + '/'+ this.startDate + '/'+ this.endDate)
             .subscribe((response: any) => {
@@ -46,10 +46,18 @@ export class BarGraphComponent implements OnInit {
                 length=response.length;
                 for(var i=0; i< length; i++){
                 var str = response[i].timeSum; 
-                this.dates.push(response[i].date);
+                this.dates.push(this.datePipe.transform(response[i].date, 'dd-MMM-yy'));
                 var splitted = str.split(":", 3); 
                 console.log(splitted)
                 this.attendance.push(splitted[0]);
+                if(splitted[0]> 8){
+                    this.color.push('#3f681c');}
+                    else if(splitted[0]>5){
+                        this.color.push('#294772');
+                    }
+                    else{
+                        this.color.push('#fa3c10');
+                    }
                 }
                 resolve(response);
                 console.log(this.dates);
@@ -67,9 +75,9 @@ export class BarGraphComponent implements OnInit {
                 labels:this.dates,
                 datasets: [
                     {
-                        backgroundColor: '#3f681c',
-                        borderColor: '#3f681c',
-                        data: this.attendance,
+                        backgroundColor: this.color,
+                        borderColor: this.color,
+                        data: this.attendance ,
                         label: 'Hours per day',
                         fill: 'false'
                     },
@@ -99,7 +107,8 @@ export class BarGraphComponent implements OnInit {
             },
             options: {
                 legend: {
-                    display: false
+                    display: false,
+                  
                 },
                 scales : {
                     yAxes: [{
@@ -124,7 +133,7 @@ export class BarGraphComponent implements OnInit {
                 },
                 title: {
                     display: true,
-                    text: 'Weekly Attendance Graph '
+                    text: 'Monthly Attendance Graph '
                 }
             }
         })

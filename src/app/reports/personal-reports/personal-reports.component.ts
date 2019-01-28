@@ -19,7 +19,7 @@ import { ReportsService } from '../reports.service';
   styleUrls: ['./personal-reports.component.scss']
 })
 export class PersonalReportsComponent implements OnInit {
-  public displayedColumns = ['EmployeeCode', 'Name', 'WorkingHours', 'WorkingDays'];
+  public displayedColumns = ['date', 'checkInTime', 'checkOutTime', 'workingHours'];
   showNavListCode;
   ID:number;
   // dataSource = ELEMENT_DAT
@@ -35,7 +35,7 @@ export class PersonalReportsComponent implements OnInit {
   selection = new SelectionModel<string>(true, []);
   dataSource :any;
 Name:string;
-
+Lname:string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
@@ -43,18 +43,19 @@ Name:string;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public reportsService: ReportsService) { }
   ngOnInit() {
     this.Name=this.reportsService.name;
+this.Lname= this.reportsService.lname;
     this.ID= this.reportsService.getReportid();
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<PersonalReport>()
     this.getData(fromDate, toDate).then(data=>{
       this.dataSource.data =data;
+      this.dataSource.sort =this.sort;
       this.dataSource.paginator =this.paginator;
-     
-
+      
     })
-    this.dataSource.sort =this.sort;
-    // this.dataSource.paginator =this.paginator;
+   
+console.log(this.dataSource);
   }
 
 

@@ -119,6 +119,22 @@ export class EmployeeDetailsComponent implements OnInit {
               });
         });
     }
+    fileEvent(fileInput: any) {
+        let windows: any = window;
+        let AWSService = windows.AWS;
+    
+        let file = fileInput.target.files[0];
+      
+        AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
+        AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+        let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
+        let params = { Key: file.name, Body: file };
+        let fileEveThis = this;
+        bucket.upload(params, function (error, response) {
+          console.log(response.Location);
+          fileEveThis.employeeDetails.employeeImage = response.Location;
+        });
+      }
     getAttendance(firstDay:string, lastDay:string){
          
         this.startDate =this.datePipe.transform(firstDay, 'yyyy-MM-dd');
@@ -134,18 +150,18 @@ export class EmployeeDetailsComponent implements OnInit {
                    length=response.length;
                    for(var i=0; i< length; i++){
                    var str = response[i].timeSum; 
-                   this.dates.push(response[i].date);
+                   this.dates.push(this.datePipe.transform(response[i].date, 'dd-MMM-yy'));
                    var splitted = str.split(":", 3); 
                    console.log(splitted)
                    
                    this.attendance.push(splitted[0]);
                    if(splitted[0]> 8){
-                   this.color.push('#007c06');}
+                   this.color.push('#009900');}
                    else if(splitted[0]>5){
-                       this.color.push('#0075c4');
+                       this.color.push('#0047b3');
                    }
                    else{
-                       this.color.push('#c12e35');
+                       this.color.push('#b30000');
                    }
                    }
                    resolve(response);

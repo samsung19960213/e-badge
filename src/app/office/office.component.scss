@@ -28,3 +28,36 @@
 .text{
 	font-family:  Roboto, Helvetica Neue, sans-serif;
 }
+// td{
+// 	background-color: #327ebd;
+// 	color:white;
+// 	border-top-right-radius: 20px;
+// 	border-top-left-radius: 20px;
+// 	border-bottom-right-radius: 20px;
+// 	border-bottom-left-radius: 20px;
+// 	border-color:#64b9ff;
+// 	border-width: 3px;
+	
+// 	padding:5px 5px 5px 5px;
+// }
+
+.td-style{
+	background-color: #327ebd;
+	color:white;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-color:#64b9ff;
+	border-width: 3px;
+	
+	padding:15px 5px 15px 29px;
+}
+.td-style:hover{
+	background-color:#32bd60;
+transition: 0 1s;
+}
+.tablestyle{
+	padding-top:10px;
+	padding-bottom:10px;
+}
