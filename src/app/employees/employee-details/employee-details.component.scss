@@ -1,5 +1,5 @@
 .form-header {
-	background-color: black;
+	background-color: #102646;
 	color: white;
 	padding: 0 5px;
 }
@@ -34,7 +34,7 @@
  }
 }
 .form-header {
-	background-color: black;
+	background-color: #102646;
 	color: white;
 	padding: 0 5px;
 }
@@ -57,5 +57,8 @@
 	font-weight: bold;
 }
 .text{
-	font-family:  Roboto, Helvetica Neue, sans-serif;
+	font-family: light;
+}
+mat-header-cell,mat-cell,mat-form-field,input,h1,h2,h3,h4,h5,h6,p{
+	font-family:light;
 }

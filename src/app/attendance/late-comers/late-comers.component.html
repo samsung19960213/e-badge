@@ -65,12 +65,12 @@
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let dataSource; columns: displayedColumns;"
           [class.example-selected-row]="selection.isSelected(dataSource.id)"
-          (click)="leaveDetails(dataSource.id)">
+         >
           </mat-row>
         </mat-table>
   
         <div class="example-no-results"
-          [style.display]="dataSource?.length == 0 ? '' : 'none'">
+          [style.display]="dataSource.data?.length == 0 ? '' : 'none'">
           No users found matching filter.
         </div>
   

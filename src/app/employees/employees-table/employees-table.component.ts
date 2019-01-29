@@ -84,13 +84,14 @@ export class EmployeesTableComponent implements OnInit {
 
     downloadQR(id:string){
       console.log(id);
-      return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/'+ id)
-                .subscribe((response: any) => {
-                  var newWindow = window.open(response);
-                    resolve(response);
-                }, reject);
-        });
+      window.open(Url.API_URL + 'api/qrcode/qrCode/download/'+id,'_blank');
+      // return new Promise((resolve, reject) => {
+      //       this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/'+ id)
+      //           .subscribe((response: any) => {
+      //             var newWindow = window.open(response);
+      //               resolve(response);
+      //           }, reject);
+      //   });
 
     }
 	}

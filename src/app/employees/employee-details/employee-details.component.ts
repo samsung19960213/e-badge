@@ -156,12 +156,12 @@ export class EmployeeDetailsComponent implements OnInit {
                    
                    this.attendance.push(splitted[0]);
                    if(splitted[0]> 8){
-                   this.color.push('#009900');}
+                   this.color.push('#3f681c');}
                    else if(splitted[0]>5){
-                       this.color.push('#0047b3');
+                       this.color.push('#294772');
                    }
                    else{
-                       this.color.push('#b30000');
+                       this.color.push('#fa3c10');
                    }
                    }
                    resolve(response);

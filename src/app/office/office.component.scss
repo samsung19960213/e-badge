@@ -2,9 +2,11 @@
 	background-color:#102646;
 	color: white;
 	padding: 0 5px;
+	font-family:light;
 }
 .mat-form-field{
 	padding-left:10px;
+	font-family:light;
 }
 .container{
 	padding-left:10px;
@@ -24,9 +26,10 @@
 .button-style{
 	background-color: #327ebd;
 	font-weight: bold;
+	font-family:light;
 }
 .text{
-	font-family:  Roboto, Helvetica Neue, sans-serif;
+	font-family:light;
 }
 // td{
 // 	background-color: #327ebd;
@@ -42,22 +45,28 @@
 // }
 
 .td-style{
-	background-color: #327ebd;
-	color:white;
-	border-top-right-radius: 20px;
-	border-top-left-radius: 20px;
-	border-bottom-right-radius: 20px;
-	border-bottom-left-radius: 20px;
+	box-shadow:0px 0px 10px;
+	color:black;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
 	border-color:#64b9ff;
 	border-width: 3px;
-	
+	font-family:light;
 	padding:15px 5px 15px 29px;
+	margin-bottom:5px;
+	width:100%;
+	transition-property: box-shadow;
+	transition-duration: .25s;
 }
-.td-style:hover{
-	background-color:#32bd60;
-transition: 0 1s;
-}
+
+
+
 .tablestyle{
 	padding-top:10px;
 	padding-bottom:10px;
+}
+tr{
+	margin-bottom:5px;
 }

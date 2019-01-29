@@ -3,6 +3,24 @@ $image_path: "/assets/images/" !default;
 
 $prefix: 'sigin';
 
+@font-face {
+  font-family:light;
+  src: url("/assets/fonts/Mostardesign - Sofia Pro Light.otf") format("opentype");
+  }
+  
+  @font-face {
+  font-family:med ;
+  src: url("/assets/fonts/Mostardesign - Sofia Pro Medium.otf" ) format("opentype");
+  }
+  @font-face {
+  font-family: reg;
+  src: url("/assets/fonts/Mostardesign - Sofia Pro Regular.otf" ) format("opentype");
+  }
+  @font-face {
+  font-family: semi;
+  src: url("/assets/fonts/Mostardesign - Sofia Pro Semi Bold.otf") format("opentype");
+  }
+
 .#{$prefix} {
 
   &-conainer {
@@ -35,8 +53,14 @@ $prefix: 'sigin';
   margin-left: 10px;
   color: #00AAAA;
 }
-
+form,input, mat-form-field,button{
+  font-family:light;
+}
 mat-card{
+  width: 235px;
   height:350px;
+  font-family:light;
+  color:black;
+  background-color:rgba(255, 255, 255, 0.342);
   border-radius:10px;
 }

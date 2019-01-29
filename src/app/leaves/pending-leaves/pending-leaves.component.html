@@ -79,8 +79,8 @@
 				</mat-row>
 			</mat-table>
 
-			<div class="example-no-results" [style.display]="dataSource?.length == 0 ? '' : 'none'">
-				No users found .
+			<div class="example-no-results text" [style.display]="dataSource.data?.length == 0 ? '' : 'none'">
+				No leave requests found.
 			</div>
 
 			<mat-paginator #paginator 	[length]="dataSource.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
