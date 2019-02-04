@@ -16,12 +16,14 @@ import { ReportsService } from './reports/reports.service';
 
 
 
+
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
+
   
 
   ],

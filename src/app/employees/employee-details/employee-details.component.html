@@ -10,10 +10,10 @@
         </mat-toolbar>
         <div [hidden]="submitted" fxLayout="column" class="widgetHolder-content" fxLayoutAlign="space-around stretch"
             style="background-color: white;margin-top: 10px;margin-left: 60px">
-            <div class="toolbar px-24 py-8" style="align-items: center;place-content:space-between;" >
+            <div class="toolbar px-24 py-8" style="align-items: center;place-content:space-between;">
 
                 <div *ngIf="employeeDetails.employeeImage != null" class="product-image media " fxLayoutAlign="center center">
-                    <div class="row" fxLayout="column" >
+                    <div class="row" fxLayout="column">
                         <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>
                         <span>
                             <img src="{{employeeDetails.employeeImage}}" alt="imgFileInput" height="220" width="200"
@@ -181,12 +181,21 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Department" [(ngModel)]="employeeDetails.departmentName"
-                            formControlName="userdepartmentId" name="userdepartmentId">
+                        <mat-select type="number" (ngModelChange)="reportMgr($event)" placeholder="Department"
+                            [(ngModel)]="employeeDetails.departmentId" formControlName="userdepartmentId" name="userdepartmentId"
+                            required>
+                            <mat-option *ngFor="let department of departmentList " [value]="department.id">
+                                <span>{{department.departmentName}}</span>
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Designation" [(ngModel)]="employeeDetails.designationName"
-                            formControlName="userdesignationId" name="userdesignationId">
+                        <mat-select type="number" placeholder="Designation" [(ngModel)]="employeeDetails.designationId"
+                            formControlName="userdesignationId" name="userdesignationId" required>
+                            <mat-option *ngFor="let designation of designationList" [value]="designation.id">
+                                <span>{{designation.designationName}}</span>
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
 
 
@@ -216,9 +225,10 @@
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId"
-                            name="usershiftId" type="number">
-                            <mat-option [value]=1>General Shift</mat-option>
-                            <mat-option [value]=2>Night Shift</mat-option>
+                            name="usershiftId" type="number" required>
+                            <mat-option *ngFor="let shift of shiftList" [value]="shift.id">
+                                <span>{{shift.shiftName}}</span>
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -231,8 +241,13 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Reporting manager Name" [(ngModel)]="employeeDetails.reportingManagerName"
-                            formControlName="userreportingManagerId" name="userreportingManagerId">
+                        <mat-select type="number" placeholder="Reporting manager name" [(ngModel)]="employeeDetails.reportingManagerId"
+                            formControlName="userreportingManagerId" name="userreportingManagerId" required>
+                            <mat-option *ngFor="let manager of managerList" [value]="manager.id">
+                                <span>{{manager.firstName + " "+ manager.lastName}}</span>
+                            </mat-option>
+
+                        </mat-select>
                     </mat-form-field>
                 </div>
 

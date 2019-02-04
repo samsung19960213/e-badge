@@ -90,13 +90,13 @@ export const menus = [
                 'chip': false,
                 'open': false,
             },
-            // {
-            //     'name': 'Present List',
-            //     'link': 'attendance/present',
-            //     'icon': 'account_circle',
-            //     'chip': false,
-            //     'open': false,
-            // },
+            {
+                'name': 'Present List',
+                'link': 'attendance/present',
+                'icon': 'account_circle',
+                'chip': false,
+                'open': false,
+            },
             {
                 'name': 'Late Comers List',
                 'link': 'attendance/late-comers',

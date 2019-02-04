@@ -30,8 +30,10 @@ export class AbsenteesComponent implements OnInit {
     year = this.date.getFullYear();
     month = this.date.getMonth();
     
-    firstDay = new Date(this.year, this.month, 1);
-    lastDay = new Date(this.year, this.month + 1, 0);
+    // firstDay = new Date(this.year, this.month, 1);
+    // lastDay = new Date(this.year, this.month , 1);
+    firstDay = this.date;
+    lastDay = this.date;
     startDate:string;
     endDate:string;
     
@@ -46,7 +48,7 @@ dataSource: any;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-      let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+      let toDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
   
     this.getData(fromDate, toDate).then(data => {
       this.dataSource = new MatTableDataSource<LeaveListTable>();

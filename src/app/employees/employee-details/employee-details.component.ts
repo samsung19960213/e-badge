@@ -28,7 +28,11 @@ export class EmployeeDetailsComponent implements OnInit {
     date = new Date();
     year = this.date.getFullYear();
     month = this.date.getMonth();
-    
+    shiftList:any;
+    departmentList: any;
+    designationList:any;
+    managerList:any;
+    reportingMgr:any;
     firstDay = new Date(this.year, this.month, 1);
     lastDay = new Date(this.year, this.month + 1, 0);
     startDate:string;
@@ -103,7 +107,59 @@ export class EmployeeDetailsComponent implements OnInit {
         });
 
     }
-
+    shift(): Promise<any> {
+        return new Promise((resolve, reject) => {
+    
+          this.http.get(Url.API_URL + 'api/shift/all')
+            .subscribe((response: any) => {
+              console.log(response[0].shiftName)
+              this.shiftList = response;
+             
+              console.log(this.shiftList[1].shiftName)
+              resolve(response);
+            }, reject);
+    
+        });
+      }
+      reportMgr(id:string): Promise<any> {
+        console.log(id);
+        return new Promise((resolve, reject) => {
+    
+          this.http.get(Url.API_URL + 'api/employee/getReportingManager/'+ id )
+            .subscribe((response: any) => {
+              console.log(response);
+             this.managerList = response;
+              resolve(response);
+            }, reject);
+    
+        });
+      }
+      designation(): Promise<any> {
+        
+        return new Promise((resolve, reject) => {
+    
+          this.http.get(Url.API_URL + 'api/desigantion/all' )
+            .subscribe((response: any) => {
+              console.log(response);
+             this.designationList = response;
+              resolve(response);
+            }, reject);
+    
+        });
+      }
+      department(): Promise<any> {
+        
+        return new Promise((resolve, reject) => {
+    
+          this.http.get(Url.API_URL + '/api/department/all' )
+            .subscribe((response: any) => {
+              console.log(response);
+             this.departmentList = response;
+              resolve(response);
+            }, reject);
+    
+        });
+      }
     updateDetails(employeeDetails) {
         console.log(employeeDetails);
 

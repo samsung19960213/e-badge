@@ -374,7 +374,7 @@
                   
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
-                    <button mat-raised-button color="primary"  [disabled]="!userForm.valid" style="width:150px;margin-left: -60px"
+                    <button mat-raised-button color="primary"  [disabled]="!userForm.valid || employeeDetails.employeeImage === '' " style="width:150px;margin-left: -60px"
                         (click)="saveDetails(employeeDetails)">Submit</button>
                     <!-- 
                     <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button> -->

@@ -14,6 +14,7 @@ export class DoughnutGraphComponent implements OnInit {
 remainingLeaves:number;
 acceptedLeaves:number;
 rejectedLeaves:number;
+absentDays: number;
 pendingLeaves:number;
   constructor(public http: HttpClient, public datePipe: DatePipe, public userService: UserService) { }
 
@@ -30,6 +31,7 @@ pendingLeaves:number;
                 this.acceptedLeaves= response.approvedLeaves;
                 this.rejectedLeaves= response.rejectedLeaves;
                 this.pendingLeaves= response.pendingLeaves;
+                this.absentDays = 20 - response.remainingLeaves - response.approvedLeaves;
                 
                 
                 resolve(response);
@@ -62,11 +64,12 @@ pendingLeaves:number;
         new Chart('doughnut-graph-graph', {
             type: 'doughnut',
             data: {
-            labels: ['Approved Leaves ', 'Rejected Leaves', 'Pending Leaves','Remaining Leaves'],
+            labels: ['Approved Leaves ', 'Rejected Leaves','Absent Days', 'Pending Leaves','Remaining Leaves'],
             datasets: [ {
                 data: [
                     this.acceptedLeaves,
                     this.rejectedLeaves,
+                    this.absentDays,
                     this.pendingLeaves,
                     this.remainingLeaves,
                 ],
@@ -74,7 +77,8 @@ pendingLeaves:number;
                     'rgb(55,94,151)',
                     'rgb(251,101,66)',
                     'rgb(255,187,0)',
-                    'rgb(63,104,28)'
+                    'rgb(63,104,28)',
+                    'rgb(63,104,28)',
                     
                 ],
             }]},

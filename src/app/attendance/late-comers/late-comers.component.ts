@@ -63,25 +63,22 @@ export class LateComersComponent implements OnInit {
     
     events: string[] = [];
 
-    fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
-      
-      let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-      this.getData(fromDate).then(data=>{
-        for( var i=0;i<this.dataSource.length;i++){
-          var splitted = this.dataSource.data[i].checkInTime.split("T", 2);
-          
-          this.dataSource.data[i].checkInTime= splitted[1]
-           
-          }
-        this.dataSource.data=data;
-       
-      })
-     
-    }
+   
     applyFilter(filterValue: string) {
       filterValue = filterValue.trim(); // Remove whitespace
       filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
       this.dataSource.filter = filterValue;
+    }
+    fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
+      
+      
+      let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+  
+      this.getData(fromDate).then(data=>{
+        this.dataSource.data=data;
+      })
+      
+     
     }
     getData(fromDate:any ){
       return new Promise((resolve, reject) => {

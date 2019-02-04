@@ -5,10 +5,11 @@ import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
 import { EmployeeDetails } from '../employee.model';
 import "aws-sdk/dist/aws-sdk.min";
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
 import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.data';
 import { ShiftDetails } from '../shift.model';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 
@@ -41,7 +42,7 @@ export class AddEmployeesComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router:Router) {
     this.employeeDetails = new EmployeeDetails();
    
   }
@@ -99,14 +100,24 @@ export class AddEmployeesComponent implements OnInit {
   //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
     console.log(employeeDetails);
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, error) => {
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
           resolve(response);
-        }, reject);
-      alert('success')
+          this.router.navigateByUrl('auth/dashboard');
+          this.snackBar.open('Saved Successfully', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+        }, (error:any) => { 
+          this.snackBar.open('Email or Password is already registered with us', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+         }  );
+     
     });
-
+  
   }
 join(type: string, event: MatDatepickerInputEvent<Date>){
     this.employeeDetails.formerCompanyJoinDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');

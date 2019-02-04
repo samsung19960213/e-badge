@@ -24,6 +24,8 @@ import { RoundProgressModule } from 'angular-svg-round-progressbar';
 import { SalesListComponent } from './sales-list/sales-list.component';
 import { D3UsaComponent } from './d3-usa/d3-usa.component';
 import { WorldMapComponent } from './world-map/world-map.component';
+import { BarGraph1Component } from './bar-graph1/bar-graph1.component';
+
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { WorldMapComponent } from './world-map/world-map.component';
   ],
   declarations: [
       DashcardComponent, 
+   BarGraph1Component,
       LineGraphComponent, 
       BarGraphComponent, 
       DoughnutGraphComponent, 
@@ -62,6 +65,7 @@ import { WorldMapComponent } from './world-map/world-map.component';
       DashcardComponent, 
       LineGraphComponent, 
       BarGraphComponent, 
+      BarGraph1Component,
       DoughnutGraphComponent, 
       ProfileCardComponent,
       PricingPlanComponent,
