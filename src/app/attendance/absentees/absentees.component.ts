@@ -29,11 +29,13 @@ export class AbsenteesComponent implements OnInit {
   date = new Date();
     year = this.date.getFullYear();
     month = this.date.getMonth();
+    day = this.date.getDay();
     
     // firstDay = new Date(this.year, this.month, 1);
     // lastDay = new Date(this.year, this.month , 1);
-    firstDay = this.date;
-    lastDay = this.date;
+    firstDay =   this.date.setDate(this.date.getDate() - 1);
+
+    lastDay =  this.date.setDate(this.date.getDate() - 1);
     startDate:string;
     endDate:string;
     

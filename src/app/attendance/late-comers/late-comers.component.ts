@@ -70,36 +70,21 @@ export class LateComersComponent implements OnInit {
       this.dataSource.filter = filterValue;
     }
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
-      
-      
+
       let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-  
       this.getData(fromDate).then(data=>{
         this.dataSource.data=data;
       })
-      
-     
     }
     getData(fromDate:any ){
       return new Promise((resolve, reject) => {
                 this.http.get(Url.API_URL + 'api/attendance/lateentry/'+ fromDate )
                 .subscribe((response: any) => {
-                 
-                  
-
                   resolve(response);
                 },reject);
-              
               });
     }
-  
-
-
-   
-   
 	}
-
-
   export class LateComersTable {
 
     attendanceId: number;

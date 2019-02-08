@@ -67,7 +67,7 @@
 				<ng-container matColumnDef="average">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Average Working Hours/Day </mat-header-cell>
 					<mat-cell  *matCellDef="let dataSource" >
-						<p *ngIf = "dataSource.average > 8" style="color:green">
+						<p *ngIf = "dataSource.average >= 8" style="color:green">
 						<b>{{ dataSource.average  }} Hrs/day</b></p>
 						<p *ngIf = "dataSource.average < 8" style="color:red">
 								<b>{{ dataSource.average  }} Hrs/day</b></p>

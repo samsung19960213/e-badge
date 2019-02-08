@@ -1,13 +1,14 @@
 <div  class="weather mat-elevation-z4 ">
     <div fxLayout="column"  fxLayoutAlign="center  start"  class="weatherimage" >  
         <mat-icon class="weathericons no-margin">
-            wb_sunny
+            <img [src]="imgIcon">
         </mat-icon>
         <h2   class="mat-headline temperature" >
-            24<sup><sup>o</sup>C</sup>    
+            {{this.weather.main.temp | number:'1.0-0'}}<sup><sup>o</sup>C</sup>  ({{ this.weather.weather[0].main}})  
         </h2>
+        <!-- <h3 class="weatherDescription">{{this.weather.weather[0].description}}</h3> -->
         <h2   class="mat-headline place" >
-            BANGALORE, KARNATAKA
+            {{this.weather.name}}, {{this.weather.sys.country}}
         </h2>
     </div>
 </div>

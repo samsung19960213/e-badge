@@ -35,7 +35,11 @@ export class ToolbarNotificationComponent implements OnInit {
     ngOnInit() {
         this.firstDate();
     }
-    
+    onClickedOutside($event){
+      if(this.isOpen ==true){
+        this.isOpen =false;
+      }
+    }
     today: number = Date.now();
     // public bufferValue;
   

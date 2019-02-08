@@ -348,8 +348,9 @@
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select type="number" placeholder="Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId"
                             name="useruserRoleId"  required>
-                            <mat-option value=2>User</mat-option>
-                            <mat-option value=3>Reporting Manager</mat-option>
+                            <mat-option *ngFor="let role of userRoleList" [value]="role.id">
+                                <span>{{role.roleName}}</span>
+                            </mat-option>
                         </mat-select>
                         <mat-error *ngIf="userForm.controls.useruserRoleId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required

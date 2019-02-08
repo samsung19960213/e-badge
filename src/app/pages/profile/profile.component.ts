@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../user.service';
 import { PasswordDetails } from '../pages.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -16,17 +17,40 @@ import { PasswordDetails } from '../pages.model';
 export class ProfileComponent implements OnInit {
   userId: number
   user: FormGroup;
- 
+
   employeeDetails: any;
+  empId: number
 
+  attendance: any[] = [];
+  color: any[] = [];
+  dates: any[] = [];
+  empID: number;
+  date = new Date();
+  year = this.date.getFullYear();
+  month = this.date.getMonth();
+  shiftList: any;
+  departmentList: any;
+  designationList: any;
+  RoleList:any;
+  managerList: any;
+  reportingMgr: any;
+  firstDay = new Date(this.year, this.month, 1);
+  lastDay = new Date(this.year, this.month + 1, 0);
+  startDate: string;
+  endDate: string;
 
-  constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public userService: UserService) {
+  constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public userService: UserService, public snackBar: MatSnackBar, public router: Router) {
     this.employeeDetails = new EmployeeDetails();
   }
 
   ngOnInit() {
 
     this.userId = this.userService.getuserId();
+    this.department();
+    this.designation();
+    this.shift();
+    this.userRole();
+
     this.getDetails(this.userId);
     this.user = new FormGroup({
       useractive: new FormControl('', [Validators.required]),
@@ -70,7 +94,7 @@ export class ProfileComponent implements OnInit {
       newPassword: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
     });
-   
+
   }
   getDetails(id: number) {
 
@@ -86,8 +110,110 @@ export class ProfileComponent implements OnInit {
     });
 
   }
+  updateDetails(employeeDetails) {
+    console.log(employeeDetails);
 
- 
+    return new Promise((resolve, reject) => {
+      this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
+        .subscribe((response: any) => {
+          resolve(response);
+          this.snackBar.open('Updated Successful', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+          this.router.navigateByUrl('auth/dashboard');
+        }, reject => {
+          this.snackBar.open('Invalid Format', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+        });
+
+
+    });
+  }
+  shift(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + 'api/shift/all')
+        .subscribe((response: any) => {
+          console.log(response[0].shiftName)
+          this.shiftList = response;
+
+          console.log(this.shiftList[1].shiftName)
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  reportMgr(id: string): Promise<any> {
+    console.log(id);
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + 'api/employee/getReportingManager/' + id)
+        .subscribe((response: any) => {
+          console.log(response);
+          this.managerList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  designation(): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + 'api/desigantion/all')
+        .subscribe((response: any) => {
+          console.log(response);
+          this.designationList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  userRole(): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + 'api/userrole/all')
+        .subscribe((response: any) => {
+          console.log(response);
+          this.RoleList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  department(): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + '/api/department/all')
+        .subscribe((response: any) => {
+          console.log(response);
+          this.departmentList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  fileEvent(fileInput: any) {
+    let windows: any = window;
+    let AWSService = windows.AWS;
+
+    let file = fileInput.target.files[0];
+
+    AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
+    AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+    let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
+    let params = { Key: file.name, Body: file };
+    let fileEveThis = this;
+    bucket.upload(params, function (error, response) {
+      console.log(response.Location);
+      fileEveThis.employeeDetails.employeeImage = response.Location;
+    });
+  }
   changePassword() {
     this.changePasswordDialog();
   }
@@ -107,63 +233,63 @@ export class ProfileComponent implements OnInit {
 })
 export class ChangePassword {
   id: number;
-  userForm:FormGroup;
-  changePasswordRequest:any;
-  sendData={
-    email:'',
-    password:'',
-    newPassword:'',
-    id:0,
+  userForm: FormGroup;
+  changePasswordRequest: any;
+  sendData = {
+    email: '',
+    password: '',
+    newPassword: '',
+    id: 0,
   }
   loginEmail: string;
   loginPassword: string;
 
   constructor(private http: HttpClient,
     public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService, public snackBar: MatSnackBar) { }
- ngOnInit() {
-   this.id=this.userService.userId;
-this.loginEmail =this.userService.getuserEmail();
-this.loginPassword = this.userService.getuserPassword();
-console.log(this.loginPassword);
-  this.userForm = new FormGroup({
-    email:new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    newPassword: new FormControl('', [Validators.required]),
-    confirmPassword: new FormControl('', [Validators.required]),
-  });
-   }
+  ngOnInit() {
+    this.id = this.userService.userId;
+    this.loginEmail = this.userService.getuserEmail();
+    this.loginPassword = this.userService.getuserPassword();
+    console.log(this.loginPassword);
+    this.userForm = new FormGroup({
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      newPassword: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required]),
+    });
+  }
   closeMessage(): void {
     this.message.close();
   }
   onSubmit(form: NgForm) {
     console.log(form.value)
-    
+
     this.changePasswordRequest = form.value;
-    
-    
-    if(this.changePasswordRequest.newPassword == this.changePasswordRequest.confirmPassword){
-  
-    console.log(this.changePasswordRequest);
-    return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + 'api/user/changePassword',this.changePasswordRequest )
-        .subscribe((response: any) => {
-          resolve(response);
-        }, reject);
+
+
+    if (this.changePasswordRequest.newPassword == this.changePasswordRequest.confirmPassword) {
+
+      console.log(this.changePasswordRequest);
+      return new Promise((resolve, reject) => {
+        this.http.post(Url.API_URL + 'api/user/changePassword', this.changePasswordRequest)
+          .subscribe((response: any) => {
+            resolve(response);
+          }, reject);
         this.snackBar.open('Password changed Successful', 'OK', {
           duration: 2000,
           verticalPosition: 'top',
         });
-      this.message.close();
-    });
+        this.message.close();
+      });
+    }
+    else {
+      this.snackBar.open('Passwords do not match', 'OK', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+
+    }
   }
-  else {
-    this.snackBar.open('Passwords do not match', 'OK', {
-      duration: 2000,
-      verticalPosition: 'top',
-    });
-    
-  }
-}
 
 
 }

@@ -22,6 +22,7 @@ export class AddEmployeesComponent implements OnInit {
   shiftList:any;
   departmentList: any;
   designationList:any;
+  userRoleList:any;
   managerList:any;
   reportingMgr:any;
   userForm: FormGroup;
@@ -51,8 +52,9 @@ export class AddEmployeesComponent implements OnInit {
     this.shift();
     this.designation();
     this.department();
+    this.userRole();
     this.userForm = this.formBuilder.group({
-      useractive: ['', [Validators.required]],
+      useractive: [1, [Validators.required]],
       useraddressLine1: ['', [Validators.required]],
       useraddressLine2: ['', [Validators.required]],
       //userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
@@ -109,6 +111,7 @@ export class AddEmployeesComponent implements OnInit {
             duration: 2000,
             verticalPosition: 'top',
           });
+         
         }, (error:any) => { 
           this.snackBar.open('Email or Password is already registered with us', 'OK', {
             duration: 2000,
@@ -171,6 +174,19 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
         .subscribe((response: any) => {
           console.log(response);
          this.designationList = response;
+          resolve(response);
+        }, reject);
+
+    });
+  }
+  userRole(): Promise<any> {
+    
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + 'api/userrole/all' )
+        .subscribe((response: any) => {
+          console.log(response);
+       this.userRoleList = response;
           resolve(response);
         }, reject);
 

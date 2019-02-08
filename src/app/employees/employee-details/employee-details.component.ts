@@ -29,6 +29,7 @@ export class EmployeeDetailsComponent implements OnInit {
     year = this.date.getFullYear();
     month = this.date.getMonth();
     shiftList:any;
+    userRoleList:any;
     departmentList: any;
     designationList:any;
     managerList:any;
@@ -38,7 +39,7 @@ export class EmployeeDetailsComponent implements OnInit {
     startDate:string;
     endDate:string;
 
-    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe, public snackBar: MatSnackBar) {
+    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router) {
         this.employeeDetails = new EmployeeDetails();
     }
 
@@ -46,12 +47,16 @@ export class EmployeeDetailsComponent implements OnInit {
         this.empId = this.empService.getEmployeeId();
         let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
         let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-        
+        this.userRole();
         this.getAttendance(fromDate,toDate);
+        this.department();
+        this.designation();
+        this.shift();
         
       
         this.getDetails(this.empId);
-      
+        
+
       
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
@@ -102,6 +107,7 @@ export class EmployeeDetailsComponent implements OnInit {
                     console.log(response);
                     resolve(response);
                     this.employeeDetails = response;
+                    this.reportMgr(this.employeeDetails.reportingManagerId);
                 }, reject);
 
         });
@@ -160,6 +166,19 @@ export class EmployeeDetailsComponent implements OnInit {
     
         });
       }
+      userRole(): Promise<any> {
+        
+        return new Promise((resolve, reject) => {
+    
+          this.http.get(Url.API_URL + 'api/userrole/all' )
+            .subscribe((response: any) => {
+              console.log(response);
+             this.userRoleList = response;
+              resolve(response);
+            }, reject);
+    
+        });
+      }
     updateDetails(employeeDetails) {
         console.log(employeeDetails);
 
@@ -167,12 +186,19 @@ export class EmployeeDetailsComponent implements OnInit {
             this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
                 .subscribe((response: any) => {
                     resolve(response);
-                }, reject);
+                    this.snackBar.open('Updated Successful', 'OK', {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                      });
+                      this.router.navigateByUrl('auth/dashboard');
+                }, reject=>{
+                    this.snackBar.open('Invalid Format', 'OK', {
+                        duration: 2000,
+                        verticalPosition: 'top',
+                      });
+                });
             
-            this.snackBar.open('Updated Successful', 'OK', {
-                duration: 2000,
-                verticalPosition: 'top',
-              });
+        
         });
     }
     fileEvent(fileInput: any) {

@@ -1,11 +1,11 @@
-<div class="toolbar-notification-container">
-	<button mat-icon-button (click)="isOpen = !isOpen;" [ngClass]="[cssPrefix+'-btn']"  (click)="notification0()">
+<div class="toolbar-notification-container" >
+	<button mat-icon-button (click)="isOpen = !isOpen;" [ngClass]="[cssPrefix+'-btn']"  (click)="notification0()" (clickOutside)="onClickedOutside($event)">
     	<mat-icon>notifications_none</mat-icon>
     	<span class="badge" *ngIf="notifications && notifications?.length !== 0 && notilength !==0">{{ notilength }}</span>
   </button>
 
 
-	<div class="dropdown mat-elevation-z4" [class.open]="isOpen">
+	<div class="dropdown mat-elevation-z4" [class.open]="isOpen"  >
 
 	<div class="card">
       	<div class="header" fxLayout="row" fxLayoutAlign="space-between center">

@@ -3,6 +3,7 @@ import { AgmMap } from '@agm/core';
 import { Url } from '../Url';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'app-dashboard-crm',
@@ -15,10 +16,11 @@ activeEmployees:number;
 presentEmployees:number;
 leaveRequest:number;
 numb: {};
+userId: number;
 date = new Date();
 lateEntries:number;
  public dashCard = [
-        { colorDark: '#294772', colorLight: '#375e97', number: this.activeEmployees, title: 'TOTAL NO EMPLOYEES', icon: 'group',link:'/auth/employees/employee-table' },
+        { colorDark: '#294772', colorLight: '#375e97', number: this.activeEmployees, title: 'TOTAL EMPLOYEES', icon: 'group',link:'/auth/employees/employee-table' },
       
         { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'people_outline',link:'/auth/attendance/present' },
         { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'schedule', link:'/auth/attendance/late-comers' },
@@ -40,9 +42,10 @@ lateEntries:number;
 	height: string = '500px';
 	@ViewChild(AgmMap) private myMap: any;
 	@ViewChild('mapContainer') mapContainer: any;
-    constructor(private http: HttpClient, private datePipe: DatePipe) { }
+    constructor(private http: HttpClient, private datePipe: DatePipe, public userService: UserService) { }
 
     ngOnInit() {
+        this.userId= this.userService.userId;
         let today =this.datePipe.transform(this.date, 'yyyy-MM-dd');
         this.getDashboardCounts(today);
        
@@ -52,7 +55,7 @@ lateEntries:number;
 
 getDashboardCounts(date:string) {
     return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + '/api/employee/getdashBoardCounts/'+date )
+        this.http.get(Url.API_URL + '/api/employee/getdashBoardCounts/'+date+'/'+this.userId )
             .subscribe((response: any) => {
                 console.log(response);
                 this.dashCard[0].number=response.getActiveEmployees;

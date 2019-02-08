@@ -24,11 +24,14 @@ export class OfficeComponent implements OnInit {
   // shiftDetails= new ShiftDetails();
   private DeptArray: Array<any> = [];
   private DesgnArray: Array<any> = [];
+  private RoleArray: Array<any> = [];
   private ShiftArray: Array<any> = [];
   private HolidayArray: Array<any> = [];
   private LeaveArray: Array<any> = [];
+  private TimeZoneArray: Array<any>=[];
   private newDept: any = {};
 private newDesgn: any = {};
+private newRole: any= {};
 private newShift: any = {};
 private newHoliday:any= {};
 private newLeave:any={};
@@ -49,9 +52,11 @@ sun = new Array();
   }
   
   ngOnInit() {
+    this.TimeZone();
     this.HolidayArray=[];
     this.OfficeDetails()
     this.DepartmentList();
+    this.UserRoleList();
     this.DesignationList();
     this.ShiftList();
     this.LeaveList();
@@ -141,6 +146,12 @@ addLeaveValue() {
     this.saveDesignation();
     this.newDesgn = {};
  }
+ addUserRole(){
+  this.RoleArray.push(this.newShift)
+  console.log(this.RoleArray);
+  this.saveRole();
+  this.newRole = {};
+ }
  addShiftDetails() {
   this.ShiftArray.push(this.newShift)
   console.log(this.ShiftArray);
@@ -159,11 +170,25 @@ addLeaveValue() {
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/department/save', this.DeptArray)
         .subscribe((response: any) => {
+          console.log('success');
+          resolve(response);
+        }, reject);
+    
+      setTimeout(function(){
+      this.DepartmentList();
+        }, 3000);
+    });
+  }
+  saveRole() {
+    return new Promise((resolve, reject) => {
+      this.http.post(Url.API_URL + 'api/userrole/save', this.RoleArray)
+        .subscribe((response: any) => {
+          console.log('success');
           resolve(response);
         }, reject);
       console.log('success');
       setTimeout(function(){
-      this.DepartmentList();
+      this.UserRoleList();
         }, 3000);
     });
   }
@@ -226,6 +251,7 @@ console.log(holidayarray);
 saveAll(){
   this.saveDesignation();
   this.saveDepartment();
+  this.saveRole();
 }
 
 //   deleteFieldValue(index) {
@@ -284,6 +310,21 @@ saveAll(){
      
     });
   }
+  TimeZone(): Promise<any> {
+    this.DeptArray=[];
+    return new Promise((resolve, reject) => {
+      this.http.get(' http://api.timezonedb.com/v2.1/list-time-zone?key=8VO0UB9Z3CHK&format=json')
+      .subscribe((response: any) => {
+        resolve(response);
+        this.TimeZoneArray= response.zones;
+        console.log(this.TimeZoneArray);
+        
+       
+      },reject);
+     
+    });
+  }
+
   LeaveList(): Promise<any> {
     this.LeaveArray=[];
     return new Promise((resolve, reject) => {
@@ -315,6 +356,18 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.DesgnArray=response;
+      
+      },reject);
+     
+    });
+  }
+  UserRoleList(): Promise<any> {
+    this.RoleArray=[];
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/userrole/all')
+      .subscribe((response: any) => {
+        resolve(response);
+        this.RoleArray=response;
       
       },reject);
      

@@ -4,6 +4,7 @@ export const menus = [
         'icon': 'dashboard',
         'link': '/auth/dashboard',
         'open': false,
+        'user':100,
         'chip': { 'value': 1, 'color': 'accent' },
        
     },
@@ -13,6 +14,7 @@ export const menus = [
         'icon': 'work_outline',
         'link': false,
         'open': false,
+        'user':100,
         
         'sub': [
             {
@@ -20,7 +22,7 @@ export const menus = [
                 'icon': 'work',
                 'link': '/auth/office',
                 'open': false,
-                
+                'user':1,
                
             },
         
@@ -29,7 +31,7 @@ export const menus = [
             'icon': 'assignment',
             'link': '/auth/reports',
             'open': false,
-            
+            'user':100
            
         },
         ]
@@ -41,13 +43,14 @@ export const menus = [
         'icon': 'people',
         'link': false,
         'open': false,
-        
+        'user':100,
         'sub': [
             {
                 'name': 'Add Employees',
                 'link': 'employees/add-employees',
                 'icon': 'person_add',
                 'chip': false,
+                'user':
                 'open': false,
             },
        

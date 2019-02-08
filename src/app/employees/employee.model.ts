@@ -43,7 +43,7 @@ export class EmployeeDetails {
     constructor(employeeDetails?) {
         employeeDetails = EmployeeDetails || {};
         // this.id = employeeDetails.id || null;
-        this.active = employeeDetails.active || 0;
+        this.active = employeeDetails.active || 1;
         this.addressLine1 = employeeDetails.addressLine1 || '';
         this.addressLine2 = employeeDetails.addressLine2 || '';
         this.reportingManagerId = employeeDetails.reportingManagerId || 0;
