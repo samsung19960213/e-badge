@@ -14,7 +14,7 @@ export const menus = [
         'icon': 'work_outline',
         'link': false,
         'open': false,
-        'user':100,
+        'user':2,
         
         'sub': [
             {
@@ -27,13 +27,20 @@ export const menus = [
             },
         
         {
-            'name': 'Reports',
+            'name': ' Attendance Reports',
             'icon': 'assignment',
             'link': '/auth/reports',
             'open': false,
-            'user':100
+            'user':2,
            
         },
+        {
+            'name': 'Leave Reports',
+            'icon':'assignment',
+            'link': '/auth/reports/leave-reports',
+            'open':false,
+            'user':2,
+        }
         ]
     },
     
@@ -43,14 +50,14 @@ export const menus = [
         'icon': 'people',
         'link': false,
         'open': false,
-        'user':100,
+        'user':2,
         'sub': [
             {
                 'name': 'Add Employees',
                 'link': 'employees/add-employees',
                 'icon': 'person_add',
                 'chip': false,
-                'user':
+                'user':2,
                 'open': false,
             },
        
@@ -58,6 +65,7 @@ export const menus = [
                 'name': 'Employee List',
                 'link': 'employees/employee-table',
                 'icon': 'people',
+                'user':2,
                 'chip': false,
                 'open': false,
             },
@@ -65,6 +73,7 @@ export const menus = [
                 'name': 'Active Employees',
                 'link': 'employees/active-employees',
                 'icon': 'people',
+                'user':2,
                 'chip': false,
                 'open': false,
             },
@@ -72,6 +81,7 @@ export const menus = [
                 'name': 'Inactive Employees',
                 'link': 'employees/deactivated-employees',
                 'icon': 'people_outline',
+                'user':2,
                 'chip': false,
                 'open': false,
             }
@@ -82,14 +92,24 @@ export const menus = [
     {
         'name': 'Attendance',
         'icon': 'account_box',
+        'user':2,
         'link': false,
         'open': false,
         
         'sub': [
             {
+                'name': 'Checkout Requests',
+                'link': 'attendance/checkout-request',
+                'icon': 'account_circle',
+                'user':2,
+                'chip': false,
+                'open': false,
+            },
+            {
                 'name': 'Absentees List',
                 'link': 'attendance/absentees',
                 'icon': 'account_circle',
+                'user':2,
                 'chip': false,
                 'open': false,
             },
@@ -97,6 +117,7 @@ export const menus = [
                 'name': 'Present List',
                 'link': 'attendance/present',
                 'icon': 'account_circle',
+                'user':2,
                 'chip': false,
                 'open': false,
             },
@@ -104,6 +125,7 @@ export const menus = [
                 'name': 'Late Comers List',
                 'link': 'attendance/late-comers',
                 'icon': 'schedule',
+                'user':2,
                 'chip': false,
                 'open': false,
             },
@@ -116,6 +138,7 @@ export const menus = [
     {
         'name': 'Leave',
         'icon': 'inbox',
+        'user':2,
         'link': false,
         'open': false,
         
@@ -124,6 +147,7 @@ export const menus = [
                 'name': 'Leave Requests',
                 'link': 'leaves/leave-list',
                 'icon': 'drafts',
+                'user':2,
                 'chip': false,
                 'open': false,
             },     
@@ -131,6 +155,7 @@ export const menus = [
                 'name': 'Immediate Action',
                 'link': 'leaves/pending-leaves',
                 'icon': 'mail',
+                'user':2,
                 'chip': false,
                 'open': false,
             },         

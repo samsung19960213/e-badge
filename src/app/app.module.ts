@@ -13,6 +13,9 @@ import { EmployeeFilterPipe } from './employees/employee-filter.pipe';
 import { UserService } from './user.service';
 import { LeaveService } from './leaves/leaves.service';
 import { ReportsService } from './reports/reports.service';
+import { AuthGuard } from './authGuard';
+
+
 
 
 
@@ -23,6 +26,8 @@ import { ReportsService } from './reports/reports.service';
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
+
+  
 
   
 
@@ -38,7 +43,7 @@ import { ReportsService } from './reports/reports.service';
     
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService, UserService, LeaveService,DatePipe, ReportsService],
+  providers: [EmployeesService, UserService, LeaveService,DatePipe, ReportsService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

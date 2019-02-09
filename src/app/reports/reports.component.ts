@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { LeaveService } from '../leaves/leaves.service';
 import { Url } from '../Url';
 import { ReportsService } from './reports.service';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class ReportsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public reportService: ReportsService) { }
+  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public reportService: ReportsService, public userService: UserService) { }
   ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
@@ -79,7 +80,7 @@ export class ReportsComponent implements OnInit {
   }
   getData(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/attendance/mainattendance/report/' + fromDate + '/' + toDate)
+      this.http.get(Url.API_URL + 'api/attendance/mainattendance/report/' + fromDate + '/' + toDate +'/'+this.userService.userId)
         .subscribe((response: any) => {
          
          

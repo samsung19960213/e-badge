@@ -100,7 +100,7 @@ export class BarGraph1Component implements OnInit {
                 scales : {
                     yAxes: [{
                        ticks: {
-                       
+                        steps:5,
                           min:0,
                         }
                     }] 

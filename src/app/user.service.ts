@@ -12,10 +12,11 @@ Department:string;
 Designation:string;
 EmployeeID:number;
 Lname:string;
+userroleId:number;
 constructor(){}
 setUserinfo(username:string , userImg:string,userId:number,
     userPassword:string,
-    userEmail:string,department: string,designation:string,employeeId:number,lname:string) {
+    userEmail:string,department: string,designation:string,employeeId:number,lname:string,roleId:number) {
 this.username = username;
 console.log(this.username);
 console.log(this.userImg);
@@ -27,6 +28,7 @@ this.Department=department;
 this.Designation=designation;
 this.EmployeeID=employeeId;
 this.Lname=lname;
+this.userroleId= roleId;
 }
 
 getUserImg() {

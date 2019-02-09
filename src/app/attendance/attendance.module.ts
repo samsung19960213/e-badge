@@ -13,6 +13,7 @@ import { PresentComponent } from "./present/present.component";
 import { AttendanceComponent } from "./attendance.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LateComersComponent } from "./late-comers/late-comers.component";
+import { CheckoutRequestComponent } from "./checkout-request/checkout-request.component";
 
 
 
@@ -60,6 +61,7 @@ import { LateComersComponent } from "./late-comers/late-comers.component";
        AbsenteesComponent,
        PresentComponent,
        LateComersComponent,
+       CheckoutRequestComponent,
     ],
     exports: [
     ],

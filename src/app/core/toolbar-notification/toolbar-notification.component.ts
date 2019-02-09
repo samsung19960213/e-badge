@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LeaveService } from '../../leaves/leaves.service';
 import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ToolbarNotificationComponent implements OnInit {
   	@Output() delete = new EventEmitter();
 //  isOpen: boolean = false;
 
-    constructor(private elementRef: ElementRef,private http: HttpClient, public datePipe: DatePipe,public route: Router,public leaveService:LeaveService) {}
+    constructor(private elementRef: ElementRef,private http: HttpClient, public datePipe: DatePipe,public route: Router,public leaveService:LeaveService, public userService: UserService) {}
     ngOnInit() {
         this.firstDate();
     }
@@ -48,7 +49,7 @@ export class ToolbarNotificationComponent implements OnInit {
     	
   	}
     notification0(){
-      console.log("HAII");
+    
     this.notilength=0;
     }
   	ondelete(id:number) {
@@ -64,7 +65,7 @@ export class ToolbarNotificationComponent implements OnInit {
       let latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');
       return new Promise((resolve, reject) => {
  
-    this.http.get(Url.API_URL + 'api/leave/leaverequestlist')
+    this.http.get(Url.API_URL + 'api/leave/leaverequestlist'+'/'+this.userService.userId)
       
         .subscribe((response: any) => {
        

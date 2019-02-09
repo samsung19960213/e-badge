@@ -4,17 +4,18 @@ import { DashboardCrmComponent } from '../dashboard-crm/dashboard-crm.component'
 import { LoginComponent } from '../login/login.component';
 import { EmployeesComponent } from '../employees/employees.component';
 import { AddEmployeesComponent } from '../employees/add-employees/add-employees.component';
+import { AuthGuard } from '../authGuard';
 
 export const appRoutes: Routes = [{
     path: '', component: AuthComponent, children: [
 
-        { path: 'dashboard', component: DashboardCrmComponent },
+        { path: 'dashboard', component: DashboardCrmComponent ,canActivate: [AuthGuard]},
         { path: 'login', component: LoginComponent },
-        { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule'  },
-        { path: 'leaves', loadChildren: '../leaves/leaves.module#LeavesModule'  },
-        {path: 'reports', loadChildren: '../reports/reports.module#ReportsModule'},
-        { path: 'attendance', loadChildren: '../attendance/attendance.module#AttendanceModule'  },
-        {path: 'office', loadChildren: '../office/office.module#OfficeModule'},
+        { path: 'employees', loadChildren: '../employees/employees.module#EmployeesModule',canActivate: [AuthGuard]  },
+        { path: 'leaves', loadChildren: '../leaves/leaves.module#LeavesModule' ,canActivate: [AuthGuard] },
+        {path: 'reports', loadChildren: '../reports/reports.module#ReportsModule',canActivate: [AuthGuard]},
+        { path: 'attendance', loadChildren: '../attendance/attendance.module#AttendanceModule'  ,canActivate: [AuthGuard]},
+        {path: 'office', loadChildren: '../office/office.module#OfficeModule',canActivate: [AuthGuard]},
         
          { path: 'material-widgets', loadChildren: '../material-widgets/material-widgets.module#MaterialWidgetsModule' },
         { path: 'tables', loadChildren: '../tables/tables.module#TablesModule' },

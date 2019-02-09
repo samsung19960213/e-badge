@@ -54,7 +54,7 @@ export class AddEmployeesComponent implements OnInit {
     this.department();
     this.userRole();
     this.userForm = this.formBuilder.group({
-      useractive: [1, [Validators.required]],
+      useractive: [, [Validators.required]],
       useraddressLine1: ['', [Validators.required]],
       useraddressLine2: ['', [Validators.required]],
       //userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
