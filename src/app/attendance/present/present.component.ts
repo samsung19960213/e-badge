@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-present',
@@ -28,14 +29,15 @@ export class PresentComponent implements OnInit {
   date = new Date();
 	selection = new SelectionModel<string>(true, []);
   dataSource :any;
-
+roleId:number;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
+  constructor(public userService: UserService,private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
+      this.roleId=this.userService.userroleId;
       this.dataSource = new MatTableDataSource<LateComersTable>()
       let Datenow =this.datePipe.transform(this.date, 'yyyy-MM-dd');
     this.getData(Datenow).then(data=> {
@@ -82,7 +84,7 @@ export class PresentComponent implements OnInit {
     }
     getData(fromDate:any ){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/attendance/findall/byGivenDate/'+ fromDate )
+                this.http.get(Url.API_URL + 'api/attendance/findall/byGivenDate/'+ fromDate+'/'+this.roleId )
                 .subscribe((response: any) => {
                  console.log(response);
                   

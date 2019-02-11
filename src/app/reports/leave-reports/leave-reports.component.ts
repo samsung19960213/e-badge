@@ -79,7 +79,7 @@ dataSource:any;
     }
     getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate)
+                this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate+'/'+this.userService.userroleId)
                 .subscribe((response: any) => {
                  
                   resolve(response);

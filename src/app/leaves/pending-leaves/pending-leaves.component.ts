@@ -17,6 +17,7 @@ import {distinctUntilChanged, debounceTime} from 'rxjs/operators';
 import { ExampleDataSource } from '../../tables/filter-table/helpers.data';
 import { EmployeesService } from '../../employees/employees.service';
 import { LeaveService } from '../leaves.service';
+import { UserService } from '../../user.service';
 
 
 
@@ -34,7 +35,7 @@ export class PendingLeavesComponent implements OnInit {
   userId: number[]= [];
   searchTerm:string;
   userModel :any;
-
+roleId:number;
   dataSource = new MatTableDataSource<Leavetable>();
 
 
@@ -42,8 +43,9 @@ export class PendingLeavesComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, private leaveService: LeaveService) {}
+  constructor(private http: HttpClient, public route: Router, private leaveService: LeaveService,public userService: UserService) {}
   	ngOnInit() {
+      this.roleId= this.userService.userroleId;
       this.LeaveList().then(data => {
         this.dataSource.data =data;
       })
@@ -61,7 +63,7 @@ export class PendingLeavesComponent implements OnInit {
   
     LeaveList(): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + 'api/leave/leaverequestlist')
+        this.http.get(Url.API_URL + 'api/leave/leaverequestlist'+'/'+this.roleId)
         .subscribe((response: any) => {
           resolve(response);
         },reject);

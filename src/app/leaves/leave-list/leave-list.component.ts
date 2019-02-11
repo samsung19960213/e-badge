@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LeaveService } from '../leaves.service';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class LeaveListComponent implements OnInit {
   showNavListCode;
   ID: any;
   
-  
+  roleId:number;
   userId: number[]= [];
   searchTerm:string;
   date = new Date();
@@ -41,8 +42,9 @@ dataSource:any;
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
+  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public userService: UserService) {}
   	ngOnInit() {
+      this.roleId=this.userService.userroleId;
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
   
@@ -77,7 +79,7 @@ dataSource:any;
     }
     getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate)
+                this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate+'/'+this.roleId)
                 .subscribe((response: any) => {
                  
                   resolve(response);

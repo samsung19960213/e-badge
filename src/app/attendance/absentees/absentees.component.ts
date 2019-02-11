@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class AbsenteesComponent implements OnInit {
     lastDay =  this.date.setDate(this.date.getDate() - 1);
     startDate:string;
     endDate:string;
-    
+    roleId:number;
 	selection = new SelectionModel<string>(true, []);
   // dataSource = new MatTableDataSource<LeaveListTable>();
 dataSource: any;
@@ -47,8 +48,9 @@ dataSource: any;
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
+  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public userService: UserService) {}
   	ngOnInit() {
+      this.roleId= this.userService.userroleId;
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
   
@@ -83,7 +85,7 @@ dataSource: any;
     }
     getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/attendance/absentees/'+ fromDate +'/'+toDate)
+                this.http.get(Url.API_URL + 'api/attendance/absentees/'+ fromDate +'/'+toDate+'/'+this.roleId)
                 .subscribe((response: any) => {
                 
                  

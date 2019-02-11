@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { EmployeesService } from '../employees.service';
 import { UserData } from '../../tables/interfaces';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -17,14 +18,14 @@ import { UserData } from '../../tables/interfaces';
 })
 export class ActiveEmployeesComponent implements OnInit {
 
-	public displayedColumns = ['employeeCode','Name','email', 'designation', 'department','qrCode' ];
+	public displayedColumns = ['employeeCode','firstName','contactEmail', 'designationName', 'departmentName','qrCode' ];
   showNavListCode;
   ID: any;
   tableList=[];
   userId: number[]= [];
   searchTerm:string;
   userModel :any;
-
+roleId:number;
   dataSource = new MatTableDataSource<Employeetable>();
 
 
@@ -32,8 +33,9 @@ export class ActiveEmployeesComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService) {}
+  constructor(private http: HttpClient,public userService: UserService, public route: Router, private empService: EmployeesService) {}
   	ngOnInit() {
+      this.roleId= this.userService.userroleId;
       this.ActiveEmployeeList().then(data => {
         this.dataSource.data =data;
       })
@@ -56,7 +58,7 @@ export class ActiveEmployeesComponent implements OnInit {
   
     ActiveEmployeeList(): Promise<any> {
       return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + 'api/employee/active')
+        this.http.get(Url.API_URL + 'api/employee/active/'+this.roleId)
         .subscribe((response: any) => {
           resolve(response);
         },reject);
@@ -94,10 +96,10 @@ export class ActiveEmployeesComponent implements OnInit {
 	}
   export interface Employeetable {
     employeeCode:string;
-    Name:string;
-    email:string;
-    designation:string;
-    department:string; 
+    firstName:string;
+    contactEmail:string;
+    designationName:string;
+    departmentName:string; 
     status:string;
   }
 

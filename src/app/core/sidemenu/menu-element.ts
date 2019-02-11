@@ -65,14 +65,14 @@ export const menus = [
                 'name': 'Employee List',
                 'link': 'employees/employee-table',
                 'icon': 'people',
-                'user':2,
+                'user':1,
                 'chip': false,
                 'open': false,
             },
             {
                 'name': 'Active Employees',
                 'link': 'employees/active-employees',
-                'icon': 'people',
+                'icon': 'how_to_reg',
                 'user':2,
                 'chip': false,
                 'open': false,
@@ -81,7 +81,7 @@ export const menus = [
                 'name': 'Inactive Employees',
                 'link': 'employees/deactivated-employees',
                 'icon': 'people_outline',
-                'user':2,
+                'user':1,
                 'chip': false,
                 'open': false,
             }
@@ -100,7 +100,7 @@ export const menus = [
             {
                 'name': 'Checkout Requests',
                 'link': 'attendance/checkout-request',
-                'icon': 'account_circle',
+                'icon': 'eject',
                 'user':2,
                 'chip': false,
                 'open': false,
@@ -116,7 +116,7 @@ export const menus = [
             {
                 'name': 'Present List',
                 'link': 'attendance/present',
-                'icon': 'account_circle',
+                'icon': 'person_outline',
                 'user':2,
                 'chip': false,
                 'open': false,

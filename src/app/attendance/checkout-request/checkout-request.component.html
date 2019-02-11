@@ -70,17 +70,17 @@
 				</ng-container>
 
 				<ng-container matColumnDef="status">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Check-Out Time </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
-						<p *ngIf='dataSource.active == 0' style="color:red"><b> Inactive</b></p>
-						<p *ngIf='dataSource.active == 1' style="color:green"> <b>Active</b></p>
+						<input matInput type="time"
+						name="checkoutTime" [(ngModel)]="dataSource.status" required>
 					</mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="qrCode">
-					<mat-header-cell *matHeaderCellDef> QR Code </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" (click)="$event.stopPropagation()"> <button style=" background-color:#385e97 ; color:white;" mat-raised-button (click)="downloadQR(dataSource.id)">Download
-							QR</button>
+					<mat-header-cell *matHeaderCellDef> </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" (click)="$event.stopPropagation()"> <button style=" background-color:#385e97 ; color:white;" mat-raised-button (click)="submitCheckout(dataSource.id, dataSource.status)">
+							Submit</button>
 
 
 					</mat-cell>
@@ -91,7 +91,7 @@
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" 
-				 (click)="employeeDetails(dataSource.id)">
+				 >
 				</mat-row>
 			</mat-table>
 

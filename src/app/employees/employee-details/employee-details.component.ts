@@ -10,6 +10,7 @@ import { EmployeesService } from '../employees.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../../user.service';
 
 @Component({
     selector: 'app-employee-details',
@@ -38,12 +39,13 @@ export class EmployeeDetailsComponent implements OnInit {
     lastDay = new Date(this.year, this.month + 1, 0);
     startDate:string;
     endDate:string;
-
-    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router) {
+userId:number;
+    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public userService: UserService) {
         this.employeeDetails = new EmployeeDetails();
     }
 
     ngOnInit() {
+        this.userId= this.userService.userroleId;
         this.empId = this.empService.getEmployeeId();
         let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
         let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');

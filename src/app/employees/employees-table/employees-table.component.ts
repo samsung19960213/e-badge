@@ -26,7 +26,7 @@ import { ExampleDataSource } from '../../tables/filter-table/helpers.data';
 })
 export class EmployeesTableComponent implements OnInit {
 
-	public displayedColumns = ['employeeCode','Name','email', 'designation', 'department', 'status','qrCode' ];
+	public displayedColumns = ['employeeCode','firstName','contactEmail', 'designationName', 'departmentName', 'status','qrCode' ];
   showNavListCode;
   ID: any;
   tableList=[];
@@ -97,10 +97,10 @@ export class EmployeesTableComponent implements OnInit {
 	}
   export interface Employeetable {
     employeeCode:string;
-    Name:string;
-    email:string;
-    designation:string;
-    department:string; 
+    firstName:string;
+    contactEmail:string;
+    designationName:string;
+    departmentName:string; 
     status:string;
   }
 

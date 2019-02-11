@@ -57,13 +57,10 @@ export class CheckoutRequestComponent implements OnInit {
        
       });
     }
-  
-  
-    employeeDetails(id:number) {
-      console.log(id);
-    this.empService.setEmployeeId(id);
-     this.route.navigateByUrl('auth/employees/employee-details');
+    submitCheckout(id, value){
+      console.log(id, value);
     }
+  
     applyFilter(filterValue: string) {
       filterValue = filterValue.trim(); // Remove whitespace
       filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -72,18 +69,7 @@ export class CheckoutRequestComponent implements OnInit {
 
 
 
-    downloadQR(id:string){
-      console.log(id);
-      window.open(Url.API_URL + 'api/qrcode/qrCode/download/'+id,'_blank');
-      // return new Promise((resolve, reject) => {
-      //       this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/'+ id)
-      //           .subscribe((response: any) => {
-      //             var newWindow = window.open(response);
-      //               resolve(response);
-      //           }, reject);
-      //   });
-
-    }
+   
 	}
   export interface Employeetable {
     employeeCode:string;
