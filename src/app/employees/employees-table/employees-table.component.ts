@@ -16,6 +16,7 @@ import 'rxjs/add/observable/fromEvent';
 import {fromEvent as observableFromEvent,} from 'rxjs';
 import {distinctUntilChanged, debounceTime} from 'rxjs/operators';
 import { ExampleDataSource } from '../../tables/filter-table/helpers.data';
+import { UserService } from '../../user.service';
 
 
 
@@ -33,7 +34,7 @@ export class EmployeesTableComponent implements OnInit {
   userId: number[]= [];
   searchTerm:string;
   userModel :any;
-
+roleId:number;
   dataSource = new MatTableDataSource<Employeetable>();
 
 
@@ -41,8 +42,9 @@ export class EmployeesTableComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService) {}
+  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService, public userService: UserService) {}
   	ngOnInit() {
+      this.roleId=this.userService.userId;
       this.EmployeeList().then(data => {
         this.dataSource.data =data;
       })

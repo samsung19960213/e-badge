@@ -37,7 +37,7 @@ roleId:number;
   filterValue:string;
   constructor(public userService: UserService,private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
   	ngOnInit() {
-      this.roleId=this.userService.userroleId;
+      this.roleId=this.userService.userId;
       this.dataSource = new MatTableDataSource<LateComersTable>()
       let Datenow =this.datePipe.transform(this.date, 'yyyy-MM-dd');
     this.getData(Datenow).then(data=> {

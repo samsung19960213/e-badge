@@ -35,7 +35,7 @@ roleId:number;
   filterValue:string;
   constructor(private http: HttpClient,public userService: UserService, public route: Router, private empService: EmployeesService) {}
   	ngOnInit() {
-      this.roleId= this.userService.userroleId;
+      this.roleId= this.userService.userId;
       this.ActiveEmployeeList().then(data => {
         this.dataSource.data =data;
       })

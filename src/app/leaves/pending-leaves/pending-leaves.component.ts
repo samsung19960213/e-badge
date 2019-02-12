@@ -45,7 +45,7 @@ roleId:number;
   filterValue:string;
   constructor(private http: HttpClient, public route: Router, private leaveService: LeaveService,public userService: UserService) {}
   	ngOnInit() {
-      this.roleId= this.userService.userroleId;
+      this.roleId= this.userService.userId;
       this.LeaveList().then(data => {
         this.dataSource.data =data;
       })
