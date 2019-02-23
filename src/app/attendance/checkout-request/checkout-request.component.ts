@@ -1,7 +1,7 @@
 import { Url } from '../../Url';
-import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 // import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
-import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 
@@ -23,113 +23,143 @@ import { DatePipe } from '@angular/common';
 })
 export class CheckoutRequestComponent implements OnInit {
 
-	public displayedColumns = ['firstName','date','checkInTime','designation','checkoutDate','checkOut','submit' ];
+  public displayedColumns = ['firstName', 'date', 'checkInTime', 'designation', 'checkoutDate', 'checkOut', 'submit'];
   showNavListCode;
   ID: any;
-  tableList=[];
-  userId: number[]= [];
-  searchTerm:string;
-  userModel :any;
+  tableList = [];
+  userId: number[] = [];
+  searchTerm: string;
+  userModel: any;
   attendanceId: number;
-checkOutTime:string;
-checkOutData:string;
-  dataSource = new MatTableDataSource<Employeetable>();
-checkout:{
-  attendanceId:string;
-  checkOutTime:string;
- 
-}
+  checkOutTime: string;
+  checkOutData: string;
+  date = new Date();
+  year = this.date.getFullYear();
+  month = this.date.getMonth();
+  day = this.date.getDay();
+  firstDay = new Date(this.year, this.month, 1);
+    lastDay = new Date(this.year, this.month + 1, 0);
+  // firstDay = new Date(this.year, this.month, 1);
+  // lastDay = new Date(this.year, this.month , 1);
+  // firstDay = this.date.setDate(this.date.getDate() - 1);
+  // lastDay = this.date.setDate(this.date.getDate() - 1);
+  startDate: string;
+  endDate: string;
+  dataSource: any;
 
-	@ViewChild(MatPaginator) paginator: MatPaginator;
-	@ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
-  filterValue:string;
-  constructor(private http: HttpClient, public route: Router, public userService: UserService, public datePipe: DatePipe, public snackBar: MatSnackBar) {}
-  	ngOnInit() {
-      this.checkOutList().then(data => {
-        this.dataSource.data =data;
-      })
+  filterValue: string;
+  constructor(private http: HttpClient, public route: Router, public userService: UserService, public datePipe: DatePipe, public snackBar: MatSnackBar) { }
+  ngOnInit() {
+   
+    let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+    let toDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+
+    this.checkOutList(fromDate, toDate).then(data => {
+      this.dataSource = new MatTableDataSource<Employeetable>();
+      this.dataSource.data = data;
+      this.dataSource.sort = this.sort;
+
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort =this.sort;
-    console.log(this.dataSource);
+    })
   }
-  
- 
-  
-    checkOutList(): Promise<any> {
-      return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + 'api/attendance/unchecked/attendance/'+this.userService.userId)
-        .subscribe((response: any) => {
-          resolve(response);
-          console.log('refreshed');
-        },reject);
-       
+
+  submitCheckout(id, value, time) {
+    if (value != null && time != null) {
+      this.checkOutTime = this.datePipe.transform(value, 'yyyy-MM-dd') + 'T' + time + ':00';
+      this.attendanceId = id;
+      this.checkOutTime = this.checkOutTime;
+      var fromDate;
+      var toDate;
+      const checkoutDto = {
+        'checkOutTime': this.checkOutTime,
+        'attendanceId': this.attendanceId
+      };
+      return new Promise((resolve, error) => {
+        this.http.post(Url.API_URL + 'api/attendance/save/checkouttime', checkoutDto)
+          .subscribe((response: any) => {
+            resolve(response);
+            this.snackBar.open('Submitted Successfully', 'OK', {
+              duration: 2000,
+              verticalPosition: 'top',
+            });
+          }, (error: any) => {
+            this.snackBar.open('Checkout time is less than CheckIn time', 'OK', {
+              duration: 2000,
+              verticalPosition: 'top',
+            });
+          });
       });
     }
-    submitCheckout(id, value, time){
-      if(value!=null && time!= null){
-  this.checkOutTime = this.datePipe.transform(value, 'yyyy-MM-dd') + 'T'+time+':00';
- this.checkout.attendanceId=id;
- this.checkout.checkOutTime=this.checkOutTime;
- console.log(this.checkout);
-
-  return new Promise((resolve, error) => {
-    this.http.post(Url.API_URL + 'api/attendance/save/checkouttime', this.checkout)
-        .subscribe((response: any) => {
-            resolve(response);
-           
-            console.log(id,this.checkout);
-  this.snackBar.open('Submitted Successfully', 'OK', {
-    duration: 2000,
-    verticalPosition: 'top',
-  });      
-  this.checkOutList().then(data => {
-    this.dataSource.data =data;
-  })
-           
-          
-        }, (error:any) => { 
-          this.snackBar.open('Username / Password is incorrect', 'OK', {
-            duration: 2000,
-            verticalPosition: 'top',
-          });
-         }  );
-});
-
-
-
-  
- 
-}
-else{
-  this.snackBar.open('Enter both Date And Time of Check-out', 'OK', {
-    duration: 2000,
-    verticalPosition: 'top',
-  });
-    
-}
-      
+    else {
+      this.snackBar.open('Enter both Date And Time of Check-out', 'OK', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
     }
-  
-    applyFilter(filterValue: string) {
-      filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-      this.dataSource.filter = filterValue;
-    }
-
-
-
-   
-	}
-  export interface Employeetable {
-    employeeCode:string;
-    firstName:string;
-    date:string;
-    lastName:string;
-    checkInTime:string;
-    designation:string;
-   
+    this.checkOutList(fromDate, toDate).then(data => {
+      this.dataSource.data = data;
+    })
   }
+  fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
+    let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+    let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
+    this.checkOutList(fromDate, toDate).then(data => {
+      this.dataSource.data = data;
+    })
+  }
+  checkOutList(fromDate: any, toDate: any) {
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/attendance/unchecked/attendance/' + this.userService.userId + '/' + fromDate + '/' + toDate)
+        .subscribe((response: any) => {
+          resolve(response);
+        }, reject);
+    });
+  }
+  toDate(type: string, event: MatDatepickerInputEvent<Date>) {
+    let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+    let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
+    this.checkOutList(fromDate, toDate).then(data => {
+      this.dataSource.data = data;
+    })
+
+
+  }
+  firstDate(): Promise<any> {
+    let latest_date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
+    return new Promise((resolve, reject) => {
+      // 
+      this.http.get(Url.API_URL + 'api/leave/request/' + latest_date)
+
+        // this.http.get(Url.API_URL + 'api/leave/findall')
+        .subscribe((response: any) => {
+          this.dataSource = response;
+          console.log(this.dataSource);
+          resolve(response);
+        }, reject);
+
+    });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+}
+export interface Employeetable {
+  employeeCode: string;
+  firstName: string;
+  date: string;
+  lastName: string;
+  checkInTime: string;
+  designation: string;
+
+}
 
 
 

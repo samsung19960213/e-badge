@@ -10,6 +10,21 @@
 					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 				</mat-form-field>
 			</div>
+			<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
+				<mat-form-field>
+					<input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="firstDay"
+						   (dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker #picker></mat-datepicker>
+				  </mat-form-field>
+				  <mat-form-field>
+					<input matInput [matDatepicker]="picker1" placeholder="To Date"  [(ngModel)]="lastDay" 
+					(dateInput)="toDate('input', $event)" (dateChange)="toDate('change', $event)">
+					<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+					<mat-datepicker #picker1 ></mat-datepicker>
+				</mat-form-field>
+				
+			</div>
 			<!-- <div fxLayout="row" class="example-header example-selection-header mat-headline center-align "
 				*ngIf="!selection.isEmpty()">
 				{{selection.selected.length}}

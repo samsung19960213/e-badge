@@ -31,12 +31,13 @@ export class AbsenteesComponent implements OnInit {
     year = this.date.getFullYear();
     month = this.date.getMonth();
     day = this.date.getDay();
-    
+    firstDay = new Date(this.year, this.month, 1);
+    lastDay = new Date(this.year, this.month + 1, 0);
     // firstDay = new Date(this.year, this.month, 1);
     // lastDay = new Date(this.year, this.month , 1);
-    firstDay =   this.date.setDate(this.date.getDate() - 1);
+    // firstDay =   this.date.setDate(this.date.getDate() - 1);
 
-    lastDay =  this.date.setDate(this.date.getDate() - 1);
+    // lastDay =  this.date.setDate(this.date.getDate() - 1);
     startDate:string;
     endDate:string;
     roleId:number;
