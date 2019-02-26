@@ -20,7 +20,7 @@ userId: number;
 date = new Date();
 lateEntries:number;
  public dashCard = [
-        { colorDark: '#294772', colorLight: '#375e97', number: this.activeEmployees, title: 'TEAM STRENGTH', icon: 'group',link:'/auth/employees/employee-table' },
+        { colorDark: '#294772', colorLight: '#375e97', number: this.activeEmployees, title: 'TEAM STRENGTH', icon: 'group',link:'/auth/employees/active-employees' },
       
         { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'people_outline',link:'/auth/attendance/present' },
         { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'schedule', link:'/auth/attendance/late-comers' },
@@ -55,7 +55,7 @@ lateEntries:number;
 
 getDashboardCounts(date:string) {
     return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + '/api/employee/getdashBoardCounts/'+date+'/'+this.userId )
+        this.http.get(Url.API_URL + 'api/employee/getdashBoardCounts/'+date+'/'+this.userId )
             .subscribe((response: any) => {
                 console.log(response);
                 this.dashCard[0].number=response.getActiveEmployees;

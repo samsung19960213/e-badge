@@ -81,13 +81,8 @@
 					<mat-header-cell *matHeaderCellDef> QR Code </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource" (click)="$event.stopPropagation()"> <button style=" background-color:#385e97 ; color:white;" mat-raised-button (click)="downloadQR(dataSource.id)">Download
 							QR</button>
-
-
 					</mat-cell>
 				</ng-container>
-
-
-
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" 

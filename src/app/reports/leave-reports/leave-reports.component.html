@@ -46,44 +46,56 @@
 				</ng-container>
 
 				<!-- ID Column -->
-				<ng-container matColumnDef="Name">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.userName}} </mat-cell>
+				<ng-container matColumnDef="EmployeeCode">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> EmployeeCode </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.employeeCode}} </mat-cell>
 				</ng-container>
 
 				<!-- Progress Column -->
-				<ng-container matColumnDef="fromDate" >
-					<mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate  | date: 'longDate'}} </mat-cell>
+				<ng-container matColumnDef="Name" >
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource">{{dataSource.firstName}} {{dataSource.lastName}}  </mat-cell>
 				</ng-container>
 
 				<!-- Name Column -->
 				
-				<ng-container matColumnDef="toDate">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.toDate  | date: 'longDate'}} </mat-cell>
-				</ng-container>
 				<!-- Color Column -->
-				<ng-container matColumnDef="reason">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Reason </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" > {{dataSource.reason}} </mat-cell>
+				<ng-container matColumnDef="leaveDays">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> LeaveDays </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"  style="margin-left: 5%"> {{dataSource.leaveDays}} </mat-cell>
 				</ng-container>
-
-        
-
-        
-				<ng-container matColumnDef="status">
+				<ng-container matColumnDef="unInformedLeaves">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> UnInformedLeaves </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.unInformedLeaves}} </mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="remainingLeaves">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> RemainingLeaves </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.remainingLeaves}} </mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="pendingLeaves">
+						<mat-header-cell *matHeaderCellDef mat-sort-header> PendingLeaves </mat-header-cell>
+						<mat-cell *matCellDef="let dataSource" > {{dataSource.pendingLeaves}} </mat-cell>
+					</ng-container>
+				<ng-container matColumnDef="acceptedLeaves">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> AcceptedLeaves </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.acceptedLeaves}} </mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="rejectedLeaves">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> RejectedLeaves </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" > {{dataSource.rejectedLeaves}} </mat-cell>
+				</ng-container>
+				
+				
+				
+				
+				<!-- <ng-container matColumnDef="status">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
 						<p *ngIf='dataSource.status == "PENDING"' style="color:blue"><b> PENDING</b></p>
 						<p *ngIf='dataSource.status == "REJECTED"' style="color:red"><b> REJECTED</b></p>
 						<p *ngIf='dataSource.status == "APPROVED"' style="color:green"><b> ACCEPTED</b></p>
 					</mat-cell>
-				</ng-container>
-
-
-  
-        
+				</ng-container> -->
 				
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;"

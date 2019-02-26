@@ -3,18 +3,18 @@ export const menus = [
         'name': 'Dashboard',
         'icon': 'dashboard',
         'link': '/auth/dashboard',
-        'open': false,
-        'user':100,
+        'user':2,
         'chip': { 'value': 1, 'color': 'accent' },
        
     },
+    
 
     {
         'name': 'Office',
         'icon': 'work_outline',
         'link': false,
         'open': false,
-        'user':2,
+        'user':1,
         
         'sub': [
             {
@@ -26,21 +26,21 @@ export const menus = [
                
             },
         
-        {
-            'name': ' Attendance Reports',
-            'icon': 'assignment',
-            'link': '/auth/reports',
-            'open': false,
-            'user':2,
+        // {
+        //     'name': ' Attendance Reports',
+        //     'icon': 'assignment',
+        //     'link': '/auth/reports',
+        //     'open': false,
+        //     'user':2,
            
-        },
-        {
-            'name': 'Leave Reports',
-            'icon':'assignment',
-            'link': '/auth/reports/leave-reports',
-            'open':false,
-            'user':2,
-        }
+        // },
+        // {
+        //     'name': 'Leave Reports',
+        //     'icon':'assignment',
+        //     'link': '/auth/reports/leave-reports',
+        //     'open':false,
+        //     'user':2,
+        // }
         ]
     },
     
@@ -158,6 +158,31 @@ export const menus = [
                 'user':2,
                 'chip': false,
                 'open': false,
+            },         
+        ]
+    },
+    {
+        'name': 'Reports',
+        'icon': 'assignment',
+        'user':2,
+        'link': false,
+        'open': false,
+        
+        'sub': [
+            {
+                'name': ' Attendance Reports',
+                'icon': 'assignment',
+                'link': '/auth/reports',
+                'open': false,
+                'user':2,
+               
+            },
+            {
+                'name': 'Leave Reports',
+                'icon':'assignment',
+                'link': '/auth/reports/leave-reports',
+                'open':false,
+                'user':2,
             },         
         ]
     },

@@ -18,7 +18,7 @@ import { UserService } from '../../user.service';
 })
 export class LeaveReportsComponent implements OnInit {
 
-  public displayedColumns = ['Name', 'fromDate', 'toDate', 'reason', 'status' ];
+  public displayedColumns = ['EmployeeCode', 'Name','leaveDays','unInformedLeaves', 'remainingLeaves', 'pendingLeaves','acceptedLeaves', 'rejectedLeaves', ];
   showNavListCode;
   ID: any;
   
@@ -79,7 +79,7 @@ dataSource:any;
     }
     getData(fromDate:any, toDate:any){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/leave/request/'+ fromDate +'/'+toDate+'/'+this.userService.userId)
+                this.http.get(Url.API_URL + 'api/leave/leave/report/' +this.userService.userId +'/'+ fromDate +'/'+toDate)
                 .subscribe((response: any) => {
                  
                   resolve(response);
@@ -124,9 +124,14 @@ dataSource:any;
 
 export class LeaveListTable {
 
-  userName:string;
-  fromDate:string;
-  toDate:string;
-reason:string; 
-  status:string;
+ 
+    employeeCode: string;
+    leaveDays: number;
+    unInformedLeaves: number;
+    remainingLeaves: number;
+    acceptedLeaves: number;
+    pendingLeaves: number;
+    rejectedLeaves: number;
+    firstName: string;
+    lastName: string
 }
