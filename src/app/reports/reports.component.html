@@ -35,12 +35,12 @@
 
 				
 				<ng-container matColumnDef="employeeCode">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Employee Code </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.employeeCode}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; Employee Code </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" >  &nbsp;&nbsp;{{dataSource.employeeCode}} </mat-cell>
 				</ng-container>
 				<!-- ID Column -->
 				<ng-container matColumnDef="firstName">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header>  &nbsp;&nbsp;&nbsp; Name </mat-header-cell>
 					<mat-cell  *matCellDef="let dataSource" > {{dataSource.firstName}} {{dataSource.lastName}} </mat-cell>
 				</ng-container>
 
@@ -68,9 +68,9 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Average Working Hours/Day </mat-header-cell>
 					<mat-cell  *matCellDef="let dataSource" >
 						<p *ngIf = "dataSource.average >= 8" style="color:green">
-						<b>{{ dataSource.average  }} Hrs/day</b></p>
+						<b> &nbsp;&nbsp;&nbsp;&nbsp;{{ dataSource.average  }} Hrs/day</b></p>
 						<p *ngIf = "dataSource.average < 8" style="color:red">
-								<b>{{ dataSource.average  }} Hrs/day</b></p>
+								<b> &nbsp;&nbsp;&nbsp;&nbsp;{{ dataSource.average  }} Hrs/day</b></p>
 					 </mat-cell>
 				</ng-container>
 			

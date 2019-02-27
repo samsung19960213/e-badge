@@ -129,6 +129,14 @@ export const menus = [
                 'chip': false,
                 'open': false,
             },
+            {
+                'name': 'Montly Absentees List',
+                'link': 'attendance/monthly-absentees',
+                'icon': 'account_circle',
+                'user':2,
+                'chip': false,
+                'open': false,
+            },
            
            
 

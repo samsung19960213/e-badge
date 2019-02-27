@@ -4,6 +4,8 @@ import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../user.service';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { LeaveService } from '../../leaves/leaves.service';
 
 
 @Component({
@@ -15,28 +17,25 @@ export class BarGraph1Component implements OnInit {
   dataSource:any[]=[];
     dates:any[]=[];
     count:any[]=[];
-
+    empID:number;
    
    
   
-  constructor(private http: HttpClient, public userService: UserService,public datePipe: DatePipe) { }
+  constructor(private http: HttpClient, public userService: UserService,public leaveService: LeaveService ,public datePipe: DatePipe, public router:Router) { }
 
 
   ngOnInit() {
-     
-    this.getAttendance();
+    this.empID =this.userService.EmployeeID;
+    this.getAttendance(this.empID);
       setTimeout(() => {
           this.createBarGraph();
       },500)
   }
   
-  getAttendance(){
-         
-   
+  getAttendance(id:number){
     return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + 'api/attendance/absentees/month')
+        this.http.get(Url.API_URL + 'api/attendance/absentees/month/'+ id)
             .subscribe((response: any) => {
-               
                 this.dataSource= response;
                 console.log(this.dataSource);
                 console.log(this.dataSource.length);
@@ -44,6 +43,8 @@ export class BarGraph1Component implements OnInit {
                 for(var i=0 ; i< this.dataSource.length; i++){
                this.count.push(this.dataSource[i].count);
                this.dates.push(this.dataSource[i].month);
+               this.leaveService.setDateMonth([this.dates[i]]);
+               //this.dates.push(this.datePipe.transform(this.dataSource[i].month, 'dd-MMM-yy'));
                 }
                 console.log(this.count);
                 console.log(this.dates);
@@ -54,7 +55,10 @@ export class BarGraph1Component implements OnInit {
     });
    
 }
-
+GoTo(){
+    this.router.navigateByUrl('auth/attendance/monthly-absentees');
+    
+}
   createBarGraph() {
       new Chart('dash-bar-graph-1', {
             type: 'bar',
@@ -118,7 +122,7 @@ export class BarGraph1Component implements OnInit {
                 },
                 title: {
                     display: true,
-                    text: 'Leave Count Graph'
+                    text: 'Monthly Absentees Count Graph'
                 }
             }
         })

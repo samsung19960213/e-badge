@@ -47,13 +47,13 @@
 
 				<!-- ID Column -->
 				<ng-container matColumnDef="EmployeeCode">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> EmployeeCode </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.employeeCode}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef  > &nbsp;&nbsp;&nbsp;&nbsp;EmployeeCode </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp; {{dataSource.employeeCode}} </mat-cell>
 				</ng-container>
 
 				<!-- Progress Column -->
 				<ng-container matColumnDef="Name" >
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp; Name </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">{{dataSource.firstName}} {{dataSource.lastName}}  </mat-cell>
 				</ng-container>
 
