@@ -6,15 +6,10 @@
 		</mat-toolbar>
 		<div class="table-container">
 			<div class="example-header" style="padding: 10px 20px; ">
-				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
+				<mat-form-field floatPlaceholder="never" style="color: black; width: 100% ">
 					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 				</mat-form-field>
-				<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
-					<!-- <mat-form-field>
-						<input matInput [matDatepicker]="picker" placeholder="From Date"   >
-						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-						<mat-datepicker #picker ></mat-datepicker>
-					</mat-form-field> -->
+				<div fxFlex.xs="100" fxFlex.lg="100" fxFlex.md="100" fxFlex.sm="100"style="color: black; width: 100%   !important" >
 					<mat-form-field>
 						<input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="firstDay"
 							   (dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
@@ -27,10 +22,9 @@
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1 ></mat-datepicker>
 					</mat-form-field>
+					<button mat-raised-button color="accent" (click)="exportAsXLSX()" style="cursor: pointer;float: right;font-size: 15px"><i class="fa fa-file-excel-o" aria-hidden="true" style="font-size: 15px;color: white;margin-right: 10px"></i>Export</button>
 				</div>
 			</div>
-			
-
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;" >
 
 				

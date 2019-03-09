@@ -12,6 +12,7 @@ import { LeaveService } from '../leaves/leaves.service';
 import { Url } from '../Url';
 import { ReportsService } from './reports.service';
 import { UserService } from '../user.service';
+import { ExcelService } from './excel.service';
 
 
 @Component({
@@ -38,30 +39,32 @@ export class ReportsComponent implements OnInit {
   startDate: string;
   endDate: string;
   selection = new SelectionModel<string>(true, []);
-  dataSource :any;
-
+  dataSource: any;
+  tableData: any[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
 
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public reportService: ReportsService, public userService: UserService) { }
-  ngOnInit() {
+  constructor(private http: HttpClient,
+    public excelSrv: ExcelService,
+    public route: Router,
+    public leaveService: LeaveService,
+    public datePipe: DatePipe,
+    public reportService: ReportsService,
+    public userService: UserService) { }
+  
+    ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
 
-    this.getData(fromDate, toDate).then(data=>{
+    this.getData(fromDate, toDate).then(data => {
       this.dataSource = new MatTableDataSource<PeriodicElement>()
-      this.dataSource.data=data;
-      this.dataSource.sort=this.sort;
-      this.dataSource.paginator =this.paginator;
+      this.dataSource.data = data;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
       this.averageHours(this.dataSource.data.length);
-       
-        
-    })
-   
-    
-   
+    });
   }
 
 
@@ -72,19 +75,20 @@ export class ReportsComponent implements OnInit {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
     console.log(toDate);
-    this.getData(fromDate, toDate).then(data=>{
-      this.dataSource.data=data;
+    this.getData(fromDate, toDate).then(data => {
+      this.dataSource.data = data;
       this.averageHours(this.dataSource.data.length);
     })
 
   }
   getData(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/attendance/mainattendance/report/' + fromDate + '/' + toDate +'/'+this.userService.userId)
+      this.http.get(Url.API_URL + 'api/attendance/mainattendance/report/' + fromDate + '/' + toDate + '/' + this.userService.EmployeeID)
         .subscribe((response: any) => {
-         
-         
+
+
           resolve(response);
+          this.tableData = response;
         }, reject);
     });
 
@@ -92,9 +96,9 @@ export class ReportsComponent implements OnInit {
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
- 
-    this.getData(fromDate, toDate).then(data=>{
-      this.dataSource.data=data;
+
+    this.getData(fromDate, toDate).then(data => {
+      this.dataSource.data = data;
       this.averageHours(this.dataSource.data.length);
     })
 
@@ -104,14 +108,14 @@ export class ReportsComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  personalReport(id: number, name:string, lname:string) {
+  personalReport(id: number, name: string, lname: string) {
     this.reportService.setName(name);
     this.reportService.setLastName(lname);
     this.reportService.setReportid(id);
     this.route.navigateByUrl('auth/reports/personal')
   }
   averageHours(length: number) {
-    this.average=[];
+    this.average = [];
     for (var i = 0; i < length; i++) {
       var str = this.dataSource.data[i].workingHours;
       var splitted = str.split(":", 3);
@@ -127,6 +131,10 @@ export class ReportsComponent implements OnInit {
   // this.leaveService.setLeaveId(id);
   //  this.route.navigateByUrl('auth/leaves/leave-details');
   // }
+  exportAsXLSX(): void {
+    console.log(this.tableData);
+     this.excelSrv.exportAsExcelFile(this.tableData, 'Attendence-Report');
+  }
 
 }
 export interface PeriodicElement {

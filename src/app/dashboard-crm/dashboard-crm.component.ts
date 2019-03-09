@@ -24,7 +24,7 @@ lateEntries:number;
       
         { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'people_outline',link:'/auth/attendance/present' },
         { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'schedule', link:'/auth/attendance/late-comers' },
-        { colorDark: '#335417', colorLight: '#3f681c', number: this.leaveRequest, title: 'LEAVE REQUEST', icon: 'drafts', link:'/auth/leaves/leave-list'}
+        { colorDark: '#335417', colorLight: '#3f681c', number: this.leaveRequest, title: 'PENDING LEAVE REQUEST', icon: 'drafts', link:'/auth/leaves/pending-leaves'}
     ];
 
     tableData = [
@@ -45,7 +45,7 @@ lateEntries:number;
     constructor(private http: HttpClient, private datePipe: DatePipe, public userService: UserService) { }
 
     ngOnInit() {
-        this.userId= this.userService.userId;
+        this.userId= this.userService.EmployeeID;
         let today =this.datePipe.transform(this.date, 'yyyy-MM-dd');
         this.getDashboardCounts(today);
        

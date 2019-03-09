@@ -5,16 +5,12 @@
 			<h1 class="mat-headline center-align text-center" style="padding-left:10px;" ><b>Yearly Leave Reports</b></h1>
 		</mat-toolbar>
 		<div class="table-container">
-			<div class="example-header" style="padding: 10px 20px; ">
-				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
+			<div class="example-header" style="padding: 10px 20px ">
+				<mat-form-field floatPlaceholder="never" style="color: black; width: 100% ">
 					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 				</mat-form-field>
-				<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
-					<!-- <mat-form-field>
-						<input matInput [matDatepicker]="picker" placeholder="From Date"   >
-						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-						<mat-datepicker #picker ></mat-datepicker>
-					</mat-form-field> -->
+				<div fxFlex.xs="100" fxFlex.lg="100" fxFlex.md="100" fxFlex.sm="100" >
+					
 					<mat-form-field>
 						<input matInput [matDatepicker]="picker " placeholder="From Date" [(ngModel)]="firstDay"
 							   (dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
@@ -27,6 +23,7 @@
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1 ></mat-datepicker>
 					</mat-form-field>
+					<button mat-raised-button color="accent" (click)="exportLeaveReport()" style="cursor: pointer;float: right;font-size: 15px"><i class="fa fa-file-excel-o" aria-hidden="true" style="font-size: 15px;color: white;margin-right: 10px"></i>Export</button>
 				</div>
 			</div>
 			
@@ -85,22 +82,10 @@
 					<mat-cell *matCellDef="let dataSource" > {{dataSource.rejectedLeaves}} </mat-cell>
 				</ng-container>
 				
-				
-				
-				
-				<!-- <ng-container matColumnDef="status">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource">
-						<p *ngIf='dataSource.status == "PENDING"' style="color:blue"><b> PENDING</b></p>
-						<p *ngIf='dataSource.status == "REJECTED"' style="color:red"><b> REJECTED</b></p>
-						<p *ngIf='dataSource.status == "APPROVED"' style="color:green"><b> ACCEPTED</b></p>
-					</mat-cell>
-				</ng-container> -->
-				
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;"
 				[class.example-selected-row]="selection.isSelected(dataSource.id)"
-				(click)="leaveDetails(dataSource.id)">
+				>
 				</mat-row>
 			</mat-table>
 

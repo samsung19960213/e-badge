@@ -59,6 +59,7 @@ export class BarGraphComponent implements OnInit {
                         this.color.push('#fa3c10');
                     }
                 }
+
                 resolve(response);
                 console.log(this.dates);
                console.log(this.attendance);

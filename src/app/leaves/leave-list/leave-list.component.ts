@@ -44,7 +44,7 @@ dataSource:any;
   filterValue:string;
   constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public userService: UserService) {}
   	ngOnInit() {
-      this.roleId=this.userService.userId;
+      this.roleId=this.userService.EmployeeID;
       let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
       let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
   

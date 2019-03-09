@@ -6,7 +6,8 @@ import {
         MatButtonToggleModule,
         MatInputModule,
         MatToolbarModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatSnackBarConfig
        } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';

@@ -13,6 +13,7 @@ import { ReportsComponent } from "./reports.component";
 import { ReportsRouterModule } from "./reports.router";
 import { PersonalReportsComponent } from "./personal-reports/personal-reports.component";
 import { LeaveReportsComponent } from "./leave-reports/leave-reports.component";
+import { ExcelService } from "./excel.service";
 
 
 
@@ -41,36 +42,29 @@ import { LeaveReportsComponent } from "./leave-reports/leave-reports.component";
         MatSortModule,
         MatPaginatorModule,
         CommonModule,
-		// FormsRouterModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatToolbarModule,
-		MatCardModule,
-		MatTabsModule,
+        // FormsRouterModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatTabsModule,
         MatIconModule,
-        
+
         MatDialogModule,
-         MatInputModule,
-     MatDatepickerModule,
-     MatNativeDateModule,
-		 ReactiveFormsModule,
-         FormsModule,
-         ReportsRouterModule,
-        
-        
-     ],
-    declarations: [   
-ReportsComponent,
-PersonalReportsComponent,
-LeaveReportsComponent,
-       
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        FormsModule,
+        ReportsRouterModule,
     ],
-   
-    exports: [
+    declarations: [
+        ReportsComponent,
+        PersonalReportsComponent,
+        LeaveReportsComponent,
     ],
-    providers: [
-        
-    ]
+    exports: [],
+    providers: [ExcelService]
 })
 export class ReportsModule {
 }

@@ -1,28 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Url } from '../Url';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar,MatSnackBarConfig } from '@angular/material';
+//import { ViewEncapsulation } from '@angular/compiler/src/core';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class LoginComponent implements OnInit {
- userImg: string;
- name: string;
- Lname:string;
- userId:number;
- password:string;
- email:string;
- designation:string;
- department:string;
- employeeId:string;
+  userImg: string;
+  name: string;
+  Lname: string;
+  userId: number;
+  password: string;
+  email: string;
+  designation: string;
+  department: string;
+  employeeId: string;
 
   // login(login: any) {
   //   console.log(login.value);
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              public fb: FormBuilder,private http: HttpClient, public userService: UserService,public snackBar: MatSnackBar) {
+    public fb: FormBuilder, private http: HttpClient, public userService: UserService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -69,7 +71,7 @@ export class LoginComponent implements OnInit {
       ]
       ],
       'password': ['', [
-        
+
         Validators.minLength(6),
         Validators.maxLength(25)
       ]
@@ -105,34 +107,40 @@ export class LoginComponent implements OnInit {
 
     return new Promise((resolve, error) => {
       this.http.post(Url.API_URL + '/api/login', login.value)
-          .subscribe((response: any) => {
-              resolve(response);
-             
-              this.userService.setUserinfo(response.userName, response.userImage,response.id,response.password,response.email,response.department,response.designation,response.employeeId,response.lastName,response.userRoleId);
-              this.userId= response.userRoleId;
-              if(this.userId==1 || this.userId ==3) {
-              
-               
-                this.router.navigateByUrl('auth/dashboard');
-              }else{
-               
-                this.snackBar.open('You are not authorised to login', 'OK', {
-                  duration: 2000,
-                  verticalPosition: 'top',
-                });
-              }
-            
-          }, (error:any) => { 
-            this.snackBar.open('Username / Password is incorrect', 'OK', {
+        .subscribe((response: any) => {
+          resolve(response);
+
+          this.userService.setUserinfo(response.userName, response.userImage, response.id, response.password, response.email, response.department, response.designation, response.employeeId, response.lastName, response.userRoleId);
+          this.userId = response.userRoleId;
+          if (this.userId == 1 || this.userId == 3) {
+
+
+            this.router.navigateByUrl('auth/dashboard');
+          } else {
+
+            this.snackBar.open('You are not authorised to login', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
+             
+
+              
+
             });
-           }  );
-  });
+          }
+
+        }, (error: any) => {
+         
+          this.snackBar.open('Username / Password is incorrect', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          
+          });
+        });
+    });
 
 
   }
-  
+
 }
 
 

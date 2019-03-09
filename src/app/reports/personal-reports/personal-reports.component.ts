@@ -11,6 +11,7 @@ import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
 import { Url } from '../../Url';
 import { ReportsService } from '../reports.service';
+import { ExcelService } from '../excel.service';
 
 
 @Component({
@@ -34,13 +35,14 @@ export class PersonalReportsComponent implements OnInit {
   endDate: string;
   selection = new SelectionModel<string>(true, []);
   dataSource :any;
+  tableData: any[];
 Name:string;
 Lname:string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public reportsService: ReportsService) { }
+  constructor(private http: HttpClient,public excelSrv: ExcelService, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe, public reportsService: ReportsService) { }
   ngOnInit() {
     this.Name=this.reportsService.name;
 this.Lname= this.reportsService.lname;
@@ -76,7 +78,7 @@ console.log(this.dataSource);
       this.http.get(Url.API_URL + "api/attendance/attendance/report/" + this.reportsService.reportid + "/" + fromDate + '/' + toDate)
         .subscribe((response: any) => {
           
-       
+          this.tableData = response;
           resolve(response);
         }, reject);
     });
@@ -93,6 +95,10 @@ console.log(this.dataSource);
     this.getData(fromDate, toDate).then(data=>{
       this.dataSource.data=data;
     })
+  }
+  exportPersonalReport(): void {
+    console.log(this.tableData);
+     this.excelSrv.exportAsExcelFile(this.tableData, 'Personal-Report');
   }
 
 }

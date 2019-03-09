@@ -25,6 +25,7 @@ import { SalesListComponent } from './sales-list/sales-list.component';
 import { D3UsaComponent } from './d3-usa/d3-usa.component';
 import { WorldMapComponent } from './world-map/world-map.component';
 import { BarGraph1Component } from './bar-graph1/bar-graph1.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 
@@ -38,6 +39,8 @@ import { BarGraph1Component } from './bar-graph1/bar-graph1.component';
     MatToolbarModule,
     MatListModule,
     Ng2OdometerModule,
+   NgxChartsModule,
+
     RoundProgressModule,
     MatMenuModule,
     MatChipsModule,

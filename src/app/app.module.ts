@@ -14,6 +14,7 @@ import { UserService } from './user.service';
 import { LeaveService } from './leaves/leaves.service';
 import { ReportsService } from './reports/reports.service';
 import { AuthGuard } from './authGuard';
+import { ExcelService } from './reports/excel.service';
 
 
 
@@ -27,23 +28,24 @@ import { AuthGuard } from './authGuard';
     AppComponent,
     EmployeeFilterPipe,
 
-  
 
-  
+
+
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-   CommonModule,
+    CommonModule,
     // ReactiveFormsModule,
     // FormsModule,
-     LazyLoadModule,
+    LazyLoadModule,
     CoreModule,
-    
+
     BrowserAnimationsModule
   ],
-  providers: [EmployeesService, UserService, LeaveService,DatePipe, ReportsService, AuthGuard],
+  // entryComponents: [ExcelService],
+  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

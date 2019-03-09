@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 export class LeaveService {
 
     leaveId: number;
-    dateMonth= [];
+    name= [];
     constructor() { }
     setLeaveId(id: number) {
         this.leaveId = id;
@@ -13,10 +13,10 @@ export class LeaveService {
     getLeaveId() {
         return this.leaveId;
     }
-    setDateMonth(date= []) {
-        this.dateMonth = date
+    setDateMonth(name= []) {
+        this.name = name
     }
     getDateMonth() {
-        return this.dateMonth;
+        return this.name;
     }
 }

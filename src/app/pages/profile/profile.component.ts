@@ -121,7 +121,8 @@ export class ProfileComponent implements OnInit {
             duration: 2000,
             verticalPosition: 'top',
           });
-          this.router.navigateByUrl('auth/dashboard');
+          // this.router.navigateByUrl('auth/dashboard');
+          this.getDetails(this.userId);
         }, reject => {
           this.snackBar.open('Invalid Format', 'OK', {
             duration: 2000,

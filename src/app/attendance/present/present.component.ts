@@ -40,6 +40,7 @@ roleId:number;
       this.roleId=this.userService.userId;
       this.dataSource = new MatTableDataSource<LateComersTable>()
       let Datenow =this.datePipe.transform(this.date, 'yyyy-MM-dd');
+      console.log(Datenow);
     this.getData(Datenow).then(data=> {
       for( var i=0;i<this.dataSource.length;i++){
         var splitted = this.dataSource.data[i].checkInTime.split("T", 2);
