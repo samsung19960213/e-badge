@@ -15,6 +15,9 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LateComersComponent } from "./late-comers/late-comers.component";
 import { CheckoutRequestComponent } from "./checkout-request/checkout-request.component";
 import { MonthlyAbsenteesListComponent } from './monthly-absentees-list/monthly-absentees-list.component';
+import { WorkFromHomeComponent } from './work-from-home/work-from-home.component';
+import { WorkFromHomeDetailsComponent, RejectAlert } from './work-from-home-details/work-from-home-details.component';
+import { RejectAlertModule } from "./work-from-home-details/rejectAlert.module";
 
 
 
@@ -55,7 +58,8 @@ import { MonthlyAbsenteesListComponent } from './monthly-absentees-list/monthly-
      MatNativeDateModule,
 		 ReactiveFormsModule,
          FormsModule,
-        AttendanceRouterModule
+        AttendanceRouterModule,
+        RejectAlertModule
      ],
     declarations: [   
         AttendanceComponent,
@@ -64,7 +68,10 @@ import { MonthlyAbsenteesListComponent } from './monthly-absentees-list/monthly-
        LateComersComponent,
        CheckoutRequestComponent,
        MonthlyAbsenteesListComponent,
+       WorkFromHomeComponent,
+       WorkFromHomeDetailsComponent,
     ],
+    entryComponents: [RejectAlert],
     exports: [
     ],
     providers: [

@@ -51,16 +51,7 @@ roleId:number;
       })
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort =this.sort;
-  
-   
-    console.log(this.dataSource);
-    
-    
-
-  }
-  
- 
-  
+  } 
     LeaveList(): Promise<any> {
       return new Promise((resolve, reject) => {
         this.http.get(Url.API_URL + 'api/leave/leaverequestlist'+'/'+this.roleId)
@@ -70,8 +61,6 @@ roleId:number;
        
       });
     }
-  
-  
     leaveDetails(id:number) {
       console.log(id);
     this.leaveService.setLeaveId(id);

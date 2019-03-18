@@ -310,29 +310,6 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                    <mat-form-field fxFlex="45" class="form2Input">
-                        <input matInput type="text" placeholder="Medical Info" [(ngModel)]="employeeDetails.medicalInfo" formControlName="usermedicalInfo"
-                            name="usermedicalInfo">
-                        <!-- <mat-error *ngIf="userForm.controls.usermedicalInfo.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error> -->
-                    </mat-form-field>
-                    <!-- <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Work Experience" [(ngModel)]="employeeDetails.experinces" formControlName="userworkExperince"
-                            name="userworkExperince" >
-                        <mat-error *ngIf="userForm.controls.userworkExperince.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error>
-                    </mat-form-field> -->
-                    <mat-form-field fxFlex="45" class="form2Input">
-                        <input matInput type="text" placeholder="Salary" [(ngModel)]="employeeDetails.salary" formControlName="usersalary" name="usersalary">
-                        <!-- <mat-error *ngIf="userForm.controls.usersalary.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error> -->
-                    </mat-form-field>
-                </div>
-                <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
-
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number"
                             required>
@@ -372,6 +349,26 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
+                    <mat-form-field fxFlex="45" class="form2Input">
+                        <input matInput type="text" placeholder="Medical Info" [(ngModel)]="employeeDetails.medicalInfo" formControlName="usermedicalInfo"
+                            name="usermedicalInfo">
+                        <!-- <mat-error *ngIf="userForm.controls.usermedicalInfo.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            This field is required
+                        </mat-error> -->
+                    </mat-form-field>
+                    <!-- <mat-form-field fxFlex="30" class="form2Input">
+                        <input matInput type="text" placeholder="Work Experience" [(ngModel)]="employeeDetails.experinces" formControlName="userworkExperince"
+                            name="userworkExperince" >
+                        <mat-error *ngIf="userForm.controls.userworkExperince.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field> -->
+                    <mat-form-field fxFlex="45" class="form2Input">
+                        <input matInput type="text" placeholder="Salary" [(ngModel)]="employeeDetails.salary" formControlName="usersalary" name="usersalary">
+                        <!-- <mat-error *ngIf="userForm.controls.usersalary.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            This field is required
+                        </mat-error> -->
+                    </mat-form-field>
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
                     <button mat-raised-button color="primary"  [disabled]="!userForm.valid" style="width:150px;margin-left: -60px"

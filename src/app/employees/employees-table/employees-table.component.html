@@ -5,8 +5,8 @@
 			<h1 class="mat-headline " style="padding-left:10px;"> <b>Employee List</b></h1>
 		</mat-toolbar>
 		<div class="table-container">
-			<div class="example-header" style="padding: 10px 20px; ">
-				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
+			<div class="example-header">
+				<mat-form-field floatPlaceholder="never" style="color: black; width: 50% ">
 					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 				</mat-form-field>
 			</div>
@@ -38,9 +38,14 @@
 				</ng-container>
 
 				<!-- ID Column -->
+				<ng-container matColumnDef="Edit">
+					<mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;&nbsp; </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" (click)="edit(dataSource.id)">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 20px"></i>
+					</mat-cell>
+				</ng-container>
 				<ng-container matColumnDef="employeeCode">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; EmployeeCode </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.employeeCode}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> EmployeeCode </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource">{{dataSource.employeeCode}} </mat-cell>
 				</ng-container>
 
 				<!-- Progress Column -->
@@ -76,7 +81,7 @@
 						<p *ngIf='dataSource.active == 1' style="color:green"> <b>Active</b></p>
 					</mat-cell>
 				</ng-container>
-
+				
 				<ng-container matColumnDef="qrCode">
 					<mat-header-cell *matHeaderCellDef> QR Code </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource" (click)="$event.stopPropagation()"> <button style=" background-color:#385e97 ; color:white;" mat-raised-button (click)="downloadQR(dataSource.id)">Download
@@ -86,7 +91,7 @@
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" 
-				 (click)="employeeDetails(dataSource.id)">
+				 (click)="employeeDetails(dataSource.id)" style="cursor: pointer;">
 				</mat-row>
 			</mat-table>
 

@@ -7,6 +7,9 @@ import { PresentComponent } from "./present/present.component";
 import { LateComersComponent } from "./late-comers/late-comers.component";
 import { CheckoutRequestComponent } from "./checkout-request/checkout-request.component";
 import { MonthlyAbsenteesListComponent } from "./monthly-absentees-list/monthly-absentees-list.component";
+import { WorkFromHomeDetailsComponent } from "./work-from-home-details/work-from-home-details.component";
+import { WorkFromHomeComponent } from "./work-from-home/work-from-home.component";
+
 
 
 
@@ -14,6 +17,8 @@ import { MonthlyAbsenteesListComponent } from "./monthly-absentees-list/monthly-
 
 
 const attendanceRoutes: Routes = [
+  { path: 'work-from-home-details', component:  WorkFromHomeDetailsComponent},
+  { path: 'work-from-home', component:  WorkFromHomeComponent},
   { path: 'monthly-absentees', component:  MonthlyAbsenteesListComponent},
     { path: 'absentees', component:  AbsenteesComponent},
     { path: 'present', component:  PresentComponent},

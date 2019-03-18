@@ -21,19 +21,16 @@ import { ExcelService } from './excel.service';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
-
-  public displayedColumns = ['employeeCode', 'firstName', 'workingDays', 'workingHours', 'daysWorked', 'average'];
+  public displayedColumns = ['Edit','employeeCode', 'firstName', 'workingDays', 'workingHours', 'daysWorked', 'average'];
   showNavListCode;
   ID: any;
   avg = [];
   average = [];
-
   userId: number[] = [];
   searchTerm: string;
   date = new Date();
   year = this.date.getFullYear();
   month = this.date.getMonth();
-
   firstDay = new Date(this.year, this.month, 1);
   lastDay = new Date(this.year, this.month + 1, 0);
   startDate: string;
@@ -57,36 +54,28 @@ export class ReportsComponent implements OnInit {
     ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-
+    this.dataSource = new MatTableDataSource<PeriodicElement>()
     this.getData(fromDate, toDate).then(data => {
-      this.dataSource = new MatTableDataSource<PeriodicElement>()
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
       this.averageHours(this.dataSource.data.length);
     });
   }
-
-
   events: string[] = [];
 
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
-
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
       this.averageHours(this.dataSource.data.length);
     })
-
   }
   getData(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/attendance/mainattendance/report/' + fromDate + '/' + toDate + '/' + this.userService.EmployeeID)
         .subscribe((response: any) => {
-
-
           resolve(response);
           this.tableData = response;
         }, reject);
@@ -96,12 +85,10 @@ export class ReportsComponent implements OnInit {
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
       this.averageHours(this.dataSource.data.length);
     })
-
   }
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -112,30 +99,26 @@ export class ReportsComponent implements OnInit {
     this.reportService.setName(name);
     this.reportService.setLastName(lname);
     this.reportService.setReportid(id);
-    this.route.navigateByUrl('auth/reports/personal')
+    this.route.navigateByUrl('auth/reports/personal');
+  }
+  edit(id: number, name: string, lname: string){
+    this.reportService.setName(name);
+    this.reportService.setLastName(lname);
+    this.reportService.setReportid(id);
+    this.route.navigateByUrl('auth/reports/personal');
   }
   averageHours(length: number) {
     this.average = [];
     for (var i = 0; i < length; i++) {
       var str = this.dataSource.data[i].workingHours;
       var splitted = str.split(":", 3);
-      console.log(splitted);
       this.average.push(Math.round(+splitted[0] / this.dataSource.data[i].daysWorked * 10) / 10);
       this.dataSource.data[i].average = this.average[i];
     }
-    console.log(this.dataSource);
-
   }
-  // leaveDetails(id:number) {
-  //   console.log(id);
-  // this.leaveService.setLeaveId(id);
-  //  this.route.navigateByUrl('auth/leaves/leave-details');
-  // }
   exportAsXLSX(): void {
-    console.log(this.tableData);
      this.excelSrv.exportAsExcelFile(this.tableData, 'Attendence-Report');
   }
-
 }
 export interface PeriodicElement {
 

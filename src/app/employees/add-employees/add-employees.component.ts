@@ -100,8 +100,6 @@ export class AddEmployeesComponent implements OnInit {
   // this.datePipe.transform(this.employeeDetails.joiningDate, 'yyyy-MM-dd');
   //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
   //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
-    console.log(employeeDetails);
-
     return new Promise((resolve, error) => {
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
@@ -139,89 +137,73 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
     this.employeeDetails.joiningDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
     
   }
+  //getting shift 
   shift(): Promise<any> {
     return new Promise((resolve, reject) => {
 
       this.http.get(Url.API_URL + 'api/shift/all')
         .subscribe((response: any) => {
-          console.log(response[0].shiftName)
           this.shiftList = response;
-         
-          console.log(this.shiftList[1].shiftName)
+          // console.log(this.shiftList[1].shiftName)
           resolve(response);
         }, reject);
 
     });
   }
+  //getting reporting manager by id
   reportMgr(id:string): Promise<any> {
-    console.log(id);
     return new Promise((resolve, reject) => {
-
       this.http.get(Url.API_URL + 'api/employee/getReportingManager/'+ id )
         .subscribe((response: any) => {
-          console.log(response);
          this.managerList = response;
           resolve(response);
         }, reject);
-
     });
   }
+  //getting designation
   designation(): Promise<any> {
-    
     return new Promise((resolve, reject) => {
-
       this.http.get(Url.API_URL + 'api/desigantion/all' )
         .subscribe((response: any) => {
-          console.log(response);
          this.designationList = response;
           resolve(response);
         }, reject);
-
     });
   }
+  //getting user role 
   userRole(): Promise<any> {
-    
     return new Promise((resolve, reject) => {
-
       this.http.get(Url.API_URL + 'api/userrole/all' )
         .subscribe((response: any) => {
-          console.log(response);
        this.userRoleList = response;
           resolve(response);
         }, reject);
-
     });
   }
+  //getting deparments
   department(): Promise<any> {
-    
     return new Promise((resolve, reject) => {
-
       this.http.get(Url.API_URL + '/api/department/all' )
         .subscribe((response: any) => {
-          console.log(response);
          this.departmentList = response;
           resolve(response);
         }, reject);
-
     });
   }
-
+//image upload
   fileEvent(fileInput: any) {
     let windows: any = window;
     let AWSService = windows.AWS;
-
     let file = fileInput.target.files[0];
-  
     AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
     AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
     let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
     let params = { Key: file.name, Body: file };
     let fileEveThis = this;
     bucket.upload(params, function (error, response) {
-      console.log(response.Location);
+      // console.log(response.Location);
       fileEveThis.employeeDetails.employeeImage = response.Location;
     });
   }
   datepickerHelpers: any = DATEPICKER_HELPERS;
-
 }

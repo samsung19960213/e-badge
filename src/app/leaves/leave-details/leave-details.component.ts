@@ -6,6 +6,7 @@ import { Url } from '../../Url';
 import { HttpClient } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { Leave } from './leave.model';
 
 @Component({
   selector: 'app-leave-details',
@@ -19,10 +20,8 @@ export class LeaveDetailsComponent implements OnInit {
   dataSource: any;
   constructor(public form: FormBuilder, public leaveService: LeaveService, public http: HttpClient, public dialog: MatDialog, public router: Router) {
 
-
+    this.dataSource = new Leave();
   }
-
-
   ngOnInit() {
     this.id = this.leaveService.getLeaveId();
     this.getDetails(this.id);
@@ -35,6 +34,7 @@ export class LeaveDetailsComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
       availableLeaves: new FormControl('', [Validators.required]),
       requestTime: new FormControl('', [Validators.required]),
+      leaveType:new FormControl('', [Validators.required]),
     });
 
   }
@@ -102,9 +102,6 @@ reason:string;
         .subscribe((response: any) => {
           console.log(response);
           resolve(response);
-         
-
-
         }, reject
         );
         this.snackBar.open('Leave Rejected Successful', 'OK', {

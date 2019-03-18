@@ -1,29 +1,21 @@
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatTableDataSource, MatDatepickerInputEvent, MatSnackBar, MatSort, MatPaginator } from '@angular/material';
 import { Url } from '../../Url';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-// import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
-import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
-import { SelectionModel, DataSource } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
-
-import { Router } from '@angular/router';
-
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/fromEvent';
-import { EmployeesService } from '../../employees/employees.service';
-import { UserService } from '../../user.service';
 import { DatePipe } from '@angular/common';
-@Component({
-  selector: 'app-checkout-request',
-  templateUrl: './checkout-request.component.html',
-  styleUrls: ['./checkout-request.component.scss']
-})
-export class CheckoutRequestComponent implements OnInit {
+import { UserService } from '../../user.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { LeaveService } from '../../leaves/leaves.service';
 
-  public displayedColumns = ['firstName', 'date', 'checkInTime', 'designation', 'checkoutDate', 'checkOut', 'submit'];
+
+@Component({
+  selector: 'app-work-from-home',
+  templateUrl: './work-from-home.component.html',
+  styleUrls: ['./work-from-home.component.scss']
+})
+export class WorkFromHomeComponent implements OnInit {
+
+  public displayedColumns = ['Edit','employeeCode','firstName', 'date', 'designation',  'status'];
   showNavListCode;
   ID: any;
   tableList = [];
@@ -31,6 +23,7 @@ export class CheckoutRequestComponent implements OnInit {
   searchTerm: string;
   userModel: any;
   id: number;
+  employeeCode:string;
   checkOutTime: string;
   checkOutData: string;
   date = new Date();
@@ -46,12 +39,19 @@ export class CheckoutRequestComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue: string;
-  constructor(private http: HttpClient, public route: Router, public userService: UserService, public datePipe: DatePipe, public snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient,
+    public route: Router,
+    public userService: UserService,
+    public datePipe: DatePipe,
+    public leaveService:LeaveService,
+    public snackBar: MatSnackBar) { }
   ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+    console.log(fromDate);
     this.dataSource = new MatTableDataSource<Employeetable>();
     this.checkOutList(fromDate, toDate).then(data => {
+    
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -72,7 +72,6 @@ export class CheckoutRequestComponent implements OnInit {
           resolve(response);
         }, reject);
     });
-  
   }
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
@@ -84,9 +83,7 @@ export class CheckoutRequestComponent implements OnInit {
   firstDate(): Promise<any> {
     let latest_date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
     return new Promise((resolve, reject) => {
-      // 
       this.http.get(Url.API_URL + 'api/leave/request/' + latest_date)
-        // this.http.get(Url.API_URL + 'api/leave/findall')
         .subscribe((response: any) => {
           this.dataSource = response;
           console.log(this.dataSource);
@@ -140,15 +137,26 @@ export class CheckoutRequestComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+  edit(id:number){
+    this.leaveService.setWorkId(id);
+    this.route.navigateByUrl('auth/attendance/work-from-home-details' );
+  }
+  workFromHomeDetails(id:number) {
+   this.leaveService.setWorkId(id);
+  this.route.navigateByUrl('auth/attendance/work-from-home-details' );
+  }
 }
 export interface Employeetable {
   employeeCode: string;
   firstName: string;
   date: string;
+  status:string;
+  comments:string;
   lastName: string;
   checkInTime: string;
   designation: string;
 }
+
 
 
 

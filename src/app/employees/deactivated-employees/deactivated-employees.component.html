@@ -5,23 +5,14 @@
 			<h1 class="mat-headline center-align text-center" style="padding-left:10px;"><b>Deactivated Employees</b></h1>
 		</mat-toolbar>
 		<div class="table-container">
-			<div class="example-header" style="padding: 10px 20px; ">
-				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
+			<div class="example-header">
+				<mat-form-field floatPlaceholder="never" style="color: black; width: 50% ">
 					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)"  [(ngModel)]="searchTerm">
 				</mat-form-field>
 			</div>
-			<!-- <div fxLayout="row" class="example-header example-selection-header mat-headline center-align "
-				*ngIf="!selection.isEmpty()">
-				{{selection.selected.length}}
-				{{selection.selected.length == 1 ? 'user' : 'users'}}
-				selected
-			</div> -->
-
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;">
-
 				<!--- Note that these columns can be defined in any order.
 				The actual rendered columns are set as a property on the row definition" -->
-
 				<!-- Checkbox Column -->
 				<ng-container matColumnDef="select">
 					<mat-header-cell *matHeaderCellDef>
@@ -50,7 +41,6 @@
 				</ng-container>
 
 				<!-- Name Column -->
-
 				<ng-container matColumnDef="email">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> E-Mail </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.contactEmail}} </mat-cell>
@@ -61,26 +51,18 @@
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.designationName}} </mat-cell>
 				</ng-container>
 
-
-
-
 				<ng-container matColumnDef="department">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Department </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.departmentName}} </mat-cell>
 				</ng-container>
 
-			
 				<ng-container matColumnDef="qrCode">
 					<mat-header-cell *matHeaderCellDef> QR Code </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource" (click)="$event.stopPropagation()"> <button style=" background-color:#73c0ff ; color:white;" mat-raised-button (click)="downloadQR(dataSource.id)">Download
 							QR</button>
 
-
 					</mat-cell>
 				</ng-container>
-
-
-
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" 

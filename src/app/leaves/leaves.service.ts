@@ -4,6 +4,8 @@ import { Injectable } from "@angular/core";
 export class LeaveService {
 
     leaveId: number;
+    workId:number;
+    
     name= [];
     constructor() { }
     setLeaveId(id: number) {
@@ -13,6 +15,14 @@ export class LeaveService {
     getLeaveId() {
         return this.leaveId;
     }
+    setWorkId(id: number) {
+        this.workId = id;
+    }
+
+    getWorkId() {
+        return this.workId;
+    }
+    
     setDateMonth(name= []) {
         this.name = name
     }

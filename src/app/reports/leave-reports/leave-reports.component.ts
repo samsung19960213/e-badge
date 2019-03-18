@@ -4,9 +4,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, DateAdapter, MatDatepickerInputEvent } from '@angular/material';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-
 import { Router } from '@angular/router';
-
 import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
 import { UserService } from '../../user.service';
@@ -22,23 +20,18 @@ export class LeaveReportsComponent implements OnInit {
   public displayedColumns = ['EmployeeCode', 'Name', 'leaveDays', 'unInformedLeaves', 'remainingLeaves', 'pendingLeaves', 'acceptedLeaves', 'rejectedLeaves',];
   showNavListCode;
   ID: any;
-
-
   userId: number[] = [];
   searchTerm: string;
   date = new Date();
   year = this.date.getFullYear();
   month = this.date.getMonth();
-
   firstDay = new Date(this.year, 0, 1);
   lastDay = new Date();
   startDate: string;
   endDate: string;
-
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
   tableData: any[];
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
@@ -52,20 +45,14 @@ export class LeaveReportsComponent implements OnInit {
   ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-    console.log(fromDate);
-
+    this.dataSource = new MatTableDataSource<LeaveListTable>();
     this.getData(fromDate, toDate).then(data => {
-      this.dataSource = new MatTableDataSource<LeaveListTable>();
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
 
       this.dataSource.paginator = this.paginator;
     })
-
-
   }
-
-
   events: string[] = [];
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -80,8 +67,6 @@ export class LeaveReportsComponent implements OnInit {
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
-
-
   }
   getData(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
@@ -90,7 +75,6 @@ export class LeaveReportsComponent implements OnInit {
           this.tableData = response;
           resolve(response);
         }, reject);
-
     });
   }
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {

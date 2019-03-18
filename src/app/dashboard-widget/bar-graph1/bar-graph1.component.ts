@@ -16,7 +16,7 @@ import { LeaveService } from '../../leaves/leaves.service';
 })
 export class BarGraph1Component implements OnInit {
   dataSource: any[] = [];
-  name: any[] = []; 
+  name: any[] = [];
   value: any[] = [];
   empID: number;
 
@@ -36,25 +36,24 @@ export class BarGraph1Component implements OnInit {
   yAxisLabel = 'No of people on leave';
 
   colorScheme = {
-    domain: ['#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60','#2D0E60','#2D0E60','#2D0E60','#2D0E60']
+    domain: ['#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60']
   };
 
-  constructor(private http: HttpClient, public userService: UserService, public leaveService: LeaveService, public datePipe: DatePipe, public router: Router) {
+  constructor(private http: HttpClient,
+    public userService: UserService,
+    public leaveService: LeaveService,
+    public datePipe: DatePipe,
+    public router: Router) {
 
   }
-
-
   ngOnInit() {
     this.empID = this.userService.EmployeeID;
     this.getAttendance(this.empID);
-      setTimeout(() => {
-          this.createBarGraph();
-      },500)
+    setTimeout(() => {
+      this.createBarGraph();
+    }, 500)
   }
- 
-  
   getAttendance(id: number) {
-    
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/attendance/absentees/month/' + id)
         .subscribe((response: any) => {
@@ -62,7 +61,6 @@ export class BarGraph1Component implements OnInit {
           console.log(this.dataSource);
           resolve(response);
         }, reject);
-
     });
   }
   // onSelect(i){
@@ -143,7 +141,7 @@ export class BarGraph1Component implements OnInit {
 
   onSelect(event) {
     console.log(event);
-    
+
     this.leaveService.setDateMonth(event.name);
     this.router.navigateByUrl('auth/attendance/monthly-absentees');
   }

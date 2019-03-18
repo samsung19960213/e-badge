@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 
 import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class LateComersComponent implements OnInit {
   showNavListCode;
   ID: any;
   time:any[]=[];
-  
+  empId:number;
   userId: number[]= [];
   searchTerm:string;
   date = new Date();
@@ -34,8 +35,9 @@ export class LateComersComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue:string;
-  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe) {}
+  constructor(private http: HttpClient, public route: Router, public leaveService: LeaveService, public datePipe: DatePipe,public userService:UserService) {}
   	ngOnInit() {
+      this.empId= this.userService.EmployeeID;
       this.dataSource = new MatTableDataSource<LateComersTable>()
       let Datenow =this.datePipe.transform(this.date, 'yyyy-MM-dd');
     this.getData(Datenow).then(data=> {
@@ -78,7 +80,7 @@ export class LateComersComponent implements OnInit {
     }
     getData(fromDate:any ){
       return new Promise((resolve, reject) => {
-                this.http.get(Url.API_URL + 'api/attendance/lateentry/'+ fromDate )
+                this.http.get(Url.API_URL + 'api/attendance/lateentry/' + this.empId +'/'+ fromDate  )
                 .subscribe((response: any) => {
                   resolve(response);
                 },reject);

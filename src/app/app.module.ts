@@ -21,17 +21,16 @@ import { ExcelService } from './reports/excel.service';
 
 
 
+
+
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
-
-
-
-
-
+    
+  
   ],
   imports: [
     BrowserModule,

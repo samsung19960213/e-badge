@@ -16,6 +16,7 @@ export const appRoutes: Routes = [{
         {path: 'reports', loadChildren: '../reports/reports.module#ReportsModule',canActivate: [AuthGuard]},
         { path: 'attendance', loadChildren: '../attendance/attendance.module#AttendanceModule'  ,canActivate: [AuthGuard]},
         {path: 'office', loadChildren: '../office/office.module#OfficeModule',canActivate: [AuthGuard]},
+       
         
          { path: 'material-widgets', loadChildren: '../material-widgets/material-widgets.module#MaterialWidgetsModule' },
         { path: 'tables', loadChildren: '../tables/tables.module#TablesModule' },

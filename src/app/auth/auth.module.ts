@@ -28,6 +28,7 @@ import { AttendanceModule } from '../attendance/attendance.module';
 import { LeavesModule } from '../leaves/leaves.module';
 import { OfficeModule } from '../office/office.module';
 
+
 @NgModule({
     imports: [
         CommonModule,
@@ -46,7 +47,8 @@ import { OfficeModule } from '../office/office.module';
         EmployeesModule,
         AttendanceModule,
         LeavesModule,
-        OfficeModule
+        OfficeModule,
+       
     ],
     declarations: [AuthComponent],
     providers: [

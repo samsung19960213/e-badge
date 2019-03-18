@@ -5,8 +5,8 @@
 			<h1 class="mat-headline center-align text-center" style="padding-left:10px;"><b>Active Employee List</b></h1>
 		</mat-toolbar>
 		<div class="table-container">
-			<div class="example-header" style="padding: 10px 20px; ">
-				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
+			<div class="example-header">
+				<mat-form-field floatPlaceholder="never" style="color: black; width: 50% ">
 					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)"  [(ngModel)]="searchTerm">
 				</mat-form-field>
 			</div>

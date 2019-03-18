@@ -18,48 +18,47 @@ import { UserService } from '../../user.service';
     styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent implements OnInit {
-
     empId: number
     user: FormGroup;
     employeeDetails: any;
-   attendance: any[]=[];
-   color:any[]=[];
-    dates:any[]=[];
-    empID:number;
+    attendance: any[] = [];
+    color: any[] = [];
+    dates: any[] = [];
+    empID: number;
     date = new Date();
     year = this.date.getFullYear();
     month = this.date.getMonth();
-    shiftList:any;
-    userRoleList:any;
+    shiftList: any;
+    userRoleList: any;
     departmentList: any;
-    designationList:any;
-    managerList:any;
-    reportingMgr:any;
+    designationList: any;
+    managerList: any;
+    reportingMgr: any;
     firstDay = new Date(this.year, this.month, 1);
     lastDay = new Date(this.year, this.month + 1, 0);
-    startDate:string;
-    endDate:string;
-userId:number;
-    constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public userService: UserService) {
+    startDate: string;
+    endDate: string;
+    userId: number;
+    constructor(private http: HttpClient,
+        public empService: EmployeesService,
+        public dialog: MatDialog,
+        public datePipe: DatePipe,
+        public snackBar: MatSnackBar,
+        public router: Router,
+        public userService: UserService) {
         this.employeeDetails = new EmployeeDetails();
     }
-
     ngOnInit() {
-        this.userId= this.userService.userroleId;
+        this.userId = this.userService.userroleId;
         this.empId = this.empService.getEmployeeId();
-        let fromDate =this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-        let toDate =this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+        let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+        let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
         this.userRole();
-        this.getAttendance(fromDate,toDate);
+        this.getAttendance(fromDate, toDate);
         this.department();
         this.designation();
         this.shift();
-        
-      
         this.getDetails(this.empId);
-        
-
-      
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
             useraddressLine1: new FormControl('', [Validators.required]),
@@ -100,90 +99,63 @@ userId:number;
             userreportingManagerId: new FormControl('', [Validators.required]),
         });
     }
+    //getting employee details by id
     getDetails(id: number) {
-
-
         return new Promise((resolve, reject) => {
             this.http.get(Url.API_URL + '/api/employee/employee/' + id)
                 .subscribe((response: any) => {
-                    console.log(response);
                     resolve(response);
                     this.employeeDetails = response;
                     this.reportMgr(this.employeeDetails.reportingManagerId);
                 }, reject);
-
         });
-
     }
     shift(): Promise<any> {
         return new Promise((resolve, reject) => {
-    
-          this.http.get(Url.API_URL + 'api/shift/all')
-            .subscribe((response: any) => {
-              console.log(response[0].shiftName)
-              this.shiftList = response;
-             
-              console.log(this.shiftList[1].shiftName)
-              resolve(response);
-            }, reject);
-    
+            this.http.get(Url.API_URL + 'api/shift/all')
+                .subscribe((response: any) => {
+                this.shiftList = response;
+                    resolve(response);
+                }, reject);
         });
-      }
-      reportMgr(id:string): Promise<any> {
-        console.log(id);
+    }
+    reportMgr(id: string): Promise<any> {
         return new Promise((resolve, reject) => {
-    
-          this.http.get(Url.API_URL + 'api/employee/getReportingManager/'+ id )
-            .subscribe((response: any) => {
-              console.log(response);
-             this.managerList = response;
-              resolve(response);
-            }, reject);
-    
+            this.http.get(Url.API_URL + 'api/employee/getReportingManager/' + id)
+                .subscribe((response: any) => {
+                    this.managerList = response;
+                    resolve(response);
+                }, reject);
         });
-      }
-      designation(): Promise<any> {
-        
+    }
+    designation(): Promise<any> {
         return new Promise((resolve, reject) => {
-    
-          this.http.get(Url.API_URL + 'api/desigantion/all' )
-            .subscribe((response: any) => {
-              console.log(response);
-             this.designationList = response;
-              resolve(response);
-            }, reject);
-    
+            this.http.get(Url.API_URL + 'api/desigantion/all')
+                .subscribe((response: any) => {
+                    this.designationList = response;
+                    resolve(response);
+                }, reject);
         });
-      }
-      department(): Promise<any> {
-        
+    }
+    department(): Promise<any> {
         return new Promise((resolve, reject) => {
-    
-          this.http.get(Url.API_URL + '/api/department/all' )
-            .subscribe((response: any) => {
-              console.log(response);
-             this.departmentList = response;
-              resolve(response);
-            }, reject);
-    
+            this.http.get(Url.API_URL + '/api/department/all')
+                .subscribe((response: any) => {
+                    this.departmentList = response;
+                    resolve(response);
+                }, reject);
         });
-      }
-      userRole(): Promise<any> {
-        
+    }
+    userRole(): Promise<any> {
         return new Promise((resolve, reject) => {
-    
-          this.http.get(Url.API_URL + 'api/userrole/all' )
-            .subscribe((response: any) => {
-              console.log(response);
-             this.userRoleList = response;
-              resolve(response);
-            }, reject);
-    
+            this.http.get(Url.API_URL + 'api/userrole/all')
+                .subscribe((response: any) => {
+                    this.userRoleList = response;
+                    resolve(response);
+                }, reject);
         });
-      }
+    }
     updateDetails(employeeDetails) {
-        console.log(employeeDetails);
-
         return new Promise((resolve, reject) => {
             this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
                 .subscribe((response: any) => {
@@ -191,85 +163,75 @@ userId:number;
                     this.snackBar.open('Updated Successful', 'OK', {
                         duration: 2000,
                         verticalPosition: 'top',
-                      });
-                      this.router.navigateByUrl('auth/employees/employee-table');
-                }, reject=>{
+                    });
+                    this.router.navigateByUrl('auth/employees/employee-table');
+                }, reject => {
                     this.snackBar.open('Invalid Format', 'OK', {
                         duration: 2000,
                         verticalPosition: 'top',
-                      });
+                    });
                 });
-            
-        
         });
     }
     fileEvent(fileInput: any) {
         let windows: any = window;
         let AWSService = windows.AWS;
-    
         let file = fileInput.target.files[0];
-      
         AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
         AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
         let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
         let params = { Key: file.name, Body: file };
         let fileEveThis = this;
         bucket.upload(params, function (error, response) {
-          console.log(response.Location);
-          fileEveThis.employeeDetails.employeeImage = response.Location;
+            fileEveThis.employeeDetails.employeeImage = response.Location;
         });
-      }
-    getAttendance(firstDay:string, lastDay:string){
-         
-        this.startDate =this.datePipe.transform(firstDay, 'yyyy-MM-dd');
-        this.endDate =this.datePipe.transform(lastDay, 'yyyy-MM-dd');
-        this.attendance=[];
-        this.dates=[];
-        this.color=[];
-        
-       return new Promise((resolve, reject) => {
-           this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/'+ this.empId + '/'+ this.startDate + '/'+ this.endDate)
-               .subscribe((response: any) => {
-                   console.log(response);
-                   length=response.length;
-                   for(var i=0; i< length; i++){
-                   var str = response[i].timeSum; 
-                   this.dates.push(this.datePipe.transform(response[i].date, 'dd-MMM-yy'));
-                   var splitted = str.split(":", 3); 
-                   console.log(splitted)
-                   
-                   this.attendance.push(splitted[0]);
-                   if(splitted[0]> 8){
-                   this.color.push('#3f681c');}
-                   else if(splitted[0]>5){
-                       this.color.push('#294772');
-                   }
-                   else{
-                       this.color.push('#fa3c10');
-                   }
-                   }
-                   resolve(response);
-                   console.log(this.dates);
-                  console.log(this.attendance);
-                  this.createBarGraph();
-               }, reject);
-   
-       });
+    }
+    getAttendance(firstDay: string, lastDay: string) {
+        this.startDate = this.datePipe.transform(firstDay, 'yyyy-MM-dd');
+        this.endDate = this.datePipe.transform(lastDay, 'yyyy-MM-dd');
+        this.attendance = [];
+        this.dates = [];
+        this.color = [];
+        return new Promise((resolve, reject) => {
+            this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/' + this.empId + '/' + this.startDate + '/' + this.endDate)
+                .subscribe((response: any) => {
+                    length = response.length;
+                    for (var i = 0; i < length; i++) {
+                        var str = response[i].timeSum;
+                        this.dates.push(this.datePipe.transform(response[i].date, 'dd-MMM-yy'));
+                        var splitted = str.split(":", 3);
+                        // console.log(splitted)
+                        this.attendance.push(splitted[0]);
+                        if (splitted[0] > 8) {
+                            this.color.push('#3f681c');
+                        }
+                        else if (splitted[0] > 5) {
+                            this.color.push('#294772');
+                        }
+                        else {
+                            this.color.push('#fa3c10');
+                        }
+                    }
+                    resolve(response);
+                    // console.log(this.dates);
+                    // console.log(this.attendance);
+                    this.createBarGraph();
+                }, reject);
+        });
     }
     fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
-      
+
         let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-        let fromDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+        let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
         console.log(toDate);
         this.getAttendance(fromDate, toDate);
-       
-      }
-       toDate(type: string, event: MatDatepickerInputEvent<Date>) {
+    }
+    toDate(type: string, event: MatDatepickerInputEvent<Date>) {
         let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-        let toDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
+        let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
         console.log(toDate);
-    this.getAttendance(fromDate, toDate);
-       }
+        this.getAttendance(fromDate, toDate);
+    }
     createBarGraph() {
         new Chart('dash-bar-graph', {
             type: 'bar',
@@ -310,18 +272,18 @@ userId:number;
                 responsive: true,
                 legend: {
                     display: false,
-                    
+
                 },
-                scales : {
+                scales: {
                     yAxes: [{
-                       ticks: {
-                          steps : 2,
-                          stepValue :4,
-                          max :16,
-                          min:0,
+                        ticks: {
+                            steps: 2,
+                            stepValue: 4,
+                            max: 16,
+                            min: 0,
                         }
-                    }] 
-                  },
+                    }]
+                },
                 elements: {
                     line: {
                         tension: 0.000001
@@ -343,30 +305,24 @@ userId:number;
     deactiveDetails() {
         this.message();
     }
-
     message(): void {
         let dialogRef = this.dialog.open(MessagePopup, {
             width: '400px',
-
-
-
         });
     }
 }
-
 @Component({
     selector: 'message-popup',
     templateUrl: './messagePopup.html',
     styleUrls: ['./employee-details.component.scss']
 })
-
 export class MessagePopup {
     id: number;
     reason: string;
-    url:string;
-    fileSelected:File=null;
+    url: string;
+    fileSelected: File = null;
     attachmentName: any;
-    attachmentSize:any;
+    attachmentSize: any;
 
     constructor(private http: HttpClient,
         public message: MatDialogRef<MessagePopup>, @Inject(MAT_DIALOG_DATA) public data: any, private empService: EmployeesService) { }
@@ -377,7 +333,6 @@ export class MessagePopup {
         this.message.close();
     }
     deactivate() {
-        console.log(this.id);
         return new Promise((resolve, reject) => {
             this.http.get(Url.API_URL + 'api/employee/deactivate/' + this.id + '?rejectReason=' + this.reason + '&rejectFileUrl=' + this.url)
                 .subscribe((response: any) => {
@@ -385,10 +340,7 @@ export class MessagePopup {
                 }, reject);
             alert('User deactivated successfully');
             this.message.close();
-
         });
-
-
     }
     handleFileInput(files: FileList) {
         this.fileSelected = files.item(0);

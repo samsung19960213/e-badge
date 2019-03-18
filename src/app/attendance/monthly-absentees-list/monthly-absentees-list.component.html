@@ -8,18 +8,18 @@
       <h1 class="mat-headline center-align text-center" style="padding-left:10px;"><b>Monthly Absentees List</b></h1>
     </mat-toolbar>
     <div class="table-container">
-      <div class="example-header" style="padding: 10px 20px; ">
-        <mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
+      <div class="example-header">
+        <mat-form-field floatPlaceholder="never" style="color: black; width: 50% ;margin-left: 5px">
           <input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
         </mat-form-field>
-        <div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
+        <!-- <div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50" >
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="From Date" [(ngModel)]="date"
                  (dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-        </div>
+        </div> -->
       </div>
        
       <mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;" >

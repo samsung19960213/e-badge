@@ -8,7 +8,6 @@ export const menus = [
        
     },
     
-
     {
         'name': 'Office',
         'icon': 'work_outline',
@@ -129,15 +128,23 @@ export const menus = [
                 'chip': false,
                 'open': false,
             },
+            // {
+            //     'name': 'Montly Absentees List',
+            //     'link': 'attendance/monthly-absentees',
+            //     'icon': 'account_circle',
+            //     'user':2,
+            //     'chip': false,
+            //     'open': false,
+            // },
+
             {
-                'name': 'Montly Absentees List',
-                'link': 'attendance/monthly-absentees',
-                'icon': 'account_circle',
-                'user':2,
-                'chip': false,
+                'name': 'work-from-home',
+                'icon': 'home',
+                'link': 'attendance/work-from-home',
                 'open': false,
+                'user':2,
+               
             },
-           
            
 
         ]
@@ -192,8 +199,10 @@ export const menus = [
                 'open':false,
                 'user':2,
             },         
-        ]
+        ],
+       
     },
+    
 
     // {
     //     'name': 'Material Widget',

@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LeaveService } from '../../leaves/leaves.service';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -12,9 +13,14 @@ import { LeaveService } from '../../leaves/leaves.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-
-    constructor(private http: HttpClient, public datePipe: DatePipe,public route: Router,public leaveService:LeaveService) {}
+    roleId:number;
+    constructor(private http: HttpClient,
+         public datePipe: DatePipe,
+         public route: Router,
+         public leaveService:LeaveService,
+        public userService:UserService) {}
   ngOnInit() {
+    this.roleId= this.userService.userId;
       this.firstDate();
   }
 
@@ -76,7 +82,7 @@ export class SidebarComponent implements OnInit {
         let latest_date =this.datePipe.transform(this.today, 'yyyy-MM-dd');
         return new Promise((resolve, reject) => {
    
-      this.http.get(Url.API_URL + 'api/leave/leaverequestlist')
+      this.http.get(Url.API_URL + 'api/leave/leaverequestlist'+'/' + this.roleId)
         
           .subscribe((response: any) => {
          

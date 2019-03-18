@@ -41,9 +41,11 @@
           <mat-form-field fxFlex="60" class="form2Input">
             <input matInput placeholder="Description" formControlName="description" name="description" [(ngModel)]="dataSource.description">
           </mat-form-field>
-          <!-- <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="text" placeholder="Available Leaves" formControlName="availableLeaves" name="availableLeaves" [(ngModel)]="dataSource.availableLeaves">
-          </mat-form-field> -->
+        </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
+          <mat-form-field fxFlex="60" class="form2Input">
+            <input matInput placeholder="Leave Type" formControlName="leaveType" name="leaveType" [(ngModel)]="dataSource.leaveType">
+          </mat-form-field>
         </div>
       </form>
 
