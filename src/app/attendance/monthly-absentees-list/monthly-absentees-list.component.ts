@@ -34,13 +34,10 @@ export class MonthlyAbsenteesListComponent implements OnInit {
   ngOnInit() {
     this.roleId = this.userService.EmployeeID;
     this.dateMon = this.leaveService.name;
-    console.log(this.dateMon);
     this.Datenow = this.dateMon.toString().substr(3, 4) + '-' + this.dateMon.toString().substr(0, 2)
-    console.log(this.Datenow);
     this.dataSource = new MatTableDataSource<MonthlyAbsenteesList>();
     this.getData().then(data => {
       this.dataSource.data = data;
-      console.log(this.dataSource)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
@@ -49,9 +46,6 @@ export class MonthlyAbsenteesListComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/attendance/getabsentees/per/month/' + this.Datenow + '/' + this.roleId)
         .subscribe((response: any) => {
-          console.log(response);
-
-
           resolve(response);
         }, reject);
     });

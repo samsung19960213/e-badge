@@ -21,7 +21,7 @@ export class GoogleMapComponent implements OnInit {
 
 	ngOnInit() {
 		setTimeout(() => {
-			console.log(this.mapContainer.nativeElement.offsetHeight);
+			//console.log(this.mapContainer.nativeElement.offsetHeight);
 			// let h = this.mapContainer.nativeElement.offsetHeight - 10;
 			// this.height = String(h) + 'px';
 		},300);

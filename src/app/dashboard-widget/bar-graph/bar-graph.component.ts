@@ -43,13 +43,13 @@ export class BarGraphComponent implements OnInit {
         return new Promise((resolve, reject) => {
             this.http.get(Url.API_URL + 'api/attendance/working/hoursbetweendate/' + id + '/' + this.startDate + '/' + this.endDate)
                 .subscribe((response: any) => {
-                    console.log(response);
+                    // console.log(response);
                     length = response.length;
                     for (var i = 0; i < length; i++) {
                         var str = response[i].timeSum;
                         this.dates.push(this.datePipe.transform(response[i].date, 'dd-MMM-yy'));
                         var splitted = str.split(":", 3);
-                        console.log(splitted)
+                        // console.log(splitted)
                         this.attendance.push(splitted[0]);
                         if (splitted[0] > 8) {
                             this.color.push('#3f681c');
@@ -62,8 +62,8 @@ export class BarGraphComponent implements OnInit {
                         }
                     }
                     resolve(response);
-                    console.log(this.dates);
-                    console.log(this.attendance);
+                    // console.log(this.dates);
+                    // console.log(this.attendance);
                 }, reject);
         });
     }

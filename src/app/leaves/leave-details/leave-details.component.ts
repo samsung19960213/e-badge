@@ -18,8 +18,12 @@ export class LeaveDetailsComponent implements OnInit {
   user: FormGroup;
 
   dataSource: any;
-  constructor(public form: FormBuilder, public leaveService: LeaveService, public http: HttpClient, public dialog: MatDialog, public router: Router) {
-
+  constructor(public form: FormBuilder,
+    public leaveService: LeaveService,
+    public http: HttpClient,
+    public dialog: MatDialog,
+    public router: Router,
+    public snackBar: MatSnackBar) {
     this.dataSource = new Leave();
   }
   ngOnInit() {
@@ -34,32 +38,28 @@ export class LeaveDetailsComponent implements OnInit {
       description: new FormControl('', [Validators.required]),
       availableLeaves: new FormControl('', [Validators.required]),
       requestTime: new FormControl('', [Validators.required]),
-      leaveType:new FormControl('', [Validators.required]),
+      leaveType: new FormControl('', [Validators.required]),
     });
 
   }
   getDetails(id: number) {
-
-
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + '/api/leave/' + id)
         .subscribe((response: any) => {
-          console.log(response);
           resolve(response);
           this.dataSource = response;
-          console.log(response);
-
         }, reject);
-
     });
-
   }
   accept() {
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + '/api/leave/admin/' + this.id + '/true')
         .subscribe((response: any) => {
-          console.log(response);
           resolve(response);
+          this.snackBar.open('Leave Approved', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
           this.router.navigateByUrl('auth/leaves/leave-list');
 
         }, reject);
@@ -86,32 +86,42 @@ export class LeaveDetailsComponent implements OnInit {
 
 export class RejectPopup {
   id: number;
-reason:string;
+  reason: string;
+  dataSource
   constructor(private http: HttpClient,
-    public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any,public leaveService:LeaveService, public router: Router, public snackBar: MatSnackBar) { }
+    public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any, public leaveService: LeaveService, public router: Router, public snackBar: MatSnackBar) { }
   ngOnInit() {
-    this.id =this.leaveService.getLeaveId();
+    this.id = this.leaveService.getLeaveId();
+    this.getDetails(this.id);
   }
   closeMessage(): void {
     this.message.close();
   }
-  rejectLeave()
-    {
+  getDetails(id: number) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/leave/admin/' + this.id + '/false?rejectReason='+this.reason)
+      this.http.get(Url.API_URL + '/api/leave/' + id)
         .subscribe((response: any) => {
-          console.log(response);
           resolve(response);
+          this.dataSource = response;
+        }, reject);
+
+    });
+
+  }
+  rejectLeave() {
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/leave/admin/' + this.id + '/false?rejectReason=' + this.reason)
+        .subscribe((response: any) => {
+          resolve(response);
+          this.snackBar.open('Leave Rejected', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+          this.router.navigateByUrl('auth/leaves/leave-list');
         }, reject
         );
-        this.snackBar.open('Leave Rejected Successful', 'OK', {
-          duration: 2000,
-          verticalPosition: 'top',
-        });
-      this.router.navigateByUrl('auth/leaves/leave-list');
-        this.message.close();
-        
-      // this.getDetails(this.id);
+      this.message.close();
+      this.getDetails(this.id);
     });
   }
 }

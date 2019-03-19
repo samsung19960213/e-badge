@@ -9,6 +9,8 @@ import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
 import { UserService } from '../../user.service';
 import { ExcelService } from '../excel.service';
+import { delay } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-leave-reports',
@@ -29,6 +31,7 @@ export class LeaveReportsComponent implements OnInit {
   lastDay = new Date();
   startDate: string;
   endDate: string;
+  isLoading=true;
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
   tableData: any[];
@@ -52,6 +55,11 @@ export class LeaveReportsComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
     })
+    of(this.dataSource).pipe(delay(2000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
   events: string[] = [];
   applyFilter(filterValue: string) {
@@ -63,7 +71,6 @@ export class LeaveReportsComponent implements OnInit {
 
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
@@ -80,7 +87,6 @@ export class LeaveReportsComponent implements OnInit {
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
@@ -96,7 +102,6 @@ export class LeaveReportsComponent implements OnInit {
         // this.http.get(Url.API_URL + 'api/leave/findall')
         .subscribe((response: any) => {
           this.dataSource = response;
-          console.log(this.dataSource);
           resolve(response);
         }, reject);
 
@@ -104,12 +109,10 @@ export class LeaveReportsComponent implements OnInit {
   }
 
   leaveDetails(id: number) {
-    console.log(id);
     this.leaveService.setLeaveId(id);
     this.route.navigateByUrl('auth/leaves/leave-details');
   }
   exportLeaveReport(): void {
-    console.log(this.tableData);
     this.excelSrv.exportAsExcelFile(this.tableData, 'Leave-Report');
   }
 

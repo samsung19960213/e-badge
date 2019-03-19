@@ -35,7 +35,7 @@ hide;
        
   // }
  onSubmit() { 
- 	console.log('');
+ 	// console.log('');
  	this.submitted = true; }
   ngOnInit() {
   }

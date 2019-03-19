@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
 import {
+  Router,
+  // import as RouterEvent to avoid confusion with the DOM Event
+  Event as RouterEvent,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError
+} from '@angular/router'
+import {
   trigger,
   state,
   style,
@@ -17,7 +26,8 @@ import {
 export class AppComponent {
   title = 'app';
   getRouteAnimation(outlet) {
-      
       return outlet.activatedRouteData.animation
   }
+  // Sets initial value to true to show loading spinner on first load
+ 
 }

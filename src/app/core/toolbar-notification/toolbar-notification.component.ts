@@ -70,7 +70,6 @@ export class ToolbarNotificationComponent implements OnInit {
         .subscribe((response: any) => {
        
          this.notifications=response;
-          console.log(this.notifications);
           resolve(this.notifications);
           this.notilength = this.notifications.length;
         },reject);

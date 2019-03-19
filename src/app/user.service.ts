@@ -19,8 +19,8 @@ export class UserService {
         userPassword: string,
         userEmail: string, department: string, designation: string, employeeId: number, lname: string, roleId: number,) {
         this.username = username;
-        console.log(this.username);
-        console.log(this.userImg);
+        // console.log(this.username);
+        // console.log(this.userImg);
         this.userImg = userImg;
         this.userId = userId;
         this.userPassword = userPassword;

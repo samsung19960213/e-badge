@@ -8,6 +8,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { EmployeesService } from '../employees.service';
 import { UserData } from '../../tables/interfaces';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-deactivated-employees',
@@ -22,6 +25,7 @@ export class DeactivatedEmployeesComponent implements OnInit {
   userId: number[] = [];
   searchTerm: string;
   userModel: any;
+  isLoading=true;
   dataSource = new MatTableDataSource<Employeetable>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -35,6 +39,11 @@ export class DeactivatedEmployeesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     // console.log(this.dataSource);
+    of(this.dataSource).pipe(delay(4000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
   InActiveEmployeeList(): Promise<any> {
     return new Promise((resolve, reject) => {

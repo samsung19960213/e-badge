@@ -35,14 +35,12 @@ export class DoughnutChartComponent implements OnInit {
       this.ngOnInit();
     }
   }
-
   ngOnInit() {
     this.view = [this.el.nativeElement.offsetWidth, 235];    
     Object.assign(this, {single, multi})   
   }
-  
+
   onSelect(event) {
-    console.log(event);
   }
 
 }

@@ -29,6 +29,7 @@
     "angular-highlight-js": "^2.0.1",
     "angular-nvd3": "^1.0.9",
     "angular-svg-round-progressbar": "^2.0.0",
+    "angular2-busy": "^2.0.4",
     "angular2-chartjs": "^0.4.1",
     "angularfire2": "^5.0.0-rc.5-next",
     "aws-sdk": "^2.399.0",

@@ -1,7 +1,7 @@
 
 
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule, MatDialog, MatDialogModule, MatDatepicker, MatDatepickerToggle, MatDatepickerModule, MatNativeDateModule, MatSortModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatRadioGroup, MatRadioButton, MatRadioModule, MatDialog, MatDialogModule, MatDatepicker, MatDatepickerToggle, MatDatepickerModule, MatNativeDateModule, MatSortModule, MatProgressBarModule, MatProgressSpinnerModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
@@ -56,6 +56,8 @@ import { ExcelService } from "./excel.service";
         MatNativeDateModule,
         ReactiveFormsModule,
         FormsModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
         ReportsRouterModule,
     ],
     declarations: [

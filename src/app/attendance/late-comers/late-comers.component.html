@@ -61,7 +61,10 @@
          >
           </mat-row>
         </mat-table>
-  
+        <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">
+          <mat-progress-spinner color="primary" mode="indeterminate">
+          </mat-progress-spinner>
+        </mat-card>
         <div class="example-no-results text"
           [style.display]="dataSource.data?.length == 0 ? '' : 'none'">
           No users found matching filter.

@@ -87,7 +87,6 @@ export class SidebarComponent implements OnInit {
           .subscribe((response: any) => {
          
            this.messages=response;
-            console.log(this.messages);
             resolve(response);
           },reject);
         

@@ -1,6 +1,6 @@
 
 import { CoreModule, FlexLayoutModule } from "@angular/flex-layout";
-import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule } from "@angular/material";
+import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToolbarModule, MatInputModule, MatButtonToggleModule, MatButtonModule, MatCardModule, MatTable, MatHeaderCell, MatCell, MatTableModule, MatPaginatorModule, MatSelectModule, MatOptionModule, MatTabsModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatProgressBarModule, MatProgressSpinnerModule } from "@angular/material";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -44,32 +44,34 @@ import { RejectAlertModule } from "./work-from-home-details/rejectAlert.module";
         HttpClientModule,
         CoreModule,
         CommonModule,
-		// FormsRouterModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatToolbarModule,
-		MatCardModule,
-		MatTabsModule,
+        // FormsRouterModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatTabsModule,
         MatIconModule,
-       
+
         MatDialogModule,
-         MatInputModule,
-     MatDatepickerModule,
-     MatNativeDateModule,
-		 ReactiveFormsModule,
-         FormsModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
         AttendanceRouterModule,
         RejectAlertModule
-     ],
-    declarations: [   
+    ],
+    declarations: [
         AttendanceComponent,
-       AbsenteesComponent,
-       PresentComponent,
-       LateComersComponent,
-       CheckoutRequestComponent,
-       MonthlyAbsenteesListComponent,
-       WorkFromHomeComponent,
-       WorkFromHomeDetailsComponent,
+        AbsenteesComponent,
+        PresentComponent,
+        LateComersComponent,
+        CheckoutRequestComponent,
+        MonthlyAbsenteesListComponent,
+        WorkFromHomeComponent,
+        WorkFromHomeDetailsComponent,
     ],
     entryComponents: [RejectAlert],
     exports: [

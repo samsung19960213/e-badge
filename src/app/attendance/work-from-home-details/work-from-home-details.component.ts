@@ -29,7 +29,8 @@ export class WorkFromHomeDetailsComponent implements OnInit {
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public route: ActivatedRoute,
-    public router: Router) { 
+    public router: Router,
+    public snackBar: MatSnackBar) { 
       this.dataSource = new WorkDetail();
     }
   ngOnInit() {
@@ -69,6 +70,10 @@ export class WorkFromHomeDetailsComponent implements OnInit {
       this.http.post(Url.API_URL + '/api/attendance/adminupdateworkfromhome', approveDto)
         .subscribe((response: any) => {
           resolve(response);
+          this.snackBar.open('Work From Home Aprroved', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
           this.router.navigateByUrl('auth/attendance/work-from-home');
         }, reject);
       this.getDetails(this.id);
@@ -117,14 +122,16 @@ export class RejectAlert {
       this.http.post(Url.API_URL + '/api/attendance/adminupdateworkfromhome', rejectDto)
         .subscribe((response: any) => {
           resolve(response);
+          this.snackBar.open('Work From Home Rejected', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+          this.router.navigateByUrl('auth/attendance/work-from-home');
         }, reject
         );
-      this.snackBar.open('Leave Rejected Successful', 'OK', {
-        duration: 2000,
-        verticalPosition: 'top',
-      });
       this.message.close();
-      this.router.navigateByUrl('auth/attendance/work-from-home');
+      this.getDetails(this.id);
+      
     });
   }
   getDetails(id: number) {

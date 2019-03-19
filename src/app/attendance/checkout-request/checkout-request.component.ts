@@ -4,7 +4,8 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-
+import {of,} from 'rxjs';
+import {delay} from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
@@ -30,7 +31,9 @@ export class CheckoutRequestComponent implements OnInit {
   userId: number[] = [];
   searchTerm: string;
   userModel: any;
+  isLoading = true;
   id: number;
+  private HolidayArray: Array<any> = [];
   checkOutTime: string;
   checkOutData: string;
   date = new Date();
@@ -42,6 +45,7 @@ export class CheckoutRequestComponent implements OnInit {
   endDate: string;
   dataSource: any;
   roleId: number;
+  checkOutRequestArray:Array<any> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
@@ -52,15 +56,24 @@ export class CheckoutRequestComponent implements OnInit {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<Employeetable>();
     this.checkOutList(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
+      this.dataSource = data;    
+      for(var i=0; i<this.dataSource.length;i++){
+        if(this.dataSource[i].status=='NORMAL')
+      this.checkOutRequestArray.push(this.dataSource[i]);
+      }
+      this.dataSource=this.checkOutRequestArray;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+    of(this.dataSource).pipe(delay(2000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.checkOutList(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
@@ -70,6 +83,8 @@ export class CheckoutRequestComponent implements OnInit {
       this.http.get(Url.API_URL + 'api/attendance/unchecked/attendance/' + +this.userService.userId + '/' + fromDate + '/' + toDate)
         .subscribe((response: any) => {
           resolve(response);
+         
+          
         }, reject);
     });
   
@@ -89,7 +104,6 @@ export class CheckoutRequestComponent implements OnInit {
         // this.http.get(Url.API_URL + 'api/leave/findall')
         .subscribe((response: any) => {
           this.dataSource = response;
-          console.log(this.dataSource);
           resolve(response);
         }, reject);
     });
@@ -98,7 +112,6 @@ export class CheckoutRequestComponent implements OnInit {
     if (value != null && time != null) {
       this.checkOutTime = this.datePipe.transform(value, 'yyyy-MM-dd') + 'T' + time + ':00';
       this.id = id;
-      console.log(this.id);
       this.checkOutTime = this.checkOutTime;
       var fromDate;
       var toDate;

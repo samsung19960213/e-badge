@@ -12,6 +12,9 @@ import { LeaveService } from '../../leaves/leaves.service';
 import { Url } from '../../Url';
 import { ReportsService } from '../reports.service';
 import { ExcelService } from '../excel.service';
+import { delay } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 
 @Component({
@@ -28,6 +31,7 @@ export class PersonalReportsComponent implements OnInit {
   date = new Date();
   year = this.date.getFullYear();
   month = this.date.getMonth();
+  isLoading=true;
 
   firstDay = new Date(this.year, this.month, 1);
   lastDay = new Date(this.year, this.month + 1, 0);
@@ -54,10 +58,12 @@ this.Lname= this.reportsService.lname;
       this.dataSource.data =data;
       this.dataSource.sort =this.sort;
       this.dataSource.paginator =this.paginator;
-      
     })
-   
-console.log(this.dataSource);
+    of(this.dataSource).pipe(delay(2000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
 
 
@@ -67,7 +73,6 @@ console.log(this.dataSource);
 
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data=>{
       this.dataSource.data=data;
     })
@@ -91,13 +96,11 @@ console.log(this.dataSource);
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data=>{
       this.dataSource.data=data;
     })
   }
   exportPersonalReport(): void {
-    console.log(this.tableData);
      this.excelSrv.exportAsExcelFile(this.tableData, 'Personal-Report');
   }
 

@@ -33,7 +33,6 @@ Aaqil;
 
   	ngOnInit() {
 		this.currentUser.currentUserName=this.userService.getUserName();
-		console.log(this.userService.getUserName);
 		this.currentUser.photoURL = this.userService.getUserImg();  
   	}
 logout() {

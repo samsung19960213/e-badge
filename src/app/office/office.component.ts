@@ -64,8 +64,8 @@ sun = new Array();
     // this.Weekends();
     
   
-console.log(this.sat);
-console.log(this.sun);
+// console.log(this.sat);
+// console.log(this.sun);
     this.userForm = this.formBuilder.group({
       userCompanyName: ['', [Validators.required]],
       userSuperAdmin: ['', [Validators.required]],
@@ -84,7 +84,7 @@ console.log(this.sun);
     .subscribe((response: any) => {
       resolve(response);
       this.companyDetails=response[0];
-      console.log(this.companyDetails);
+      //console.log(this.companyDetails);
      
     },reject);
    
@@ -105,16 +105,7 @@ console.log(this.sun);
    }
  
  }
-//  for(var j=0; j< this.sun.length;j++){
-//    this.newHoliday.leaveDate =this.sun[j];
-//    this.newHoliday.leaveName='Weekend';
-//    this.HolidayArray.push(this.newHoliday);
-//    this.newHoliday={};
-   
-//  }
-//  console.log(this.HolidayArray);
-//  this.saveHoliday(this.HolidayArray);
- 
+
  }
  daysInMonth(year) {
    var year1 =0;
@@ -130,50 +121,41 @@ console.log(this.sun);
 }
 addLeaveValue() {
   this.LeaveArray.push(this.newLeave)
-  console.log(this.LeaveArray);
   this.saveLeave();
   this.newLeave = {};
 }
   addDepartmentValue() {
       this.DeptArray.push(this.newDept)
-      console.log(this.DeptArray);
       this.saveDepartment();
       this.newDept = {};
   }
   addDesignationValue() {
     this.DesgnArray.push(this.newDesgn)
-    console.log(this.DesgnArray);
     this.saveDesignation();
     this.newDesgn = {};
  }
  addUserRole(){
-  this.RoleArray.push(this.newShift)
-  console.log(this.RoleArray);
+  this.RoleArray.push(this.newRole)
   this.saveRole();
   this.newRole = {};
  }
  addShiftDetails() {
   this.ShiftArray.push(this.newShift)
-  console.log(this.ShiftArray);
   this.saveShift();
   this.newShift = {};
 }
   addHoliday() {
     this.newHoliday.leaveDate=this.datePipe.transform(this.newHoliday.leaveDate, 'yyyy-MM-dd')
     this.HolidayArray.push(this.newHoliday);
-    console.log(this.HolidayArray);
     this.saveHoliday(this.HolidayArray);
     this.newHoliday ={};
-   
   }
   saveDepartment() {
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/department/save', this.DeptArray)
         .subscribe((response: any) => {
-          console.log('success');
           resolve(response);
         }, reject);
-    
       setTimeout(function(){
       this.DepartmentList();
         }, 3000);
@@ -181,12 +163,10 @@ addLeaveValue() {
   }
   saveRole() {
     return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + 'api/userrole/save', this.RoleArray)
+      this.http.post(Url.API_URL+'api/userrole/save',this.RoleArray)
         .subscribe((response: any) => {
-          console.log('success');
           resolve(response);
         }, reject);
-      console.log('success');
       setTimeout(function(){
       this.UserRoleList();
         }, 3000);
@@ -213,26 +193,16 @@ addLeaveValue() {
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
-      console.log('success');
       setTimeout(function(){
       this.DesignationList();
         }, 3000);
     });
   }
   saveShift() {
-    // return new Promise((resolve, reject) => {
-    //   this.http.post(Url.API_URL + '/api/shift/save', this.ShiftArray)
-    //     .subscribe((response: any) => {
-    //       resolve(response);
-    //     }, reject);
-      console.log(this.ShiftArray);
-      // setTimeout(function(){
-      // this.ShiftList();
-      //   }, 3000);
-    // });
+      // console.log(this.ShiftArray);
   }
  saveHoliday( holidayarray: any[]) {
-console.log(holidayarray);
+//console.log(holidayarray);
   return new Promise((resolve, reject) => {
     this.http.post(Url.API_URL + 'api/leaveDates/save', holidayarray)
       .subscribe((response: any) => {
@@ -245,13 +215,12 @@ console.log(holidayarray);
       }, 3000);
 
   });
-  
  }
- 
 saveAll(){
   this.saveDesignation();
   this.saveDepartment();
   this.saveRole();
+
 }
 
 //   deleteFieldValue(index) {
@@ -271,21 +240,16 @@ saveAll(){
   
  
   saveDetails(companyDetails: companyDetails) {
-    console.log(companyDetails);
-
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/office/save', companyDetails)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
-    
       this.snackBar.open('Saved Successful', 'OK', {
         duration: 2000,
         verticalPosition: 'top',
       });
     });
-    
-
   }
   Office() {
     this.saveHoliday(this.HolidayArray);
@@ -295,7 +259,6 @@ saveAll(){
       duration: 2000,
       verticalPosition: 'top',
     });
-  
     this.router.navigateByUrl('auth/dashboard');
   }
   DepartmentList(): Promise<any> {
@@ -305,7 +268,6 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.DeptArray=response;
-       
       },reject);
      
     });
@@ -317,9 +279,6 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.TimeZoneArray= response.zones;
-        console.log(this.TimeZoneArray);
-        
-       
       },reject);
      
     });
@@ -332,7 +291,6 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.LeaveArray=response;
-       
       },reject);
      
     });
@@ -344,7 +302,6 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.ShiftArray=response;
-       console.log(this.ShiftArray);
       },reject);
      
     });
@@ -356,7 +313,6 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.DesgnArray=response;
-      
       },reject);
      
     });
@@ -368,7 +324,6 @@ saveAll(){
       .subscribe((response: any) => {
         resolve(response);
         this.RoleArray=response;
-      
       },reject);
      
     });

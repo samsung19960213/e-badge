@@ -58,7 +58,6 @@ export class BarGraph1Component implements OnInit {
       this.http.get(Url.API_URL + 'api/attendance/absentees/month/' + id)
         .subscribe((response: any) => {
           this.dataSource = response;
-          console.log(this.dataSource);
           resolve(response);
         }, reject);
     });

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { LeaveService } from '../../leaves/leaves.service';
 import { UserService } from '../../user.service';
+import {of,} from 'rxjs';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-absentees',
@@ -35,6 +37,8 @@ export class AbsenteesComponent implements OnInit {
   roleId: number;
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
+  isLoading = true;
+  // dataSource = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -54,18 +58,24 @@ export class AbsenteesComponent implements OnInit {
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+
     })
-  }
-  events: string[] = [];
-  fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
-    let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-    let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    this.getData(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
-    })
+    of(this.dataSource).pipe(delay(2500))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
+}
+events: string[] = [];
+fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
+  let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+  let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+  this.getData(fromDate, toDate).then(data => {
+    this.dataSource.data = data;
+  })
 
 
-  }
+}
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
@@ -86,20 +96,20 @@ export class AbsenteesComponent implements OnInit {
       this.dataSource.data = data;
     })
   }
-  firstDate(): Promise<any> {
-    let latest_date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
-    return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/leave/request/' + latest_date)
-        .subscribe((response: any) => {
-          this.dataSource = response;
-          resolve(response);
-        }, reject);
-    });
-  }
+  firstDate(): Promise < any > {
+      let latest_date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
+      return new Promise((resolve, reject) => {
+        this.http.get(Url.API_URL + 'api/leave/request/' + latest_date)
+          .subscribe((response: any) => {
+            this.dataSource = response;
+            resolve(response);
+          }, reject);
+      });
+    }
   leaveDetails(id: number) {
-    this.leaveService.setLeaveId(id);
-    this.route.navigateByUrl('auth/leaves/leave-details');
-  }
+      this.leaveService.setLeaveId(id);
+      this.route.navigateByUrl('auth/leaves/leave-details');
+    }
 
 }
 

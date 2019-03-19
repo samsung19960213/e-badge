@@ -13,6 +13,9 @@ import { Url } from '../Url';
 import { ReportsService } from './reports.service';
 import { UserService } from '../user.service';
 import { ExcelService } from './excel.service';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 
 
 @Component({
@@ -35,6 +38,7 @@ export class ReportsComponent implements OnInit {
   lastDay = new Date(this.year, this.month + 1, 0);
   startDate: string;
   endDate: string;
+  isLoading=true;
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
   tableData: any[];
@@ -61,6 +65,11 @@ export class ReportsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.averageHours(this.dataSource.data.length);
     });
+    of(this.dataSource).pipe(delay(2000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
   events: string[] = [];
 

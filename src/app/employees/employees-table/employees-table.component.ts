@@ -17,6 +17,8 @@ import { fromEvent as observableFromEvent, } from 'rxjs';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { ExampleDataSource } from '../../tables/filter-table/helpers.data';
 import { UserService } from '../../user.service';
+import { delay } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 
@@ -35,6 +37,7 @@ export class EmployeesTableComponent implements OnInit {
   searchTerm: string;
   userModel: any;
   roleId: number;
+  isLoading=true;
   dataSource = new MatTableDataSource<Employeetable>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -48,6 +51,11 @@ export class EmployeesTableComponent implements OnInit {
     })
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    of(this.dataSource).pipe(delay(4000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
   EmployeeList(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -62,7 +70,6 @@ export class EmployeesTableComponent implements OnInit {
     this.route.navigateByUrl('auth/employees/employee-details');
   }
   employeeDetails(id: number) {
-    console.log(id);
     this.empService.setEmployeeId(id);
     this.route.navigateByUrl('auth/employees/employee-details');
   }
@@ -72,7 +79,6 @@ export class EmployeesTableComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
   downloadQR(id: string) {
-    console.log(id);
     window.open(Url.API_URL + 'api/qrcode/qrCode/download/' + id, '_blank');
     // return new Promise((resolve, reject) => {
     //       this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/'+ id)

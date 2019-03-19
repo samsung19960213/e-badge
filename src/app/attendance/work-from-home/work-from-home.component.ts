@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { LeaveService } from '../../leaves/leaves.service';
 
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-work-from-home',
@@ -31,10 +34,12 @@ export class WorkFromHomeComponent implements OnInit {
   month = this.date.getMonth();
   firstDay = new Date(this.year, 0, 1);
   lastDay = new Date();
+  isLoading=true;
   startDate: string;
   endDate: string;
   dataSource: any;
   roleId: number;
+  workFromArray:Array<any> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
@@ -48,19 +53,26 @@ export class WorkFromHomeComponent implements OnInit {
   ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
-    console.log(fromDate);
     this.dataSource = new MatTableDataSource<Employeetable>();
     this.checkOutList(fromDate, toDate).then(data => {
-    
-      this.dataSource.data = data;
+      this.dataSource = data;
+      for(var i=0; i<this.dataSource.length;i++){
+        if(this.dataSource[i].status=='PENDING')
+      this.workFromArray.push(this.dataSource[i]);
+      }
+      this.dataSource=this.workFromArray;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+    of(this.dataSource).pipe(delay(2000))
+    .subscribe(data => {
+      this.isLoading = false;
+      this.dataSource = data
+    }, error => this.isLoading = false);
   }
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.checkOutList(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
@@ -86,7 +98,6 @@ export class WorkFromHomeComponent implements OnInit {
       this.http.get(Url.API_URL + 'api/leave/request/' + latest_date)
         .subscribe((response: any) => {
           this.dataSource = response;
-          console.log(this.dataSource);
           resolve(response);
         }, reject);
     });
@@ -95,7 +106,6 @@ export class WorkFromHomeComponent implements OnInit {
     if (value != null && time != null) {
       this.checkOutTime = this.datePipe.transform(value, 'yyyy-MM-dd') + 'T' + time + ':00';
       this.id = id;
-      console.log(this.id);
       this.checkOutTime = this.checkOutTime;
       var fromDate;
       var toDate;

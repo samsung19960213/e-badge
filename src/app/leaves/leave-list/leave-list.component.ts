@@ -50,7 +50,6 @@ export class LeaveListComponent implements OnInit {
     this.dataSource = new MatTableDataSource<LeaveListTable>();
     this.getData(fromDate, toDate).then(data => {
       this.dataSource = data;
-      console.log(this.dataSource)
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
@@ -65,7 +64,6 @@ export class LeaveListComponent implements OnInit {
 
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
@@ -83,7 +81,6 @@ export class LeaveListComponent implements OnInit {
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    console.log(toDate);
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
@@ -99,20 +96,17 @@ export class LeaveListComponent implements OnInit {
         // this.http.get(Url.API_URL + 'api/leave/findall')
         .subscribe((response: any) => {
           this.dataSource = response;
-          console.log(this.dataSource);
           resolve(response);
         }, reject);
 
     });
   }
   edit(id:number){
-    console.log(id);
     this.leaveService.setLeaveId(id);
     this.route.navigateByUrl('auth/leaves/leave-details');
   }
 
   leaveDetails(id: number) {
-    console.log(id);
     this.leaveService.setLeaveId(id);
     this.route.navigateByUrl('auth/leaves/leave-details');
   }

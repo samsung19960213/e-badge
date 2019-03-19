@@ -57,12 +57,10 @@ getDashboardCounts(date:string) {
     return new Promise((resolve, reject) => {
         this.http.get(Url.API_URL + 'api/employee/getdashBoardCounts/'+date+'/'+this.userId )
             .subscribe((response: any) => {
-                console.log(response);
                 this.dashCard[0].number=response.getActiveEmployees;
                 this.dashCard[1].number =response.getPresentEmployees;
                 this.dashCard[2].number =response.getLateEntryEmployees;
                 this.dashCard[3].number = response.getPendingLeaveRequest;
-                console.log(this.activeEmployees);
                 resolve(response);
               
             }, reject);

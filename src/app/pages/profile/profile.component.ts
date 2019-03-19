@@ -97,22 +97,15 @@ export class ProfileComponent implements OnInit {
 
   }
   getDetails(id: number) {
-
-
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + '/api/employee/user/' + id)
         .subscribe((response: any) => {
-          console.log(response);
           resolve(response);
           this.employeeDetails = response;
         }, reject);
-
     });
-
   }
   updateDetails(employeeDetails) {
-    console.log(employeeDetails);
-
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
         .subscribe((response: any) => {
@@ -138,22 +131,17 @@ export class ProfileComponent implements OnInit {
 
       this.http.get(Url.API_URL + 'api/shift/all')
         .subscribe((response: any) => {
-          console.log(response[0].shiftName)
           this.shiftList = response;
-
-          console.log(this.shiftList[1].shiftName)
           resolve(response);
         }, reject);
 
     });
   }
   reportMgr(id: string): Promise<any> {
-    console.log(id);
     return new Promise((resolve, reject) => {
 
       this.http.get(Url.API_URL + 'api/employee/getReportingManager/' + id)
         .subscribe((response: any) => {
-          console.log(response);
           this.managerList = response;
           resolve(response);
         }, reject);
@@ -166,7 +154,6 @@ export class ProfileComponent implements OnInit {
 
       this.http.get(Url.API_URL + 'api/desigantion/all')
         .subscribe((response: any) => {
-          console.log(response);
           this.designationList = response;
           resolve(response);
         }, reject);
@@ -179,7 +166,6 @@ export class ProfileComponent implements OnInit {
 
       this.http.get(Url.API_URL + 'api/userrole/all')
         .subscribe((response: any) => {
-          console.log(response);
           this.RoleList = response;
           resolve(response);
         }, reject);
@@ -192,7 +178,6 @@ export class ProfileComponent implements OnInit {
 
       this.http.get(Url.API_URL + '/api/department/all')
         .subscribe((response: any) => {
-          console.log(response);
           this.departmentList = response;
           resolve(response);
         }, reject);
@@ -211,7 +196,6 @@ export class ProfileComponent implements OnInit {
     let params = { Key: file.name, Body: file };
     let fileEveThis = this;
     bucket.upload(params, function (error, response) {
-      console.log(response.Location);
       fileEveThis.employeeDetails.employeeImage = response.Location;
     });
   }
@@ -251,7 +235,6 @@ export class ChangePassword {
     this.id = this.userService.userId;
     this.loginEmail = this.userService.getuserEmail();
     this.loginPassword = this.userService.getuserPassword();
-    console.log(this.loginPassword);
     this.userForm = new FormGroup({
       email: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
@@ -263,14 +246,8 @@ export class ChangePassword {
     this.message.close();
   }
   onSubmit(form: NgForm) {
-    console.log(form.value)
-
     this.changePasswordRequest = form.value;
-
-
     if (this.changePasswordRequest.newPassword == this.changePasswordRequest.confirmPassword) {
-
-      console.log(this.changePasswordRequest);
       return new Promise((resolve, reject) => {
         this.http.post(Url.API_URL + 'api/user/changePassword', this.changePasswordRequest)
           .subscribe((response: any) => {

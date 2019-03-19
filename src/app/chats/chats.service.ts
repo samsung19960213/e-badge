@@ -35,7 +35,6 @@ export class ChatsService {
   }
 
   updateChatMessage(key: string, value: any) {
-    console.log('key',key,'value',value);
     this.chatsRef.update(key, {messages: value.messages});
   }
 
