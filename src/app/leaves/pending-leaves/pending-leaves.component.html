@@ -7,7 +7,7 @@
 		<div class="table-container">
 			<div class="example-header" style="margin-left: 5px">
 				<mat-form-field floatPlaceholder="never" style="color: black; width: 50% ">
-					<input matInput #filter placeholder="Filter users"  (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
+					<input matInput #filter placeholder="Filter users" (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 				</mat-form-field>
 			</div>
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;">
@@ -36,37 +36,41 @@
 
 				<ng-container matColumnDef="fromDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> From Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate  | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate | date: 'longDate'}} </mat-cell>
 				</ng-container>
 				<!-- Color Column -->
 				<ng-container matColumnDef="toDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> To Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.toDate  | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.toDate | date: 'longDate'}} </mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="requestDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Applied Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestTime  | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestTime | date: 'longDate'}} </mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="status">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
-						<p *ngIf='dataSource.status == "PENDING"' style="color:red"><b> PENDING</b></p>
+						<p *ngIf='dataSource.status == "PENDING"' style="color:red">
+							<b> PENDING</b>
+						</p>
 					</mat-cell>
 				</ng-container>
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" 
-				 (click)="leaveDetails(dataSource.id)">
+				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" (click)="leaveDetails(dataSource.id)">
 				</mat-row>
 			</mat-table>
-
+			<!-- <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">
+				<mat-progress-spinner color="primary" mode="indeterminate">
+				</mat-progress-spinner>
+			</mat-card> -->
 			<div class="example-no-results text" [style.display]="dataSource.data?.length == 0 ? '' : 'none'">
 				No leave requests found.
 			</div>
 
-			<mat-paginator #paginator 	[length]="dataSource.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+			<mat-paginator #paginator [length]="dataSource.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
 			</mat-paginator>
 		</div>
 	</div>

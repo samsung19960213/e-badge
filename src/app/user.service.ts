@@ -9,6 +9,7 @@ export class UserService {
     userPassword: string;
     userEmail: string;
     Department: string;
+    DepartmentId:number
     Designation: string;
     EmployeeID: number;
     Lname: string;
@@ -26,6 +27,7 @@ export class UserService {
         this.userPassword = userPassword;
         this.userEmail = userEmail;
         this.Department = department;
+        // this.DepartmentId = departmentId;
         this.Designation = designation;
         this.EmployeeID = employeeId;
         this.Lname = lname;
@@ -33,7 +35,9 @@ export class UserService {
         // this.dateMonth = date;
         // console.log(this.dateMonth);
     }
-
+    // getdepartmentId() {
+    //     return this.DepartmentId;
+    // }
     getUserImg() {
         return this.userImg;
     }

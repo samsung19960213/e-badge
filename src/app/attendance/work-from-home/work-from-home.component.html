@@ -67,12 +67,12 @@
 						<p *ngIf='dataSource.status == "PENDING"' style="color:blue">
 							<b> PENDING</b>
 						</p>
-						<!-- <p *ngIf='dataSource.status == "REJECTED"' style="color:red">
+						<p *ngIf='dataSource.status == "REJECTED"' style="color:red">
 							<b> REJECTED</b>
 						</p>
 						<p *ngIf='dataSource.status == "APPROVED"' style="color:green">
 							<b> ACCEPTED</b>
-						</p> -->
+						</p>
 					</mat-cell>
 				</ng-container>
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -80,10 +80,10 @@
 				</mat-row>
 			</mat-table>
 
-			<mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">
+			<!-- <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">
 				<mat-progress-spinner color="primary" mode="indeterminate">
 				</mat-progress-spinner>
-			  </mat-card>
+			  </mat-card> -->
 			  
 			  <div class="example-no-results" [style.display]="dataSource?.length == 0 ? '' : 'none'">
 				No users found .

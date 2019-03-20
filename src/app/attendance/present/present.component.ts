@@ -53,11 +53,11 @@ export class PresentComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
-    of(this.dataSource).pipe(delay(2000))
-    .subscribe(data => {
-      this.isLoading = false;
-      this.dataSource = data
-    }, error => this.isLoading = false);
+    // of(this.dataSource).pipe(delay(2000))
+    // .subscribe(data => {
+    //   this.isLoading = false;
+    //   this.dataSource = data
+    // }, error => this.isLoading = false);
   }
   events: string[] = [];
   applyFilter(filterValue: string) {

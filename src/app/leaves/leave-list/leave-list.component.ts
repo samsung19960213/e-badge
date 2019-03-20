@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { LeaveService } from '../leaves.service';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../user.service';
+import { of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 
 @Component({
@@ -34,6 +36,7 @@ export class LeaveListComponent implements OnInit {
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
   data: any;
+  isLoading=true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;

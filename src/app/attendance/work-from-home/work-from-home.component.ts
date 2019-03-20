@@ -33,7 +33,7 @@ export class WorkFromHomeComponent implements OnInit {
   year = this.date.getFullYear();
   month = this.date.getMonth();
   firstDay = new Date(this.year, 0, 1);
-  lastDay = new Date();
+  lastDay = new Date(this.year, this.month + 1, 0);
   isLoading=true;
   startDate: string;
   endDate: string;
@@ -54,32 +54,33 @@ export class WorkFromHomeComponent implements OnInit {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<Employeetable>();
-    this.checkOutList(fromDate, toDate).then(data => {
+    this.workFromHomeList(fromDate, toDate).then(data => {
       this.dataSource = data;
-      for(var i=0; i<this.dataSource.length;i++){
-        if(this.dataSource[i].status=='PENDING')
-      this.workFromArray.push(this.dataSource[i]);
-      }
-      this.dataSource=this.workFromArray;
+      // for(var i=0; i<this.dataSource.length;i++){
+      //   if(this.dataSource[i].status=='PENDING')
+      // this.workFromArray.push(this.dataSource[i]);
+      // }
+      // this.dataSource=this.workFromArray;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      console.log(this.dataSource);
     })
-    of(this.dataSource).pipe(delay(2000))
-    .subscribe(data => {
-      this.isLoading = false;
-      this.dataSource = data
-    }, error => this.isLoading = false);
+    // of(this.dataSource).pipe(delay(2000))
+    // .subscribe(data => {
+    //   this.isLoading = false;
+    //   this.dataSource = data
+    // }, error => this.isLoading = false);
   }
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    this.checkOutList(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
+    this.workFromHomeList(fromDate, toDate).then(data => {
+      this.dataSource = data;
     })
   }
-  checkOutList(fromDate: any, toDate: any) {
+  workFromHomeList(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/attendance/unchecked/attendance/' + +this.userService.userId + '/' + fromDate + '/' + toDate)
+      this.http.get(Url.API_URL + '/api/attendance/workfromHomeList/' + +this.userService.EmployeeID + '/' + fromDate + '/' + toDate)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
@@ -88,8 +89,8 @@ export class WorkFromHomeComponent implements OnInit {
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    this.checkOutList(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
+    this.workFromHomeList(fromDate, toDate).then(data => {
+      this.dataSource = data;
     })
   }
   firstDate(): Promise<any> {
@@ -123,7 +124,7 @@ export class WorkFromHomeComponent implements OnInit {
             });
             let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
             let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-            this.checkOutList(fromDate, toDate).then(data => {
+            this.workFromHomeList(fromDate, toDate).then(data => {
               this.dataSource = new MatTableDataSource<Employeetable>();
               this.dataSource.data = data;
             })

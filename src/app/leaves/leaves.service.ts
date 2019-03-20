@@ -5,6 +5,7 @@ export class LeaveService {
 
     leaveId: number;
     workId:number;
+    departmentId:number;
     
     name= [];
     constructor() { }
@@ -28,5 +29,12 @@ export class LeaveService {
     }
     getDateMonth() {
         return this.name;
+    }
+    setdepartmentId(id: number) {
+        this.departmentId = id;
+    }
+
+    getdeparmentId() {
+        return this.departmentId;
     }
 }

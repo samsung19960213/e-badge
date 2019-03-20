@@ -15,6 +15,7 @@ import { LeaveService } from './leaves/leaves.service';
 import { ReportsService } from './reports/reports.service';
 import { AuthGuard } from './authGuard';
 import { ExcelService } from './reports/excel.service';
+import { DeleteDialogueComponent } from './delete-dialogue/delete-dialogue.component';
 
 
 
@@ -29,6 +30,7 @@ import { ExcelService } from './reports/excel.service';
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
+    
     
   
   ],

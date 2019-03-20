@@ -55,11 +55,11 @@ export class LeaveReportsComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
     })
-    of(this.dataSource).pipe(delay(2000))
-    .subscribe(data => {
-      this.isLoading = false;
-      this.dataSource = data
-    }, error => this.isLoading = false);
+    // of(this.dataSource).pipe(delay(1000))
+    // .subscribe(data => {
+    //   this.isLoading = false;
+    //   this.dataSource = data
+    // }, error => this.isLoading = false);
   }
   events: string[] = [];
   applyFilter(filterValue: string) {
@@ -90,15 +90,11 @@ export class LeaveReportsComponent implements OnInit {
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
-
-
   }
   firstDate(): Promise<any> {
     let latest_date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
     return new Promise((resolve, reject) => {
-      // 
       this.http.get(Url.API_URL + 'api/leave/request/' + latest_date)
-
         // this.http.get(Url.API_URL + 'api/leave/findall')
         .subscribe((response: any) => {
           this.dataSource = response;

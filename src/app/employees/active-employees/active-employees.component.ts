@@ -46,11 +46,11 @@ export class ActiveEmployeesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     console.log(this.dataSource);
-    of(this.dataSource).pipe(delay(4000))
-    .subscribe(data => {
-      this.isLoading = false;
-      this.dataSource = data
-    }, error => this.isLoading = false);
+    // of(this.dataSource).pipe(delay(1000))
+    // .subscribe(data => {
+    //   this.isLoading = false;
+    //   this.dataSource = data
+    // }, error => this.isLoading = false);
 
 
   }

@@ -60,11 +60,11 @@ export class AbsenteesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
 
     })
-    of(this.dataSource).pipe(delay(2500))
-    .subscribe(data => {
-      this.isLoading = false;
-      this.dataSource = data
-    }, error => this.isLoading = false);
+    // of(this.dataSource).pipe(delay(2500))
+    // .subscribe(data => {
+    //   this.isLoading = false;
+    //   this.dataSource = data
+    // }, error => this.isLoading = false);
 }
 events: string[] = [];
 fromDate(type: string, event: MatDatepickerInputEvent<Date>) {

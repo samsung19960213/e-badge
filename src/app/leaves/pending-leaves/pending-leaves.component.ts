@@ -1,5 +1,5 @@
 import { Url } from '../../Url';
-import { Component, OnInit , ElementRef, ViewChild} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 // import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel, DataSource } from '@angular/cdk/collections';
@@ -12,8 +12,8 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
-import {fromEvent as observableFromEvent,} from 'rxjs';
-import {distinctUntilChanged, debounceTime} from 'rxjs/operators';
+import { fromEvent as observableFromEvent, of, } from 'rxjs';
+import { distinctUntilChanged, debounceTime, delay } from 'rxjs/operators';
 import { ExampleDataSource } from '../../tables/filter-table/helpers.data';
 import { EmployeesService } from '../../employees/employees.service';
 import { LeaveService } from '../leaves.service';
@@ -28,67 +28,72 @@ import { UserService } from '../../user.service';
 })
 export class PendingLeavesComponent implements OnInit {
 
-	public displayedColumns = ['Name','fromDate','toDate', 'requestDate','status' ];
+  public displayedColumns = ['Name', 'fromDate', 'toDate', 'requestDate', 'status'];
   showNavListCode;
   ID: any;
-  tableList=[];
-  userId: number[]= [];
-  searchTerm:string;
-  userModel :any;
-roleId:number;
+  tableList = [];
+  userId: number[] = [];
+  searchTerm: string;
+  userModel: any;
+  roleId: number;
   dataSource = new MatTableDataSource<Leavetable>();
+  isLoading=true;
 
-
-	@ViewChild(MatPaginator) paginator: MatPaginator;
-	@ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
-  filterValue:string;
-  constructor(private http: HttpClient, public route: Router, private leaveService: LeaveService,public userService: UserService) {}
-  	ngOnInit() {
-      this.roleId= this.userService.userId;
-      this.LeaveList().then(data => {
-        this.dataSource.data =data;
-      })
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort =this.sort;
-  } 
-    LeaveList(): Promise<any> {
-      return new Promise((resolve, reject) => {
-        this.http.get(Url.API_URL + 'api/leave/leaverequestlist'+'/'+this.roleId)
+  filterValue: string;
+  constructor(private http: HttpClient, public route: Router, private leaveService: LeaveService, public userService: UserService) { }
+  ngOnInit() {
+    this.roleId = this.userService.userId;
+    this.LeaveList().then(data => {
+      this.dataSource.data = data;
+    })
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    // of(this.dataSource).pipe(delay(3000))
+    //   .subscribe(data => {
+    //     this.isLoading = false;
+    //     this.dataSource = data
+    //   }, error => this.isLoading = false);
+  }
+  LeaveList(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/leave/leaverequestlist' + '/' + this.roleId)
         .subscribe((response: any) => {
           resolve(response);
-        },reject);
-       
-      });
-    }
-    leaveDetails(id:number) {
-      console.log(id);
-    this.leaveService.setLeaveId(id);
-     this.route.navigateByUrl('auth/leaves/leave-details');
-    }
-    applyFilter(filterValue: string) {
-      filterValue = filterValue.trim(); // Remove whitespace
-      filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-      this.dataSource.filter = filterValue;
-    }
+        }, reject);
 
-
-
-
-	}
-  export interface Leavetable {
-    id: number,
-    fromDate: string,
-    toDate: string,
-    reason: string,
-    status: string,
-    description: string,
-    leaveType: string,
-    userName: string,
-    requestTime: string,
-    availableLeaves: number
+    });
   }
-  
+  leaveDetails(id: number) {
+    console.log(id);
+    this.leaveService.setLeaveId(id);
+    this.route.navigateByUrl('auth/leaves/leave-details');
+  }
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+
+
+
+}
+export interface Leavetable {
+  id: number,
+  fromDate: string,
+  toDate: string,
+  reason: string,
+  status: string,
+  description: string,
+  leaveType: string,
+  userName: string,
+  requestTime: string,
+  availableLeaves: number
+}
+
 
 
 

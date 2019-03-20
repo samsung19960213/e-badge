@@ -11,6 +11,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 import { OfficeComponent } from "./office.component";
 import { OfficeRouterModule } from "./office.router";
+import { DeleteDialogueComponent } from "../delete-dialogue/delete-dialogue.component";
 
 
 
@@ -59,6 +60,7 @@ import { OfficeRouterModule } from "./office.router";
      ],
     declarations: [   
  OfficeComponent,
+ DeleteDialogueComponent
    
        
     ],

@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import "aws-sdk/dist/aws-sdk.min";
-import { MatDatepickerInputEvent, MatSnackBar } from '@angular/material';
+import { MatDatepickerInputEvent, MatSnackBar, MatDialog } from '@angular/material';
 import { Url } from '../Url';
 import { DATEPICKER_HELPERS } from '../material-widgets/datepicker/helpers.data';
 import { companyDetails } from './office.model';
 import { STEPPER_HELPERS } from '../material-widgets/stepper/helpers.data';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { DeleteDialogueComponent } from '../delete-dialogue/delete-dialogue.component';
+import { LeaveService } from '../leaves/leaves.service';
 
 
 @Component({
@@ -17,6 +19,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./office.component.scss']
 })
 export class OfficeComponent implements OnInit {
+  @ViewChild('closeBtn') closeBtn: ElementRef;
   isLinear = true;
   userForm: FormGroup;
   companyDetails: any;
@@ -35,6 +38,7 @@ private newRole: any= {};
 private newShift: any = {};
 private newHoliday:any= {};
 private newLeave:any={};
+dialogRef: any;
 favoriteSeason:number;
 start=new Date(2015,6,1);
 end= new Date(2015,8,1);
@@ -234,7 +238,7 @@ saveAll(){
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog,public leaveService:LeaveService) {
     this.companyDetails = new companyDetails();
   }
   
@@ -341,6 +345,30 @@ saveAll(){
       },reject);
      
     });
+  }
+  deleteDepartmentValue(id:number){
+    this.openDeleteDialogue();
+    this.leaveService.setdepartmentId(id);
+    console.log(id);
+    
+  }
+  openDeleteDialogue() {
+    this.dialogRef = this.dialog.open(DeleteDialogueComponent, {
+      width: '30%', height: '150px',
+      data: {
+        
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+       
+        if (!result) {
+          return;
+        }
+      });
+  }
+  closeModal(): void {
+    this.closeBtn.nativeElement.click();
   }
   datepickerHelpers: any = DATEPICKER_HELPERS;
 
