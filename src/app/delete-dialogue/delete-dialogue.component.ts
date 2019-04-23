@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { Url } from '../Url';
 import { HttpClient } from '@angular/common/http';
 import { LeaveService } from '../leaves/leaves.service';
+import { OfficeService } from '../office/office.service';
 
 @Component({
   selector: 'app-delete-dialogue',
@@ -11,10 +12,11 @@ import { LeaveService } from '../leaves/leaves.service';
 })
 export class DeleteDialogueComponent implements OnInit {
   deptId: number;
-  constructor(public dialogRef: MatDialogRef<DeleteDialogueComponent>, private http: HttpClient, public leaveService: LeaveService) { }
+  private DeptArray: Array<any> = [];
+  constructor(public dialogRef: MatDialogRef<DeleteDialogueComponent>, private http: HttpClient, public officeService: OfficeService) { }
 
   ngOnInit() {
-    this.deptId = this.leaveService.departmentId;
+    this.deptId = this.officeService.departmentId;
     console.log(this.deptId);
 
   }
@@ -28,10 +30,22 @@ export class DeleteDialogueComponent implements OnInit {
           resolve(response);
 
         }, reject);
-        this.onNoClick();
+      this.DepartmentList();
+      this.onNoClick();
     });
-    
-     
-    }
+
+
   }
+  DepartmentList(): Promise<any> {
+    this.DeptArray = [];
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/department/all')
+        .subscribe((response: any) => {
+          resolve(response);
+          this.DeptArray = response;
+        }, reject);
+
+    });
+  }
+}
 

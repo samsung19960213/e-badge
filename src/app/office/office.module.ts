@@ -12,6 +12,11 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { OfficeComponent } from "./office.component";
 import { OfficeRouterModule } from "./office.router";
 import { DeleteDialogueComponent } from "../delete-dialogue/delete-dialogue.component";
+import { DeleteDesignationdialogueComponent } from "../delete-designationdialogue/delete-designationdialogue.component";
+import { DeleteHolidayDialogueComponent } from "../delete-holiday-dialogue/delete-holiday-dialogue.component";
+import { DeleteShiftDialogueComponent } from "../delete-shift-dialogue/delete-shift-dialogue.component";
+import { DeleteLeaveDialogueComponent } from "../delete-leave-dialogue/delete-leave-dialogue.component";
+import { DeleteUserDialogueComponent } from "../delete-user-dialogue/delete-user-dialogue.component";
 
 
 
@@ -60,7 +65,12 @@ import { DeleteDialogueComponent } from "../delete-dialogue/delete-dialogue.comp
      ],
     declarations: [   
  OfficeComponent,
- DeleteDialogueComponent
+ DeleteDialogueComponent,
+ DeleteDesignationdialogueComponent,
+ DeleteHolidayDialogueComponent,
+ DeleteShiftDialogueComponent,
+ DeleteUserDialogueComponent,
+ DeleteLeaveDialogueComponent
    
        
     ],

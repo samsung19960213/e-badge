@@ -16,14 +16,7 @@ import { ReportsService } from './reports/reports.service';
 import { AuthGuard } from './authGuard';
 import { ExcelService } from './reports/excel.service';
 import { DeleteDialogueComponent } from './delete-dialogue/delete-dialogue.component';
-
-
-
-
-
-
-
-
+import { OfficeService } from './office/office.service';
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -46,7 +39,7 @@ import { DeleteDialogueComponent } from './delete-dialogue/delete-dialogue.compo
     BrowserAnimationsModule
   ],
   // entryComponents: [ExcelService],
-  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard],
+  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard,OfficeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

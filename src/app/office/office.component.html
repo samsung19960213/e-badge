@@ -152,7 +152,7 @@
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
                                             <input matInput type="text tablestyle" placeholder="Enter Designation Name" [(ngModel)]="field.designationName" name="field.designationName"
-                                                required>
+                                                required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"  (click)="deleteDesignationValue(field.id)"></i>
                                         </td>
                                     </tr>
                                     <tr>
@@ -207,7 +207,7 @@
                                     <tr *ngFor="let field of ShiftArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Shift Name" [(ngModel)]="field.shiftName" name="field.shiftName" required>
+                                            <input matInput type="text" placeholder="Enter Shift Name" [(ngModel)]="field.shiftName" name="field.shiftName" required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"  (click)="deleteShiftValue(field.id)"></i>
                                         </td>
                                         <td class="td-style" style="text-align: center">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
@@ -253,7 +253,7 @@
                                     <tr *ngFor="let field of LeaveArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Leave Name" [(ngModel)]="field.leaveType" name="field.leaveType" required>
+                                            <input matInput type="text" placeholder="Enter Leave Name" [(ngModel)]="field.leaveType" name="field.leaveType" required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"  (click)="deleteLeaveValue(field.id)"></i>
                                         </td>
 
                                     </tr>
@@ -323,7 +323,7 @@
                                         <td class="td-style" *ngIf="field.leaveName !='Weekend'">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
                                             <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="field.leaveName" name="field.shiftName" required
-                                                style="padding-left: 10px">
+                                                style="padding-left: 10px"><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"  (click)="deleteHolidayValue(field.id)"></i>
                                         </td>
                                         <td class="td-style" *ngIf="field.leaveName !='Weekend'">
                                             <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="field.leaveDate" style="text-align:center" name="field.shiftName"
@@ -342,7 +342,7 @@
                                     <tr>
                                         <td>
                                             <!-- <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" /> -->
-                                            <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="newHoliday.leaveName" name="newHoliday" required>
+                                            <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="newHoliday.leaveName" name="newHoliday" required style="width:200px">
                                         </td>
                                         <td>
                                             <mat-form-field class="example-full-width">
@@ -373,6 +373,7 @@
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
                                             <input matInput type="text" placeholder="Enter User Role " [(ngModel)]="field.roleName" name="field.roleName" required>
+                                            <i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"  (click)="deleteUserRoleValue(field.id)"></i>
                                         </td>
 
                                     </tr>

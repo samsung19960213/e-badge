@@ -11,6 +11,12 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { DeleteDialogueComponent } from '../delete-dialogue/delete-dialogue.component';
 import { LeaveService } from '../leaves/leaves.service';
+import { DeleteDesignationdialogueComponent } from '../delete-designationdialogue/delete-designationdialogue.component';
+import { OfficeService } from './office.service';
+import { DeleteShiftDialogueComponent } from '../delete-shift-dialogue/delete-shift-dialogue.component';
+import { DeleteLeaveDialogueComponent } from '../delete-leave-dialogue/delete-leave-dialogue.component';
+import { DeleteHolidayDialogueComponent } from '../delete-holiday-dialogue/delete-holiday-dialogue.component';
+import { DeleteUserDialogueComponent } from '../delete-user-dialogue/delete-user-dialogue.component';
 
 
 @Component({
@@ -51,7 +57,6 @@ sun = new Array();
   events: string[] = [];
   myFilter = (d: Date): boolean => {
     const day = d.getDay();
-
     return day !== 0;
   }
   
@@ -203,7 +208,19 @@ addLeaveValue() {
     });
   }
   saveShift() {
-      // console.log(this.ShiftArray);
+    return new Promise((resolve, reject) => {
+      this.http.post(Url.API_URL + 'api/shift/save', this.ShiftArray)
+        .subscribe((response: any) => {
+          resolve(response);
+        }, reject);
+        this.snackBar.open('Updated Successfully', 'OK', {
+          duration: 1000,
+          verticalPosition: 'top',
+        });
+      setTimeout(function(){
+      this.ShiftList();
+        }, 3000);
+    });
   }
  saveHoliday( holidayarray: any[]) {
 //console.log(holidayarray);
@@ -213,7 +230,7 @@ addLeaveValue() {
         resolve(response);
       }, reject);
     console.log('success');
-    this.HolidayArray=[];
+     //this.HolidayArray=[];
     setTimeout(function(){
     this.HolidayList();
       }, 3000);
@@ -238,7 +255,7 @@ saveAll(){
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog,public leaveService:LeaveService) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog,public officeService:OfficeService) {
     this.companyDetails = new companyDetails();
   }
   
@@ -348,7 +365,7 @@ saveAll(){
   }
   deleteDepartmentValue(id:number){
     this.openDeleteDialogue();
-    this.leaveService.setdepartmentId(id);
+    this.officeService.setdepartmentId(id);
     console.log(id);
     
   }
@@ -360,16 +377,139 @@ saveAll(){
       }
     });
     this.dialogRef.afterClosed()
+    
       .subscribe(result => {
-       
+        this.DepartmentList();
         if (!result) {
           return;
         }
       });
+     
   }
   closeModal(): void {
     this.closeBtn.nativeElement.click();
   }
+ 
   datepickerHelpers: any = DATEPICKER_HELPERS;
 
+  deleteDesignationValue(id:number){
+    this.openDesignationDeleteDialogue();
+    this.officeService.setdesignationId(id);
+    console.log(id);
+  }
+  openDesignationDeleteDialogue() {
+    this.dialogRef = this.dialog.open(DeleteDesignationdialogueComponent, {
+      width: '30%', height: '150px',
+      data: {
+        
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        this.DesignationList();
+        if (!result) {
+          return;
+        }
+       
+      });
+  }
+  closeDesignation(): void {
+    this.closeBtn.nativeElement.click();
+  }
+  deleteShiftValue(id:number){
+    this.openShiftDeleteDialogue();
+    this.officeService.setShiftId(id);
+    console.log(id);
+  }
+  openShiftDeleteDialogue() {
+    this.dialogRef = this.dialog.open(DeleteShiftDialogueComponent, {
+      width: '30%', height: '150px',
+      data: {
+        
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        this.ShiftList();
+        if (!result) {
+          return;
+        }
+       
+      });
+  }
+  closeShift(): void {
+    this.closeBtn.nativeElement.click();
+  }
+  deleteLeaveValue(id:number){
+    this.openLeaveDeleteDialogue();
+    this.officeService.setLeaveId(id);
+    console.log(id);
+  }
+  openLeaveDeleteDialogue() {
+    this.dialogRef = this.dialog.open(DeleteLeaveDialogueComponent, {
+      width: '30%', height: '150px',
+      data: {
+        
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        this.LeaveList();
+        if (!result) {
+          return;
+        }
+       
+      });
+  }
+  closeleave(): void {
+    this.closeBtn.nativeElement.click();
+  }
+  deleteHolidayValue(id:number){
+    this.openHolidayDeleteDialogue();
+    this.officeService.setHolidayId(id);
+    console.log(id);
+  }
+  openHolidayDeleteDialogue() {
+    this.dialogRef = this.dialog.open(DeleteHolidayDialogueComponent, {
+      width: '30%', height: '150px',
+      data: {
+        
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        this.HolidayList();
+        if (!result) {
+          return;
+        }
+       
+      });
+  }
+  closeHoliday(): void {
+    this.closeBtn.nativeElement.click();
+  }
+  deleteUserRoleValue(id:number){
+    this.openUserDeleteDialogue();
+    this.officeService.setUserId(id);
+    console.log(id);
+  }
+  openUserDeleteDialogue() {
+    this.dialogRef = this.dialog.open(DeleteUserDialogueComponent, {
+      width: '30%', height: '150px',
+      data: {
+        
+      }
+    });
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        this.UserRoleList();
+        if (!result) {
+          return;
+        }
+       
+      });
+  }
+  closeUser(): void {
+    this.closeBtn.nativeElement.click();
+  }
 }
