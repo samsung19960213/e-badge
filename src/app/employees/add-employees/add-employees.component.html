@@ -39,9 +39,13 @@
                             name="userfirstName" required>
                         <mat-error *ngIf="userForm.controls.userfirstName.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             First Name is required
+
                         </mat-error>
-                        <mat-error *ngIf="userForm.controls.userfirstName.hasError('maxlength')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            minnimum
+                        <mat-error *ngIf="userForm.controls.userfirstName.hasError('pattern')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            Username should be only character
+                        </mat-error>
+                        <mat-error *ngIf="userForm.controls.userfirstName.hasError('min')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            minnimum of 1 character
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
@@ -51,6 +55,9 @@
                             Last Name is required
 
                         </mat-error> -->
+                        <mat-error *ngIf="userForm.controls.userlastName.hasError('pattern')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            Username should be only character
+                        </mat-error>
                     </mat-form-field>
 
                     <!-- <input matInput type="date" placeholder="Date Of Birth" [(ngModel)]="employeeDetails.dateOfBirth" formControlName="userdateOfBirth"
@@ -140,7 +147,8 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Enter City" [(ngModel)]="employeeDetails.city" formControlName="usercity" name="usercity" required>
+                        <input matInput type="text" placeholder="Enter City" [(ngModel)]="employeeDetails.city" formControlName="usercity" name="usercity"
+                            required>
                         <mat-error *ngIf="userForm.controls.usercity.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
@@ -148,13 +156,13 @@
                     <mat-form-field fxFlex="30" class="form2Input">
                         <input matInput type="text" placeholder="Enter District" [(ngModel)]="employeeDetails.distict" formControlName="userdistict"
                             name="userdistict" required>
-                        <mat-error *ngIf="userForm.controls.userdistict.hasError('required')" align="start" style="color: red;"
-                            class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.userdistict.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Enter State" [(ngModel)]="employeeDetails.state" formControlName="userstate" name="userstate" required>
+                        <input matInput type="text" placeholder="Enter State" [(ngModel)]="employeeDetails.state" formControlName="userstate" name="userstate"
+                            required>
                         <mat-error *ngIf="userForm.controls.userstate.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
@@ -193,10 +201,10 @@
                     <mat-form-field fxFlex="30" class="form2Input">
                         <input matInput type="text" placeholder="Enter Email" [(ngModel)]="employeeDetails.contactEmail" formControlName="usercontactEmail"
                             name="usercontactEmail" required>
-                        <mat-error *ngIf="userForm.controls.usercontactEmail.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.usercontactEmail.hasError('required')" align="start" style="color: red;">
                             This field is required
                         </mat-error>
-                        <mat-error *ngIf="userForm.controls.usercontactEmail.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.usercontactEmail.hasError('pattern')" align="start" style="color: red;">
                             Please Enter Valid Email
                         </mat-error>
                     </mat-form-field>
@@ -206,29 +214,27 @@
                         <mat-error *ngIf="userForm.controls.usermobileNo.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
-                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('pattern')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            Only numbers are allowed
-                        </mat-error>
-                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('minlength')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('min')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             Minimum of 10 digit number
                         </mat-error>
-                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('maxlength')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('max')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             Maximum of 10 digit number
+                        </mat-error>
+                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('pattern')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            Only numbers are allowed
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
                         <input matInput type="text" placeholder="Enter Alternate contact Number" [(ngModel)]="employeeDetails.alternateContactNo"
                             formControlName="useralternateContactNo" name="useralternateContactNo">
-                        <mat-error *ngIf="userForm.controls.useralternateContactNo.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                            This field is required
-                        </mat-error>
-                        <mat-error *ngIf="userForm.controls.usermobileNo.hasError('pattern')" align="start" style="color: red;" class="mat-body-1 center-align ">
+
+                        <mat-error *ngIf="userForm.controls.useralternateContactNo.hasError('pattern')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             Only numbers are allowed
                         </mat-error>
-                        <mat-error *ngIf="userForm.controls.useralternateContactNo.hasError('minlength')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.useralternateContactNo.hasError('min')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             Minimum of 10 digit number
                         </mat-error>
-                        <mat-error *ngIf="userForm.controls.useralternateContactNo.hasError('maxlength')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.useralternateContactNo.hasError('max')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             Maximum of 10 digit number
                         </mat-error>
                     </mat-form-field>
@@ -276,9 +282,7 @@
                             <mat-option *ngFor="let department of departmentList " [value]="department.id">
                                 <span> &nbsp;&nbsp;{{department.departmentName}}</span>
                             </mat-option>
-
                         </mat-select>
-
                         <mat-error *ngIf="userForm.controls.userdepartmentId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
@@ -289,8 +293,6 @@
                             <mat-option *ngFor="let designation of designationList" [value]="designation.id">
                                 <span>&nbsp;&nbsp;{{designation.designationName}}</span>
                             </mat-option>
-
-
                         </mat-select>
                         <mat-error *ngIf="userForm.controls.userdesignationId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
@@ -311,38 +313,35 @@
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="usershiftId" name="usershiftId" type="number"
-                            required>
+                        <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId" formControlName="userShift" name="userShift" required>
                             <mat-option *ngFor="let shift of shiftList" [value]="shift.id">
                                 <span>&nbsp;&nbsp;{{shift.shiftName}}</span>
                             </mat-option>
-                            <mat-error *ngIf="userForm.controls.usershiftId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
-                                This field is required
-                            </mat-error>
                         </mat-select>
+                        <mat-error *ngIf="userForm.controls.userShift.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                            This field is required
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select type="number" placeholder="Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="useruserRoleId" name="useruserRoleId"
+                        <mat-select type="number" placeholder="Role" [(ngModel)]="employeeDetails.userRoleId" formControlName="role" name="role"
                             required>
                             <mat-option *ngFor="let role of userRoleList" [value]="role.id">
                                 <span>&nbsp;&nbsp;{{role.roleName}}</span>
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="userForm.controls.useruserRoleId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.role.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
 
-                        <mat-select type="number" placeholder="Reporting manager name" [(ngModel)]="employeeDetails.reportingManagerId" formControlName="userreportingManagerId"
-                            name="userreportingManagerId" required>
+                        <mat-select type="number" placeholder="Reporting manager name"  [(ngModel)]="employeeDetails.reportingManagerId" formControlName="reportingName"
+                            name="reportingName" required>
                             <mat-option *ngFor="let manager of managerList" [value]="manager.id">
                                 <span>&nbsp;&nbsp;{{manager.firstName + " "+ manager.lastName}}</span>
                             </mat-option>
-
-                            <!-- <mat-option value=3>Reporting Manager</mat-option> -->
                         </mat-select>
-                        <mat-error *ngIf="userForm.controls.userreportingManagerId.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                        <mat-error *ngIf="userForm.controls.reportingName.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -371,8 +370,7 @@
                     </mat-form-field>
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
-                    <button mat-raised-button color="primary"  [disabled]="!userForm.valid" style="width:150px;margin-left: -60px"
-                        (click)="saveDetails(employeeDetails)">Submit</button>
+                    <button mat-raised-button color="primary" [disabled]="!userForm.valid" style="width:150px;margin-left: -60px" (click)="saveDetails(employeeDetails)">Submit</button>
                     <!-- 
                     <button mat-raised-button color="primary" fxFlex="50" style="width:150px;margin-top: -35px;margin-left: 10px">Update</button> -->
                 </div>

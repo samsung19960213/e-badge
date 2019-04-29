@@ -164,10 +164,9 @@ addLeaveValue() {
       this.http.post(Url.API_URL + 'api/department/save', this.DeptArray)
         .subscribe((response: any) => {
           resolve(response);
+          this.DepartmentList();
         }, reject);
-      setTimeout(function(){
-      this.DepartmentList();
-        }, 3000);
+      
     });
   }
   saveRole() {
@@ -175,10 +174,11 @@ addLeaveValue() {
       this.http.post(Url.API_URL+'api/userrole/save',this.RoleArray)
         .subscribe((response: any) => {
           resolve(response);
+          this.UserRoleList();
         }, reject);
-      setTimeout(function(){
-      this.UserRoleList();
-        }, 3000);
+      //setTimeout(function(){
+    
+        // }, 3000);
     });
   }
   saveLeave() {
@@ -186,14 +186,13 @@ addLeaveValue() {
       this.http.post(Url.API_URL + 'api/leaveType/save', this.LeaveArray)
         .subscribe((response: any) => {
           resolve(response);
+          this.LeaveList();
         }, reject);
-        this.snackBar.open('Updated Successfully', 'OK', {
-          duration: 1000,
-          verticalPosition: 'top',
-        });
-      setTimeout(function(){
-      this.LeaveList();
-        }, 3000);
+        // this.snackBar.open('Updated Successfully', 'OK', {
+        //   duration: 1000,
+        //   verticalPosition: 'top',
+        // });
+    
     });
   }
   saveDesignation() {
@@ -201,10 +200,8 @@ addLeaveValue() {
       this.http.post(Url.API_URL + 'api/desigantion/save', this.DesgnArray)
         .subscribe((response: any) => {
           resolve(response);
+          this.DesignationList();
         }, reject);
-      setTimeout(function(){
-      this.DesignationList();
-        }, 3000);
     });
   }
   saveShift() {
@@ -212,14 +209,8 @@ addLeaveValue() {
       this.http.post(Url.API_URL + 'api/shift/save', this.ShiftArray)
         .subscribe((response: any) => {
           resolve(response);
+          this.ShiftList();
         }, reject);
-        this.snackBar.open('Updated Successfully', 'OK', {
-          duration: 1000,
-          verticalPosition: 'top',
-        });
-      setTimeout(function(){
-      this.ShiftList();
-        }, 3000);
     });
   }
  saveHoliday( holidayarray: any[]) {
@@ -228,13 +219,9 @@ addLeaveValue() {
     this.http.post(Url.API_URL + 'api/leaveDates/save', holidayarray)
       .subscribe((response: any) => {
         resolve(response);
+        this.HolidayList();
       }, reject);
-    console.log('success');
      //this.HolidayArray=[];
-    setTimeout(function(){
-    this.HolidayList();
-      }, 3000);
-
   });
  }
 saveAll(){

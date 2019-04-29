@@ -21,6 +21,7 @@ export class DeleteDialogueComponent implements OnInit {
 
   }
   onNoClick() {
+    this.DepartmentList();
     this.dialogRef.close();
   }
   delete() {
@@ -28,9 +29,8 @@ export class DeleteDialogueComponent implements OnInit {
       this.http.get(Url.API_URL + '/api/department/delete/' + this.deptId)
         .subscribe((response: any) => {
           resolve(response);
-
+          this.DepartmentList();
         }, reject);
-      this.DepartmentList();
       this.onNoClick();
     });
 

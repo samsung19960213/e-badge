@@ -58,10 +58,15 @@ export class AddEmployeesComponent implements OnInit {
       useraddressLine1: ['', [Validators.required]],
       useraddressLine2: [''],
       //userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
-      useralternateContactNo: [''],
+      useralternateContactNo: ['',[  Validators.min(999999999),
+        Validators.max(9999999999), Validators.pattern(
+          "^([0-9]+)$"
+        )]],
       userbloodGroup: ['', [Validators.required]],
       usercity: ['', [Validators.required]],
-      usercontactEmail: ['', [Validators.required, Validators.email]],
+      usercontactEmail: ['', [Validators.required,Validators.pattern(
+        "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\- \\.]+)\\.([a-zA-Z]{2,5})$"
+      )]],
       usercountry: ['', [Validators.required]],
       userdateOfBirth: ['', [Validators.required]],
       userdepartmentId: ['', [Validators.required]],
@@ -71,7 +76,8 @@ export class AddEmployeesComponent implements OnInit {
       userdistict: ['', [Validators.required]],
       // useremployeeCode: ['', [Validators.required]],
       //useremployeeImage: ['', [Validators.required]],
-      userfirstName: ['', [Validators.required, Validators.maxLength(25)]],
+      userfirstName: ['', [Validators.required,Validators.pattern("^[a-zA-Z ]*$"),
+      Validators.minLength(1)]],
       userformerComapnyJoinDate: [''],
       userformerCompanyEndDate: [''],
       userformerCompanyName: [''],
@@ -80,17 +86,20 @@ export class AddEmployeesComponent implements OnInit {
       userisUser: ['', [Validators.required]],
       userjoiningDate: ['', [Validators.required]],
       userlandmark: [''],
-      userlastName: [''],
+      userlastName: ['',[Validators.pattern("^[a-zA-Z ]*$")]],
       usermedicalInfo: [''],
-      usermobileNo: ['', [Validators.required, Validators.pattern('^[0-9]{10}$'), Validators.minLength(10), Validators.maxLength(10)]],
+      usermobileNo: ['', [Validators.required,Validators.min(999999999),
+        Validators.max(9999999999), Validators.pattern(
+          "^([0-9]+)$"
+        )]],
       userpincode: ['', [Validators.required,Validators.pattern('^\\b\\d{6}$')]],
       userqualification: [''],
       userstate: ['', [Validators.required]],
-      useruserRoleId: ['', [Validators.required]],
+      role: ['', [Validators.required]],
       //userworkExperince: ['', [Validators.required]],
       usersalary: [''],
-      usershiftId: ['', [Validators.required]],
-      userreportingManagerId: ['', [Validators.required]],
+      userShift: ['', [Validators.required]],
+      reportingName: ['', [Validators.required]],
 
 
     });
@@ -109,14 +118,12 @@ export class AddEmployeesComponent implements OnInit {
             duration: 2000,
             verticalPosition: 'top',
           });
-         
         }, (error:any) => { 
           this.snackBar.open('Email or Password is already registered with us', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
           });
          }  );
-     
     });
   
   }
