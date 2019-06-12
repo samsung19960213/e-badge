@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Url } from '../Url';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
-import { MatSnackBar,MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 //import { ViewEncapsulation } from '@angular/compiler/src/core';
 
 
@@ -121,19 +121,19 @@ export class LoginComponent implements OnInit {
             this.snackBar.open('You are not authorised to login', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
-             
 
-              
+
+
 
             });
           }
 
         }, (error: any) => {
-         
+
           this.snackBar.open('Username / Password is incorrect', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
-          
+
           });
         });
     });

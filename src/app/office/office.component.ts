@@ -353,7 +353,7 @@ saveAll(){
   deleteDepartmentValue(id:number){
     this.openDeleteDialogue();
     this.officeService.setdepartmentId(id);
-    console.log(id);
+    // console.log(id);
     
   }
   openDeleteDialogue() {
@@ -382,7 +382,7 @@ saveAll(){
   deleteDesignationValue(id:number){
     this.openDesignationDeleteDialogue();
     this.officeService.setdesignationId(id);
-    console.log(id);
+    // console.log(id);
   }
   openDesignationDeleteDialogue() {
     this.dialogRef = this.dialog.open(DeleteDesignationdialogueComponent, {
@@ -406,7 +406,7 @@ saveAll(){
   deleteShiftValue(id:number){
     this.openShiftDeleteDialogue();
     this.officeService.setShiftId(id);
-    console.log(id);
+    // console.log(id);
   }
   openShiftDeleteDialogue() {
     this.dialogRef = this.dialog.open(DeleteShiftDialogueComponent, {
@@ -430,7 +430,7 @@ saveAll(){
   deleteLeaveValue(id:number){
     this.openLeaveDeleteDialogue();
     this.officeService.setLeaveId(id);
-    console.log(id);
+    // console.log(id);
   }
   openLeaveDeleteDialogue() {
     this.dialogRef = this.dialog.open(DeleteLeaveDialogueComponent, {
@@ -454,7 +454,7 @@ saveAll(){
   deleteHolidayValue(id:number){
     this.openHolidayDeleteDialogue();
     this.officeService.setHolidayId(id);
-    console.log(id);
+    // console.log(id);
   }
   openHolidayDeleteDialogue() {
     this.dialogRef = this.dialog.open(DeleteHolidayDialogueComponent, {
@@ -478,7 +478,7 @@ saveAll(){
   deleteUserRoleValue(id:number){
     this.openUserDeleteDialogue();
     this.officeService.setUserId(id);
-    console.log(id);
+    // console.log(id);
   }
   openUserDeleteDialogue() {
     this.dialogRef = this.dialog.open(DeleteUserDialogueComponent, {

@@ -174,7 +174,7 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
         .subscribe((response: any) => {
          this.designationList = response;
           resolve(response);
-          console.log(response);
+          // console.log(response);
         }, reject);
     });
   }

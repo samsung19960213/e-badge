@@ -19,7 +19,7 @@ export class DeleteHolidayDialogueComponent implements OnInit {
 
   ngOnInit() {
     this.holidayId = this.officeService.getHolidayId();
-    console.log(this.holidayId);
+    // console.log(this.holidayId);
 
   }
   onNoClick() {

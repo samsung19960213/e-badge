@@ -12,7 +12,6 @@ import { UserService } from '../../user.service';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-leave-list',
   templateUrl: './leave-list.component.html',
@@ -20,7 +19,7 @@ import { delay } from 'rxjs/operators';
 })
 export class LeaveListComponent implements OnInit {
 
-  public displayedColumns = ['Edit','Name', 'fromDate', 'toDate', 'reason', 'status'];
+  public displayedColumns = ['Edit', 'Name', 'fromDate', 'toDate', 'reason', 'status'];
   showNavListCode;
   ID: any;
   roleId: number;
@@ -36,23 +35,25 @@ export class LeaveListComponent implements OnInit {
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
   data: any;
-  isLoading=true;
+  isLoading = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue: string;
+
   constructor(private http: HttpClient,
     public route: Router,
     public leaveService: LeaveService,
     public datePipe: DatePipe,
     public userService: UserService) { }
+
   ngOnInit() {
     this.roleId = this.userService.EmployeeID;
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<LeaveListTable>();
     this.getData(fromDate, toDate).then(data => {
-      this.dataSource = data;
+      this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
@@ -63,24 +64,24 @@ export class LeaveListComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+  
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
-
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
     })
   }
+  
   getData(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/leave/request/' + fromDate + '/' + toDate + '/' + this.roleId)
         .subscribe((response: any) => {
-
           resolve(response);
         }, reject);
-
     });
   }
+
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
@@ -104,7 +105,7 @@ export class LeaveListComponent implements OnInit {
 
     });
   }
-  edit(id:number){
+  edit(id: number) {
     this.leaveService.setLeaveId(id);
     this.route.navigateByUrl('auth/leaves/leave-details');
   }

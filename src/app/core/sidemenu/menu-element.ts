@@ -138,7 +138,7 @@ export const menus = [
             // },
 
             {
-                'name': 'work-from-home',
+                'name': 'Work From Home',
                 'icon': 'home',
                 'link': 'attendance/work-from-home',
                 'open': false,

@@ -67,7 +67,7 @@ export class PendingLeavesComponent implements OnInit {
     });
   }
   leaveDetails(id: number) {
-    console.log(id);
+    // console.log(id);
     this.leaveService.setLeaveId(id);
     this.route.navigateByUrl('auth/leaves/leave-details');
   }

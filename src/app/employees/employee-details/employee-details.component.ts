@@ -223,13 +223,13 @@ export class EmployeeDetailsComponent implements OnInit {
 
         let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
         let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-        console.log(toDate);
+        // console.log(toDate);
         this.getAttendance(fromDate, toDate);
     }
     toDate(type: string, event: MatDatepickerInputEvent<Date>) {
         let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
         let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-        console.log(toDate);
+        // console.log(toDate);
         this.getAttendance(fromDate, toDate);
     }
     createBarGraph() {

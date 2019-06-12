@@ -3,12 +3,12 @@
         <mat-icon class="weathericons no-margin">
             <img [src]="imgIcon">
         </mat-icon>
-        <h2   class="mat-headline temperature" >
-            {{this.weather.main.temp | number:'1.0-0'}}<sup><sup>o</sup>C</sup>  ({{ this.weather.weather[0].main}})  
+        <h2   class="mat-headline temperature" *ngIf="weather != null && weather.main != undefined && weather.main.temp != undefined && weather.weather.length > 0">
+            {{ weather.main.temp | number:'1.0-0'}}<sup><sup>o</sup>C</sup>  ({{  weather.weather[0].main}})  
         </h2>
-        <!-- <h3 class="weatherDescription">{{this.weather.weather[0].description}}</h3> -->
-        <h2   class="mat-headline place" >
-            {{this.weather.name}}, {{this.weather.sys.country}}
+        <!-- <h3 class="weatherDescription">{{ weather.weather[0].description}}</h3> -->
+        <h2   class="mat-headline place" *ngIf="weather != null && weather.name != undefined">
+            {{ weather.name}}, {{ weather.sys.country}}
         </h2>
     </div>
 </div>

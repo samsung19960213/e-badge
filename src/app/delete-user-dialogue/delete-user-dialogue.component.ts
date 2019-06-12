@@ -19,7 +19,7 @@ export class DeleteUserDialogueComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.officeService.getUserId();
-    console.log(this.userId);
+    // console.log(this.userId);
 
   }
   onNoClick() {

@@ -2,19 +2,13 @@ import { Url } from '../../Url';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 // import { TABLE_HELPERS, ExampleDatabase, ExampleDataSource } from './helpers.data';
 import { MatPaginator, MatSort, MatTableDataSource, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
-import { SelectionModel, DataSource } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import {of,} from 'rxjs';
-import {delay} from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
-import { EmployeesService } from '../../employees/employees.service';
 import { UserService } from '../../user.service';
 import { DatePipe } from '@angular/common';
 @Component({
@@ -45,7 +39,7 @@ export class CheckoutRequestComponent implements OnInit {
   endDate: string;
   dataSource: any;
   roleId: number;
-  checkOutRequestArray:Array<any> = [];
+  checkOutRequestArray: Array<any> = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
@@ -55,9 +49,9 @@ export class CheckoutRequestComponent implements OnInit {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<Employeetable>();
-    console.log(this.dataSource);
+    // console.log(this.dataSource);
     this.checkOutList(fromDate, toDate).then(data => {
-      this.dataSource = data;    
+      this.dataSource.data = data;
       // for(var i=0; i<this.dataSource.length;i++){
       //   if(this.dataSource[i].status=='NORMAL')
       // this.checkOutRequestArray.push(this.dataSource[i]);
@@ -76,7 +70,7 @@ export class CheckoutRequestComponent implements OnInit {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
     this.checkOutList(fromDate, toDate).then(data => {
-      this.dataSource = data;
+      this.dataSource.data = data;
     })
   }
   checkOutList(fromDate: any, toDate: any) {
@@ -84,17 +78,17 @@ export class CheckoutRequestComponent implements OnInit {
       this.http.get(Url.API_URL + 'api/attendance/unchecked/attendanceForAdmin/' + +this.userService.userId + '/' + fromDate + '/' + toDate)
         .subscribe((response: any) => {
           resolve(response);
-         
-          
+
+
         }, reject);
     });
-  
+
   }
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
     this.checkOutList(fromDate, toDate).then(data => {
-      this.dataSource= data;
+      this.dataSource.data = data;
     })
   }
   firstDate(): Promise<any> {

@@ -139,7 +139,7 @@ export class BarGraph1Component implements OnInit {
   }
 
   onSelect(event) {
-    console.log(event);
+    // console.log(event);
 
     this.leaveService.setDateMonth(event.name);
     this.router.navigateByUrl('auth/attendance/monthly-absentees');
@@ -170,7 +170,7 @@ export class BarGraph1Component implements OnInit {
 
   // CHART CLICK EVENT.
   onChartClick(event) {
-    console.log(event);
+    // console.log(event);
   }
   // testData = [
   //   {

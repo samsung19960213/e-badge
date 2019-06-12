@@ -17,7 +17,7 @@ export class DeleteDialogueComponent implements OnInit {
 
   ngOnInit() {
     this.deptId = this.officeService.departmentId;
-    console.log(this.deptId);
+    // console.log(this.deptId);
 
   }
   onNoClick() {

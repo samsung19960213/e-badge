@@ -45,7 +45,7 @@ export class ActiveEmployeesComponent implements OnInit {
     })
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(this.dataSource);
+    // console.log(this.dataSource);
     // of(this.dataSource).pipe(delay(1000))
     // .subscribe(data => {
     //   this.isLoading = false;
@@ -73,18 +73,18 @@ export class ActiveEmployeesComponent implements OnInit {
   }
 
   employeeDetails(id: number) {
-    console.log(id);
+    // console.log(id);
     this.empService.setEmployeeId(id);
     this.route.navigateByUrl('auth/employees/employee-details');
   }
   downloadQR(id: string) {
-    console.log(id);
+    // console.log(id);
     window.open(Url.API_URL + 'api/qrcode/qrCode/download/' + id, '_blank');
     // return new Promise((resolve, reject) => {
     //       this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/'+id)
     //           .subscribe((response: any) => {
     //             let resp = URL.createObjectURL(Url.API_URL + 'api/qrcode/qrCode/download'+id)
-    //             console.log(resp);
+    //             // console.log(resp);
     //             window.open(resp);
     //             resolve(response);
 

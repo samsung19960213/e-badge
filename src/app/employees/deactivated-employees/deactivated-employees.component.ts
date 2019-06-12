@@ -65,7 +65,7 @@ export class DeactivatedEmployeesComponent implements OnInit {
     this.route.navigateByUrl('auth/employees/employee-details');
   }
   downloadQR(id: string) {
-    console.log(id);
+    // console.log(id);
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/1')
         .subscribe((response: any) => {

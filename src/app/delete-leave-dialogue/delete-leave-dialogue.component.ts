@@ -20,7 +20,7 @@ export class DeleteLeaveDialogueComponent implements OnInit {
 
   ngOnInit() {
     this.leaveId = this.officeService.getLeaveId();
-    console.log(this.leaveId);
+    // console.log(this.leaveId);
 
   }
   onNoClick() {

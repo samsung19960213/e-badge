@@ -55,7 +55,7 @@ export class WorkFromHomeComponent implements OnInit {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<Employeetable>();
     this.workFromHomeList(fromDate, toDate).then(data => {
-      this.dataSource = data;
+      this.dataSource.data = data;
       // for(var i=0; i<this.dataSource.length;i++){
       //   if(this.dataSource[i].status=='PENDING')
       // this.workFromArray.push(this.dataSource[i]);
@@ -63,7 +63,7 @@ export class WorkFromHomeComponent implements OnInit {
       // this.dataSource=this.workFromArray;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource);
+      // console.log(this.dataSource);
     })
     // of(this.dataSource).pipe(delay(2000))
     // .subscribe(data => {
@@ -75,7 +75,7 @@ export class WorkFromHomeComponent implements OnInit {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
     this.workFromHomeList(fromDate, toDate).then(data => {
-      this.dataSource = data;
+      this.dataSource.data = data;
     })
   }
   workFromHomeList(fromDate: any, toDate: any) {
@@ -90,7 +90,7 @@ export class WorkFromHomeComponent implements OnInit {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
     this.workFromHomeList(fromDate, toDate).then(data => {
-      this.dataSource = data;
+      this.dataSource.data = data;
     })
   }
   firstDate(): Promise<any> {

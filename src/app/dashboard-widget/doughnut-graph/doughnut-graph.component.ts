@@ -26,7 +26,7 @@ pendingLeaves:number;
     return new Promise((resolve, reject) => {
         this.http.get(Url.API_URL + 'api/leave/leaveCount/'+ id)
             .subscribe((response: any) => {
-                console.log(response);
+                // console.log(response);
                 this.remainingLeaves=response.remainingLeaves;
                 this.acceptedLeaves= response.approvedLeaves;
                 this.rejectedLeaves= response.rejectedLeaves;

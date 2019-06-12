@@ -52,7 +52,7 @@ export class AbsenteesComponent implements OnInit {
   ngOnInit() {
     this.roleId = this.userService.EmployeeID;
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
-    let toDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+    let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<LeaveListTable>();
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;

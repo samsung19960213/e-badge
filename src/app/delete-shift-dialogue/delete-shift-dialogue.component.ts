@@ -17,7 +17,7 @@ export class DeleteShiftDialogueComponent implements OnInit {
 
   ngOnInit() {
     this.shiftId = this.officeService.getShiftId();
-    console.log(this.shiftId);
+    // console.log(this.shiftId);
 
   }
   onNoClick() {
