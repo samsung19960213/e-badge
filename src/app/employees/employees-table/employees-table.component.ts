@@ -33,11 +33,10 @@ export class EmployeesTableComponent implements OnInit {
   showNavListCode;
   ID: any;
   tableList = [];
-  userId: number[] = [];
   searchTerm: string;
   userModel: any;
-  roleId: number;
-  isLoading=true;
+  userId: number;
+  isLoading = true;
   dataSource = new MatTableDataSource<Employeetable>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -45,7 +44,7 @@ export class EmployeesTableComponent implements OnInit {
   filterValue: string;
   constructor(private http: HttpClient, public route: Router, private empService: EmployeesService, public userService: UserService) { }
   ngOnInit() {
-    this.roleId = this.userService.userId;
+    this.userId = this.userService.userId;
     this.EmployeeList().then(data => {
       this.dataSource.data = data;
     })
@@ -59,7 +58,7 @@ export class EmployeesTableComponent implements OnInit {
   }
   EmployeeList(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/employee/findall')
+      this.http.get(Url.API_URL + 'api/employee/active/' + this.userId)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
