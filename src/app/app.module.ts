@@ -17,6 +17,8 @@ import { AuthGuard } from './authGuard';
 import { ExcelService } from './reports/excel.service';
 import { DeleteDialogueComponent } from './delete-dialogue/delete-dialogue.component';
 import { OfficeService } from './office/office.service';
+import { ExportAsModule } from 'ngx-export-as';
+
 // import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -35,8 +37,8 @@ import { OfficeService } from './office/office.service';
     // FormsModule,
     LazyLoadModule,
     CoreModule,
-
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ExportAsModule
   ],
   // entryComponents: [ExcelService],
   providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard,OfficeService],
