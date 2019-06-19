@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import "aws-sdk/dist/aws-sdk.min";
 import { MatDatepickerInputEvent, MatSnackBar, MatDialog } from '@angular/material';
@@ -37,32 +37,51 @@ export class OfficeComponent implements OnInit {
   private ShiftArray: Array<any> = [];
   private HolidayArray: Array<any> = [];
   private LeaveArray: Array<any> = [];
-  private TimeZoneArray: Array<any>=[];
+  private TimeZoneArray: Array<any> = [];
   private newDept: any = {};
-private newDesgn: any = {};
-private newRole: any= {};
-private newShift: any = {};
-private newHoliday:any= {};
-private newLeave:any={};
-dialogRef: any;
-favoriteSeason:number;
-start=new Date(2015,6,1);
-end= new Date(2015,8,1);
-day = this.start;
-getTot:number;
-yearDays:number;
-sat = new Array();   //Declaring array for inserting Saturdays
-sun = new Array();
+  private newDesgn: any = {};
+  private newRole: any = {};
+  private newShift: any = {};
+  private newHoliday: any = {};
+  private newLeave: any = {};
+  dialogRef: any;
+  favoriteSeason: number;
+  start = new Date(2015, 6, 1);
+  end = new Date(2015, 8, 1);
+  day = this.start;
+  getTot: number;
+  yearDays: number;
+  sat = new Array();   //Declaring array for inserting Saturdays
+  sun = new Array();
 
   events: string[] = [];
   myFilter = (d: Date): boolean => {
     const day = d.getDay();
     return day !== 0;
   }
-  
+
+  workingDayFormGroup: FormGroup;
+  workingDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+
   ngOnInit() {
+
+    this.workingDayFormGroup = this.formBuilder.group({
+      workingDays: this.formBuilder.array([])
+    });
+
+    this.userForm = this.formBuilder.group({
+      userCompanyName: ['', [Validators.required]],
+      userSuperAdmin: ['', [Validators.required]],
+      userInterval: ['', [Validators.required]],
+      cutOffDay: ['', [Validators.required]],
+      userWorkingHours: ['', [Validators.required]],
+      userTimeZone: ['', [Validators.required]],
+      userCasualLeaves: ['', [Validators.required]],
+      userCarryLeaves: ['', [Validators.required]]
+    });
+
     this.TimeZone();
-    this.HolidayArray=[];
+    this.HolidayArray = [];
     this.OfficeDetails()
     this.DepartmentList();
     this.UserRoleList();
@@ -70,94 +89,103 @@ sun = new Array();
     this.ShiftList();
     this.LeaveList();
     this.HolidayList();
-    // this.Weekends();
-    
-  
-// console.log(this.sat);
-// console.log(this.sun);
-    this.userForm = this.formBuilder.group({
-      userCompanyName: ['', [Validators.required]],
-      userSuperAdmin: ['', [Validators.required]],
-      userInterval: ['', [Validators.required]],
-      userWorkingHours: ['', [Validators.required]],
-      userTimeZone: ['', [Validators.required]],
-      userCasualLeaves: ['', [Validators.required]],
-      userCarryLeaves: ['', [Validators.required]]
-    });
-    
- }
- OfficeDetails(): Promise<any> {
 
-  return new Promise((resolve, reject) => {
-    this.http.get(Url.API_URL + 'api/office/all')
-    .subscribe((response: any) => {
-      resolve(response);
-      this.companyDetails=response[0];
-      //console.log(this.companyDetails);
-     
-    },reject);
-   
-  });
-}
- Weekends() {
-  var d = new Date();
-  this.yearDays = this.daysInMonth(d.getFullYear());
-  
-  for(var i=1;i<=this.yearDays;i++){    //looping through days in month
-   var newDate = new Date(d.getFullYear(),d.getMonth(),i)
-   if(newDate.getDay()==0){   //if Sunday
-     this.sun.push(this.datePipe.transform(newDate, 'yyyy-MM-dd'));
-   }
-   if(newDate.getDay()==6){   //if Saturday
-       this.sat.push(this.datePipe.transform(newDate, 'yyyy-MM-dd'));
-       
-   }
- 
- }
-
- }
- daysInMonth(year) {
-   var year1 =0;
-  for(let i=0; i<12; i++){
-  //  console.log(new Date(year,i, 0).getDate());
-   var month = new Date(year,i,0).getDate(); 
-  
-    year1 = year1+  month;
-   
   }
- 
- return year1;
-}
-addLeaveValue() {
-  this.LeaveArray.push(this.newLeave)
-  this.saveLeave();
-  this.newLeave = {};
-}
+
+  onChangeWorkingDays(event) {
+    const workingDays = <FormArray>this.workingDayFormGroup.get('workingDays') as FormArray;
+    console.log(workingDays.value.toString());
+    if (event.checked) {
+      workingDays.push(new FormControl(event.source.value))
+    } else {
+      const i = workingDays.controls.findIndex(x => x.value === event.source.value);
+      workingDays.removeAt(i);
+    }
+  }
+  
+  // Temp value to store the days selected
+  selDays = []
+  OfficeDetails(): Promise<any> {
+
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/office/all')
+        .subscribe((response: any) => {
+          resolve(response);
+          this.companyDetails = response[0];
+          console.log(this.companyDetails);
+          
+          this.workingDayFormGroup = this.formBuilder.group({
+            workingDays: this.formBuilder.array([])
+          });
+          const workingDays = <FormArray>this.workingDayFormGroup.get('workingDays') as FormArray;
+          console.log(workingDays);
+
+          this.selDays = this.companyDetails.workingDays != undefined ? this.companyDetails.workingDays.toString().split(', ') : [];
+          console.log(this.selDays);
+          // workingDays.setValue(this.selDays)
+          // setTimeout((selDays) => {
+            this.selDays.forEach(day => {
+              workingDays.push(day);
+            });
+          // });
+        }, reject);
+
+    });
+  }
+  Weekends() {
+    var d = new Date();
+    this.yearDays = this.daysInMonth(d.getFullYear());
+
+    for (var i = 1; i <= this.yearDays; i++) {    //looping through days in month
+      var newDate = new Date(d.getFullYear(), d.getMonth(), i)
+      if (newDate.getDay() == 0) {   //if Sunday
+        this.sun.push(this.datePipe.transform(newDate, 'yyyy-MM-dd'));
+      }
+      if (newDate.getDay() == 6) {   //if Saturday
+        this.sat.push(this.datePipe.transform(newDate, 'yyyy-MM-dd'));
+      }
+    }
+  }
+
+  daysInMonth(year) {
+    var year1 = 0;
+    for (let i = 0; i < 12; i++) {
+      //  console.log(new Date(year,i, 0).getDate());
+      var month = new Date(year, i, 0).getDate();
+      year1 = year1 + month;
+    }
+    return year1;
+  }
+  addLeaveValue() {
+    this.LeaveArray.push(this.newLeave)
+    this.saveLeave();
+    this.newLeave = {};
+  }
   addDepartmentValue() {
-      this.DeptArray.push(this.newDept)
-      this.saveDepartment();
-      this.newDept = {};
+    this.DeptArray.push(this.newDept)
+    this.saveDepartment();
+    this.newDept = {};
   }
   addDesignationValue() {
     this.DesgnArray.push(this.newDesgn)
     this.saveDesignation();
     this.newDesgn = {};
- }
- addUserRole(){
-  this.RoleArray.push(this.newRole)
-  this.saveRole();
-  this.newRole = {};
- }
- addShiftDetails() {
-  this.ShiftArray.push(this.newShift)
-  this.saveShift();
-  this.newShift = {};
-}
+  }
+  addUserRole() {
+    this.RoleArray.push(this.newRole)
+    this.saveRole();
+    this.newRole = {};
+  }
+  addShiftDetails() {
+    this.ShiftArray.push(this.newShift)
+    this.saveShift();
+    this.newShift = {};
+  }
   addHoliday() {
-    this.newHoliday.leaveDate=this.datePipe.transform(this.newHoliday.leaveDate, 'yyyy-MM-dd')
+    this.newHoliday.leaveDate = this.datePipe.transform(this.newHoliday.leaveDate, 'yyyy-MM-dd')
     this.HolidayArray.push(this.newHoliday);
     this.saveHoliday(this.HolidayArray);
-    this.newHoliday ={};
+    this.newHoliday = {};
   }
   saveDepartment() {
     return new Promise((resolve, reject) => {
@@ -166,19 +194,19 @@ addLeaveValue() {
           resolve(response);
           this.DepartmentList();
         }, reject);
-      
+
     });
   }
   saveRole() {
     return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL+'api/userrole/save',this.RoleArray)
+      this.http.post(Url.API_URL + 'api/userrole/save', this.RoleArray)
         .subscribe((response: any) => {
           resolve(response);
           this.UserRoleList();
         }, reject);
       //setTimeout(function(){
-    
-        // }, 3000);
+
+      // }, 3000);
     });
   }
   saveLeave() {
@@ -188,11 +216,11 @@ addLeaveValue() {
           resolve(response);
           this.LeaveList();
         }, reject);
-        // this.snackBar.open('Updated Successfully', 'OK', {
-        //   duration: 1000,
-        //   verticalPosition: 'top',
-        // });
-    
+      // this.snackBar.open('Updated Successfully', 'OK', {
+      //   duration: 1000,
+      //   verticalPosition: 'top',
+      // });
+
     });
   }
   saveDesignation() {
@@ -213,41 +241,43 @@ addLeaveValue() {
         }, reject);
     });
   }
- saveHoliday( holidayarray: any[]) {
-//console.log(holidayarray);
-  return new Promise((resolve, reject) => {
-    this.http.post(Url.API_URL + 'api/leaveDates/save', holidayarray)
-      .subscribe((response: any) => {
-        resolve(response);
-        this.HolidayList();
-      }, reject);
-     //this.HolidayArray=[];
-  });
- }
-saveAll(){
-  this.saveDesignation();
-  this.saveDepartment();
-  this.saveRole();
+  saveHoliday(holidayarray: any[]) {
+    //console.log(holidayarray);
+    return new Promise((resolve, reject) => {
+      this.http.post(Url.API_URL + 'api/leaveDates/save', holidayarray)
+        .subscribe((response: any) => {
+          resolve(response);
+          this.HolidayList();
+        }, reject);
+      //this.HolidayArray=[];
+    });
+  }
+  saveAll() {
+    this.saveDesignation();
+    this.saveDepartment();
+    this.saveRole();
 
-}
+  }
 
-//   deleteFieldValue(index) {
-//       this.fieldArray.splice(index, 1);
-//   }
-  
-//   deleteFieldValue1(index) {
-//     this.fieldArray1.splice(index, 1);
-// }
+  //   deleteFieldValue(index) {
+  //       this.fieldArray.splice(index, 1);
+  //   }
+
+  //   deleteFieldValue1(index) {
+  //     this.fieldArray1.splice(index, 1);
+  // }
 
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog,public officeService:OfficeService) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog, public officeService: OfficeService) {
     this.companyDetails = new companyDetails();
   }
-  
- 
+
+
   saveDetails(companyDetails: companyDetails) {
+    const selWorkingDays = this.workingDayFormGroup.get("workingDays").value;
+    this.companyDetails.workingDays = selWorkingDays.toString();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/office/save', companyDetails)
         .subscribe((response: any) => {
@@ -270,116 +300,116 @@ saveAll(){
     this.router.navigateByUrl('auth/dashboard');
   }
   DepartmentList(): Promise<any> {
-    this.DeptArray=[];
+    this.DeptArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/department/all')
-      .subscribe((response: any) => {
-        resolve(response);
-        this.DeptArray=response;
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          this.DeptArray = response;
+        }, reject);
+
     });
   }
   TimeZone(): Promise<any> {
-    this.DeptArray=[];
+    this.DeptArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(' http://api.timezonedb.com/v2.1/list-time-zone?key=8VO0UB9Z3CHK&format=json')
-      .subscribe((response: any) => {
-        resolve(response);
-        this.TimeZoneArray= response.zones;
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          this.TimeZoneArray = response.zones;
+        }, reject);
+
     });
   }
 
   LeaveList(): Promise<any> {
-    this.LeaveArray=[];
+    this.LeaveArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + '/api/leaveType/all')
-      .subscribe((response: any) => {
-        resolve(response);
-        this.LeaveArray=response;
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          this.LeaveArray = response;
+        }, reject);
+
     });
   }
   ShiftList(): Promise<any> {
-    this.ShiftArray=[]
+    this.ShiftArray = []
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/shift/all')
-      .subscribe((response: any) => {
-        resolve(response);
-        this.ShiftArray=response;
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          this.ShiftArray = response;
+        }, reject);
+
     });
   }
   DesignationList(): Promise<any> {
-    this.DesgnArray=[];
+    this.DesgnArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/desigantion/all')
-      .subscribe((response: any) => {
-        resolve(response);
-        this.DesgnArray=response;
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          this.DesgnArray = response;
+        }, reject);
+
     });
   }
   UserRoleList(): Promise<any> {
-    this.RoleArray=[];
+    this.RoleArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/userrole/all')
-      .subscribe((response: any) => {
-        resolve(response);
-        this.RoleArray=response;
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          this.RoleArray = response;
+        }, reject);
+
     });
   }
   HolidayList(): Promise<any> {
-    this.HolidayArray =[];
+    this.HolidayArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/leaveDates/all')
-      .subscribe((response: any) => {
-        resolve(response);
-        for(var i=0; i<response.length;i++){
-          if(response[i].leaveName!='Weekend')
-        this.HolidayArray.push(response[i]);
-        }
-      },reject);
-     
+        .subscribe((response: any) => {
+          resolve(response);
+          for (var i = 0; i < response.length; i++) {
+            if (response[i].leaveName != 'Weekend')
+              this.HolidayArray.push(response[i]);
+          }
+        }, reject);
+
     });
   }
-  deleteDepartmentValue(id:number){
+  deleteDepartmentValue(id: number) {
     this.openDeleteDialogue();
     this.officeService.setdepartmentId(id);
     // console.log(id);
-    
+
   }
   openDeleteDialogue() {
     this.dialogRef = this.dialog.open(DeleteDialogueComponent, {
       width: '30%', height: '150px',
       data: {
-        
+
       }
     });
     this.dialogRef.afterClosed()
-    
+
       .subscribe(result => {
         this.DepartmentList();
         if (!result) {
           return;
         }
       });
-     
+
   }
   closeModal(): void {
     this.closeBtn.nativeElement.click();
   }
- 
+
   datepickerHelpers: any = DATEPICKER_HELPERS;
 
-  deleteDesignationValue(id:number){
+  deleteDesignationValue(id: number) {
     this.openDesignationDeleteDialogue();
     this.officeService.setdesignationId(id);
     // console.log(id);
@@ -388,7 +418,7 @@ saveAll(){
     this.dialogRef = this.dialog.open(DeleteDesignationdialogueComponent, {
       width: '30%', height: '150px',
       data: {
-        
+
       }
     });
     this.dialogRef.afterClosed()
@@ -397,13 +427,13 @@ saveAll(){
         if (!result) {
           return;
         }
-       
+
       });
   }
   closeDesignation(): void {
     this.closeBtn.nativeElement.click();
   }
-  deleteShiftValue(id:number){
+  deleteShiftValue(id: number) {
     this.openShiftDeleteDialogue();
     this.officeService.setShiftId(id);
     // console.log(id);
@@ -412,7 +442,7 @@ saveAll(){
     this.dialogRef = this.dialog.open(DeleteShiftDialogueComponent, {
       width: '30%', height: '150px',
       data: {
-        
+
       }
     });
     this.dialogRef.afterClosed()
@@ -421,13 +451,13 @@ saveAll(){
         if (!result) {
           return;
         }
-       
+
       });
   }
   closeShift(): void {
     this.closeBtn.nativeElement.click();
   }
-  deleteLeaveValue(id:number){
+  deleteLeaveValue(id: number) {
     this.openLeaveDeleteDialogue();
     this.officeService.setLeaveId(id);
     // console.log(id);
@@ -436,7 +466,7 @@ saveAll(){
     this.dialogRef = this.dialog.open(DeleteLeaveDialogueComponent, {
       width: '30%', height: '150px',
       data: {
-        
+
       }
     });
     this.dialogRef.afterClosed()
@@ -445,13 +475,13 @@ saveAll(){
         if (!result) {
           return;
         }
-       
+
       });
   }
   closeleave(): void {
     this.closeBtn.nativeElement.click();
   }
-  deleteHolidayValue(id:number){
+  deleteHolidayValue(id: number) {
     this.openHolidayDeleteDialogue();
     this.officeService.setHolidayId(id);
     // console.log(id);
@@ -460,7 +490,7 @@ saveAll(){
     this.dialogRef = this.dialog.open(DeleteHolidayDialogueComponent, {
       width: '30%', height: '150px',
       data: {
-        
+
       }
     });
     this.dialogRef.afterClosed()
@@ -469,13 +499,13 @@ saveAll(){
         if (!result) {
           return;
         }
-       
+
       });
   }
   closeHoliday(): void {
     this.closeBtn.nativeElement.click();
   }
-  deleteUserRoleValue(id:number){
+  deleteUserRoleValue(id: number) {
     this.openUserDeleteDialogue();
     this.officeService.setUserId(id);
     // console.log(id);
@@ -484,7 +514,7 @@ saveAll(){
     this.dialogRef = this.dialog.open(DeleteUserDialogueComponent, {
       width: '30%', height: '150px',
       data: {
-        
+
       }
     });
     this.dialogRef.afterClosed()
@@ -493,7 +523,7 @@ saveAll(){
         if (!result) {
           return;
         }
-       
+
       });
   }
   closeUser(): void {
