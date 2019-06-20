@@ -87,13 +87,12 @@
                             </div>
                             <div fxLayout="row">
                                 <div class="weekdays-section">
-                                    <form [formGroup]="workingDayFormGroup">
-                                        <span *ngFor="let workingDay of workingDays; let i = index">
-                                            <mat-checkbox class="weekdays-margin" (change)="onChangeWorkingDays($event)"
-                                                [value]="workingDay">
-                                                {{workingDay}}</mat-checkbox>
-                                        </span>
-                                    </form>
+                                    <span *ngFor="let workingDay of workingDays; let i = index">
+                                        <mat-checkbox class="weekdays-margin" [ngModelOptions]="{standalone: true}"
+                                            [(ngModel)]="workingDay.checked" [checked]="workingDay.checked"
+                                            name="workingDay.name">
+                                            {{workingDay.name}}</mat-checkbox>
+                                    </span>
                                 </div>
                             </div>
                             <div style="margin-top: 10px">

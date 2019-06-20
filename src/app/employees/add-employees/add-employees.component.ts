@@ -19,12 +19,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-employees.component.scss']
 })
 export class AddEmployeesComponent implements OnInit {
-  shiftList:any;
+  shiftList: any;
   departmentList: any;
-  designationList:any;
-  userRoleList:any;
-  managerList:any;
-  reportingMgr:any;
+  designationList: any;
+  userRoleList: any;
+  managerList: any;
+  reportingMgr: any;
   userForm: FormGroup;
   employeeDetails: any;
   // shiftDetails= new ShiftDetails();
@@ -43,11 +43,11 @@ export class AddEmployeesComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router:Router) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router) {
     this.employeeDetails = new EmployeeDetails();
-   
+
   }
-  
+
   ngOnInit() {
     this.shift();
     this.designation();
@@ -58,13 +58,13 @@ export class AddEmployeesComponent implements OnInit {
       useraddressLine1: ['', [Validators.required]],
       useraddressLine2: [''],
       //userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
-      useralternateContactNo: ['',[  Validators.min(999999999),
-        Validators.max(9999999999), Validators.pattern(
-          "^([0-9]+)$"
-        )]],
+      useralternateContactNo: ['', [Validators.min(999999999),
+      Validators.max(9999999999), Validators.pattern(
+        "^([0-9]+)$"
+      )]],
       userbloodGroup: ['', [Validators.required]],
       usercity: ['', [Validators.required]],
-      usercontactEmail: ['', [Validators.required,Validators.pattern(
+      usercontactEmail: ['', [Validators.required, Validators.pattern(
         "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\- \\.]+)\\.([a-zA-Z]{2,5})$"
       )]],
       usercountry: ['', [Validators.required]],
@@ -76,7 +76,7 @@ export class AddEmployeesComponent implements OnInit {
       userdistict: ['', [Validators.required]],
       // useremployeeCode: ['', [Validators.required]],
       //useremployeeImage: ['', [Validators.required]],
-      userfirstName: ['', [Validators.required,Validators.pattern("^[a-zA-Z ]*$"),
+      userfirstName: ['', [Validators.required, Validators.pattern("^[a-zA-Z ]*$"),
       Validators.minLength(1)]],
       userformerComapnyJoinDate: [''],
       userformerCompanyEndDate: [''],
@@ -86,29 +86,29 @@ export class AddEmployeesComponent implements OnInit {
       userisUser: ['', [Validators.required]],
       userjoiningDate: ['', [Validators.required]],
       userlandmark: [''],
-      userlastName: ['',[Validators.pattern("^[a-zA-Z ]*$")]],
+      userlastName: ['', [Validators.pattern("^[a-zA-Z ]*$")]],
       usermedicalInfo: [''],
-      usermobileNo: ['', [Validators.required,Validators.min(999999999),
-        Validators.max(9999999999), Validators.pattern(
-          "^([0-9]+)$"
-        )]],
-      userpincode: ['', [Validators.required,Validators.pattern('^\\b\\d{6}$')]],
+      usermobileNo: ['', [Validators.required, Validators.min(999999999),
+      Validators.max(9999999999), Validators.pattern(
+        "^([0-9]+)$"
+      )]],
+      userpincode: ['', [Validators.required, Validators.pattern('^\\b\\d{6}$')]],
       userqualification: [''],
       userstate: ['', [Validators.required]],
       role: ['', [Validators.required]],
       //userworkExperince: ['', [Validators.required]],
       usersalary: [''],
       userShift: ['', [Validators.required]],
+      employmentType: ['', [Validators.required]],
+      employerName: ['', [Validators.required]],
       reportingName: ['', [Validators.required]],
-
-
     });
     this.shiftList = [];
   }
   saveDetails(employeeDetails: EmployeeDetails) {
-  // this.datePipe.transform(this.employeeDetails.joiningDate, 'yyyy-MM-dd');
-  //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
-  //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
+    // this.datePipe.transform(this.employeeDetails.joiningDate, 'yyyy-MM-dd');
+    //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
+    //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
     return new Promise((resolve, error) => {
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
@@ -118,31 +118,31 @@ export class AddEmployeesComponent implements OnInit {
             duration: 2000,
             verticalPosition: 'top',
           });
-        }, (error:any) => { 
+        }, (error: any) => {
           this.snackBar.open('Email or Password is already registered with us', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
           });
-         }  );
+        });
     });
-  
+
   }
-join(type: string, event: MatDatepickerInputEvent<Date>){
-    this.employeeDetails.formerCompanyJoinDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    
+  join(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.employeeDetails.formerCompanyJoinDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
   }
-  end(type: string, event: MatDatepickerInputEvent<Date>){
-    this.employeeDetails.formerCompanyEndDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    
+  end(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.employeeDetails.formerCompanyEndDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
   }
 
-  DOB(type: string, event: MatDatepickerInputEvent<Date>){
-    this.employeeDetails.dateOfBirth =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    
+  DOB(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.employeeDetails.dateOfBirth = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
   }
   joiningDate(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.employeeDetails.joiningDate =this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    
+    this.employeeDetails.joiningDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
   }
   //getting shift 
   shift(): Promise<any> {
@@ -158,11 +158,11 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
     });
   }
   //getting reporting manager by id
-  reportMgr(id:string): Promise<any> {
+  reportMgr(id: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/employee/getReportingManager/'+ id )
+      this.http.get(Url.API_URL + 'api/employee/getReportingManager/' + id)
         .subscribe((response: any) => {
-         this.managerList = response;
+          this.managerList = response;
           resolve(response);
         }, reject);
     });
@@ -170,9 +170,9 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
   //getting designation
   designation(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/desigantion/all' )
+      this.http.get(Url.API_URL + 'api/desigantion/all')
         .subscribe((response: any) => {
-         this.designationList = response;
+          this.designationList = response;
           resolve(response);
           // console.log(response);
         }, reject);
@@ -181,9 +181,9 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
   //getting user role 
   userRole(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/userrole/all' )
+      this.http.get(Url.API_URL + 'api/userrole/all')
         .subscribe((response: any) => {
-       this.userRoleList = response;
+          this.userRoleList = response;
           resolve(response);
         }, reject);
     });
@@ -191,14 +191,14 @@ join(type: string, event: MatDatepickerInputEvent<Date>){
   //getting deparments
   department(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/department/all' )
+      this.http.get(Url.API_URL + '/api/department/all')
         .subscribe((response: any) => {
-         this.departmentList = response;
+          this.departmentList = response;
           resolve(response);
         }, reject);
     });
   }
-//image upload
+  //image upload
   fileEvent(fileInput: any) {
     let windows: any = window;
     let AWSService = windows.AWS;

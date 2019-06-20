@@ -17,6 +17,7 @@ import { DeleteShiftDialogueComponent } from '../delete-shift-dialogue/delete-sh
 import { DeleteLeaveDialogueComponent } from '../delete-leave-dialogue/delete-leave-dialogue.component';
 import { DeleteHolidayDialogueComponent } from '../delete-holiday-dialogue/delete-holiday-dialogue.component';
 import { DeleteUserDialogueComponent } from '../delete-user-dialogue/delete-user-dialogue.component';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -61,14 +62,9 @@ export class OfficeComponent implements OnInit {
   }
 
   workingDayFormGroup: FormGroup;
-  workingDays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+  workingDays = [{ name: 'MONDAY', checked: false }, { name: 'TUESDAY', checked: false }, { name: 'WEDNESDAY', checked: false }, { name: 'THURSDAY', checked: false }, { name: 'FRIDAY', checked: false }, { name: 'SATURDAY', checked: false }, { name: 'SUNDAY', checked: false }];
 
   ngOnInit() {
-
-    this.workingDayFormGroup = this.formBuilder.group({
-      workingDays: this.formBuilder.array([])
-    });
-
     this.userForm = this.formBuilder.group({
       userCompanyName: ['', [Validators.required]],
       userSuperAdmin: ['', [Validators.required]],
@@ -92,19 +88,7 @@ export class OfficeComponent implements OnInit {
 
   }
 
-  onChangeWorkingDays(event) {
-    const workingDays = <FormArray>this.workingDayFormGroup.get('workingDays') as FormArray;
-    console.log(workingDays.value.toString());
-    if (event.checked) {
-      workingDays.push(new FormControl(event.source.value))
-    } else {
-      const i = workingDays.controls.findIndex(x => x.value === event.source.value);
-      workingDays.removeAt(i);
-    }
-  }
-  
   // Temp value to store the days selected
-  selDays = []
   OfficeDetails(): Promise<any> {
 
     return new Promise((resolve, reject) => {
@@ -112,22 +96,10 @@ export class OfficeComponent implements OnInit {
         .subscribe((response: any) => {
           resolve(response);
           this.companyDetails = response[0];
-          console.log(this.companyDetails);
-          
-          this.workingDayFormGroup = this.formBuilder.group({
-            workingDays: this.formBuilder.array([])
+          const selDays: String = this.companyDetails.workingDays != undefined ? this.companyDetails.workingDays.toString() : '';
+          this.workingDays.forEach(item => {
+            item.checked = selDays.includes(item.name) ? true : false;
           });
-          const workingDays = <FormArray>this.workingDayFormGroup.get('workingDays') as FormArray;
-          console.log(workingDays);
-
-          this.selDays = this.companyDetails.workingDays != undefined ? this.companyDetails.workingDays.toString().split(', ') : [];
-          console.log(this.selDays);
-          // workingDays.setValue(this.selDays)
-          // setTimeout((selDays) => {
-            this.selDays.forEach(day => {
-              workingDays.push(day);
-            });
-          // });
         }, reject);
 
     });
@@ -274,10 +246,19 @@ export class OfficeComponent implements OnInit {
     this.companyDetails = new companyDetails();
   }
 
+  getWorkingDays() {
+    const selValues = [];
+    this.workingDays.forEach(day => {
+      if (day.checked === true) {
+        selValues.push(day.name);
+      }
+    });
+    return selValues.toString();
+  }
 
   saveDetails(companyDetails: companyDetails) {
-    const selWorkingDays = this.workingDayFormGroup.get("workingDays").value;
-    this.companyDetails.workingDays = selWorkingDays.toString();
+    this.companyDetails.workingDays = this.getWorkingDays();
+    console.log(this.companyDetails.workingDays);
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/office/save', companyDetails)
         .subscribe((response: any) => {
