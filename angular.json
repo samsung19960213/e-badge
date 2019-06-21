@@ -20,9 +20,10 @@
               "src/assets",
               "src/favicon.ico"
             ],
-            "styles": [
+            "styles": [              
               "src/theme/theme.scss",
-              "src/theme/typography.scss"
+              "src/theme/typography.scss",
+              "./node_modules/angular-calendar/css/angular-calendar.css"
             ],
             "scripts": []
           },

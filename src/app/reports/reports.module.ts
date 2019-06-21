@@ -15,6 +15,10 @@ import { PersonalReportsComponent } from "./personal-reports/personal-reports.co
 import { LeaveReportsComponent } from "./leave-reports/leave-reports.component";
 import { ExcelService } from "./excel.service";
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 
 @NgModule({
@@ -59,6 +63,12 @@ import { ExcelService } from "./excel.service";
         MatProgressBarModule,
         MatProgressSpinnerModule,
         ReportsRouterModule,
+        NgbModalModule,
+        FlatpickrModule.forRoot(),
+        CalendarModule.forRoot({
+          provide: DateAdapter,
+          useFactory: adapterFactory
+        })
     ],
     declarations: [
         ReportsComponent,

@@ -39,7 +39,7 @@ import { OfficeModule } from '../office/office.module';
         MatButtonModule,
         MatIconModule,
         MatSortModule,
-    MatPaginatorModule,
+        MatPaginatorModule,
         MatTabsModule,
         CoreModule,
         MatSidenavModule,
@@ -47,8 +47,7 @@ import { OfficeModule } from '../office/office.module';
         EmployeesModule,
         AttendanceModule,
         LeavesModule,
-        OfficeModule,
-       
+        OfficeModule
     ],
     declarations: [AuthComponent],
     providers: [

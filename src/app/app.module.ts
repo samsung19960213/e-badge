@@ -19,15 +19,13 @@ import { DeleteDialogueComponent } from './delete-dialogue/delete-dialogue.compo
 import { OfficeService } from './office/office.service';
 import { ExportAsModule } from 'ngx-export-as';
 
-// import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeFilterPipe,
-    
-    
-  
   ],
   imports: [
     BrowserModule,
@@ -38,10 +36,14 @@ import { ExportAsModule } from 'ngx-export-as';
     LazyLoadModule,
     CoreModule,
     BrowserAnimationsModule,
-    ExportAsModule
+    ExportAsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   // entryComponents: [ExcelService],
-  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard,OfficeService],
+  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard, OfficeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
