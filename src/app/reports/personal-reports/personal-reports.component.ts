@@ -33,17 +33,25 @@ import {
 } from 'angular-calendar';
 
 const colors: any = {
-  red: {
+  red: { // Absent
     primary: '#ad2121',
     secondary: '#FAE3E3'
   },
-  blue: {
+  blue: { // Work from home
     primary: '#1e90ff',
     secondary: '#D1E8FF'
   },
-  yellow: {
+  yellow: { // Leave
     primary: '#e3bc08',
     secondary: '#FDF1BA'
+  },
+  green: { // Present
+    primary: '#006600',
+    secondary: '#1aff1a'
+  },
+  white: { // Default
+    primary: '#ffffff',
+    secondary: '#f2f2f2'
   }
 };
 
@@ -103,6 +111,10 @@ export class PersonalReportsComponent implements OnInit {
     //   this.isLoading = false;
     //   this.dataSource = data
     // }, error => this.isLoading = false);
+    
+    
+    // Loading data for default month
+    this.monthChange();
   }
 
 
@@ -122,6 +134,18 @@ export class PersonalReportsComponent implements OnInit {
       this.http.get(Url.API_URL + "api/attendance/attendance/report/" + this.reportsService.reportid + "/" + fromDate + '/' + toDate)
         .subscribe((response: any) => {
 
+          this.tableData = response;
+          resolve(response);
+        }, reject);
+    });
+  }
+
+  getAttendanceDataForCalendar() {
+    var startDate = this.datePipe.transform(new Date(this.viewDate.getFullYear(), this.viewDate.getMonth(), 1), 'yyyy-MM-dd');
+    var endDate = this.datePipe.transform(new Date(this.viewDate.getFullYear(), this.viewDate.getMonth() + 1, 0), 'yyyy-MM-dd');
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + "api/attendance/get-attendance-cal?employeeId=" + this.reportsService.reportid + "&startDate=" + startDate + '&endDate=' + endDate)
+        .subscribe((response: any) => {
           this.tableData = response;
           resolve(response);
         }, reject);
@@ -157,33 +181,9 @@ export class PersonalReportsComponent implements OnInit {
     event: CalendarEvent;
   };
 
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: new Date(),
-      end: new Date(),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      allDay: true
-    }
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
@@ -253,8 +253,24 @@ export class PersonalReportsComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-}
+  monthChange() {
+    this.events = [];
+    this.getAttendanceDataForCalendar().then((resp: any) => {
+      resp.forEach(item => {
+        const event:CalendarEvent =
+        {
+          start: new Date(item.startDate),
+          end: new Date(item.endDate),
+          title: item.title,
+          color: item.type == 'AT' ? colors.green : (item.type == 'LV' ? colors.yellow : (item.type == "WH" ? colors.blue : (item.type = "AB" ? colors.red : colors.white))),
+          allDay: true
+        }
+        this.events.push(event);
+      });
+    })
+  }
 
+}
 
 export interface PersonalReport {
   attendanceId: number;
