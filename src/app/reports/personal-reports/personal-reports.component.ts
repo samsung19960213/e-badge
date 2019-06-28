@@ -267,6 +267,7 @@ export class PersonalReportsComponent implements OnInit {
         }
         this.events.push(event);
       });
+      this.refresh.next();
     })
   }
 
