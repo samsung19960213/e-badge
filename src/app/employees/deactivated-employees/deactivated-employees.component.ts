@@ -10,6 +10,7 @@ import { EmployeesService } from '../employees.service';
 import { UserData } from '../../tables/interfaces';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { UserService } from '../../user.service';
 
 
 @Component({
@@ -25,14 +26,16 @@ export class DeactivatedEmployeesComponent implements OnInit {
   userId: number[] = [];
   searchTerm: string;
   userModel: any;
+  employeeId: number;
   isLoading=true;
   dataSource = new MatTableDataSource<Employeetable>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue: string;
-  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService) { }
+  constructor(private http: HttpClient,public userService: UserService, public route: Router, private empService: EmployeesService) { }
   ngOnInit() {
+    this.employeeId = this.userService.EmployeeID;
     this.InActiveEmployeeList().then(data => {
       this.dataSource.data = data;
     })
@@ -47,7 +50,7 @@ export class DeactivatedEmployeesComponent implements OnInit {
   }
   InActiveEmployeeList(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/employee/deactive/employees')
+      this.http.get(Url.API_URL + 'api/employee/deactive/employees/'+this.employeeId)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);

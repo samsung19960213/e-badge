@@ -35,7 +35,7 @@ export class EmployeesTableComponent implements OnInit {
   tableList = [];
   searchTerm: string;
   userModel: any;
-  userId: number;
+  employeeId: number;
   isLoading = true;
   dataSource = new MatTableDataSource<Employeetable>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -44,7 +44,7 @@ export class EmployeesTableComponent implements OnInit {
   filterValue: string;
   constructor(private http: HttpClient, public route: Router, private empService: EmployeesService, public userService: UserService) { }
   ngOnInit() {
-    this.userId = this.userService.userId;
+    this.employeeId = this.userService.EmployeeID;
     this.EmployeeList().then(data => {
       this.dataSource.data = data;
     })
@@ -58,7 +58,7 @@ export class EmployeesTableComponent implements OnInit {
   }
   EmployeeList(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/employee/active/' + this.userId)
+      this.http.get(Url.API_URL + 'api/employee/active/' + this.employeeId)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
