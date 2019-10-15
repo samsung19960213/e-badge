@@ -102,14 +102,14 @@ export const menus = [
             //     'open': false,
             // },
 
-            {
-                'name': 'Work From Home',
-                'icon': 'home',
-                'link': 'attendance/work-from-home',
-                'open': false,
-                'user': 2,
+            // {
+            //     'name': 'Work From Home',
+            //     'icon': 'home',
+            //     'link': 'attendance/work-from-home',
+            //     'open': false,
+            //     'user': 2,
 
-            },
+            // },
 
 
         ]
