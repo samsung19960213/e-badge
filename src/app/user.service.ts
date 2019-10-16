@@ -14,11 +14,11 @@ export class UserService {
     EmployeeID: number;
     Lname: string;
     userroleId: number;
-    
+    companyId:number;
     constructor() { }
     setUserinfo(username: string, userImg: string, userId: number,
         userPassword: string,
-        userEmail: string, department: string, designation: string, employeeId: number, lname: string, roleId: number,) {
+        userEmail: string, department: string, designation: string, employeeId: number, lname: string, roleId: number, companyId:number) {
         this.username = username;
         // console.log(this.username);
         // console.log(this.userImg);
@@ -32,6 +32,7 @@ export class UserService {
         this.EmployeeID = employeeId;
         this.Lname = lname;
         this.userroleId = roleId;
+        this.companyId =companyId;
         // this.dateMonth = date;
         // console.log(this.dateMonth);
     }

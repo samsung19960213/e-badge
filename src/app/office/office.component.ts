@@ -18,6 +18,7 @@ import { DeleteLeaveDialogueComponent } from '../delete-leave-dialogue/delete-le
 import { DeleteHolidayDialogueComponent } from '../delete-holiday-dialogue/delete-holiday-dialogue.component';
 import { DeleteUserDialogueComponent } from '../delete-user-dialogue/delete-user-dialogue.component';
 import { ThrowStmt } from '@angular/compiler';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -88,14 +89,17 @@ export class OfficeComponent implements OnInit {
 
   }
 
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog, public officeService: OfficeService, public userService: UserService) {
+    this.companyDetails = new companyDetails();
+  }
   // Temp value to store the days selected
   OfficeDetails(): Promise<any> {
 
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/office/all')
+      this.http.get(Url.API_URL + 'api/office/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
-          this.companyDetails = response[0];
+          this.companyDetails = response;
           const selDays: String = this.companyDetails.workingDays != undefined ? this.companyDetails.workingDays.toString() : '';
           this.workingDays.forEach(item => {
             item.checked = selDays.includes(item.name) ? true : false;
@@ -242,9 +246,7 @@ export class OfficeComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog, public officeService: OfficeService) {
-    this.companyDetails = new companyDetails();
-  }
+  
 
   getWorkingDays() {
     const selValues = [];
@@ -283,7 +285,7 @@ export class OfficeComponent implements OnInit {
   DepartmentList(): Promise<any> {
     this.DeptArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/department/all')
+      this.http.get(Url.API_URL + 'api/department/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.DeptArray = response;
@@ -306,7 +308,7 @@ export class OfficeComponent implements OnInit {
   LeaveList(): Promise<any> {
     this.LeaveArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/leaveType/all')
+      this.http.get(Url.API_URL + '/api/leaveType/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.LeaveArray = response;
@@ -317,7 +319,7 @@ export class OfficeComponent implements OnInit {
   ShiftList(): Promise<any> {
     this.ShiftArray = []
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/shift/all')
+      this.http.get(Url.API_URL + 'api/shift/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.ShiftArray = response;
@@ -328,7 +330,7 @@ export class OfficeComponent implements OnInit {
   DesignationList(): Promise<any> {
     this.DesgnArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/desigantion/all')
+      this.http.get(Url.API_URL + 'api/desigantion/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.DesgnArray = response;
@@ -350,7 +352,7 @@ export class OfficeComponent implements OnInit {
   HolidayList(): Promise<any> {
     this.HolidayArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/leaveDates/all')
+      this.http.get(Url.API_URL + 'api/leaveDates/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           for (var i = 0; i < response.length; i++) {

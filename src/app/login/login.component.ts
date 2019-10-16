@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
         .subscribe((response: any) => {
           resolve(response);
 
-          this.userService.setUserinfo(response.userName, response.userImage, response.id, response.password, response.email, response.department, response.designation, response.employeeId, response.lastName, response.userRoleId);
+          this.userService.setUserinfo(response.userName, response.userImage, response.id, response.password, response.email, response.department, response.designation, response.employeeId, response.lastName, response.userRoleId,response.companyId);
           this.userId = response.userRoleId;
           if (this.userId == 1 || this.userId == 3) {
 
