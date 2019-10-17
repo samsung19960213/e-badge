@@ -6,7 +6,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AttendanceRouterModule } from "./attendance.router";
 import { AbsenteesComponent } from "./absentees/absentees.component";
 import { PresentComponent } from "./present/present.component";
@@ -18,6 +18,7 @@ import { MonthlyAbsenteesListComponent } from './monthly-absentees-list/monthly-
 import { WorkFromHomeComponent } from './work-from-home/work-from-home.component';
 import { WorkFromHomeDetailsComponent, RejectAlert } from './work-from-home-details/work-from-home-details.component';
 import { RejectAlertModule } from "./work-from-home-details/rejectAlert.module";
+import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 
 
 
@@ -77,6 +78,11 @@ import { RejectAlertModule } from "./work-from-home-details/rejectAlert.module";
     exports: [
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        }
     ]
 })
 export class AttendanceModule {

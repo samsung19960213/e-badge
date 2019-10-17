@@ -5,7 +5,7 @@ import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToo
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
@@ -17,6 +17,7 @@ import { DeleteHolidayDialogueComponent } from "../delete-holiday-dialogue/delet
 import { DeleteShiftDialogueComponent } from "../delete-shift-dialogue/delete-shift-dialogue.component";
 import { DeleteLeaveDialogueComponent } from "../delete-leave-dialogue/delete-leave-dialogue.component";
 import { DeleteUserDialogueComponent } from "../delete-user-dialogue/delete-user-dialogue.component";
+import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 
 
 
@@ -78,6 +79,11 @@ import { DeleteUserDialogueComponent } from "../delete-user-dialogue/delete-user
     exports: [
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        }
         
     ]
 })

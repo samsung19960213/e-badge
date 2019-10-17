@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { LazyLoadModule } from './lazy-load/lazy-load.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { CommonModule, DatePipe } from '@angular/common';
 
 import { EmployeesService } from './employees/employees.service';
@@ -21,6 +21,7 @@ import { ExportAsModule } from 'ngx-export-as';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AuthInterceptor } from './interceptor/fuseHttpInterceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     })
   ],
   // entryComponents: [ExcelService],
-  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard, OfficeService],
+  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard, OfficeService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

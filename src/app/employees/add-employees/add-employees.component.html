@@ -384,7 +384,7 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-                    <mat-form-field fxFlex="30" class="form2Input">
+                    <mat-form-field fxFlex="22" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId"
                             formControlName="userShift" name="userShift" required>
                             <mat-option *ngFor="let shift of shiftList" [value]="shift.id">
@@ -396,7 +396,7 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex="30" class="form2Input">
+                    <mat-form-field fxFlex="23" class="form2Input">
                         <mat-select type="number" placeholder="Role" [(ngModel)]="employeeDetails.userRoleId"
                             formControlName="role" name="role" required>
                             <mat-option *ngFor="let role of userRoleList" [value]="role.id">
@@ -408,7 +408,7 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field fxFlex="30" class="form2Input">
+                    <mat-form-field fxFlex="22" class="form2Input">
 
                         <mat-select type="number" placeholder="Reporting manager name"
                             [(ngModel)]="employeeDetails.reportingManagerId" formControlName="reportingName"
@@ -418,6 +418,21 @@
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="userForm.controls.reportingName.hasError('required')" align="start"
+                            style="color: red;" class="mat-body-1 center-align ">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field fxFlex="23" class="form2Input">
+
+                        <mat-select type="number" placeholder="Branch name"
+                            [(ngModel)]="employeeDetails.branchId" formControlName="branchName"
+                            name="branchName" required>
+                            <mat-option *ngFor="let branch of branchList" [value]="branch.id">
+                                <span>&nbsp;&nbsp;{{branch.branchName }}</span>
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="userForm.controls.branchName.hasError('required')" align="start"
                             style="color: red;" class="mat-body-1 center-align ">
                             This field is required
                         </mat-error>

@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material';
 import {  ReactiveFormsModule } from '@angular/forms';
 
 import { FormsModule }   from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -28,6 +30,11 @@ import { FormsModule }   from '@angular/forms';
 		 ReactiveFormsModule,
 		 FormsModule
 	],
-	declarations: [ReactiveFormsComponent, TemplateDrivenFormsComponent]
+	declarations: [ReactiveFormsComponent, TemplateDrivenFormsComponent],
+	providers:[{
+		provide: HTTP_INTERCEPTORS,
+		useClass: AuthInterceptor,
+		multi: true,
+	}]
 })
 export class FormModule { }

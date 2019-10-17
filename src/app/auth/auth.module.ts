@@ -27,6 +27,8 @@ import { EmployeesModule } from '../employees/employees.module';
 import { AttendanceModule } from '../attendance/attendance.module';
 import { LeavesModule } from '../leaves/leaves.module';
 import { OfficeModule } from '../office/office.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 
 @NgModule({
@@ -54,6 +56,10 @@ import { OfficeModule } from '../office/office.module';
         {
             provide: PERFECT_SCROLLBAR_CONFIG,
             useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+        },{
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
         }
     ]
 })

@@ -11,6 +11,8 @@ import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
 import * as hljsTypescript from 'highlight.js/lib/languages/typescript';
 import { GoogleMapComponent } from './google-map/google-map.component';
 import { LeafletMapComponent } from './leaflet-map/leaflet-map.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 
 
@@ -39,7 +41,12 @@ export function highlightJsFactory(): any {
     LeafletMapComponent],
 
   exports: [
-    ]
+    ],
+    providers:[{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+  }]
       
 })
 export class MapsModule { }

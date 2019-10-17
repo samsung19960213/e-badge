@@ -1,5 +1,6 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { UserService } from '../user.service';
 
 
 
@@ -14,7 +15,8 @@ import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 export class AuthComponent implements OnInit{
   @Input() isVisible : boolean = true;
   visibility = 'shown';
-
+  companyName:string;
+  cmpLogoUrl:string;
   sideNavOpened: boolean = true;
   matDrawerOpened: boolean = false;
   matDrawerShow: boolean = true;
@@ -24,12 +26,15 @@ export class AuthComponent implements OnInit{
    this.visibility = this.isVisible ? 'shown' : 'hidden';
   }
 
-	constructor(private media: ObservableMedia) { }
+	constructor(private media: ObservableMedia,public userService:UserService) { }
 
 	ngOnInit() {
 		this.media.subscribe((mediaChange: MediaChange) => {
             this.toggleView();
         });
+        this.companyName=this.userService.companyName;
+        this.cmpLogoUrl=this.userService.cmpLogoUrl;
+        console.log(this.companyName + this.cmpLogoUrl);
 	}
     getRouteAnimation(outlet) {
 

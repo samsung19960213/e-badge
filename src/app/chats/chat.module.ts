@@ -29,6 +29,8 @@ import { environment } from '../../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 export function highlightJsFactory(): any {
   hljs.registerLanguage('typescript', hljsTypescript);
   return hljs;
@@ -71,7 +73,11 @@ export function highlightJsFactory(): any {
         NoticeComponent
     ],
     providers: [
-    {provide: 'ChatsService', useClass: ChatsService},
+    {provide: 'ChatsService', useClass: ChatsService},{
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true,
+    }
   ]
 
 })

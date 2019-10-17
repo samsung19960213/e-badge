@@ -8,6 +8,8 @@ import { DashboardWidgetModule } from '../dashboard-widget/dashboard-widget.modu
 import { AgmCoreModule } from '@agm/core';
 import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
 import { highlightJsFactory } from '../material-widgets/material-widgets.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 export const appRoutes: Routes = [
     { path: '', component: DashboardCrmComponent },
@@ -29,6 +31,11 @@ export const appRoutes: Routes = [
     }),
   ],
   declarations: [DashboardCrmComponent],
-  exports: [ ]
+  exports: [ ],
+  providers : [{
+    provide: HTTP_INTERCEPTORS,    
+    useClass: AuthInterceptor,
+    multi: true,
+}]
 })
 export class DashboardCrmModule { }

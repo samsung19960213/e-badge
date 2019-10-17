@@ -10,6 +10,7 @@ import { DATEPICKER_HELPERS } from '../../material-widgets/datepicker/helpers.da
 import { ShiftDetails } from '../shift.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { UserService } from '../../user.service';
 
 
 
@@ -19,6 +20,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-employees.component.scss']
 })
 export class AddEmployeesComponent implements OnInit {
+  branchList:any;
   shiftList: any;
   departmentList: any;
   designationList: any;
@@ -43,7 +45,7 @@ export class AddEmployeesComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router,public userService:UserService) {
     this.employeeDetails = new EmployeeDetails();
 
   }
@@ -53,6 +55,7 @@ export class AddEmployeesComponent implements OnInit {
     this.designation();
     this.department();
     this.userRole();
+    this.getBranchesByCompanyId();
     this.userForm = this.formBuilder.group({
       useractive: [, [Validators.required]],
       useraddressLine1: ['', [Validators.required]],
@@ -102,14 +105,31 @@ export class AddEmployeesComponent implements OnInit {
       employmentType: ['', [Validators.required]],
       employerName: ['', [Validators.required]],
       reportingName: ['', [Validators.required]],
+      branchName: ['', [Validators.required]],
     });
     this.shiftList = [];
   }
+
+  getBranchesByCompanyId(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      this.http.get(Url.API_URL + 'api/branch/all/branches/'+this.userService.companyId)
+        .subscribe((response: any) => {
+          this.branchList = response;
+          // console.log(this.shiftList[1].shiftName)
+          resolve(response);
+        }, reject);
+
+    });
+
+  }
+
   saveDetails(employeeDetails: EmployeeDetails) {
     // this.datePipe.transform(this.employeeDetails.joiningDate, 'yyyy-MM-dd');
     //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
     //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
     return new Promise((resolve, error) => {
+      employeeDetails.companyId=this.userService.companyId;
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
           resolve(response);
@@ -148,7 +168,7 @@ export class AddEmployeesComponent implements OnInit {
   shift(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + 'api/shift/all')
+      this.http.get(Url.API_URL + 'api/shift/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           this.shiftList = response;
           // console.log(this.shiftList[1].shiftName)
@@ -170,7 +190,7 @@ export class AddEmployeesComponent implements OnInit {
   //getting designation
   designation(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/desigantion/all')
+      this.http.get(Url.API_URL + 'api/desigantion/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           this.designationList = response;
           resolve(response);
@@ -191,7 +211,7 @@ export class AddEmployeesComponent implements OnInit {
   //getting deparments
   department(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/department/all')
+      this.http.get(Url.API_URL + '/api/department/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           this.departmentList = response;
           resolve(response);

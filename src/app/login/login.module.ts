@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 const routes: Routes = [
     {path: '', component: LoginComponent},
@@ -38,6 +40,11 @@ const routes: Routes = [
         RouterModule
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        }
     ]
 })
 export class LoginModule {

@@ -26,6 +26,8 @@ import { CoreModule } from '../core/core.module';
 import { ProfileComponent, ChangePassword } from './profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordModule } from './profile/changePassword.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 @NgModule({
     imports: [
@@ -62,6 +64,11 @@ import { ChangePasswordModule } from './profile/changePassword.module';
     exports: [
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        }
     ]
 })
 export class PagesModule {

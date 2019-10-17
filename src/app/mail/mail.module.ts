@@ -25,6 +25,8 @@ import { FormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { CommonModule } from '@angular/common';
 import { SearchbarComponent } from './searchbar/searchbar.component';  
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 @NgModule({
   imports: [
@@ -58,7 +60,11 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
     SearchbarComponent
   ],
   providers: [
-    { provide: 'mailService', useClass: MailService }
+    { provide: 'mailService', useClass: MailService },{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+  }
   ]
 })
 export class MailModule {

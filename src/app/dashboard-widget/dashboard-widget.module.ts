@@ -26,6 +26,8 @@ import { D3UsaComponent } from './d3-usa/d3-usa.component';
 import { WorldMapComponent } from './world-map/world-map.component';
 import { BarGraph1Component } from './bar-graph1/bar-graph1.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 
 
@@ -78,6 +80,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
       SalesListComponent,
       D3UsaComponent,
       WorldMapComponent
-  ]
+  ],
+  providers:[{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+}]
 })
 export class DashboardWidgetModule { }

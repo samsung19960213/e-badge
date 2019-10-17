@@ -8,13 +8,14 @@ import { RouterModule } from "@angular/router";
 import { EmployeesComponent } from "./employees.component";
 import { appRoutes } from "../dashboard-accounts/dashboard-accounts.module";
 import { EmployeesTableComponent } from "./employees-table/employees-table.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
 import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
 import { EmployeeDetailsComponent, MessagePopup} from "./employee-details/employee-details.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { EmployeesService } from "./employees.service";
 import { MessagePopupModule } from "./employee-details/messagePopup.module";
+import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 
 @NgModule({
     imports: [
@@ -75,6 +76,11 @@ import { MessagePopupModule } from "./employee-details/messagePopup.module";
     exports: [
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        }
         
     ]
 })

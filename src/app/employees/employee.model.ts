@@ -36,8 +36,8 @@ export class EmployeeDetails {
     salary:number;
     shiftId:number;
     reportingManagerId:number;
-    
-
+    companyId:number;
+    branchId:number;
 
 
     constructor(employeeDetails?) {
@@ -80,7 +80,8 @@ export class EmployeeDetails {
         this.experinces = employeeDetails.experinces || '';
         this.salary = employeeDetails.salary || 0;
         this.shiftId = employeeDetails.shiftId || 0;
-
+        this.branchId=employeeDetails.branchId || 0;
+        this.companyId=employeeDetails.companyId || 0;
 
     }
 }

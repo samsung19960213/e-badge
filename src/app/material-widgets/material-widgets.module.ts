@@ -51,6 +51,8 @@ import { ProgressbarComponent } from './progressbar/progressbar.component';
 import { InputComponent } from './input/input.component';
 import { RadioComponent } from './radio/radio.component';
 import { SelectComponent } from './select/select.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 
 
@@ -120,7 +122,12 @@ export function highlightJsFactory(): any {
     ],
 
   exports: [
-    ]
+    ],
+    providers:[{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+  }]
       
 })
 export class MaterialWidgetsModule { }

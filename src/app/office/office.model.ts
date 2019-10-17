@@ -8,6 +8,7 @@ export class companyDetails {
   casualLeaves:number;
   carryOnLeaves:number;
   id:number;
+  cmpLogoUrl:string;
     
 constructor(companyDetails?) {
     companyDetails = companyDetails || {};
@@ -19,5 +20,6 @@ constructor(companyDetails?) {
     this.casualLeaves = companyDetails.casualLeaves || null;
     this.carryOnLeaves = companyDetails.carryOnLeaves || null;
     this.id = companyDetails.id|| null;
+    this.cmpLogoUrl=companyDetails.cmpLogoUrl || '';
     }
 }

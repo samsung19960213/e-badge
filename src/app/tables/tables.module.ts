@@ -33,6 +33,8 @@ import { FilterTableComponent } from './filter-table/filter-table.component';
 import { FeatureTableComponent } from './feature-table/feature-table.component';
 import { ResponsiveTableComponent } from './responsive-table/responsive-table.component';
 import { FixedTableComponent } from './fixed-table/fixed-table.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 
 export function highlightJsFactory(): any {
@@ -77,7 +79,12 @@ export function highlightJsFactory(): any {
    FixedTableComponent],
 
   exports: [
-    ]
+    ],
+    providers:[{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+  }]
       
 })
 export class TablesModule { }

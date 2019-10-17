@@ -5,7 +5,7 @@ import { MatChipsModule, MatListModule, MatCheckboxModule, MatIconModule, MatToo
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { LeavesComponent } from "./leaves.component";
@@ -14,6 +14,7 @@ import { LeaveDetailsComponent, RejectPopup } from "./leave-details/leave-detail
 import { LeavesRouterModule } from "./leaves.router";
 import { RejectModule } from "./leave-details/reject.module";
 import { PendingLeavesComponent } from "./pending-leaves/pending-leaves.component";
+import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 
 
 
@@ -75,6 +76,11 @@ import { PendingLeavesComponent } from "./pending-leaves/pending-leaves.componen
     exports: [
     ],
     providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        }
         
     ]
 })

@@ -122,6 +122,7 @@ export class OfficeComponent implements OnInit {
       }
     }
   }
+  
 
   daysInMonth(year) {
     var year1 = 0;
@@ -511,5 +512,21 @@ export class OfficeComponent implements OnInit {
   }
   closeUser(): void {
     this.closeBtn.nativeElement.click();
+  }
+
+  //image upload
+  fileEvent(fileInput: any) {
+    let windows: any = window;
+    let AWSService = windows.AWS;
+    let file = fileInput.target.files[0];
+    AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
+    AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+    let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
+    let params = { Key: file.name, Body: file };
+    let fileEveThis = this;
+    bucket.upload(params, function (error, response) {
+      // console.log(response.Location);
+      fileEveThis.companyDetails.cmpLogoUrl = response.Location;
+    });
   }
 }

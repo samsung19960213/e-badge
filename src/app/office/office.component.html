@@ -94,6 +94,8 @@
                                             {{workingDay.name}}</mat-checkbox>
                                     </span>
                                 </div>
+
+                                
                             </div>
                             <div style="margin-top: 10px">
                                 <h2 class="text">Leave Details</h2>
@@ -118,7 +120,24 @@
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
+
+                                <div class="form2Input" fxFlex="30" style="align-items: center;place-content:space-between;">
+                                    <div class="product-image media" fxLayoutAlign="center center">
+                                        <button mat-fab (click)="imgFileInput.click()" style="background:  #102646">
+                                            <mat-icon>insert_photo</mat-icon>
+                                        </button>
+                                        <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>
+                    
+                                        <img src="{{companyDetails.cmpLogoUrl}}" *ngIf="companyDetails.cmpLogoUrl !== ''"
+                                            height="80" width="100">
+                                    </div>
+                                    <div>
+                                        <h2 class="text" style="text-align: center;font-size: 15px">Upload Image</h2>
+                                    </div>
+                                </div>
                             </div>
+
+                            
                             <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center"
                                 fxFlex="1 0 auto">
                                 <button mat-raised-button matStepperNext color="accent" type="submit"

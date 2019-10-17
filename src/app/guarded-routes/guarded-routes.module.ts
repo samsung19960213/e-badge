@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 import { RouterModule, Routes } from '@angular/router';
 import { RouterDeactivateComponent } from './router-deactivate/router-deactivate.component';
 import { MatSnackBarModule, MatToolbarModule } from '@angular/material';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
 @NgModule({
   imports: [
@@ -23,8 +25,13 @@ import { MatSnackBarModule, MatToolbarModule } from '@angular/material';
     MatToolbarModule
    ],
    providers: [
-   
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+  }
   ],
-  declarations: [GuardedRoutesComponent, RouterComponent, RouterDeactivateComponent]
+  declarations: [GuardedRoutesComponent, RouterComponent, RouterDeactivateComponent],
+
 })
 export class GuardedRoutesModule { }
