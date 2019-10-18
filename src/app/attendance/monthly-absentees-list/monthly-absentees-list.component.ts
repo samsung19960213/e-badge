@@ -33,8 +33,9 @@ export class MonthlyAbsenteesListComponent implements OnInit {
   selection = new SelectionModel<string>(true, []);
   ngOnInit() {
     this.roleId = this.userService.EmployeeID;
-    this.dateMon = this.leaveService.name;
-    this.Datenow = this.dateMon.toString().substr(3, 4) + '-' + this.dateMon.toString().substr(0, 2)
+    // this.dateMon = this.leaveService.name;
+    // this.Datenow = this.dateMon.toString().substr(3, 4) + '-' + this.dateMon.toString().substr(0, 2)
+    this.Datenow = this.leaveService.name;
     this.dataSource = new MatTableDataSource<MonthlyAbsenteesList>();
     this.getData().then(data => {
       this.dataSource.data = data;

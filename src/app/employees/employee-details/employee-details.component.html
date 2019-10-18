@@ -192,15 +192,19 @@
                     <h2 class="text">Current Work Details</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                    <mat-form-field fxFlex="30" class="form2Input">
-                        <mat-select type="text" placeholder="Employment Type"
-                            [(ngModel)]="employeeDetails.employmentType" formControlName="employmentType"
-                            name="employmentType" required>
-                            <mat-option value="FULL-TIME"><span>Full Time</span></mat-option>
-                            <mat-option value="C2H"><span>Contract to Hire</span></mat-option>
-                            <mat-option value="OTHER"><span>Other</span> </mat-option>
-                        </mat-select>
-                    </mat-form-field>
+
+                        <mat-form-field fxFlex="30" class="form2Input">
+
+                                <mat-select type="number" placeholder="Branch name"
+                                    [(ngModel)]="employeeDetails.banchId" formControlName="branchName"
+                                    name="branchName" required>
+                                    <mat-option *ngFor="let branch of branchList" [value]="branch.id">
+                                        <span>&nbsp;&nbsp;{{branch.branchName }}</span>
+                                    </mat-option>
+                                </mat-select>
+                               
+                            </mat-form-field>
+                    
 
                     <mat-form-field fxFlex="30" class="form2Input">
                         <input matInput type="text" placeholder="Employer Name"
@@ -239,10 +243,15 @@
                     </mat-form-field>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
-                    <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput type="text" placeholder="Medical Info" [(ngModel)]="employeeDetails.medicalInfo"
-                            formControlName="usermedicalInfo" name="usermedicalInfo">
-                    </mat-form-field>
+                        <mat-form-field fxFlex="30" class="form2Input">
+                                <mat-select type="text" placeholder="Employment Type"
+                                    [(ngModel)]="employeeDetails.employmentType" formControlName="employmentType"
+                                    name="employmentType" required>
+                                    <mat-option value="FULL-TIME"><span>Full Time</span></mat-option>
+                                    <mat-option value="C2H"><span>Contract to Hire</span></mat-option>
+                                    <mat-option value="OTHER"><span>Other</span> </mat-option>
+                                </mat-select>
+                            </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
                         <mat-select placeholder="Shift" [(ngModel)]="employeeDetails.shiftId"
                             formControlName="usershiftId" name="usershiftId" type="number" required>

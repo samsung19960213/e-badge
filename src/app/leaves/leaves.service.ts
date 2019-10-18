@@ -7,7 +7,7 @@ export class LeaveService {
     workId:number;
     departmentId:number;
     
-    name= [];
+    name='';
     constructor() { }
     setLeaveId(id: number) {
         this.leaveId = id;
@@ -24,7 +24,7 @@ export class LeaveService {
         return this.workId;
     }
     
-    setDateMonth(name= []) {
+    setDateMonth(name: string) {
         this.name = name
     }
     getDateMonth() {

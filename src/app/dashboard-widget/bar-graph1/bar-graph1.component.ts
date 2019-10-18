@@ -23,7 +23,7 @@ export class BarGraph1Component implements OnInit {
   single: any[];
   multi: any[];
 
-  view: any[] = [1080, 350];
+  view: any[] = [];
 
   // options
   showXAxis = true;
@@ -33,7 +33,7 @@ export class BarGraph1Component implements OnInit {
   showXAxisLabel = true;
   xAxisLabel = 'Months';
   showYAxisLabel = true;
-  yAxisLabel = 'No of people on leave';
+  yAxisLabel = 'No of active people on leave';
 
   colorScheme = {
     domain: ['#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60', '#2D0E60']
@@ -139,9 +139,8 @@ export class BarGraph1Component implements OnInit {
   }
 
   onSelect(event) {
-    // console.log(event);
-
-    this.leaveService.setDateMonth(event.name);
+    let selMonth = this.datePipe.transform("01 "+event.name, 'yyyy-MM');
+    this.leaveService.setDateMonth(selMonth);
     this.router.navigateByUrl('auth/attendance/monthly-absentees');
   }
   labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];

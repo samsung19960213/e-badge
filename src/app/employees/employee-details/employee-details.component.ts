@@ -18,6 +18,7 @@ import { UserService } from '../../user.service';
     styleUrls: ['./employee-details.component.scss']
 })
 export class EmployeeDetailsComponent implements OnInit {
+    branchList:any;
     empId: number
     user: FormGroup;
     employeeDetails: any;
@@ -59,6 +60,8 @@ export class EmployeeDetailsComponent implements OnInit {
         this.designation();
         this.shift();
         this.getDetails(this.empId);
+        this.getBranchesByCompanyId();
+
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
             useraddressLine1: new FormControl('', [Validators.required]),
@@ -98,9 +101,25 @@ export class EmployeeDetailsComponent implements OnInit {
             usershiftId: new FormControl('', [Validators.required]),
             userreportingManagerId: new FormControl('', [Validators.required]),
             employerName: new FormControl('', [Validators.required]),
-            employmentType: new FormControl('', [Validators.required])
+            employmentType: new FormControl('', [Validators.required]),
+            branchName: new FormControl('', [Validators.required])
         });
     }
+
+    getBranchesByCompanyId(): Promise<any> {
+        return new Promise((resolve, reject) => {
+    
+          this.http.get(Url.API_URL + 'api/branch/all/branches/'+this.userService.companyId)
+            .subscribe((response: any) => {
+              this.branchList = response;
+              // console.log(this.shiftList[1].shiftName)
+              resolve(response);
+            }, reject);
+    
+        });
+    
+      }
+
     //getting employee details by id
     getDetails(id: number) {
         return new Promise((resolve, reject) => {
@@ -114,7 +133,7 @@ export class EmployeeDetailsComponent implements OnInit {
     }
     shift(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + 'api/shift/all')
+            this.http.get(Url.API_URL + 'api/shift/company/'+this.userService.companyId)
                 .subscribe((response: any) => {
                     this.shiftList = response;
                     resolve(response);
@@ -132,7 +151,7 @@ export class EmployeeDetailsComponent implements OnInit {
     }
     designation(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + 'api/desigantion/all')
+            this.http.get(Url.API_URL + 'api/desigantion/company/'+this.userService.companyId)
                 .subscribe((response: any) => {
                     this.designationList = response;
                     resolve(response);
@@ -141,7 +160,7 @@ export class EmployeeDetailsComponent implements OnInit {
     }
     department(): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + '/api/department/all')
+            this.http.get(Url.API_URL + '/api/department/company/'+this.userService.companyId)
                 .subscribe((response: any) => {
                     this.departmentList = response;
                     resolve(response);
