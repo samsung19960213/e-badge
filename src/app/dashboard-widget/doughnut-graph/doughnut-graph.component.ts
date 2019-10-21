@@ -31,7 +31,7 @@ pendingLeaves:number;
                 this.acceptedLeaves= response.approvedLeaves;
                 this.rejectedLeaves= response.rejectedLeaves;
                 this.pendingLeaves= response.pendingLeaves;
-                this.absentDays = 20 - response.remainingLeaves - response.approvedLeaves;
+                this.absentDays = response.totalLeaves - response.remainingLeaves - response.approvedLeaves;
                 
                 
                 resolve(response);
