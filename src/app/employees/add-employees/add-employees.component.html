@@ -383,7 +383,7 @@
                         <mat-select type="text" placeholder="Employment Type"
                             [(ngModel)]="employeeDetails.employmentType" formControlName="employmentType"
                             name="employmentType" required>
-                            <mat-option [value]="FULL-TIME"><span>Full Time</span></mat-option>
+                            <mat-option value="FULL-TIME"><span>Full Time</span></mat-option>
                             <mat-option value="C2H"><span>Contract to Hire</span></mat-option>
                             <mat-option value="OTHER"><span>Other</span> </mat-option>
                         </mat-select>
@@ -459,6 +459,7 @@
                                     [(ngModel)]="employeeDetails.employeeCode" formControlName="useremployeeCode"
                                     name="useremployeeCode">
                             </mat-form-field>
+                            
                 </div>
                 <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
                     <button mat-raised-button color="primary" [disabled]="!userForm.valid"

@@ -78,7 +78,7 @@ export class EmployeeDetailsComponent implements OnInit {
             userdesignationId: new FormControl('', [Validators.required]),
             userdesignationName: new FormControl('', [Validators.required]),
             userdistict: new FormControl('', [Validators.required]),
-            useremployeeCode: new FormControl({value: '', disabled: true}, [Validators.required]),
+            useremployeeCode: new FormControl('', [Validators.required]),
             useremployeeImage: new FormControl('', [Validators.required]),
             userfirstName: new FormControl('', [Validators.required]),
             userformerComapnyJoinDate: new FormControl('', [Validators.required]),

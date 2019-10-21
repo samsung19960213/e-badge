@@ -14,7 +14,7 @@ export class EmployeeDetails {
     designationId: number;
     // designationName: string;
     distict: string;
-    // employeeCode: string;
+    employeeCode: string;
     employeeImage: string;
     firstName: string;
     formerCompanyJoinDate: string;
@@ -59,7 +59,7 @@ export class EmployeeDetails {
         this.designationId = employeeDetails.designationId || 0;
         // this.designationName = employeeDetails.designationName || '';
         this.distict = employeeDetails.distict || '';
-        // this.employeeCode = employeeDetails.employeeCode || '';
+        this.employeeCode = employeeDetails.employeeCode || '';
         this.employeeImage = employeeDetails.employeeImage || '';
         this.firstName = employeeDetails.firstName || '';
         this.formerCompanyJoinDate = employeeDetails.formerCompanyJoinDate || '';

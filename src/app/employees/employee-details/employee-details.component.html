@@ -196,7 +196,7 @@
                         <mat-form-field fxFlex="30" class="form2Input">
 
                                 <mat-select type="number" placeholder="Branch name"
-                                    [(ngModel)]="employeeDetails.banchId" formControlName="branchName"
+                                    [(ngModel)]="employeeDetails.branchId" formControlName="branchName"
                                     name="branchName" required>
                                     <mat-option *ngFor="let branch of branchList" [value]="branch.id">
                                         <span>&nbsp;&nbsp;{{branch.branchName }}</span>

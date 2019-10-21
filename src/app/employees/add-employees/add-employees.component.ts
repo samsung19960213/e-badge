@@ -77,7 +77,7 @@ export class AddEmployeesComponent implements OnInit {
       userdesignationId: ['', [Validators.required]],
       //userdesignationName: ['', [Validators.required]],
       userdistict: ['', [Validators.required]],
-      // useremployeeCode: ['', [Validators.required]],
+      useremployeeCode: ['', [Validators.required]],
       //useremployeeImage: ['', [Validators.required]],
       userfirstName: ['', [Validators.required, Validators.pattern("^[a-zA-Z ]*$"),
       Validators.minLength(1)]],
@@ -129,6 +129,7 @@ export class AddEmployeesComponent implements OnInit {
     //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
     //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
     return new Promise((resolve, error) => {
+      console.log(employeeDetails)
       employeeDetails.companyId=this.userService.companyId;
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
