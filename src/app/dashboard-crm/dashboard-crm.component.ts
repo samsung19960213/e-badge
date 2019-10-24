@@ -4,6 +4,7 @@ import { Url } from '../Url';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-dashboard-crm',
@@ -42,7 +43,7 @@ export class DashboardCrmComponent implements OnInit {
     height: string = '500px';
     @ViewChild(AgmMap) private myMap: any;
     @ViewChild('mapContainer') mapContainer: any;
-    constructor(private http: HttpClient, private datePipe: DatePipe, public userService: UserService) { }
+    constructor(private http: HttpClient, private datePipe: DatePipe, public userService: UserService, private spinner: NgxSpinnerService) { }
 
     ngOnInit() {
         this.userId = this.userService.EmployeeID;
@@ -54,6 +55,7 @@ export class DashboardCrmComponent implements OnInit {
     }
 
     getDashboardCounts(date: string) {
+        this.spinner.show();
         return new Promise((resolve, reject) => {
             this.http.get(Url.API_URL + 'api/employee/getdashBoardCounts/' + date + '/' + this.userId)
                 .subscribe((response: any) => {
@@ -62,6 +64,7 @@ export class DashboardCrmComponent implements OnInit {
                     this.dashCard[2].number = response.getLateEntryEmployees;
                     this.dashCard[3].number = response.getPendingLeaveRequest;
                     resolve(response);
+                    this.spinner.hide();
 
                 }, reject);
 

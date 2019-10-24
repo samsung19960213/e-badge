@@ -54,6 +54,7 @@
     "ngx-export-as": "^1.2.5",
     "ngx-perfect-scrollbar": "^5.3.5",
     "ngx-quill": "^2.2.0",
+    "ngx-spinner": "^7.0.0",
     "react-native": "^0.59.6",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.2.1",

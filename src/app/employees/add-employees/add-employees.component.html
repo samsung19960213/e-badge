@@ -23,7 +23,7 @@
 
             <form [formGroup]="userForm" fxLayout="column" fxFlex="100">
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto"
-                    style="margin-top: 20px">
+                    style="margin-top: 20px;" *ngIf="false">
                     <mat-radio-group [(ngModel)]="employeeDetails.active" formControlName="useractive" name="useractive"
                         class="example-radio-button">
                         <mat-radio-button [value]=1 selected class="example-radio-button">
@@ -125,11 +125,11 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div>
+                <div *ngIf="false">
                     <h2 class="text">User Type</h2>
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto"
-                    style="margin-top: 20px">
+                    style="margin-top: 20px"  *ngIf="false">
                     <mat-radio-group [(ngModel)]="employeeDetails.isUser" formControlName="userisUser" name="userisUser"
                         class="example-radio-button">
                         <mat-radio-button [value]=1 class="example-radio-button">

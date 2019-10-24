@@ -20,7 +20,7 @@ import { UserService } from '../../user.service';
   styleUrls: ['./add-employees.component.scss']
 })
 export class AddEmployeesComponent implements OnInit {
-  branchList:any;
+  branchList: any;
   shiftList: any;
   departmentList: any;
   designationList: any;
@@ -45,7 +45,7 @@ export class AddEmployeesComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router,public userService:UserService) {
+  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public userService: UserService) {
     this.employeeDetails = new EmployeeDetails();
 
   }
@@ -57,7 +57,7 @@ export class AddEmployeesComponent implements OnInit {
     this.userRole();
     this.getBranchesByCompanyId();
     this.userForm = this.formBuilder.group({
-      useractive: [, [Validators.required]],
+      useractive: [1, [Validators.required]],
       useraddressLine1: ['', [Validators.required]],
       useraddressLine2: [''],
       //userage: ['', [Validators.required,Validators.max(100), Validators.min(0)]],
@@ -86,7 +86,7 @@ export class AddEmployeesComponent implements OnInit {
       userformerCompanyName: [''],
       usergender: ['', [Validators.required]],
       //userid:  ['', [Validators.required]],
-      userisUser: ['', [Validators.required]],
+      userisUser: [1, [Validators.required]],
       userjoiningDate: ['', [Validators.required]],
       userlandmark: [''],
       userlastName: ['', [Validators.pattern("^[a-zA-Z ]*$")]],
@@ -113,7 +113,7 @@ export class AddEmployeesComponent implements OnInit {
   getBranchesByCompanyId(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + 'api/branch/all/branches/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/branch/all/branches/' + this.userService.companyId)
         .subscribe((response: any) => {
           this.branchList = response;
           // console.log(this.shiftList[1].shiftName)
@@ -130,7 +130,7 @@ export class AddEmployeesComponent implements OnInit {
     //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
     return new Promise((resolve, error) => {
       console.log(employeeDetails)
-      employeeDetails.companyId=this.userService.companyId;
+      employeeDetails.companyId = this.userService.companyId;
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
           resolve(response);
@@ -169,7 +169,7 @@ export class AddEmployeesComponent implements OnInit {
   shift(): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + 'api/shift/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/shift/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           this.shiftList = response;
           // console.log(this.shiftList[1].shiftName)
@@ -191,7 +191,7 @@ export class AddEmployeesComponent implements OnInit {
   //getting designation
   designation(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/desigantion/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/desigantion/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           this.designationList = response;
           resolve(response);
@@ -212,7 +212,7 @@ export class AddEmployeesComponent implements OnInit {
   //getting deparments
   department(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/department/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + '/api/department/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           this.departmentList = response;
           resolve(response);
@@ -224,10 +224,13 @@ export class AddEmployeesComponent implements OnInit {
     let windows: any = window;
     let AWSService = windows.AWS;
     let file = fileInput.target.files[0];
+    let fileExt = file.name.substr(file.name.lastIndexOf('.') + 1);
+    let fileName = file.name.replace("." + fileExt, '');
     AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
     AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+    AWSService.config.region = Url.AWS_BucketRegion;
     let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
-    let params = { Key: file.name, Body: file };
+    let params = { Key: fileName + new Date().getTime() + '.' + fileExt, Body: file };
     let fileEveThis = this;
     bucket.upload(params, function (error, response) {
       // console.log(response.Location);

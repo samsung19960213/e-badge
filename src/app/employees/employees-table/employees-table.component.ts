@@ -19,6 +19,7 @@ import { ExampleDataSource } from '../../tables/filter-table/helpers.data';
 import { UserService } from '../../user.service';
 import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -42,8 +43,14 @@ export class EmployeesTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue: string;
-  constructor(private http: HttpClient, public route: Router, private empService: EmployeesService, public userService: UserService) { }
-  ngOnInit() {
+
+  constructor(private http: HttpClient,
+    public route: Router,
+    private empService: EmployeesService,
+    public userService: UserService,
+    private spinner: NgxSpinnerService) { }
+
+  ngOnInit() {    
     this.employeeId = this.userService.EmployeeID;
     this.EmployeeList().then(data => {
       this.dataSource.data = data;
@@ -57,10 +64,12 @@ export class EmployeesTableComponent implements OnInit {
     // }, error => this.isLoading = false);
   }
   EmployeeList(): Promise<any> {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/employee/active/' + this.employeeId)
         .subscribe((response: any) => {
           resolve(response);
+          this.spinner.hide();
         }, reject);
     });
   }
@@ -79,14 +88,6 @@ export class EmployeesTableComponent implements OnInit {
   }
   downloadQR(id: string) {
     window.open(Url.API_URL + 'api/qrcode/qrCode/download/' + id, '_blank');
-    // return new Promise((resolve, reject) => {
-    //       this.http.get(Url.API_URL + 'api/qrcode/qrCode/download/'+ id)
-    //           .subscribe((response: any) => {
-    //             var newWindow = window.open(response);
-    //               resolve(response);
-    //           }, reject);
-    //   });
-
   }
 }
 export interface Employeetable {

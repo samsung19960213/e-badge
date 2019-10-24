@@ -11,6 +11,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDatepickerInputEvent, MatS
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-employee-details',
@@ -40,16 +41,20 @@ export class EmployeeDetailsComponent implements OnInit {
     startDate: string;
     endDate: string;
     userId: number;
+
     constructor(private http: HttpClient,
         public empService: EmployeesService,
         public dialog: MatDialog,
         public datePipe: DatePipe,
         public snackBar: MatSnackBar,
         public router: Router,
-        public userService: UserService) {
+        public userService: UserService,
+        private spinner: NgxSpinnerService) {
         this.employeeDetails = new EmployeeDetails();
     }
+
     ngOnInit() {
+        this.spinner.show();
         this.userId = this.userService.userroleId;
         this.empId = this.empService.getEmployeeId();
         let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
@@ -61,7 +66,7 @@ export class EmployeeDetailsComponent implements OnInit {
         this.shift();
         this.getDetails(this.empId);
         this.getBranchesByCompanyId();
-
+        this.spinner.hide();
         this.user = new FormGroup({
             useractive: new FormControl('', [Validators.required]),
             useraddressLine1: new FormControl('', [Validators.required]),
@@ -86,7 +91,7 @@ export class EmployeeDetailsComponent implements OnInit {
             userformerCompanyName: new FormControl('', [Validators.required]),
             usergender: new FormControl('', [Validators.required]),
             userid: new FormControl('', [Validators.required]),
-            userisUser: new FormControl('', [Validators.required]),
+            userisUser: new FormControl(1, [Validators.required]),
             userjoiningDate: new FormControl('', [Validators.required]),
             userlandmark: new FormControl('', [Validators.required]),
             userlastName: new FormControl('', [Validators.required]),
@@ -112,9 +117,13 @@ export class EmployeeDetailsComponent implements OnInit {
           this.http.get(Url.API_URL + 'api/branch/all/branches/'+this.userService.companyId)
             .subscribe((response: any) => {
               this.branchList = response;
-              // console.log(this.shiftList[1].shiftName)
+              // console.log(this.shiftList[1].shiftName)              
+              this.spinner.hide();
               resolve(response);
-            }, reject);
+            }, msg => {
+                this.spinner.hide();
+                reject
+            });
     
         });
     
@@ -200,6 +209,7 @@ export class EmployeeDetailsComponent implements OnInit {
         let file = fileInput.target.files[0];
         AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
         AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+        AWSService.config.region = Url.AWS_BucketRegion;
         let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
         let params = { Key: file.name, Body: file };
         let fileEveThis = this;
@@ -356,6 +366,7 @@ export class MessagePopup {
 
         AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
         AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+        AWSService.config.region = Url.AWS_BucketRegion;
         let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
         let params = { Key: file.name, Body: file };
         let deactivatefile = this;

@@ -192,6 +192,7 @@ export class ProfileComponent implements OnInit {
 
     AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
     AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+    AWSService.config.region = Url.AWS_BucketRegion;
     let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName } });
     let params = { Key: file.name, Body: file };
     let fileEveThis = this;

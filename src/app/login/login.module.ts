@@ -15,6 +15,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 const routes: Routes = [
     {path: '', component: LoginComponent},
@@ -31,7 +32,8 @@ const routes: Routes = [
         FormsModule,
         MatSnackBarModule,
         ReactiveFormsModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        NgxSpinnerModule
     ],
     declarations: [   
         LoginComponent,

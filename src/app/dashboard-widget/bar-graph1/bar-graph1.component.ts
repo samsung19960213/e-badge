@@ -50,7 +50,7 @@ export class BarGraph1Component implements OnInit {
     this.empID = this.userService.EmployeeID;
     this.getAttendance(this.empID);
     setTimeout(() => {
-      this.createBarGraph();
+      // this.createBarGraph();
     }, 500)
   }
   getAttendance(id: number) {
@@ -58,6 +58,7 @@ export class BarGraph1Component implements OnInit {
       this.http.get(Url.API_URL + 'api/attendance/absentees/month/' + id)
         .subscribe((response: any) => {
           this.dataSource = response;
+          this.createBarGraph();
           resolve(response);
         }, reject);
     });

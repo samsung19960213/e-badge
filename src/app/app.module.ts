@@ -18,10 +18,10 @@ import { ExcelService } from './reports/excel.service';
 import { DeleteDialogueComponent } from './delete-dialogue/delete-dialogue.component';
 import { OfficeService } from './office/office.service';
 import { ExportAsModule } from 'ngx-export-as';
-
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AuthInterceptor } from './interceptor/fuseHttpInterceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { AuthInterceptor } from './interceptor/fuseHttpInterceptor';
     CoreModule,
     BrowserAnimationsModule,
     ExportAsModule,
+    NgxSpinnerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
