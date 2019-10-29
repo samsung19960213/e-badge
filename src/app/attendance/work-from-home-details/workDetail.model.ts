@@ -1,26 +1,32 @@
 export class WorkDetail {
-    checkInTime: string;
-    comments: string;
-    date:string;
-    designation: string;
-    employeeCode: string;
-    employeeId: number;
-    firstName: string;
     id: number;
-    secondName: string;
     status: string;
-    constructor(WorkDetail?) {
-        WorkDetail = WorkDetail || {};
-        this.checkInTime = WorkDetail.checkInTime || '';
-        this.comments = WorkDetail.comments || '';
-        this.date = WorkDetail.date || '';
-        this.id = WorkDetail.id || 1;
-        this.designation = WorkDetail.designation || '';
-        this.employeeCode = WorkDetail.employeeCode || '';
-        this.employeeId = WorkDetail.employeeId || 1;
-        this.firstName = WorkDetail.firstName || '';
-        this.secondName = WorkDetail.secondName || '';
-        this.status = WorkDetail.status || '';
-       
+	approvedUser: string;
+	approvedUserId;
+	createdDate: string;
+	rejectReason: string;
+	reason: string;
+	requestFromDate: string;
+	requestToDate: string;
+	approvedDate: string;
+	requestedUser: string;
+	requestedUserCode: string;
+	requestedUserId: string;
+
+    constructor(workDetail?) {
+        workDetail = workDetail || {};
+        this.status = workDetail.status || '';
+        this.approvedUser = workDetail.approvedUser || '';
+        this.approvedUserId = workDetail.approvedUserId || '';
+        this.id = workDetail.id || null;
+        this.createdDate = workDetail.createdDate || '';
+        this.rejectReason = workDetail.rejectReason || '';
+        this.reason = workDetail.reason || 1;
+        this.requestFromDate = workDetail.requestFromDate || '';
+        this.requestToDate = workDetail.requestToDate || '';
+        this.approvedDate = workDetail.approvedDate || '';
+        this.requestedUser = workDetail.requestedUser || '';
+        this.requestedUserCode = workDetail.requestedUserCode || '';
+        this.requestedUserId = workDetail.requestedUserId || '';       
     }
 }

@@ -39,25 +39,25 @@
 						<i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 20px"></i>
 					</mat-cell>
 				</ng-container>
-				<ng-container matColumnDef="employeeCode">
+				<ng-container matColumnDef="requestedUserCode">
 					<mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource">{{dataSource.employeeCode}}</mat-cell>
+					<mat-cell *matCellDef="let dataSource">{{dataSource.requestedUserCode}}</mat-cell>
 				</ng-container>
-				<ng-container matColumnDef="firstName">
+				<ng-container matColumnDef="requestedUser">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; Name </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.firstName}} {{dataSource.lastName}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.requestedUser}}</mat-cell>
 				</ng-container>
 
 				<!-- Name Column -->
 
-				<ng-container matColumnDef="date">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.date}} </mat-cell>
+				<ng-container matColumnDef="requestFromDate">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> From Date </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestFromDate}} </mat-cell>
 				</ng-container>
 				<!-- Color Column -->
-				<ng-container matColumnDef="designation">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.designation}} </mat-cell>
+				<ng-container matColumnDef="requestToDate">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> To Date </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestToDate}} </mat-cell>
 				</ng-container>
 
 

@@ -30,9 +30,9 @@ export class WorkFromHomeDetailsComponent implements OnInit {
     public datePipe: DatePipe,
     public route: ActivatedRoute,
     public router: Router,
-    public snackBar: MatSnackBar) { 
-      this.dataSource = new WorkDetail();
-    }
+    public snackBar: MatSnackBar) {
+    this.dataSource = new WorkDetail();
+  }
   ngOnInit() {
     this.id = this.leaveService.getWorkId();
     this.getDetails(this.id);
@@ -48,15 +48,17 @@ export class WorkFromHomeDetailsComponent implements OnInit {
       reason: new FormControl('', [Validators.required]),
     });
   }
+
   getDetails(id: number) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/attendance/attendanceid/' + id)
+      this.http.get(Url.API_URL + '/api/attendance/workfromhome/' + id)
         .subscribe((response: any) => {
           resolve(response);
           this.dataSource = response;
         }, reject);
     });
   }
+
   accept(dataSource) {
     dataSource.flag == 1;
     return new Promise((resolve, reject) => {
@@ -89,6 +91,9 @@ export class WorkFromHomeDetailsComponent implements OnInit {
     });
   }
 }
+
+
+
 @Component({
   selector: 'reject-alert',
   templateUrl: './rejectAlert.html',
@@ -99,12 +104,19 @@ export class RejectAlert {
   id: number;
   reason: string;
   dataSource: any;
+
   constructor(private http: HttpClient,
-    public message: MatDialogRef<RejectAlert>, @Inject(MAT_DIALOG_DATA) public data: any, public leaveService: LeaveService, public router: Router, public snackBar: MatSnackBar) { }
+    public message: MatDialogRef<RejectAlert>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public leaveService: LeaveService,
+    public router: Router,
+    public snackBar: MatSnackBar) { }
+
   ngOnInit() {
     this.id = this.leaveService.getWorkId();
     this.getDetails(this.id);
   }
+
   closeMessage(): void {
     this.message.close();
   }
@@ -131,7 +143,7 @@ export class RejectAlert {
         );
       this.message.close();
       this.getDetails(this.id);
-      
+
     });
   }
   getDetails(id: number) {
