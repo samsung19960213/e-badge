@@ -16,8 +16,7 @@ import { LateComersComponent } from "./late-comers/late-comers.component";
 import { CheckoutRequestComponent } from "./checkout-request/checkout-request.component";
 import { MonthlyAbsenteesListComponent } from './monthly-absentees-list/monthly-absentees-list.component';
 import { WorkFromHomeComponent } from './work-from-home/work-from-home.component';
-import { WorkFromHomeDetailsComponent, RejectAlert } from './work-from-home-details/work-from-home-details.component';
-import { RejectAlertModule } from "./work-from-home-details/rejectAlert.module";
+import { WorkFromHomeDetailsComponent } from './work-from-home-details/work-from-home-details.component';
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 
 
@@ -62,7 +61,6 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
         MatProgressBarModule,
         MatProgressSpinnerModule,
         AttendanceRouterModule,
-        RejectAlertModule
     ],
     declarations: [
         AttendanceComponent,
@@ -74,7 +72,6 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
         WorkFromHomeComponent,
         WorkFromHomeDetailsComponent,
     ],
-    entryComponents: [RejectAlert],
     exports: [
     ],
     providers: [
