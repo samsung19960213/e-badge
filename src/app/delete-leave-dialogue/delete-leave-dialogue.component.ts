@@ -41,7 +41,7 @@ export class DeleteLeaveDialogueComponent implements OnInit {
   LeaveList(): Promise<any> {
     this.LeaveArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/leaveType/all')
+      this.http.get(Url.API_URL + 'api/leaveType/all')
         .subscribe((response: any) => {
           resolve(response);
           this.LeaveArray = response;

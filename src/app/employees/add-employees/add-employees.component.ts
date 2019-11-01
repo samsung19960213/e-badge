@@ -11,6 +11,7 @@ import { ShiftDetails } from '../shift.model';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -45,7 +46,13 @@ export class AddEmployeesComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public userService: UserService) {
+  constructor(private http: HttpClient,
+    public formBuilder: FormBuilder,
+    public datePipe: DatePipe,
+    public snackBar: MatSnackBar,
+    public router: Router,
+    public userService: UserService,
+    private spinnerSerivce: NgxSpinnerService) {
     this.employeeDetails = new EmployeeDetails();
 
   }
@@ -125,9 +132,7 @@ export class AddEmployeesComponent implements OnInit {
   }
 
   saveDetails(employeeDetails: EmployeeDetails) {
-    // this.datePipe.transform(this.employeeDetails.joiningDate, 'yyyy-MM-dd');
-    //   this.datePipe.transform(this.employeeDetails.formerComapnyJoinDate, 'yyyy-MM-dd');
-    //   this.datePipe.transform(this.employeeDetails.formerCompanyEndDate, 'yyyy-MM-dd');
+    this.spinnerSerivce.show();
     return new Promise((resolve, error) => {
       console.log(employeeDetails)
       employeeDetails.companyId = this.userService.companyId;
@@ -135,12 +140,14 @@ export class AddEmployeesComponent implements OnInit {
         .subscribe((response: any) => {
           resolve(response);
           this.router.navigateByUrl('auth/dashboard');
+          this.spinnerSerivce.hide();
           this.snackBar.open('Saved Successfully', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
           });
         }, (error: any) => {
-          this.snackBar.open('Email or Password is already registered with us', 'OK', {
+          this.spinnerSerivce.hide();
+          this.snackBar.open('Email or Mobile Number is already registered with us', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
           });
@@ -212,7 +219,7 @@ export class AddEmployeesComponent implements OnInit {
   //getting deparments
   department(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/department/company/' + this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/department/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           this.departmentList = response;
           resolve(response);
@@ -221,6 +228,7 @@ export class AddEmployeesComponent implements OnInit {
   }
   //image upload
   fileEvent(fileInput: any) {
+    this.spinnerSerivce.show();
     let windows: any = window;
     let AWSService = windows.AWS;
     let file = fileInput.target.files[0];
@@ -235,6 +243,7 @@ export class AddEmployeesComponent implements OnInit {
     bucket.upload(params, function (error, response) {
       // console.log(response.Location);
       fileEveThis.employeeDetails.employeeImage = response.Location;
+      this.spinnerSerivce.hide();
     });
   }
   datepickerHelpers: any = DATEPICKER_HELPERS;

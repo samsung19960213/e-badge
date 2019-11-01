@@ -26,7 +26,7 @@ export class DeleteDialogueComponent implements OnInit {
   }
   delete() {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/department/delete/' + this.deptId)
+      this.http.get(Url.API_URL + 'api/department/delete/' + this.deptId)
         .subscribe((response: any) => {
           resolve(response);
           this.DepartmentList();

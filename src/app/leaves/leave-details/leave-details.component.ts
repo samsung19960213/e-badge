@@ -44,7 +44,7 @@ export class LeaveDetailsComponent implements OnInit {
   }
   getDetails(id: number) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/leave/' + id)
+      this.http.get(Url.API_URL + 'api/leave/' + id)
         .subscribe((response: any) => {
           resolve(response);
           this.dataSource = response;
@@ -53,7 +53,7 @@ export class LeaveDetailsComponent implements OnInit {
   }
   accept() {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/leave/admin/' + this.id + '/true')
+      this.http.get(Url.API_URL + 'api/leave/admin/' + this.id + '/true')
         .subscribe((response: any) => {
           resolve(response);
           this.snackBar.open('Leave Approved', 'OK', {
@@ -99,7 +99,7 @@ export class RejectPopup {
   }
   getDetails(id: number) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/leave/' + id)
+      this.http.get(Url.API_URL + 'api/leave/' + id)
         .subscribe((response: any) => {
           resolve(response);
           this.dataSource = response;

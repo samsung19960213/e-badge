@@ -309,7 +309,7 @@ export class OfficeComponent implements OnInit {
   LeaveList(): Promise<any> {
     this.LeaveArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/leaveType/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/leaveType/company/'+this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.LeaveArray = response;

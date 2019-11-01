@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit {
   }
   getDetails(id: number) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + '/api/employee/user/' + id)
+      this.http.get(Url.API_URL + 'api/employee/user/' + id)
         .subscribe((response: any) => {
           resolve(response);
           this.employeeDetails = response;
@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
   }
   updateDetails(employeeDetails) {
     return new Promise((resolve, reject) => {
-      this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
+      this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
           resolve(response);
           this.snackBar.open('Updated Successful', 'OK', {
@@ -176,7 +176,7 @@ export class ProfileComponent implements OnInit {
 
     return new Promise((resolve, reject) => {
 
-      this.http.get(Url.API_URL + '/api/department/all')
+      this.http.get(Url.API_URL + 'api/department/all')
         .subscribe((response: any) => {
           this.departmentList = response;
           resolve(response);

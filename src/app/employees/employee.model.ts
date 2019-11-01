@@ -67,7 +67,7 @@ export class EmployeeDetails {
         this.formerCompanyName = employeeDetails.formerCompanyName || '';
         this.gender = employeeDetails.gender || '';
         
-        this.isUser = employeeDetails.isUser || 0;
+        this.isUser = employeeDetails.isUser || 1;
         this.joiningDate = employeeDetails.joiningDate || '';
         this.landmark = employeeDetails.landmark || '';
         this.lastName = employeeDetails.lastName || '';

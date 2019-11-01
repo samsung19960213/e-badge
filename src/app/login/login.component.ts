@@ -70,13 +70,12 @@ export class LoginComponent implements OnInit {
 
   buildForm() {
     this.userForm = this.fb.group({
-      'email': ['abulhasan@gmail.com', [
+      'email': ['', [
         Validators.required,
         Validators.email
       ]
       ],
-      'password': ['mindstack', [
-
+      'password': ['', [
         Validators.minLength(6),
         Validators.maxLength(25)
       ]
@@ -110,7 +109,7 @@ export class LoginComponent implements OnInit {
   login(login: any) {
     this.spinner.show();
     return new Promise((resolve, error) => {
-      this.http.post(Url.API_URL + '/api/login', login.value)
+      this.http.post(Url.API_URL + 'api/login', login.value)
         .subscribe((response: any) => {
           resolve(response);
 
