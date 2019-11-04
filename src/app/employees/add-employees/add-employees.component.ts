@@ -149,7 +149,7 @@ export class AddEmployeesComponent implements OnInit {
           this.spinnerSerivce.hide();
           this.snackBar.open('Email or Mobile Number is already registered with us', 'OK', {
             duration: 2000,
-            verticalPosition: 'top',
+            verticalPosition: 'top', 
           });
         });
     });
@@ -243,7 +243,7 @@ export class AddEmployeesComponent implements OnInit {
     bucket.upload(params, function (error, response) {
       // console.log(response.Location);
       fileEveThis.employeeDetails.employeeImage = response.Location;
-      this.spinnerSerivce.hide();
+      fileEveThis.spinnerSerivce.hide();
     });
   }
   datepickerHelpers: any = DATEPICKER_HELPERS;

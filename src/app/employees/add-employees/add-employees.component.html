@@ -145,7 +145,7 @@
                 </div>
                 <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field fxFlex="45" class="form2Input">
-                        <input matInput type="text" placeholder="Enter Permanent Address"
+                        <input matInput type="text" placeholder="Enter Address Line 1"
                             [(ngModel)]="employeeDetails.addressLine1" formControlName="useraddressLine1"
                             name="useraddressLine1" required>
                         <mat-error *ngIf="userForm.controls.useraddressLine1.hasError('required')" align="start"
@@ -154,7 +154,7 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="45" class="form2Input">
-                        <input matInput type="text" placeholder="Enter Present Address Line 1"
+                        <input matInput type="text" placeholder="Enter Address Line 2"
                             [(ngModel)]="employeeDetails.addressLine2" formControlName="useraddressLine2"
                             name="useraddressLine2">
                         <!-- <mat-error *ngIf="userForm.controls.useraddressLine2.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
