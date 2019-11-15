@@ -30,7 +30,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class EmployeesTableComponent implements OnInit {
 
-  public displayedColumns = ['Edit', 'employeeCode', 'firstName', 'contactEmail', 'designationName', 'departmentName', 'status', 'qrCode'];
+  public displayedColumns = ['Edit', 'employeeCode', 'firstName', 'contactEmail', 'designationName', 'departmentName', 'reportingmanager', 'status', 'qrCode'];
   showNavListCode;
   ID: any;
   tableList = [];
@@ -50,7 +50,7 @@ export class EmployeesTableComponent implements OnInit {
     public userService: UserService,
     private spinner: NgxSpinnerService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.employeeId = this.userService.EmployeeID;
     this.EmployeeList().then(data => {
       this.dataSource.data = data;

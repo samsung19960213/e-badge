@@ -73,6 +73,11 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Department </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.departmentName}} </mat-cell>
 				</ng-container>
+				
+				<ng-container matColumnDef="reportingmanager">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Reporting Manager </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
+				</ng-container>				
 
 				<ng-container matColumnDef="status">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>

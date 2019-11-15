@@ -80,7 +80,7 @@ export class WorkFromHomeComponent implements OnInit {
   }
   workFromHomeList(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + "api/attendance/workfromhome?employeeId="+this.userService.EmployeeID + "&fromDate=" + fromDate + "&toDate=" + toDate)
+      this.http.get(Url.API_URL + "api/attendance/workfromhome/all?employeeId="+this.userService.EmployeeID + "&fromDate=" + fromDate + "&toDate=" + toDate)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);

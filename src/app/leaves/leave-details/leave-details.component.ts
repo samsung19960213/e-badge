@@ -39,6 +39,7 @@ export class LeaveDetailsComponent implements OnInit {
       availableLeaves: new FormControl('', [Validators.required]),
       requestTime: new FormControl('', [Validators.required]),
       leaveType: new FormControl('', [Validators.required]),
+      rejectReason: new FormControl(''),
     });
 
   }

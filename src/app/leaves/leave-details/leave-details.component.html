@@ -47,6 +47,11 @@
             <input matInput placeholder="Leave Type" formControlName="leaveType" name="leaveType" [(ngModel)]="dataSource.leaveType">
           </mat-form-field>
         </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto" *ngIf="dataSource.status === 'REJECTED'">
+          <mat-form-field fxFlex="60" class="form2Input">
+            <input matInput placeholder="Leave Reject Reason" formControlName="rejectReason" name="rejectReason" [(ngModel)]="dataSource.rejectReason">
+          </mat-form-field>
+        </div>
       </form>
 
       <div style="margin-top: 20px;margin-bottom: 30px"  fxLayoutAlign="start center" fxFlex="1 0 auto">

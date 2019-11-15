@@ -53,10 +53,10 @@
           <mat-radio-button [value]=0>Reject</mat-radio-button>
         </mat-radio-group>
       </div>
-      <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto" *ngIf="statusSelected == 0 || dataSource.status =='REJECTED'">
-        <mat-form-field fxFlex="60" class="form2Input">
-          <textarea matInput type="text" name="comments" placeholder="Comments" [(ngModel)]="dataSource.rejectReason"
-            rows="5"></textarea>
+      <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto" *ngIf="statusSelected == 0 || dataSource.status =='REJECTED'" >
+        <mat-form-field fxFlex="60" class="form2Input" >
+          <textarea matInput type="text" name="comments" placeholder="Reject Comments" [(ngModel)]="dataSource.rejectReason"
+            rows="5" [disabled]="dataSource.status !='PENDING'"></textarea>
         </mat-form-field>
       </div>
       <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="start center" fxFlex="1 0 auto">

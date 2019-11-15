@@ -64,23 +64,17 @@ pendingLeaves:number;
         new Chart('doughnut-graph-graph', {
             type: 'doughnut',
             data: {
-            labels: ['Approved Leaves ', 'Rejected Leaves','Absent Days', 'Pending Leaves','Remaining Leaves'],
+            labels: ['Approved Leaves ', 'Absent Days', 'Remaining Leaves'],
             datasets: [ {
                 data: [
                     this.acceptedLeaves,
-                    this.rejectedLeaves,
                     this.absentDays,
-                    this.pendingLeaves,
                     this.remainingLeaves,
                 ],
                 backgroundColor: [
                     'rgb(55,94,151)',
-                    'rgb(251,101,66)',
                     'rgb(255,187,0)',
-                    'rgb(132, 109, 206)',
-                    'rgb(63,104,28)',
-                  
-                    
+                    'rgb(63,104,28)'
                 ],
             }]},
             options: {
