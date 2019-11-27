@@ -19,7 +19,7 @@ import { of } from 'rxjs';
   styleUrls: ['./present.component.scss']
 })
 export class PresentComponent implements OnInit {
-  public displayedColumns = ['employeeCode', 'Name', 'Department', 'Shift', 'Time'];
+  public displayedColumns = ['employeeCode', 'Name', 'Department','reportingManagerName', 'Shift', 'Time'];
   showNavListCode;
   ID: any;
   time: any[] = [];

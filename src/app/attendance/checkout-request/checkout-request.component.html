@@ -78,6 +78,10 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.designation}} </mat-cell>
 				</ng-container>
+				<ng-container matColumnDef="reportingManagerName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Reporting Manger Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
+				</ng-container>
 				<ng-container matColumnDef="checkInTime">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Check In Time </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | date:'shortTime'}} </mat-cell>

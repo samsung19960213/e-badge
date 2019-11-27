@@ -10,14 +10,14 @@ import { LeaveService } from '../../leaves/leaves.service';
 import { UserService } from '../../user.service';
 import {of,} from 'rxjs';
 import {delay} from 'rxjs/operators';
-
+ 
 @Component({
   selector: 'app-absentees',
   templateUrl: './absentees.component.html',
   styleUrls: ['./absentees.component.scss']
 })
 export class AbsenteesComponent implements OnInit {
-  public displayedColumns = ['status', 'Name', 'fromDate', 'toDate', 'Desgn', 'reason'];
+  public displayedColumns = ['status', 'Name', 'fromDate', 'toDate', 'Desgn','reportingManagerName', 'reason'];
   showNavListCode;
   ID: any;
   userId: number[] = [];

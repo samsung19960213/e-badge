@@ -28,7 +28,7 @@ import { UserService } from '../../user.service';
 })
 export class PendingLeavesComponent implements OnInit {
 
-  public displayedColumns = ['Name', 'fromDate', 'toDate', 'requestDate', 'status'];
+  public displayedColumns = ['Name','LeaveType', 'fromDate', 'toDate', 'requestDate', 'status'];
   showNavListCode;
   ID: any;
   tableList = [];

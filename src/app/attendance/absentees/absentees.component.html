@@ -56,6 +56,10 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.designation}} </mat-cell>
 				</ng-container>
+				<ng-container matColumnDef="reportingManagerName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Reporting Manger Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
+				</ng-container>
 				<!-- Color Column -->
 				<ng-container matColumnDef="reason">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Reason </mat-header-cell>

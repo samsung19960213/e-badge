@@ -18,7 +18,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CheckoutRequestComponent implements OnInit {
 
-  public displayedColumns = ['firstName', 'date', 'checkInTime', 'designation', 'checkoutDate', 'checkOut', 'submit'];
+  public displayedColumns = ['firstName', 'date', 'checkInTime', 'designation','reportingManagerName', 'checkoutDate', 'checkOut', 'submit'];
   showNavListCode;
   ID: any;
   tableList = [];

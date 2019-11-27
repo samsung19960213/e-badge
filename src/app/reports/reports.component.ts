@@ -24,7 +24,7 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
-  public displayedColumns = ['Edit','employeeCode', 'firstName', 'workingDays', 'workingHours', 'daysWorked', 'average'];
+  public displayedColumns = ['Edit','employeeCode', 'firstName','reportingManagerName', 'workingDays', 'workingHours', 'daysWorked', 'average'];
   showNavListCode;
   ID: any;
   avg = [];

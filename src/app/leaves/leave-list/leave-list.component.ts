@@ -19,7 +19,7 @@ import { delay } from 'rxjs/operators';
 })
 export class LeaveListComponent implements OnInit {
 
-  public displayedColumns = ['Edit', 'Name', 'fromDate', 'toDate', 'reason', 'status'];
+  public displayedColumns = ['Edit', 'Name','LeaveType', 'fromDate', 'toDate', 'reason', 'status'];
   showNavListCode;
   ID: any;
   roleId: number;

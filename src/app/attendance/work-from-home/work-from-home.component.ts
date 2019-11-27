@@ -18,7 +18,7 @@ import { delay } from 'rxjs/operators';
 })
 export class WorkFromHomeComponent implements OnInit {
 
-  public displayedColumns = ['Edit','requestedUserCode','requestedUser', 'requestFromDate', 'requestToDate',  'status'];
+  public displayedColumns = ['Edit','requestedUserCode','requestedUser','reportingManagerName', 'requestFromDate', 'requestToDate',  'status'];
   showNavListCode;
   ID: any;
   tableList = [];

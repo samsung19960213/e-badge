@@ -34,6 +34,11 @@
 					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.userName}} </mat-cell>
 				</ng-container>
 
+				<ng-container matColumnDef="LeaveType">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; Leave Type </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.leaveType}} </mat-cell>
+				</ng-container>
+
 				<ng-container matColumnDef="fromDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> From Date </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate | date: 'longDate'}} </mat-cell>

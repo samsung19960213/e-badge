@@ -47,6 +47,10 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Department </mat-header-cell>
           <mat-cell *matCellDef="let dataSource"> {{dataSource.department}} </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="reportingManagerName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Reporting Manger Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
+				</ng-container>
         <ng-container matColumnDef="Shift">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Shift </mat-header-cell>
           <mat-cell *matCellDef="let dataSource"> {{dataSource.shiftName}} </mat-cell>

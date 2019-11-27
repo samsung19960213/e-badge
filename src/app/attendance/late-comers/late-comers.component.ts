@@ -20,7 +20,7 @@ import { UserService } from '../../user.service';
 })
 export class LateComersComponent implements OnInit {
 
-  public displayedColumns = ['employeeCode', 'Name', 'Date', 'Time' ];
+  public displayedColumns = ['employeeCode', 'Name','reportingManagerName', 'Date', 'Time' ];
   showNavListCode;
   ID: any;
   isLoading = true;

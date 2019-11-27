@@ -44,7 +44,10 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp; Name </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.firstName}} {{dataSource.lastName}} </mat-cell>
 				</ng-container>
-
+				<ng-container matColumnDef="reportingManagerName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Reporting Manger Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
+				  </ng-container>
 				<!-- Progress Column -->
 				<ng-container matColumnDef="workingDays">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Working Days </mat-header-cell>
