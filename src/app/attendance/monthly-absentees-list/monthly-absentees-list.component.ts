@@ -14,7 +14,7 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: ['./monthly-absentees-list.component.scss']
 })
 export class MonthlyAbsenteesListComponent implements OnInit {
-  public displayedColumns = ['employeeCode', 'Name', 'Email', 'Department', 'Designation'];
+  public displayedColumns = ['employeeCode', 'Name', 'Email', 'Department', 'Designation','absentCount'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
@@ -35,7 +35,12 @@ export class MonthlyAbsenteesListComponent implements OnInit {
     this.roleId = this.userService.EmployeeID;
     // this.dateMon = this.leaveService.name;
     // this.Datenow = this.dateMon.toString().substr(3, 4) + '-' + this.dateMon.toString().substr(0, 2)
+    if( this.leaveService.name === ''){
+    let selMonth = this.datePipe.transform(new Date(), 'yyyy-MM');
+    this.leaveService.setDateMonth(selMonth);
+    }
     this.Datenow = this.leaveService.name;
+
     this.dataSource = new MatTableDataSource<MonthlyAbsenteesList>();
     this.getData().then(data => {
       this.dataSource.data = data;

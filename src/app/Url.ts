@@ -12,6 +12,9 @@ export class Url {
     public static AWS_SecretAccessKey = '02AMJ5+ivYOkr4Ic4BRUJPGNUyF4RuUowDFsjo4P';
     public static AWS_BucketName = 'ebadge-files';
     public static AWS_BucketRegion = 'us-east-2';
+    public static AWS_BucketName_Leaves = 'ebadge-files/leaves-doc';
+    public static AWS_BucketName_WFH = 'ebadge-files/WFH-doc';
+
 }
 
 //Test

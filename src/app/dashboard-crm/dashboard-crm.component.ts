@@ -20,12 +20,23 @@ export class DashboardCrmComponent implements OnInit {
     userId: number;
     date = new Date();
     lateEntries: number;
+    absentCount:number;
+    workFromHomeEmployees:number;
+    chekoutReqCount:number;
+    workFromHomeCount:number;
     public dashCard = [
         { colorDark: '#294772', colorLight: '#375e97', number: this.activeEmployees, title: 'TEAM STRENGTH', icon: 'group', link: '/auth/employees/active-employees' },
 
         { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.presentEmployees, title: 'PRESENT EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/present' },
         { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.lateEntries, title: 'LATE ENTRIES', icon: 'schedule', link: '/auth/attendance/late-comers' },
         { colorDark: '#335417', colorLight: '#3f681c', number: this.leaveRequest, title: 'PENDING LEAVE REQUEST', icon: 'drafts', link: '/auth/leaves/pending-leaves' }
+    ];
+    public dashCardSec = [
+        { colorDark: '#294772', colorLight: '#375e97', number: this.absentCount, title: 'ABSENT EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/monthly-absentees' },
+
+        { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.workFromHomeEmployees, title: 'WORK FROM HOME EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/present' },
+        { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.chekoutReqCount, title: 'CHECKOUT REQUESTS', icon: 'drafts', link: '/auth/attendance/checkout-request' },
+        { colorDark: '#335417', colorLight: '#3f681c', number: this.workFromHomeCount, title: 'WORK FROM HOME REQUESTS', icon: 'drafts', link: '/auth/dashboard' }
     ];
 
     tableData = [
@@ -63,6 +74,10 @@ export class DashboardCrmComponent implements OnInit {
                     this.dashCard[1].number = response.getPresentEmployees;
                     this.dashCard[2].number = response.getLateEntryEmployees;
                     this.dashCard[3].number = response.getPendingLeaveRequest;
+                    this.dashCardSec[0].number = response.absentCount;
+                    this.dashCardSec[1].number = response.workFromHomeEmployees;
+                    this.dashCardSec[2].number = response.chekoutReqCount;
+                    this.dashCardSec[3].number = response.workFromHomeCount;
                     resolve(response);
                     this.spinner.hide();
 

@@ -64,12 +64,26 @@
               [(ngModel)]="dataSource.reason" rows="5"></textarea>
           </mat-form-field>
         </div>
+        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
+          <div class="product-image media" fxLayoutAlign="center center">
+              <button mat-fab (click)="imgFileInput.click()" style="background:  #102646">
+                  <mat-icon>insert_photo</mat-icon>
+              </button>
+              <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="*/*" multiple>
+
+              <img src="{{dataSource.docUrl}}" alt="{{fileName}}" *ngIf="dataSource.docUrl !== ''"
+                  height="80" width="100">
+          </div>
+          <div>
+              <h2 class="text" style="text-align: center;font-size: 15px">Upload Doc</h2>
+          </div>
+      </div>
       </form>
       
       <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="start center" fxFlex="1 0 auto">
         <div style="margin-top: 20px;margin-bottom: 30px;margin-left:175px;">
           <button mat-raised-button color="accent" fxFlex="50" style="width:150px;margin-left: 300px"
-            (click)="submitResponse(dataSource)">Apply</button>
+            (click)="submitResponse()">Apply</button>
 
 
         </div>

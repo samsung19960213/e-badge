@@ -10,6 +10,7 @@ export class Leave {
     userId:number;
      actionBy:number;
      status:string;
+     docUrl:string;
     constructor(leave?) {
         leave = leave || {};
         this.leaveTypeId=leave.leaveTypeId|| null;
@@ -21,5 +22,6 @@ export class Leave {
         this.userName = leave.userName || '';
         this.actionBy=leave.actionBy || null;
         this.status=leave.status ||'';
+        this.docUrl=leave.docUrl || '';
     }
 }

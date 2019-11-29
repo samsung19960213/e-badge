@@ -66,7 +66,7 @@ export class ApplyWorkFromHomeComponent implements OnInit {
     });
   }
 
-  submitResponse(dataSource){
+  submitResponse(){
     {
         if (this.empcheck === 'false')
           this.dataSource.requestedUserId = this.userService.userId;
@@ -74,8 +74,8 @@ export class ApplyWorkFromHomeComponent implements OnInit {
           this.dataSource.status = "APPROVED";
           this.dataSource.actionBy = this.userService.userId
         }
-        this.spinner.show();
         console.log(this.dataSource)
+        this.spinner.show();
         return new Promise((resolve, error) => {
           this.http.post(Url.API_URL + 'api/attendance/workfromhome/save', this.dataSource)
             .subscribe((response: any) => {
@@ -99,5 +99,24 @@ export class ApplyWorkFromHomeComponent implements OnInit {
         });
       }
     
+  }
+
+  fileName:string;
+  //image upload
+  fileEvent(fileInput: any) {
+    let windows: any = window;
+    let AWSService = windows.AWS;
+    let file = fileInput.target.files[0];
+    AWSService.config.accessKeyId = Url.AWS_AccessKeyId;
+    AWSService.config.secretAccessKey = Url.AWS_SecretAccessKey;
+    AWSService.config.region = Url.AWS_BucketRegion;
+    let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName_WFH } });
+    let params = { Key: file.name, Body: file };
+    this.fileName=file.name;
+    let fileEveThis = this;
+    bucket.upload(params, function (error, response) {
+      
+      fileEveThis.dataSource.docUrl = response.Location;
+    });
   }
 }

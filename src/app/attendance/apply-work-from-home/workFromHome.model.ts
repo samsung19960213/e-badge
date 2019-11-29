@@ -6,7 +6,7 @@ export class WorkFromHome {
     reason: string;
     status: string;
     actionBy: number;
-
+    docUrl:string;
     constructor(workFromHome?) {
         workFromHome = workFromHome || {};
         this.status = workFromHome.status || '';
@@ -16,5 +16,6 @@ export class WorkFromHome {
         this.requestFromDate = workFromHome.requestFromDate || '';
         this.requestToDate = workFromHome.requestToDate || '';
         this.requestedUserId = workFromHome.requestedUserId || null;
+        this.docUrl=workFromHome.docUrl ||'';
     }
 }

@@ -59,6 +59,12 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Designation </mat-header-cell>
           <mat-cell *matCellDef="let dataSource"> {{dataSource.designationName}} </mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="absentCount" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header> No. Of Days Absent </mat-header-cell>
+          <mat-cell *matCellDef="let dataSource"> {{dataSource.absentCount}} </mat-cell>
+        </ng-container>
+
         <!-- Color Column -->
         
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

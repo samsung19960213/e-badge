@@ -3,6 +3,11 @@
         <cdk-dashcard class="text" style="text-align: center ;font-family:light;" [dashData]="dash"></cdk-dashcard>
     </div>
 </div>
+<div fxLayout="row" fxLayout="row wrap" >
+    <div *ngFor="let dash of dashCardSec" fxFlex.lt-sm="100" style="cursor:pointer" fxFlex.sm="50" fxFlex.md="25">
+        <cdk-dashcard class="text" style="text-align: center ;font-family:light;" [dashData]="dash"></cdk-dashcard>
+    </div>
+</div>
 <div fxLayout="row" fxLayout="row wrap">
     <cdk-bar-graph class="text" fxFlex="60" fxFlex.lt-sm="100" fxFlex.sm="50"></cdk-bar-graph>
     <cdk-doughnut-graph class="text" fxFlex="40"stylfxFlex="40" fxFlex.lt-sm="100" fxFlex.sm="50"></cdk-doughnut-graph>

@@ -124,7 +124,15 @@ export const menus = [
 
             },
             {
-                'name': 'W-F-Home List',
+                'name': 'W-F-H Requests',
+                'icon': 'inbox',
+                'link': 'attendance/work-from-home',
+                'open': false,
+                'user': 2,
+
+            },
+            {
+                'name': 'Immediate action W-F-H',
                 'icon': 'inbox',
                 'link': 'attendance/work-from-home',
                 'open': false,
