@@ -102,19 +102,37 @@ export const menus = [
             //     'open': false,
             // },
 
+           
+
+
+        ]
+    },
+    {
+        'name': 'Work-F-Home',
+        'icon': 'inbox',
+        'user': 2,
+        'link': false,
+        'open': false,
+
+        'sub': [
             {
-                'name': 'Work From Home',
+                'name': 'Apply W-F-Home',
                 'icon': 'home',
+                'link': 'attendance/applyWFH',
+                'open': false,
+                'user': 2,
+
+            },
+            {
+                'name': 'W-F-Home List',
+                'icon': 'inbox',
                 'link': 'attendance/work-from-home',
                 'open': false,
                 'user': 2,
 
             },
-
-
         ]
     },
-
     {
         'name': 'Leave',
         'icon': 'inbox',
@@ -123,6 +141,14 @@ export const menus = [
         'open': false,
 
         'sub': [
+            {
+                'name': 'Apply Leave',
+                'link': 'leaves/applyLeave',
+                'icon': 'drafts',
+                'user': 2,
+                'chip': false,
+                'open': false,
+            },
             {
                 'name': 'Leave Requests',
                 'link': 'leaves/leave-list',

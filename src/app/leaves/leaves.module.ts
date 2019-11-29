@@ -15,6 +15,7 @@ import { LeavesRouterModule } from "./leaves.router";
 import { RejectModule } from "./leave-details/reject.module";
 import { PendingLeavesComponent } from "./pending-leaves/pending-leaves.component";
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
+import { ApplyLeaveComponent } from './apply-leave/apply-leave.component';
 
 
 
@@ -69,6 +70,7 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
     LeaveListComponent,
     LeaveDetailsComponent,
     PendingLeavesComponent,
+    ApplyLeaveComponent,
    
        
     ],

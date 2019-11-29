@@ -73,6 +73,10 @@ export class UserService {
     getLastName() {
         return this.Lname;
     }
+
+    getCompanyId(){
+        return this.companyId;
+    }
     // getDateMonth() {
     //     return this.dateMonth;
     // }

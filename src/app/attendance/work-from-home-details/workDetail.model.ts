@@ -21,7 +21,7 @@ export class WorkDetail {
         this.id = workDetail.id || null;
         this.createdDate = workDetail.createdDate || '';
         this.rejectReason = workDetail.rejectReason || '';
-        this.reason = workDetail.reason || 1;
+        this.reason = workDetail.reason || '';
         this.requestFromDate = workDetail.requestFromDate || '';
         this.requestToDate = workDetail.requestToDate || '';
         this.approvedDate = workDetail.approvedDate || '';

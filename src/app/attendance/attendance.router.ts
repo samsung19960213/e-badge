@@ -9,6 +9,7 @@ import { CheckoutRequestComponent } from "./checkout-request/checkout-request.co
 import { MonthlyAbsenteesListComponent } from "./monthly-absentees-list/monthly-absentees-list.component";
 import { WorkFromHomeDetailsComponent } from "./work-from-home-details/work-from-home-details.component";
 import { WorkFromHomeComponent } from "./work-from-home/work-from-home.component";
+import { ApplyWorkFromHomeComponent } from "./apply-work-from-home/apply-work-from-home.component";
 
 
 
@@ -24,7 +25,8 @@ const attendanceRoutes: Routes = [
     { path: 'present', component:  PresentComponent},
     {path: 'late-comers', component: LateComersComponent},
     {path:'checkout-request', component: CheckoutRequestComponent},
-    {path:'' , component: AttendanceComponent}
+    {path:'applyWFH',component:ApplyWorkFromHomeComponent},
+    {path:'' , component: AttendanceComponent},
  
   
 ];

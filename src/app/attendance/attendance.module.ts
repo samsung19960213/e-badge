@@ -18,6 +18,7 @@ import { MonthlyAbsenteesListComponent } from './monthly-absentees-list/monthly-
 import { WorkFromHomeComponent } from './work-from-home/work-from-home.component';
 import { WorkFromHomeDetailsComponent } from './work-from-home-details/work-from-home-details.component';
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
+import { ApplyWorkFromHomeComponent } from './apply-work-from-home/apply-work-from-home.component';
 
 
 
@@ -71,6 +72,7 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
         MonthlyAbsenteesListComponent,
         WorkFromHomeComponent,
         WorkFromHomeDetailsComponent,
+        ApplyWorkFromHomeComponent,
     ],
     exports: [
     ],
