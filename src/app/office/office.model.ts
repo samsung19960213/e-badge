@@ -3,6 +3,7 @@ export class companyDetails {
   companyname:string;
   superAdminName:string;
   minimumWorkingHoursPerDay:number;
+  maxWorkHours:number;
   lateEntryInterval: string;
   timeZoneOfCompany:string;
   casualLeaves:number;
@@ -15,6 +16,7 @@ constructor(companyDetails?) {
     this.companyname= companyDetails.companyname || '';
     this.superAdminName = companyDetails.superAdminName || '';
     this.minimumWorkingHoursPerDay = companyDetails.minimumWorkingHoursPerDay || null;
+    this.maxWorkHours = companyDetails.maxWorkHours || null;
     this.lateEntryInterval = companyDetails.lateEntryInterval || '';
     this.timeZoneOfCompany = companyDetails.timeZoneOfCompany || '';
     this.casualLeaves = companyDetails.casualLeaves || null;

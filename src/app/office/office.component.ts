@@ -19,6 +19,7 @@ import { DeleteHolidayDialogueComponent } from '../delete-holiday-dialogue/delet
 import { DeleteUserDialogueComponent } from '../delete-user-dialogue/delete-user-dialogue.component';
 import { ThrowStmt } from '@angular/compiler';
 import { UserService } from '../user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -28,7 +29,7 @@ import { UserService } from '../user.service';
 })
 export class OfficeComponent implements OnInit {
   @ViewChild('closeBtn') closeBtn: ElementRef;
-  isLinear = true;
+  isLinear = false;
   userForm: FormGroup;
   companyDetails: any;
   stepperHelpers = STEPPER_HELPERS;
@@ -39,7 +40,11 @@ export class OfficeComponent implements OnInit {
   private ShiftArray: Array<any> = [];
   private HolidayArray: Array<any> = [];
   private LeaveArray: Array<any> = [];
-  private TimeZoneArray: Array<any> = [];
+  TimeZoneArray: Array<any> = [{
+    zoneName: "Asia/Kolkata",
+    countryName: "India",
+    countryCode: "IN"
+  }];
   private newDept: any = {};
   private newDesgn: any = {};
   private newRole: any = {};
@@ -74,10 +79,10 @@ export class OfficeComponent implements OnInit {
       userWorkingHours: ['', [Validators.required]],
       userTimeZone: ['', [Validators.required]],
       userCasualLeaves: ['', [Validators.required]],
-      userCarryLeaves: ['', [Validators.required]]
+      userCarryLeaves: ['', [Validators.required]],
+      maxWorkHours: ['', [Validators.required]]
     });
 
-    this.TimeZone();
     this.HolidayArray = [];
     this.OfficeDetails()
     this.DepartmentList();
@@ -89,14 +94,22 @@ export class OfficeComponent implements OnInit {
 
   }
 
-  constructor(private http: HttpClient, public formBuilder: FormBuilder, public datePipe: DatePipe, public snackBar: MatSnackBar, public router: Router, public dialog: MatDialog, public officeService: OfficeService, public userService: UserService) {
+  constructor(private http: HttpClient,
+    public formBuilder: FormBuilder,
+    public datePipe: DatePipe,
+    public snackBar: MatSnackBar,
+    public router: Router,
+    public dialog: MatDialog,
+    public officeService: OfficeService,
+    public userService: UserService,
+    public spinner: NgxSpinnerService) {
     this.companyDetails = new companyDetails();
   }
   // Temp value to store the days selected
   OfficeDetails(): Promise<any> {
-
+    this.spinner.show();
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/office/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/office/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.companyDetails = response;
@@ -104,7 +117,11 @@ export class OfficeComponent implements OnInit {
           this.workingDays.forEach(item => {
             item.checked = selDays.includes(item.name) ? true : false;
           });
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
@@ -122,7 +139,7 @@ export class OfficeComponent implements OnInit {
       }
     }
   }
-  
+
 
   daysInMonth(year) {
     var year1 = 0;
@@ -165,34 +182,49 @@ export class OfficeComponent implements OnInit {
     this.newHoliday = {};
   }
   saveDepartment() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/department/save', this.DeptArray)
         .subscribe((response: any) => {
           resolve(response);
           this.DepartmentList();
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
   saveRole() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/userrole/save', this.RoleArray)
         .subscribe((response: any) => {
           resolve(response);
           this.UserRoleList();
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
       //setTimeout(function(){
 
       // }, 3000);
     });
   }
   saveLeave() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/leaveType/save', this.LeaveArray)
         .subscribe((response: any) => {
           resolve(response);
           this.LeaveList();
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
       // this.snackBar.open('Updated Successfully', 'OK', {
       //   duration: 1000,
       //   verticalPosition: 'top',
@@ -201,31 +233,46 @@ export class OfficeComponent implements OnInit {
     });
   }
   saveDesignation() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/desigantion/save', this.DesgnArray)
         .subscribe((response: any) => {
           resolve(response);
           this.DesignationList();
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
     });
   }
   saveShift() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/shift/save', this.ShiftArray)
         .subscribe((response: any) => {
           resolve(response);
           this.ShiftList();
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
     });
   }
   saveHoliday(holidayarray: any[]) {
+    this.spinner.show();
     //console.log(holidayarray);
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/leaveDates/save', holidayarray)
         .subscribe((response: any) => {
           resolve(response);
           this.HolidayList();
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
       //this.HolidayArray=[];
     });
   }
@@ -247,7 +294,7 @@ export class OfficeComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.events.push(`${type}: ${event.value}`);
   }
-  
+
 
   getWorkingDays() {
     const selValues = [];
@@ -284,83 +331,102 @@ export class OfficeComponent implements OnInit {
     this.router.navigateByUrl('auth/dashboard');
   }
   DepartmentList(): Promise<any> {
+    this.spinner.show();
     this.DeptArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/department/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/department/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.DeptArray = response;
-        }, reject);
-
-    });
-  }
-  TimeZone(): Promise<any> {
-    this.DeptArray = [];
-    return new Promise((resolve, reject) => {
-      this.http.get(' http://api.timezonedb.com/v2.1/list-time-zone?key=8VO0UB9Z3CHK&format=json')
-        .subscribe((response: any) => {
-          resolve(response);
-          this.TimeZoneArray = response.zones;
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
 
   LeaveList(): Promise<any> {
+    this.spinner.show();
     this.LeaveArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/leaveType/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/leaveType/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.LeaveArray = response;
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
   ShiftList(): Promise<any> {
+    this.spinner.show();
     this.ShiftArray = []
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/shift/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/shift/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.ShiftArray = response;
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
   DesignationList(): Promise<any> {
+    this.spinner.show();
     this.DesgnArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/desigantion/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/desigantion/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           this.DesgnArray = response;
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
   UserRoleList(): Promise<any> {
+    this.spinner.show();
     this.RoleArray = [];
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/userrole/all')
         .subscribe((response: any) => {
           resolve(response);
           this.RoleArray = response;
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }
   HolidayList(): Promise<any> {
+    this.spinner.show();
     this.HolidayArray = [];
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/leaveDates/company/'+this.userService.companyId)
+      this.http.get(Url.API_URL + 'api/leaveDates/company/' + this.userService.companyId)
         .subscribe((response: any) => {
           resolve(response);
           for (var i = 0; i < response.length; i++) {
             if (response[i].leaveName != 'Weekend')
               this.HolidayArray.push(response[i]);
           }
-        }, reject);
+          this.spinner.hide();
+        }, reject => {
+          this.spinner.hide();
+          reject;
+        });
 
     });
   }

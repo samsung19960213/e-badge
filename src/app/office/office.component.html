@@ -4,8 +4,7 @@
         <mat-toolbar class="form-header">
             <h1 class="mat-headline center-align text" style="margin-left: 15px">Office Details </h1>
         </mat-toolbar>
-        <div [hidden]="submitted" fxLayout="column" class="widgetHolder-content" fxLayoutAlign="space-around stretch"
-            style="background-color: white;margin-top: 10px;margin-left: 60px;padding-right: 55px">
+        <div [hidden]="submitted" fxLayout="column" class="widgetHolder-content" fxLayoutAlign="space-around stretch" style="background-color: white;margin-top: 10px;margin-left: 60px;padding-right: 55px">
 
             <!-- <button mat-raised-button (click)="isLinear = true" id="toggle-linear">Enable linear mode</button> -->
             <mat-horizontal-stepper [linear]="isLinear">
@@ -18,29 +17,26 @@
                             </div>
                             <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput placeholder="Enter Company Name"
-                                        [(ngModel)]="companyDetails.companyName" formControlName="userCompanyName"
-                                        name=" userCompanyName" required>
-                                    <mat-error *ngIf="userForm.controls. userCompanyName.hasError('required')"
-                                        align="start" style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput placeholder="Enter Company Name" [(ngModel)]="companyDetails.companyName" formControlName="userCompanyName" name=" userCompanyName" required>
+                                    <mat-error *ngIf="userForm.controls. userCompanyName.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         Company Name is required
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput type="text" placeholder="Enter Super Admin Name"
-                                        [(ngModel)]="companyDetails.superAdminName" formControlName="userSuperAdmin"
-                                        name="userSuperAdmin" required>
-                                    <mat-error *ngIf="userForm.controls.userSuperAdmin.hasError('required')"
-                                        align="start" style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput type="text" placeholder="Enter Super Admin Name" [(ngModel)]="companyDetails.superAdminName" formControlName="userSuperAdmin" name="userSuperAdmin" required>
+                                    <mat-error *ngIf="userForm.controls.userSuperAdmin.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         Super Admin Name is required
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput type="number" placeholder="Minimum Working Hours per day"
-                                        [(ngModel)]="companyDetails.minimumWorkingHoursPerDay"
-                                        formControlName="userWorkingHours" name="userWorkingHours" required>
-                                    <mat-error *ngIf="userForm.controls.userWorkingHours.hasError('required')"
-                                        align="start" style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput type="number" placeholder="Minimum Working Hours per day" [(ngModel)]="companyDetails.minimumWorkingHoursPerDay" formControlName="userWorkingHours" name="userWorkingHours" required>
+                                    <mat-error *ngIf="userForm.controls.userWorkingHours.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field fxFlex="30" class="form2Input">
+                                    <input matInput type="number" placeholder="Maximum Working Hours per day" [(ngModel)]="companyDetails.maxWorkHours" formControlName="maxWorkHours" name="maxWorkHours" required>
+                                    <mat-error *ngIf="userForm.controls.maxWorkHours.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
@@ -51,33 +47,24 @@
                             </div>
                             <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput type="time" placeholder="Enter Interval Time in Minutes"
-                                        [(ngModel)]="companyDetails.lateEntryInterval" formControlName="userInterval"
-                                        name="userInterval" required>
-                                    <mat-error *ngIf="userForm.controls.userInterval.hasError('required')" align="start"
-                                        style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput type="time" placeholder="Enter Interval Time in Minutes" [(ngModel)]="companyDetails.lateEntryInterval" formControlName="userInterval" name="userInterval" required>
+                                    <mat-error *ngIf="userForm.controls.userInterval.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <mat-select type="text" placeholder="TimeZone"
-                                        [(ngModel)]="companyDetails.timeZoneOfCompany" formControlName="userTimeZone"
-                                        name="userTimeZone" required>
+                                    <mat-select type="text" placeholder="TimeZone" [(ngModel)]="companyDetails.timeZoneOfCompany" formControlName="userTimeZone" name="userTimeZone" required>
                                         <mat-option *ngFor="let time of TimeZoneArray" [value]="time.zoneName">
                                             <span>{{time.zoneName}} - {{time.countryName}}({{time.countryCode}})</span>
                                         </mat-option>
                                     </mat-select>
-                                    <mat-error *ngIf="userForm.controls.userTimeZone.hasError('required')" align="start"
-                                        style="color: red;" class="mat-body-1 center-align ">
+                                    <mat-error *ngIf="userForm.controls.userTimeZone.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput type="text" placeholder="Enter Cut-off-Day of Month"
-                                        [(ngModel)]="companyDetails.cutOffDay" formControlName="cutOffDay"
-                                        name="cutOffDay" required>
-                                    <mat-error *ngIf="userForm.controls.cutOffDay.hasError('required')" align="start"
-                                        style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput type="text" placeholder="Enter Cut-off-Day of Month" [(ngModel)]="companyDetails.cutOffDay" formControlName="cutOffDay" name="cutOffDay" required>
+                                    <mat-error *ngIf="userForm.controls.cutOffDay.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
@@ -95,28 +82,22 @@
                                     </span>
                                 </div>
 
-                                
+
                             </div>
                             <div style="margin-top: 10px">
                                 <h2 class="text">Leave Details</h2>
                             </div>
                             <div fxLayout="row" class="formField_sm" fxLayoutAlign="start center" fxFlex="1 0 auto">
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput type="number" placeholder="Enter Casual Leave Counts in days"
-                                        [(ngModel)]="companyDetails.casualLeaves" formControlName="userCasualLeaves"
-                                        name="userCasualLeaves" required>
-                                    <mat-error *ngIf="userForm.controls.userCasualLeaves.hasError('required')"
-                                        align="start" style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput type="number" placeholder="Enter Casual Leave Counts in days" [(ngModel)]="companyDetails.casualLeaves" formControlName="userCasualLeaves" name="userCasualLeaves" required>
+                                    <mat-error *ngIf="userForm.controls.userCasualLeaves.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
 
                                 <mat-form-field fxFlex="30" class="form2Input">
-                                    <input matInput type="number" placeholder="Enter Carry on Leave Count in days"
-                                        [(ngModel)]="companyDetails.carryOnLeaves" formControlName="userCarryLeaves"
-                                        name="userCarryLeaves" required>
-                                    <mat-error *ngIf="userForm.controls.userCarryLeaves.hasError('required')"
-                                        align="start" style="color: red;" class="mat-body-1 center-align ">
+                                    <input matInput type="number" placeholder="Enter Carry on Leave Count in days" [(ngModel)]="companyDetails.carryOnLeaves" formControlName="userCarryLeaves" name="userCarryLeaves" required>
+                                    <mat-error *ngIf="userForm.controls.userCarryLeaves.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
@@ -127,9 +108,8 @@
                                             <mat-icon>insert_photo</mat-icon>
                                         </button>
                                         <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="image/*" multiple>
-                    
-                                        <img src="{{companyDetails.cmpLogoUrl}}" *ngIf="companyDetails.cmpLogoUrl !== ''"
-                                            height="80" width="100">
+
+                                        <img src="{{companyDetails.cmpLogoUrl}}" *ngIf="companyDetails.cmpLogoUrl !== ''" height="80" width="100">
                                     </div>
                                     <div>
                                         <h2 class="text" style="text-align: center;font-size: 15px">Upload Image</h2>
@@ -137,12 +117,9 @@
                                 </div>
                             </div>
 
-                            
-                            <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center"
-                                fxFlex="1 0 auto">
-                                <button mat-raised-button matStepperNext color="accent" type="submit"
-                                    [disabled]="!userForm.valid" style="width:150px;margin-left: -60px"
-                                    (click)="saveDetails(companyDetails)">Update</button>
+
+                            <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
+                                <button mat-raised-button matStepperNext color="accent" type="submit" [disabled]="!userForm.valid" style="width:150px;margin-left: -60px" (click)="saveDetails(companyDetails)">Update</button>
                                 <!-- <button mat-raised-button color="primary"  [Show]="userForm.submit.$valid == userForm.id." style="width:150px;margin-left: 10px">Update</button> -->
                             </div>
                             <!-- <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto"> -->
@@ -170,10 +147,7 @@
                                     <tr *ngFor="let field of DeptArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text tablestyle" placeholder="Enter Department Name"
-                                                [(ngModel)]="field.departmentName" name="field.departmentName"
-                                                required><i class="fa fa-trash" aria-hidden="true"
-                                                style="float:right;font-size: 20px;cursor: pointer;"
+                                            <input matInput type="text tablestyle" placeholder="Enter Department Name" [(ngModel)]="field.departmentName" name="field.departmentName" required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"
                                                 (click)="deleteDepartmentValue(field.id)"></i>
 
                                         </td>
@@ -182,14 +156,11 @@
                                     <tr>
                                         <td>
                                             <!-- <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" /> -->
-                                            <input matInput type="text tablestyle" placeholder="Enter Department Name"
-                                                [(ngModel)]="newDept.departmentName" name="newDeptCode" required>
+                                            <input matInput type="text tablestyle" placeholder="Enter Department Name" [(ngModel)]="newDept.departmentName" name="newDeptCode" required>
                                         </td>
                                         <td>
                                             <!-- <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button> -->
-                                            <button mat-raised-button color="warn" type="button"
-                                                style="border-radius:20px" [disabled]="!newDept.departmentName"
-                                                (click)="addDepartmentValue()">+</button>
+                                            <button mat-raised-button color="warn" type="button" style="border-radius:20px" [disabled]="!newDept.departmentName" (click)="addDepartmentValue()">+</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -207,24 +178,18 @@
                                     <tr *ngFor="let field of DesgnArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text tablestyle" placeholder="Enter Designation Name"
-                                                [(ngModel)]="field.designationName" name="field.designationName"
-                                                required><i class="fa fa-trash" aria-hidden="true"
-                                                style="float:right;font-size: 20px;cursor: pointer;"
+                                            <input matInput type="text tablestyle" placeholder="Enter Designation Name" [(ngModel)]="field.designationName" name="field.designationName" required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"
                                                 (click)="deleteDesignationValue(field.id)"></i>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <!-- <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" /> -->
-                                            <input matInput type="text tablestyle" placeholder="Enter Designation Name"
-                                                [(ngModel)]="newDesgn.designationName" name="newDesgnCode" required>
+                                            <input matInput type="text tablestyle" placeholder="Enter Designation Name" [(ngModel)]="newDesgn.designationName" name="newDesgnCode" required>
                                         </td>
                                         <td>
                                             <!-- <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button> -->
-                                            <button mat-raised-button color="warn" type="button"
-                                                style="border-radius:20px" [disabled]="!newDesgn.designationName"
-                                                (click)="addDesignationValue()">+</button>
+                                            <button mat-raised-button color="warn" type="button" style="border-radius:20px" [disabled]="!newDesgn.designationName" (click)="addDesignationValue()">+</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -238,8 +203,7 @@
 
 
                     <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
-                        <button mat-raised-button matStepperNext color="accent" (click)="saveAll()" type="submit"
-                            style="width:150px;margin-left: -60px">Update</button>
+                        <button mat-raised-button matStepperNext color="accent" (click)="saveAll()" type="submit" style="width:150px;margin-left: -60px">Update</button>
                         <!-- <button mat-raised-button color="primary"  [Show]="userForm.submit.$valid == userForm.id." style="width:150px;margin-left: 10px">Update</button> -->
                     </div>
 
@@ -265,45 +229,34 @@
                                     <tr *ngFor="let field of ShiftArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Shift Name"
-                                                [(ngModel)]="field.shiftName" name="field.shiftName" required><i
-                                                class="fa fa-trash" aria-hidden="true"
-                                                style="float:right;font-size: 20px;cursor: pointer;"
+                                            <input matInput type="text" placeholder="Enter Shift Name" [(ngModel)]="field.shiftName" name="field.shiftName" required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"
                                                 (click)="deleteShiftValue(field.id)"></i>
                                         </td>
                                         <td class="td-style" style="text-align: center">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Check In Time"
-                                                [(ngModel)]="field.startTime" name="field.startTime" required>
+                                            <input matInput type="text" placeholder="Enter Check In Time" [(ngModel)]="field.startTime" name="field.startTime" required>
                                         </td>
                                         <td class="td-style" style="text-align: center">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Check Out Time"
-                                                [(ngModel)]="field.endTime" name="field.endTime" required>
+                                            <input matInput type="text" placeholder="Enter Check Out Time" [(ngModel)]="field.endTime" name="field.endTime" required>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <!-- <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" /> -->
-                                            <input matInput type="text" placeholder="Enter Shift Name"
-                                                [(ngModel)]="newShift.shiftName" name="newShiftName" required>
+                                            <input matInput type="text" placeholder="Enter Shift Name" [(ngModel)]="newShift.shiftName" name="newShiftName" required>
                                         </td>
                                         <td>
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="time" placeholder="Enter Check In Time"
-                                                [(ngModel)]="newShift.startTime" name="newShiftStart" required>
+                                            <input matInput type="time" placeholder="Enter Check In Time" [(ngModel)]="newShift.startTime" name="newShiftStart" required>
                                         </td>
                                         <td>
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="time" placeholder="Enter Check Out Time"
-                                                [(ngModel)]="newShift.endTime" name="newShiftEnd" required>
+                                            <input matInput type="time" placeholder="Enter Check Out Time" [(ngModel)]="newShift.endTime" name="newShiftEnd" required>
                                         </td>
                                         <td>
                                             <!-- <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button> -->
-                                            <button mat-raised-button color="warn" type="button"
-                                                style="border-radius:20px;"
-                                                [disabled]="!newShift.shiftName || !newShift.startTime || !newShift.endTime"
-                                                (click)="addShiftDetails()">+</button>
+                                            <button mat-raised-button color="warn" type="button" style="border-radius:20px;" [disabled]="!newShift.shiftName || !newShift.startTime || !newShift.endTime" (click)="addShiftDetails()">+</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -322,10 +275,7 @@
                                     <tr *ngFor="let field of LeaveArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Leave Name"
-                                                [(ngModel)]="field.leaveType" name="field.leaveType" required><i
-                                                class="fa fa-trash" aria-hidden="true"
-                                                style="float:right;font-size: 20px;cursor: pointer;"
+                                            <input matInput type="text" placeholder="Enter Leave Name" [(ngModel)]="field.leaveType" name="field.leaveType" required><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"
                                                 (click)="deleteLeaveValue(field.id)"></i>
                                         </td>
 
@@ -333,15 +283,12 @@
                                     <tr>
                                         <td>
                                             <!-- <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" /> -->
-                                            <input matInput type="text" placeholder="Enter Leave Name"
-                                                [(ngModel)]="newLeave.leaveType" name="newLeaveName" required>
+                                            <input matInput type="text" placeholder="Enter Leave Name" [(ngModel)]="newLeave.leaveType" name="newLeaveName" required>
                                         </td>
 
                                         <td>
                                             <!-- <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button> -->
-                                            <button mat-raised-button color="warn" type="button"
-                                                style="border-radius:20px;" [disabled]="!newLeave.leaveType "
-                                                (click)="addLeaveValue()">+</button>
+                                            <button mat-raised-button color="warn" type="button" style="border-radius:20px;" [disabled]="!newLeave.leaveType " (click)="addLeaveValue()">+</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -398,16 +345,11 @@
 
                                         <td class="td-style" *ngIf="field.leaveName !='Weekend'">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter Holiday Name"
-                                                [(ngModel)]="field.leaveName" name="field.shiftName" required
-                                                style="padding-left: 10px"><i class="fa fa-trash" aria-hidden="true"
-                                                style="float:right;font-size: 20px;cursor: pointer;"
+                                            <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="field.leaveName" name="field.shiftName" required style="padding-left: 10px"><i class="fa fa-trash" aria-hidden="true" style="float:right;font-size: 20px;cursor: pointer;"
                                                 (click)="deleteHolidayValue(field.id)"></i>
                                         </td>
                                         <td class="td-style" *ngIf="field.leaveName !='Weekend'">
-                                            <input matInput type="text" placeholder="Enter Holiday Name"
-                                                [(ngModel)]="field.leaveDate" style="text-align:center"
-                                                name="field.shiftName" required>
+                                            <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="field.leaveDate" style="text-align:center" name="field.shiftName" required>
                                             <!-- <mat-form-field class="example-full-width">
                                                 <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker5"
                                                     placeholder="Choose a date" [(ngModel)]="field.date">
@@ -422,15 +364,11 @@
                                     <tr>
                                         <td>
                                             <!-- <input class="form-control" type="text" id="newAttributeCode" [(ngModel)]="newAttribute.code" name="newAttributeCode" /> -->
-                                            <input matInput type="text" placeholder="Enter Holiday Name"
-                                                [(ngModel)]="newHoliday.leaveName" name="newHoliday" required
-                                                style="width:200px">
+                                            <input matInput type="text" placeholder="Enter Holiday Name" [(ngModel)]="newHoliday.leaveName" name="newHoliday" required style="width:200px">
                                         </td>
                                         <td>
                                             <mat-form-field class="example-full-width">
-                                                <input matInput [matDatepickerFilter]="myFilter"
-                                                    [matDatepicker]="picker5" placeholder="Choose a date"
-                                                    [(ngModel)]="newHoliday.leaveDate" name="newHolidayDate">
+                                                <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker5" placeholder="Choose a date" [(ngModel)]="newHoliday.leaveDate" name="newHolidayDate">
                                                 <mat-datepicker-toggle matSuffix [for]="picker5">
                                                 </mat-datepicker-toggle>
                                                 <mat-datepicker #picker5></mat-datepicker>
@@ -438,9 +376,7 @@
                                         </td>
                                         <td>
                                             <!-- <button class="btn btn-default" type="button" (click)="addFieldValue()">Add</button> -->
-                                            <button mat-raised-button color="warn" type="button"
-                                                style="border-radius:20px;" [disabled]=" !newHoliday.leaveName"
-                                                (click)="addHoliday()">+</button>
+                                            <button mat-raised-button color="warn" type="button" style="border-radius:20px;" [disabled]=" !newHoliday.leaveName" (click)="addHoliday()">+</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -458,8 +394,7 @@
                                     <tr *ngFor="let field of RoleArray; let i = index">
                                         <td class="td-style">
                                             <!-- <input [(ngModel)]="field.code" class="form-control" type="text" name="{{field.code}}" /> -->
-                                            <input matInput type="text" placeholder="Enter User Role "
-                                                [(ngModel)]="field.roleName" name="field.roleName" required>
+                                            <input matInput type="text" placeholder="Enter User Role " [(ngModel)]="field.roleName" name="field.roleName" required>
                                             <!-- <i class="fa fa-trash" aria-hidden="true"
                                                 style="float:right;font-size: 20px;cursor: pointer;"
                                                 (click)="deleteUserRoleValue(field.id)"></i> -->
@@ -490,10 +425,8 @@
 
                     </div>
                     <div fxLayout="row" fxFlex="100">
-                        <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center"
-                            fxFlex="1 0 auto">
-                            <button mat-raised-button matStepperNext color="accent" type="submit" (click)="Office()"
-                                style="width:150px;margin-left: -60px">Update</button>
+                        <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center center" fxFlex="1 0 auto">
+                            <button mat-raised-button matStepperNext color="accent" type="submit" (click)="Office()" style="width:150px;margin-left: -60px">Update</button>
                             <!-- <button mat-raised-button color="primary"  [Show]="userForm.submit.$valid == userForm.id." style="width:150px;margin-left: 10px">Update</button> -->
                         </div>
                     </div>
