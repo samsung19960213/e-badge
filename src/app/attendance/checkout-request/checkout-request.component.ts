@@ -49,23 +49,37 @@ export class CheckoutRequestComponent implements OnInit {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<Employeetable>();
-    // console.log(this.dataSource);
+    this.roleId=this.userService.userroleId;
+    if(this.roleId ===2){
+      this.checkOutListOfUser(fromDate, toDate).then(data => {
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      })
+    }else{
+
+    
     this.checkOutList(fromDate, toDate).then(data => {
       this.dataSource.data = data;
-      // for(var i=0; i<this.dataSource.length;i++){
-      //   if(this.dataSource[i].status=='NORMAL')
-      // this.checkOutRequestArray.push(this.dataSource[i]);
-      // }
-      // this.dataSource=this.checkOutRequestArray;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
-    // of(this.dataSource).pipe(delay(1000))
-    // .subscribe(data => {
-    //   this.isLoading = false;
-    //   this.dataSource = data
-    // }, error => this.isLoading = false);
   }
+  }
+
+  checkOutListOfUser(fromDate: any, toDate: any) {
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/attendance/unchecked/attendance/' + +this.userService.userId + '/' + fromDate + '/' + toDate)
+        .subscribe((response: any) => {
+          resolve(response);
+
+
+        }, reject);
+    });
+  }
+
+
+
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');

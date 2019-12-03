@@ -22,7 +22,7 @@
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1></mat-datepicker>
 					</mat-form-field>
-					<mat-form-field class="searchField" floatPlaceholder="never"
+					<mat-form-field *ngIf='roleId != 2' class="searchField" floatPlaceholder="never"
 						style="color: black; width: 50%;margin-left: 10% ">
 						<input matInput #filter placeholder="Filter users" (keyup)="applyFilter($event.target.value)"
 							[(ngModel)]="searchTerm">

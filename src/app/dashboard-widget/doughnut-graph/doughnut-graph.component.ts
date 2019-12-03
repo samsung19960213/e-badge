@@ -95,7 +95,7 @@ pendingLeaves:number;
                 },
                 title: {
                     display: true,
-                    text: 'LEAVE GRAPH'
+                    text: 'LEAVE GRAPH OF YOU'
                 }
             }
 

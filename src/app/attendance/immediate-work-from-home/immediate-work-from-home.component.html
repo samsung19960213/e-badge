@@ -1,0 +1,87 @@
+<div fxLayout="column" class="components-container-gt-xs" [ngClass.xs]="'components-container-xs'" fxLayoutGap="20px">
+	<div fxFlex class="table-component-holder mat-elevation-z4">
+		<mat-toolbar class="table-header">
+			<h1 class="mat-headline " style="padding-left:10px;">
+				<b>Work From Home List</b>
+			</h1>
+		</mat-toolbar>
+		<div class="table-container">
+			<div class="example-header">
+				<div fxFlex.xs="100" fxFlex.lg="100" fxFlex.md="100" fxFlex.sm="100">
+
+					<mat-form-field floatPlaceholder="never" style="color: black; width: 50% ;">
+						<input matInput #filter placeholder="Filter users" (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
+					</mat-form-field>
+				</div>
+			</div>
+			
+			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;">
+
+				<!--- Note that these columns can be defined in any order.
+				The actual rendered columns are set as a property on the row definition" -->
+
+				<!-- ID Column -->
+				<!-- Progress Column -->
+				<ng-container matColumnDef="Edit">
+					<mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;&nbsp; </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource" (click)="edit(dataSource.id)">&nbsp;&nbsp;&nbsp;&nbsp;
+						<i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 20px"></i>
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="requestedUserCode">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource">{{dataSource.requestedUserCode}}</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="requestedUser">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.requestedUser}}</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="reportingManagerName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Reporting Manger Name </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
+				  </ng-container>
+				<!-- Name Column -->
+
+				<ng-container matColumnDef="requestFromDate">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> From Date </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestFromDate}} </mat-cell>
+				</ng-container>
+				<!-- Color Column -->
+				<ng-container matColumnDef="requestToDate">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> To Date </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestToDate}} </mat-cell>
+				</ng-container>
+
+
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+					<mat-cell *matCellDef="let dataSource">
+						<p *ngIf='dataSource.status == "PENDING"' style="color:blue">
+							<b> PENDING</b>
+						</p>
+						<p *ngIf='dataSource.status == "REJECTED"' style="color:red">
+							<b> REJECTED</b>
+						</p>
+						<p *ngIf='dataSource.status == "APPROVED"' style="color:green">
+							<b> ACCEPTED</b>
+						</p>
+					</mat-cell>
+				</ng-container>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" (click)="workFromHomeDetails(dataSource.id)" style="cursor: pointer;">
+				</mat-row>
+			</mat-table>
+
+			<!-- <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">
+				<mat-progress-spinner color="primary" mode="indeterminate">
+				</mat-progress-spinner>
+			  </mat-card> -->
+			  
+			  <div class="example-no-results text" [style.display]="dataSource.data?.length == 0 ? '' : 'none'">
+				No requests found .
+			</div>
+			<mat-paginator #paginator [length]="dataSource.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+			</mat-paginator>
+		</div>
+	</div>
+</div>

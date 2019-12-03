@@ -115,7 +115,7 @@ export class LoginComponent implements OnInit {
 
           this.userService.setUserinfo(response.userName, response.userImage, response.id, response.password, response.email, response.department, response.designation, response.employeeId, response.lastName, response.userRoleId, response.companyId, response.companyName, response.cmpLogoUrl);
           this.userId = response.userRoleId;
-          if (this.userId == 1 || this.userId == 3) {
+          if (this.userId == 1 || this.userId == 2 || this.userId == 3) {
             // this.spinner.hide()
             this.router.navigateByUrl('auth/dashboard');
           } else {

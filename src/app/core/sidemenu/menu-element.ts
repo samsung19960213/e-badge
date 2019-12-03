@@ -3,7 +3,7 @@ export const menus = [
         'name': 'Dashboard',
         'icon': 'dashboard',
         'link': '/auth/dashboard',
-        'user': 2,
+        'user': 3,
         'chip': { 'value': 1, 'color': 'accent' },
 
     },
@@ -56,7 +56,7 @@ export const menus = [
     {
         'name': 'Attendance',
         'icon': 'account_box',
-        'user': 2,
+        'user': 3,
         'link': false,
         'open': false,
 
@@ -65,7 +65,7 @@ export const menus = [
                 'name': 'Checkout Requests',
                 'link': 'attendance/checkout-request',
                 'icon': 'eject',
-                'user': 2,
+                'user': 3,
                 'chip': false,
                 'open': false,
             },
@@ -110,7 +110,7 @@ export const menus = [
     {
         'name': 'Work-F-Home',
         'icon': 'inbox',
-        'user': 2,
+        'user': 3,
         'link': false,
         'open': false,
 
@@ -120,7 +120,7 @@ export const menus = [
                 'icon': 'home',
                 'link': 'attendance/applyWFH',
                 'open': false,
-                'user': 2,
+                'user': 3,
 
             },
             {
@@ -134,7 +134,7 @@ export const menus = [
             {
                 'name': 'Immediate action W-F-H',
                 'icon': 'inbox',
-                'link': 'attendance/work-from-home',
+                'link': 'attendance/immediate/work-from-home',
                 'open': false,
                 'user': 2,
 
@@ -144,7 +144,7 @@ export const menus = [
     {
         'name': 'Leave',
         'icon': 'inbox',
-        'user': 2,
+        'user': 3,
         'link': false,
         'open': false,
 
@@ -153,7 +153,7 @@ export const menus = [
                 'name': 'Apply Leave',
                 'link': 'leaves/applyLeave',
                 'icon': 'drafts',
-                'user': 2,
+                'user': 3,
                 'chip': false,
                 'open': false,
             },

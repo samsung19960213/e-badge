@@ -19,6 +19,8 @@ import { WorkFromHomeComponent } from './work-from-home/work-from-home.component
 import { WorkFromHomeDetailsComponent } from './work-from-home-details/work-from-home-details.component';
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 import { ApplyWorkFromHomeComponent } from './apply-work-from-home/apply-work-from-home.component';
+import { WorkFromHomeEmpListComponent } from './work-from-home-emp-list/work-from-home-emp-list.component';
+import { ImmediateWorkFromHomeComponent } from './immediate-work-from-home/immediate-work-from-home.component';
 
 
 
@@ -73,6 +75,8 @@ import { ApplyWorkFromHomeComponent } from './apply-work-from-home/apply-work-fr
         WorkFromHomeComponent,
         WorkFromHomeDetailsComponent,
         ApplyWorkFromHomeComponent,
+        WorkFromHomeEmpListComponent,
+        ImmediateWorkFromHomeComponent,
     ],
     exports: [
     ],

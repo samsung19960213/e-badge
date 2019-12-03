@@ -18,6 +18,8 @@ export class SidemenuItemComponent implements OnInit {
     ngOnInit() {
         if(this.userService.userroleId==1){
             this.userId=1;
+        }else if(this.userService.userroleId==2){
+            this.userId=3;
         }
         else{
             this.userId=2;

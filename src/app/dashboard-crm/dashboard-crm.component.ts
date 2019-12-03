@@ -18,6 +18,7 @@ export class DashboardCrmComponent implements OnInit {
     leaveRequest: number;
     numb: {};
     userId: number;
+    userRoleId:number;
     date = new Date();
     lateEntries: number;
     absentCount:number;
@@ -34,9 +35,9 @@ export class DashboardCrmComponent implements OnInit {
     public dashCardSec = [
         { colorDark: '#294772', colorLight: '#375e97', number: this.absentCount, title: 'ABSENT EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/monthly-absentees' },
 
-        { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.workFromHomeEmployees, title: 'WORK FROM HOME EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/present' },
+        { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.workFromHomeEmployees, title: 'WORK FROM HOME EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/emp/work-from-home' },
         { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.chekoutReqCount, title: 'CHECKOUT REQUESTS', icon: 'drafts', link: '/auth/attendance/checkout-request' },
-        { colorDark: '#335417', colorLight: '#3f681c', number: this.workFromHomeCount, title: 'WORK FROM HOME REQUESTS', icon: 'drafts', link: '/auth/dashboard' }
+        { colorDark: '#335417', colorLight: '#3f681c', number: this.workFromHomeCount, title: 'WORK FROM HOME REQUESTS', icon: 'drafts', link: '/auth/attendance/immediate/work-from-home' }
     ];
 
     tableData = [
@@ -58,6 +59,7 @@ export class DashboardCrmComponent implements OnInit {
 
     ngOnInit() {
         this.userId = this.userService.EmployeeID;
+        this.userRoleId=this.userService.userroleId;
         let today = this.datePipe.transform(this.date, 'yyyy-MM-dd');
         this.getDashboardCounts(today);
 

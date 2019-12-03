@@ -1,18 +1,30 @@
 <div class="text-center" style="margin-left: 20px">
   <h3 class="text">Please provide the reason for Deactivation</h3>
+
   <form class="example-form">
-    
+    <mat-form-field  class="example-full-width" style="width:300px;">
+      <mat-select type="text" placeholder="Deactivation Type" [(ngModel)]="deactivationType" name="deactivationType" required>
+        <mat-option value="Resignation"><span>Resignation</span></mat-option>
+        <mat-option value="Termination"><span>Termination</span></mat-option>
+        <mat-option value="Absconded"><span>Absconded</span></mat-option>
+        <mat-option value="Company-Transfer"><span>Company Transfer</span></mat-option>
+        <mat-option value="Contract-Termination"><span>Contract Termination</span></mat-option>
+        <mat-option value="OTHER"><span>Other</span> </mat-option>
+      </mat-select>
+    </mat-form-field>
     <mat-form-field class="example-full-width" style="width:300px;">
-      <textarea matInput name="reason"[(ngModel)]="reason" placeholder="Reason"></textarea>
+      <textarea matInput name="reason" [(ngModel)]="reason" placeholder="Reason"></textarea>
     </mat-form-field>
 
   </form>
   <button mat-raised-button color="primary" (click)="deactivate()">Submit</button>
-  
-<button style="float: right;" mat-raised-button color="accent" onclick="document.getElementById('fileToUpload').click()">
-  UploadDocument
-  <mat-icon>attach_file</mat-icon>
-  <input #fileToUpload id="fileToUpload" type="file" (change)="handleFileInput($event.target.files)" style="display:none;">
-</button>
+
+  <button style="float: right;" mat-raised-button color="accent"
+    onclick="document.getElementById('fileToUpload').click()">
+    UploadDocument
+    <mat-icon>attach_file</mat-icon>
+    <input #fileToUpload id="fileToUpload" type="file" (change)="handleFileInput($event.target.files)"
+      style="display:none;">
+  </button>
 
 </div>

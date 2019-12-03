@@ -307,7 +307,7 @@ export class EmployeeDetailsComponent implements OnInit {
                 },
                 title: {
                     display: true,
-                    text: 'ATTENDANCE GRAPH'
+                    text: 'ATTENDANCE GRAPH OF YOU'
                 }
             }
         })
@@ -329,6 +329,7 @@ export class EmployeeDetailsComponent implements OnInit {
 export class MessagePopup {
     id: number;
     reason: string;
+    deactivationType:string;
     url: string;
     fileSelected: File = null;
     attachmentName: any;
@@ -343,13 +344,18 @@ export class MessagePopup {
         this.message.close();
     }
     deactivate() {
-        return new Promise((resolve, reject) => {
-            this.http.get(Url.API_URL + 'api/employee/deactivate/' + this.id + '?rejectReason=' + this.reason + '&rejectFileUrl=' + this.url)
+        return new Promise((resolve, error) => {
+            this.http.get(Url.API_URL + 'api/employee/deactivate/' + this.id + '?rejectReason=' + this.reason + '&rejectFileUrl=' + this.url+'&deactivationType=' + this.deactivationType)
                 .subscribe((response: any) => {
                     resolve(response);
-                }, reject);
-            alert('User deactivated successfully');
-            this.message.close();
+                    alert('User deactivated successfully');
+                    this.message.close();
+
+                }, error=>{
+                    alert('Error while deactivating User');
+                    this.message.close();
+                });
+           
         });
     }
     handleFileInput(files: FileList) {
