@@ -22,7 +22,7 @@ export class ApplyLeaveComponent implements OnInit {
   employeeId: number;
   empArray: any[];
   today:any;
-
+  roleId:number;
 
   constructor(public form: FormBuilder,
     public http: HttpClient,
@@ -47,6 +47,7 @@ export class ApplyLeaveComponent implements OnInit {
     });
     this.companyId = this.userService.companyId;
     this.employeeId = this.userService.EmployeeID;
+    this.roleId=this.userService.userroleId;
     this.EmployeeList();
     this.LeaveList();
 

@@ -37,10 +37,10 @@ export class MonthlyAbsenteesListComponent implements OnInit {
     // this.Datenow = this.dateMon.toString().substr(3, 4) + '-' + this.dateMon.toString().substr(0, 2)
     if( this.leaveService.name === ''){
     let selMonth = this.datePipe.transform(new Date(), 'yyyy-MM');
-    this.leaveService.setDateMonth(selMonth);
+    this.Datenow==selMonth;
     }
     this.Datenow = this.leaveService.name;
-
+    this.leaveService.setDateMonth('')
     this.dataSource = new MatTableDataSource<MonthlyAbsenteesList>();
     this.getData().then(data => {
       this.dataSource.data = data;
@@ -52,6 +52,8 @@ export class MonthlyAbsenteesListComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/attendance/getabsentees/per/month/' + this.Datenow + '/' + this.roleId)
         .subscribe((response: any) => {
+          
+
           resolve(response);
         }, reject);
     });

@@ -62,7 +62,7 @@ export const menus = [
 
         'sub': [
             {
-                'name': 'Checkout Requests',
+                'name': 'Missed Checkout',
                 'link': 'attendance/checkout-request',
                 'icon': 'eject',
                 'user': 3,
@@ -128,7 +128,7 @@ export const menus = [
                 'icon': 'inbox',
                 'link': 'attendance/work-from-home',
                 'open': false,
-                'user': 2,
+                'user': 3,
 
             },
             {
@@ -161,7 +161,7 @@ export const menus = [
                 'name': 'Leave Requests',
                 'link': 'leaves/leave-list',
                 'icon': 'drafts',
-                'user': 2,
+                'user': 3,
                 'chip': false,
                 'open': false,
             },

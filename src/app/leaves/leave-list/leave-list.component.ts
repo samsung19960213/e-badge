@@ -19,7 +19,7 @@ import { delay } from 'rxjs/operators';
 })
 export class LeaveListComponent implements OnInit {
 
-  public displayedColumns = ['Edit', 'Name','LeaveType', 'fromDate', 'toDate', 'reason', 'status'];
+  public displayedColumns = [];
   showNavListCode;
   ID: any;
   roleId: number;
@@ -48,15 +48,26 @@ export class LeaveListComponent implements OnInit {
     public userService: UserService) { }
 
   ngOnInit() {
-    this.roleId = this.userService.EmployeeID;
+    this.roleId = this.userService.userroleId;
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<LeaveListTable>();
+    if(this.roleId===2){
+      this.displayedColumns = [ 'LeaveType', 'fromDate', 'toDate','approvedDate', 'reason','actionBy', 'status'];
+      this.getDataByUserId().then(data => {
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      })
+
+    }else{
+      this.displayedColumns = ['Edit', 'Name','LeaveType', 'fromDate', 'toDate', 'reason', 'status'];
     this.getData(fromDate, toDate).then(data => {
       this.dataSource.data = data;
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     })
+  }
   }
   events: string[] = [];
   applyFilter(filterValue: string) {
@@ -75,7 +86,15 @@ export class LeaveListComponent implements OnInit {
   
   getData(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + 'api/leave/request/' + fromDate + '/' + toDate + '/' + this.roleId)
+      this.http.get(Url.API_URL + 'api/leave/request/' + fromDate + '/' + toDate + '/' + this.userService.EmployeeID)
+        .subscribe((response: any) => {
+          resolve(response);
+        }, reject);
+    });
+  }
+  getDataByUserId() {
+    return new Promise((resolve, reject) => {
+      this.http.get(Url.API_URL + 'api/leave/user/' + this.userService.userId)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);

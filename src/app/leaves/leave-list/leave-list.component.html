@@ -7,20 +7,22 @@
 			</h1>
 		</mat-toolbar>
 		<div class="table-container">
-			<div class="example-header" style="padding: 10px 20px; ">
-				<mat-form-field floatPlaceholder="never" style="color: black; width: 80% ">
-					<input matInput #filter placeholder="Filter users" (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
+			<div  class="example-header" style="padding: 10px 20px; ">
+				<mat-form-field floatPlaceholder="never"  style="color: black; width: 80% ">
+					<input matInput #filter placeholder="Filter Data" (keyup)="applyFilter($event.target.value)"
+						[(ngModel)]="searchTerm">
 				</mat-form-field>
-				<div fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50">
+				<div *ngIf='roleId != 2' fxFlex.xs="100" fxFlex.lg="50" fxFlex.md="50" fxFlex.sm="50">
 					<mat-form-field>
-						<input matInput [matDatepicker]="picker " placeholder="From Date" [(ngModel)]="firstDay" (dateInput)="fromDate('input', $event)"
-						 (dateChange)="fromDate('change', $event)">
+						<input matInput [matDatepicker]="picker " placeholder="From Date" [(ngModel)]="firstDay"
+							(dateInput)="fromDate('input', $event)" (dateChange)="fromDate('change', $event)">
 						<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 						<mat-datepicker #picker></mat-datepicker>
 					</mat-form-field>
 					<mat-form-field>
-						<input [min]="firstDay" matInput [matDatepicker]="picker1" placeholder="To Date" [(ngModel)]="lastDay" (dateInput)="toDate('input', $event)"
-						 (dateChange)="toDate('change', $event)">
+						<input [min]="firstDay" matInput [matDatepicker]="picker1" placeholder="To Date"
+							[(ngModel)]="lastDay" (dateInput)="toDate('input', $event)"
+							(dateChange)="toDate('change', $event)">
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1></mat-datepicker>
 					</mat-form-field>
@@ -29,7 +31,8 @@
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;">
 				<ng-container matColumnDef="Edit">
 					<mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;&nbsp; </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" (click)="edit(dataSource.id)">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 20px"></i>
+					<mat-cell *matCellDef="let dataSource" (click)="edit(dataSource.id)">&nbsp;&nbsp;&nbsp;&nbsp;<i
+							class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 20px"></i>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="Name">
@@ -37,20 +40,30 @@
 					<mat-cell *matCellDef="let dataSource">{{dataSource.userName}} </mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="LeaveType">
-					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; Leave Type </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.leaveType}} </mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> &nbsp;&nbsp;&nbsp;&nbsp; Leave Type
+					</mat-header-cell>
+					<mat-cell *matCellDef="let dataSource"> &nbsp;&nbsp;&nbsp;&nbsp; {{dataSource.leaveType}}
+					</mat-cell>
 				</ng-container>
 				<!-- Progress Column -->
 				<ng-container matColumnDef="fromDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> From </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate | date: 'medium'}} </mat-cell>
 				</ng-container>
+				<ng-container matColumnDef="approvedDate">
+						<mat-header-cell *matHeaderCellDef mat-sort-header> Action Date </mat-header-cell>
+						<mat-cell *matCellDef="let dataSource"> {{dataSource.approvedDate }} </mat-cell>
+					</ng-container>
 
+					<ng-container matColumnDef="actionBy">
+							<mat-header-cell *matHeaderCellDef mat-sort-header> Action By </mat-header-cell>
+							<mat-cell *matCellDef="let dataSource"> {{dataSource.actionByName }} </mat-cell>
+						</ng-container>
 				<!-- Name Column -->
 
 				<ng-container matColumnDef="toDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> To </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.toDate | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.toDate | date: 'medium'}} </mat-cell>
 				</ng-container>
 				<!-- Color Column -->
 				<ng-container matColumnDef="reason">
@@ -72,9 +85,18 @@
 					</mat-cell>
 				</ng-container>
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" [class.example-selected-row]="selection.isSelected(dataSource.id)"
-				 (click)="leaveDetails(dataSource.id)" style="cursor: pointer;">
-				</mat-row>
+				<div *ngIf='roleId === 2 else showOther'>
+					<mat-row *matRowDef="let dataSource; columns: displayedColumns;"
+						[class.example-selected-row]="selection.isSelected(dataSource.id)">
+
+					</mat-row>
+				</div>
+				<ng-template #showOther>
+					<mat-row *matRowDef="let dataSource; columns: displayedColumns;"
+						[class.example-selected-row]="selection.isSelected(dataSource.id)"
+						(click)="leaveDetails(dataSource.id)" style="cursor: pointer;">
+					</mat-row>
+				</ng-template>
 			</mat-table>
 			<!-- <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">
 				<mat-progress-spinner color="primary" mode="indeterminate">
@@ -84,7 +106,8 @@
 				No leave requests found.
 			</div>
 
-			<mat-paginator #paginator [length]="100" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+			<mat-paginator #paginator [length]="100" [pageIndex]="0" [pageSize]="10"
+				[pageSizeOptions]="[5, 10, 25, 100]">
 			</mat-paginator>
 		</div>
 	</div>

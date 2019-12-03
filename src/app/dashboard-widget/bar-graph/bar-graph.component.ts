@@ -133,7 +133,7 @@ export class BarGraphComponent implements OnInit {
                 },
                 title: {
                     display: true,
-                    text: 'Monthly Attendance Graph Of You'
+                    text: 'Your Monthly Attendance Graph'
                 }
             }
         })

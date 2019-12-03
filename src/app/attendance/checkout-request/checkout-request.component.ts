@@ -18,7 +18,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CheckoutRequestComponent implements OnInit {
 
-  public displayedColumns = ['firstName', 'date', 'checkInTime', 'designation','reportingManagerName', 'checkoutDate', 'checkOut', 'submit'];
+  public displayedColumns = [];
   showNavListCode;
   ID: any;
   tableList = [];
@@ -51,13 +51,14 @@ export class CheckoutRequestComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Employeetable>();
     this.roleId=this.userService.userroleId;
     if(this.roleId ===2){
+      this.displayedColumns = [ 'date', 'checkInTime','requestedcheckOutTime', 'checkoutDate', 'checkOut', 'submit'];
       this.checkOutListOfUser(fromDate, toDate).then(data => {
         this.dataSource.data = data;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       })
     }else{
-
+      this.displayedColumns = ['firstName', 'date', 'checkInTime', 'designation','reportingManagerName', 'checkoutDate', 'checkOut', 'submit'];
     
     this.checkOutList(fromDate, toDate).then(data => {
       this.dataSource.data = data;
@@ -157,6 +158,45 @@ export class CheckoutRequestComponent implements OnInit {
       });
     }
   }
+
+
+  submitCheckoutByUser(id, value, time) {
+    if (value != null && time != null) {
+      this.checkOutTime = this.datePipe.transform(value, 'yyyy-MM-dd') + 'T' + time + ':00';
+      this.id = id;
+      this.checkOutTime = this.checkOutTime;
+     
+      return new Promise((resolve, error) => {
+        this.http.get(Url.API_URL + 'api/attendance/check-out?requestId='+this.id+'&checkOutTime='+this.checkOutTime)
+          .subscribe((response: any) => {
+            resolve(response);
+            this.snackBar.open('Submitted Successfully', 'OK', {
+              duration: 2000,
+              verticalPosition: 'top',
+            });
+            let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
+            let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
+            this.checkOutListOfUser(fromDate, toDate).then(data => {
+              this.dataSource = new MatTableDataSource<Employeetable>();
+              this.dataSource.data = data;
+            })
+          }, (error: any) => {
+            this.snackBar.open('Checkout time is less than CheckIn time', 'OK', {
+              duration: 2000,
+              verticalPosition: 'top',
+            });
+          });
+      });
+    }
+    else {
+      this.snackBar.open('Enter both Date And Time of Check-out', 'OK', {
+        duration: 2000,
+        verticalPosition: 'top',
+      });
+    }
+  }
+
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches

@@ -21,6 +21,7 @@ export class ApplyWorkFromHomeComponent implements OnInit {
   empcheck='false';
   empArray:any[];
   employeeId:number;
+  roleId:number;
   today:any;
   constructor(public form: FormBuilder,
     public leaveService: LeaveService,
@@ -37,6 +38,7 @@ export class ApplyWorkFromHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.roleId=this.userService.userroleId;
     this.today = new Date().toJSON().split('T')[0];
 
     this.workFromHomeRequest = new FormGroup({

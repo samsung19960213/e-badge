@@ -64,7 +64,8 @@
 				</ng-container>
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" (click)="leaveDetails(dataSource.id)">
+				
+				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" (click)="leaveDetails(dataSource.id)" style="cursor: pointer;">
 				</mat-row>
 			</mat-table>
 			<!-- <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">

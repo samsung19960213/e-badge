@@ -20,8 +20,8 @@
 						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1></mat-datepicker>
 					</mat-form-field>
-					<mat-form-field floatPlaceholder="never" style="color: black; width: 50% ;margin-left: 10%">
-						<input matInput #filter placeholder="Filter users" (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
+					<mat-form-field  floatPlaceholder="never" style="color: black; width: 50% ;margin-left: 10%">
+						<input matInput #filter placeholder="Filter Data" (keyup)="applyFilter($event.target.value)" [(ngModel)]="searchTerm">
 					</mat-form-field>
 				</div>
 			</div>
@@ -52,7 +52,14 @@
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.reportingManager}} </mat-cell>
 				  </ng-container>
 				<!-- Name Column -->
-
+				<ng-container matColumnDef="requestDate">
+						<mat-header-cell *matHeaderCellDef mat-sort-header> Requested Date Time</mat-header-cell>
+						<mat-cell *matCellDef="let dataSource"> {{dataSource.createdDate | date:'medium'}} </mat-cell>
+					</ng-container>
+					<ng-container matColumnDef="approvedBy">
+							<mat-header-cell *matHeaderCellDef mat-sort-header> Approved By</mat-header-cell>
+							<mat-cell *matCellDef="let dataSource"> {{dataSource.approvedUser }} </mat-cell>
+						</ng-container>
 				<ng-container matColumnDef="requestFromDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> From Date </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestFromDate}} </mat-cell>
@@ -79,8 +86,14 @@
 					</mat-cell>
 				</ng-container>
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+				<div *ngIf='roleId === 2 else showOther'>
+				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" >
+				</mat-row>
+			</div>
+			<ng-template #showOther>
 				<mat-row *matRowDef="let dataSource; columns: displayedColumns;" (click)="workFromHomeDetails(dataSource.id)" style="cursor: pointer;">
 				</mat-row>
+			</ng-template>
 			</mat-table>
 
 			<!-- <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;width:100%">

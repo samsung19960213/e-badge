@@ -1,5 +1,5 @@
 <div class="toolbar-user-container">
-	<button mat-button (click)="isOpen = !isOpen" class="toolbar-user-btn" [class.open]="isOpen" [ngStyle.xs]="{'min-width': '70px'}">
+	<button mat-button (click)="isOpen = !isOpen" class="toolbar-user-btn" [class.open]="isOpen" [ngStyle.xs]="{'min-width': '100px'}">
   		<span fxLayout="row" fxLayoutAlign="start center">
     		<img class="avatar" [src]="currentUser?.photoURL ">
     		<span class="name" fxHide fxShow.gt-xs>{{currentUser?.currentUserName }}</span>
@@ -17,13 +17,11 @@
 				       <mat-icon>account_circle</mat-icon>
 				    </button>
       			</mat-list-item>
-      			<!-- <mat-list-item>
-      				<a matLine >Settings</a>
-				    <button mat-icon-button>
-				       <mat-icon>settings</mat-icon>
-				    </button>
+      			 <mat-list-item (click)="changePassword()">
+      				<a matLine >Change Password</a>
+				   
       			</mat-list-item>
-      			<mat-list-item>
+      			<!--<mat-list-item>
       				<a matLine >Help</a>
 				    <button mat-icon-button>
 				       <mat-icon>help</mat-icon>

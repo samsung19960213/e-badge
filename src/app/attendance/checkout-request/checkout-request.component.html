@@ -24,7 +24,7 @@
 					</mat-form-field>
 					<mat-form-field *ngIf='roleId != 2' class="searchField" floatPlaceholder="never"
 						style="color: black; width: 50%;margin-left: 10% ">
-						<input matInput #filter placeholder="Filter users" (keyup)="applyFilter($event.target.value)"
+						<input matInput #filter placeholder="Filter Data" (keyup)="applyFilter($event.target.value)"
 							[(ngModel)]="searchTerm">
 					</mat-form-field>
 				</div>
@@ -84,8 +84,12 @@
 				</ng-container>
 				<ng-container matColumnDef="checkInTime">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Check In Time </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | date:'shortTime'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | date:'medium'}} </mat-cell>
 				</ng-container>
+				<ng-container matColumnDef="requestedcheckOutTime">
+						<mat-header-cell *matHeaderCellDef mat-sort-header>Requested Check-out-Time </mat-header-cell>
+						<mat-cell *matCellDef="let dataSource"> {{dataSource.checkOutTime | date:'medium' }} </mat-cell>
+					</ng-container>
 				<ng-container matColumnDef="checkoutDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Check Out Date </mat-header-cell>
 					<mat-cell *matCellDef="let dataSource">
@@ -104,10 +108,20 @@
 
 				<ng-container matColumnDef="submit">
 					<mat-header-cell *matHeaderCellDef> </mat-header-cell>
+
 					<mat-cell *matCellDef="let dataSource" (click)="$event.stopPropagation()">
-						<button style=" background-color:#385e97 ; color:white;" mat-raised-button
-							(click)="submitCheckout(dataSource.id, dataSource.checkOutDate,dataSource.checkOut,dataSource.employeeId)">
-							Submit</button>
+						<div *ngIf='roleId === 2 else showOther'>
+							<button style=" background-color:#385e97 ; color:white;" mat-raised-button
+								(click)="submitCheckoutByUser(dataSource.id, dataSource.checkOutDate,dataSource.checkOut,dataSource.employeeId)">
+								Update</button>
+						</div>
+						<ng-template #showOther>
+
+							<button style=" background-color:#385e97 ; color:white;" mat-raised-button
+								(click)="submitCheckout(dataSource.id, dataSource.checkOutDate,dataSource.checkOut,dataSource.employeeId)">
+								Submit</button>
+
+						</ng-template>
 					</mat-cell>
 				</ng-container>
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

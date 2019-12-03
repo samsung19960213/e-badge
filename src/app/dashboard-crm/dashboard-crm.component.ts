@@ -33,11 +33,11 @@ export class DashboardCrmComponent implements OnInit {
         { colorDark: '#335417', colorLight: '#3f681c', number: this.leaveRequest, title: 'PENDING LEAVE REQUEST', icon: 'drafts', link: '/auth/leaves/pending-leaves' }
     ];
     public dashCardSec = [
-        { colorDark: '#294772', colorLight: '#375e97', number: this.absentCount, title: 'ABSENT EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/monthly-absentees' },
+        { colorDark: '#294772', colorLight: '#375e97', number: this.absentCount, title: 'CURRENT MONTH ABSENTEES', icon: 'people_outline', link: '/auth/attendance/monthly-absentees' },
 
-        { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.workFromHomeEmployees, title: 'WORK FROM HOME EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/emp/work-from-home' },
-        { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.chekoutReqCount, title: 'CHECKOUT REQUESTS', icon: 'drafts', link: '/auth/attendance/checkout-request' },
-        { colorDark: '#335417', colorLight: '#3f681c', number: this.workFromHomeCount, title: 'WORK FROM HOME REQUESTS', icon: 'drafts', link: '/auth/attendance/immediate/work-from-home' }
+        { colorDark: '#fa3c10', colorLight: '#fb6542', number: this.workFromHomeEmployees, title: 'TODAYS WORK-FROM-HOME EMPLOYEES', icon: 'people_outline', link: '/auth/attendance/emp/work-from-home' },
+        { colorDark: '#e6a800', colorLight: '#ffbb00', number: this.chekoutReqCount, title: 'MISSED CHECKOUTS', icon: 'drafts', link: '/auth/attendance/checkout-request' },
+        { colorDark: '#335417', colorLight: '#3f681c', number: this.workFromHomeCount, title: 'PENDING WORK FROM HOME REQUESTS', icon: 'drafts', link: '/auth/attendance/immediate/work-from-home' }
     ];
 
     tableData = [

@@ -18,10 +18,10 @@
               (ngModelChange)="onChangeofOptions($event)">
             <span>Apply work from home for myself</span>
           </label>
-          <label>
-            <input type="radio" value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
+          <label *ngIf='roleId != 2'>
+            <input type="radio"  value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
               (ngModelChange)="onChangeofOptions($event)">
-            <span>Apply work from home on behalf of employee</span>
+            <span>Apply work from home on behalf of Reportees</span>
           </label>
 
 

@@ -19,10 +19,10 @@
               (ngModelChange)="onChangeofOptions($event)">
             <span>Apply leave for myself</span>
           </label>
-          <label>
-            <input type="radio" value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
+          <label *ngIf='roleId != 2'>
+            <input type="radio"  value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
               (ngModelChange)="onChangeofOptions($event)">
-            <span>Apply leave on behalf of employee</span>
+            <span>Apply leave on behalf of Reportees</span>
           </label>
 
 
@@ -30,7 +30,7 @@
         <div fxLayout="row" *ngIf="empcheck !== 'false'" class="formField_sm" fxLayoutAlign="center center"
           fxFlex="1 0 auto">
 
-          <mat-form-field fxFlex="60" class="form2Input">
+          <mat-form-field  fxFlex="60" class="form2Input">
             <mat-select type="number" placeholder="Employe Name" [(ngModel)]="dataSource.userId"
               formControlName="empType" name="empType" required>
               <mat-option *ngFor="let emp of empArray" [value]="emp.userId">
