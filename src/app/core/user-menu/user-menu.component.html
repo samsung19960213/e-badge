@@ -18,15 +18,17 @@
 				    </button>
       			</mat-list-item>
       			 <mat-list-item (click)="changePassword()">
-      				<a matLine >Change Password</a>
-				   
+      				<a matLine >Password</a>
+					  <button mat-icon-button>
+						<mat-icon>edit</mat-icon>
+					 </button>
       			</mat-list-item>
-      			<!--<mat-list-item>
-      				<a matLine >Help</a>
+      			<mat-list-item>
+      				<a matLine (click)="downloadQRCode()">QR Code</a>
 				    <button mat-icon-button>
-				       <mat-icon>help</mat-icon>
+				       <mat-icon>cloud_download</mat-icon>
 				    </button>
-      			</mat-list-item> -->
+      			</mat-list-item>
 
       			<mat-divider></mat-divider>
 

@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
   lastDay = new Date(this.year, this.month + 1, 0);
   startDate: string;
   endDate: string;
-
+  roleId:number;
   constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public userService: UserService, public snackBar: MatSnackBar, public router: Router) {
     this.employeeDetails = new EmployeeDetails();
   }
@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
 
     this.userId = this.userService.getuserId();
+    this.roleId=this.userService.userroleId;
     this.department();
     this.designation();
     this.shift();
@@ -200,75 +201,15 @@ export class ProfileComponent implements OnInit {
       fileEveThis.employeeDetails.employeeImage = response.Location;
     });
   }
-  changePassword() {
-    this.changePasswordDialog();
-  }
+  // changePassword() {
+  //   this.changePasswordDialog();
+  // }
 
-  changePasswordDialog(): void {
-    let dialogRef = this.dialog.open(ChangePassword, {
-      width: '450px',
+  // changePasswordDialog(): void {
+  //   let dialogRef = this.dialog.open(ChangePassword, {
+  //     width: '450px',
 
-    });
-  }
-
-}
-@Component({
-  selector: 'change-password',
-  templateUrl: './changePassword.html',
-  styleUrls: ['./profile.component.scss']
-})
-export class ChangePassword {
-  id: number;
-  userForm: FormGroup;
-  changePasswordRequest: any;
-  sendData = {
-    email: '',
-    password: '',
-    newPassword: '',
-    id: 0,
-  }
-  loginEmail: string;
-  loginPassword: string;
-
-  constructor(private http: HttpClient,
-    public message: MatDialogRef<ChangePassword>, @Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService, public snackBar: MatSnackBar) { }
-  ngOnInit() {
-    this.id = this.userService.userId;
-    this.loginEmail = this.userService.getuserEmail();
-    this.loginPassword = this.userService.getuserPassword();
-    this.userForm = new FormGroup({
-      email: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      newPassword: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
-    });
-  }
-  closeMessage(): void {
-    this.message.close();
-  }
-  onSubmit(form: NgForm) {
-    this.changePasswordRequest = form.value;
-    if (this.changePasswordRequest.newPassword == this.changePasswordRequest.confirmPassword) {
-      return new Promise((resolve, reject) => {
-        this.http.post(Url.API_URL + 'api/user/changePassword', this.changePasswordRequest)
-          .subscribe((response: any) => {
-            resolve(response);
-          }, reject);
-        this.snackBar.open('Password changed Successful', 'OK', {
-          duration: 2000,
-          verticalPosition: 'top',
-        });
-        this.message.close();
-      });
-    }
-    else {
-      this.snackBar.open('Passwords do not match', 'OK', {
-        duration: 2000,
-        verticalPosition: 'top',
-      });
-
-    }
-  }
-
+  //   });
+  // }
 
 }

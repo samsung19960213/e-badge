@@ -178,6 +178,7 @@ export class WorkFromHomeComponent implements OnInit {
     this.route.navigateByUrl('auth/attendance/work-from-home-details' );
   }
   workFromHomeDetails(id:number) {
+    this.leaveService.setPrevPage("work-from-home")
    this.leaveService.setWorkId(id);
   this.route.navigateByUrl('auth/attendance/work-from-home-details' );
   }

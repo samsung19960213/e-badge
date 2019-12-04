@@ -23,9 +23,8 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { ServicesComponent } from './services/services.component';
 import { CoreModule } from '../core/core.module';
-import { ProfileComponent, ChangePassword } from './profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChangePasswordModule } from './profile/changePassword.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
 
@@ -51,7 +50,6 @@ import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
         MatChipsModule,
         MatInputModule,
         MatDialogModule,
-        ChangePasswordModule,
         CoreModule,
         PagesRouterModule ],
     declarations: [   
@@ -60,7 +58,6 @@ import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
         ServicesComponent,
         ProfileComponent
     ],
-    entryComponents:[ChangePassword],
     exports: [
     ],
     providers: [

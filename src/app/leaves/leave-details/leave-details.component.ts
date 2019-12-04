@@ -43,6 +43,20 @@ export class LeaveDetailsComponent implements OnInit {
     });
 
   }
+
+  returnBack(){
+    if(this.leaveService.prevPage === 'pending-leaves'){
+      this.leaveService.setPrevPage("");
+      this.router.navigateByUrl('auth/leaves/pending-leaves');
+    }
+    else if(this.leaveService.prevPage === 'leave-list'){
+      this.leaveService.setPrevPage("");
+      this.router.navigateByUrl('auth/leaves/leave-list');
+    }else{
+      this.router.navigateByUrl('auth/leaves/pending-leaves');
+    }
+  }
+
   getDetails(id: number) {
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/leave/' + id)

@@ -130,6 +130,7 @@ export class LeaveListComponent implements OnInit {
   }
 
   leaveDetails(id: number) {
+    this.leaveService.setPrevPage("leave-list");
     this.leaveService.setLeaveId(id);
     this.route.navigateByUrl('auth/leaves/leave-details');
   }

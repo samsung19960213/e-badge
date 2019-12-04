@@ -20,7 +20,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FullscreenComponent } from './fullscreen/fullscreen.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { UserMenuComponent } from './user-menu/user-menu.component';
+import { UserMenuComponent, ChangePassword } from './user-menu/user-menu.component';
 import { ClickOutsideModule } from 'ng-click-outside';
 import {
     MatSidenavModule,
@@ -29,6 +29,7 @@ import {
 } from '@angular/material';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
+import { ChangePasswordModule } from './user-menu/changePassword.module';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -63,10 +64,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         MatSidenavModule,
         MatTabsModule,
         MatSliderModule,
+        ChangePasswordModule,
         MatProgressBarModule,
         ClickOutsideModule
     ],
 
+    entryComponents:[ChangePassword],
 
     exports: [
         SidemenuComponent,

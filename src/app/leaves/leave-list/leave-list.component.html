@@ -31,7 +31,7 @@
 			<mat-table #table [dataSource]="dataSource" matSort style="margin-top: 20px;">
 				<ng-container matColumnDef="Edit">
 					<mat-header-cell *matHeaderCellDef> &nbsp;&nbsp;&nbsp;&nbsp; </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource" (click)="edit(dataSource.id)">&nbsp;&nbsp;&nbsp;&nbsp;<i
+					<mat-cell *matCellDef="let dataSource" (click)="leaveDetails(dataSource.id)">&nbsp;&nbsp;&nbsp;&nbsp;<i
 							class="fa fa-pencil-square-o" aria-hidden="true" style="font-size: 20px"></i>
 					</mat-cell>
 				</ng-container>

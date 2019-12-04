@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
-import { ChangePassword } from "./profile.component";
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatToolbarModule, MatIconModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ChangePassword } from "./user-menu.component";
 
 
 const routes = [

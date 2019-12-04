@@ -6,9 +6,19 @@ export class LeaveService {
     leaveId: number;
     workId:number;
     departmentId:number;
+    prevPage:string;
     
     name='';
     constructor() { }
+
+    setPrevPage(page:string){
+        this.prevPage=page;
+    }
+
+    getPrevPage(){
+        return this.prevPage;
+    }
+
     setLeaveId(id: number) {
         this.leaveId = id;
     }

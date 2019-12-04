@@ -68,6 +68,17 @@ export class WorkFromHomeDetailsComponent implements OnInit {
     });
   }
 
+  returnBack(){
+    if(this.leaveService.prevPage === 'immediate/work-from-home'){
+      this.leaveService.setPrevPage("");
+      this.router.navigateByUrl('auth/attendance/immediate/work-from-home');
+    }
+    else if(this.leaveService.prevPage === 'work-from-home'){
+      this.leaveService.setPrevPage("");
+      this.router.navigateByUrl('auth/attendance/work-from-home');
+    }
+  }
+
   submitResponse(dataSource) {
     console.log(dataSource)
     return new Promise((resolve, reject) => {

@@ -17,10 +17,11 @@ export class UserService {
     companyId:number;
     companyName:string;
     cmpLogoUrl:string;
+    firstName:string;
     constructor() { }
     setUserinfo(username: string, userImg: string, userId: number,
         userPassword: string,
-        userEmail: string, department: string, designation: string, employeeId: number, lname: string, roleId: number, companyId:number,companyName:string,cmpLogoUrl:string) {
+        userEmail: string, department: string, designation: string, employeeId: number, lname: string, roleId: number, companyId:number,companyName:string,cmpLogoUrl:string,firstName:string) {
         this.username = username;
         // console.log(this.username);
         // console.log(this.userImg);
@@ -37,6 +38,7 @@ export class UserService {
         this.companyId =companyId;
         this.companyName=companyName;
         this.cmpLogoUrl=cmpLogoUrl;
+        this.firstName=firstName;
         // this.dateMonth = date;
         // console.log(this.dateMonth);
     }
@@ -72,6 +74,10 @@ export class UserService {
     }
     getLastName() {
         return this.Lname;
+    }
+
+    getFirstName() {
+        return this.firstName;
     }
 
     getCompanyId(){
