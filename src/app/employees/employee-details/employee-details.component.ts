@@ -186,16 +186,20 @@ export class EmployeeDetailsComponent implements OnInit {
         });
     }
     updateDetails(employeeDetails) {
+        this.spinner.show();
         return new Promise((resolve, reject) => {
             this.http.post(Url.API_URL + '/api/employee/save', employeeDetails)
                 .subscribe((response: any) => {
                     resolve(response);
+                    this.spinner.hide();
                     this.snackBar.open('Updated Successful', 'OK', {
                         duration: 2000,
                         verticalPosition: 'top',
                     });
                     this.router.navigateByUrl('auth/employees/employee-table');
                 }, reject => {
+                    this.spinner.hide();
+
                     this.snackBar.open('Invalid Format', 'OK', {
                         duration: 2000,
                         verticalPosition: 'top',
@@ -307,7 +311,7 @@ export class EmployeeDetailsComponent implements OnInit {
                 },
                 title: {
                     display: true,
-                    text: 'ATTENDANCE GRAPH OF YOU'
+                    text: 'ATTENDANCE GRAPH'
                 }
             }
         })
@@ -335,7 +339,7 @@ export class MessagePopup {
     attachmentName: any;
     attachmentSize: any;
 
-    constructor(private http: HttpClient,
+    constructor(private http: HttpClient,private spinner:NgxSpinnerService,
         public message: MatDialogRef<MessagePopup>, @Inject(MAT_DIALOG_DATA) public data: any, private empService: EmployeesService) { }
     ngOnInit() {
         this.id = this.empService.getEmployeeId();
@@ -344,14 +348,19 @@ export class MessagePopup {
         this.message.close();
     }
     deactivate() {
+        this.spinner.show()
         return new Promise((resolve, error) => {
             this.http.get(Url.API_URL + 'api/employee/deactivate/' + this.id + '?rejectReason=' + this.reason + '&rejectFileUrl=' + this.url+'&deactivationType=' + this.deactivationType)
                 .subscribe((response: any) => {
                     resolve(response);
+                    this.spinner.hide();
+
                     alert('User deactivated successfully');
                     this.message.close();
 
                 }, error=>{
+                    this.spinner.hide();
+
                     alert('Error while deactivating User');
                     this.message.close();
                 });

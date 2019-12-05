@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { WorkDetail } from './workDetail.model';
 import { UserService } from '../../user.service';
 import { Location } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class WorkFromHomeDetailsComponent implements OnInit {
   constructor(public form: FormBuilder,
     public leaveService: LeaveService,
     public http: HttpClient,
+    public spinner:NgxSpinnerService,
     public dialog: MatDialog,
     public datePipe: DatePipe,
     public route: ActivatedRoute,
@@ -80,7 +82,7 @@ export class WorkFromHomeDetailsComponent implements OnInit {
   }
 
   submitResponse(dataSource) {
-    console.log(dataSource)
+    this.spinner.show()
     return new Promise((resolve, reject) => {
       if (this.statusSelected == 1) {
         this.dataSource.rejectReason = null;
@@ -89,12 +91,16 @@ export class WorkFromHomeDetailsComponent implements OnInit {
       this.http.post(Url.API_URL + 'api/attendance/workfromhome/approve?approve=' + this.statusSelected, this.dataSource)
         .subscribe((response: any) => {
           resolve(response);
+          this.spinner.hide();
+
           this.snackBar.open('Work From Home Request ' + (this.statusSelected == 1 ? 'Aprroved' : 'Rejected'), 'OK', {
             duration: 2000,
             verticalPosition: 'top',
           });
           this.router.navigateByUrl('auth/attendance/work-from-home');
         }, reject);
+        this.spinner.hide();
+
       this.getDetails(this.id);
     });
   }

@@ -11,6 +11,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/fromEvent';
 import { UserService } from '../../user.service';
 import { DatePipe } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-checkout-request',
   templateUrl: './checkout-request.component.html',
@@ -44,7 +45,7 @@ export class CheckoutRequestComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue: string;
-  constructor(private http: HttpClient, public route: Router, public userService: UserService, public datePipe: DatePipe, public snackBar: MatSnackBar) { }
+  constructor(private spinner:NgxSpinnerService,private http: HttpClient, public route: Router, public userService: UserService, public datePipe: DatePipe, public snackBar: MatSnackBar) { }
   ngOnInit() {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
@@ -129,10 +130,13 @@ export class CheckoutRequestComponent implements OnInit {
         'checkOutTime': this.checkOutTime,
         'id': this.id
       };
+      this.spinner.show();
       return new Promise((resolve, error) => {
         this.http.post(Url.API_URL + 'api/attendance/save/checkouttime', checkoutDto)
           .subscribe((response: any) => {
             resolve(response);
+            this.spinner.hide();
+
             this.snackBar.open('Submitted Successfully', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
@@ -144,6 +148,8 @@ export class CheckoutRequestComponent implements OnInit {
               this.dataSource.data = data;
             })
           }, (error: any) => {
+            this.spinner.hide();
+
             this.snackBar.open('Checkout time is less than CheckIn time', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
@@ -165,11 +171,14 @@ export class CheckoutRequestComponent implements OnInit {
       this.checkOutTime = this.datePipe.transform(value, 'yyyy-MM-dd') + 'T' + time + ':00';
       this.id = id;
       this.checkOutTime = this.checkOutTime;
-     
+      this.spinner.show();
+
       return new Promise((resolve, error) => {
         this.http.get(Url.API_URL + 'api/attendance/check-out?requestId='+this.id+'&checkOutTime='+this.checkOutTime)
           .subscribe((response: any) => {
             resolve(response);
+            this.spinner.hide();
+
             this.snackBar.open('Submitted Successfully', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
@@ -181,6 +190,8 @@ export class CheckoutRequestComponent implements OnInit {
               this.dataSource.data = data;
             })
           }, (error: any) => {
+            this.spinner.hide();
+
             this.snackBar.open('Checkout time is less than CheckIn time', 'OK', {
               duration: 2000,
               verticalPosition: 'top',

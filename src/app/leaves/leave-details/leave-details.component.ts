@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { Leave } from './leave.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-leave-details',
@@ -18,7 +19,7 @@ export class LeaveDetailsComponent implements OnInit {
   user: FormGroup;
 
   dataSource: any;
-  constructor(public form: FormBuilder,
+  constructor(public form: FormBuilder,public spinner:NgxSpinnerService,
     public leaveService: LeaveService,
     public http: HttpClient,
     public dialog: MatDialog,
@@ -67,10 +68,13 @@ export class LeaveDetailsComponent implements OnInit {
     });
   }
   accept() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/leave/admin/' + this.id + '/true')
         .subscribe((response: any) => {
           resolve(response);
+          this.spinner.hide();
+
           this.snackBar.open('Leave Approved', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
@@ -78,6 +82,8 @@ export class LeaveDetailsComponent implements OnInit {
           this.router.navigateByUrl('auth/leaves/leave-list');
 
         }, reject);
+        this.spinner.hide();
+
       this.getDetails(this.id);
     });
   }
@@ -103,7 +109,7 @@ export class RejectPopup {
   id: number;
   reason: string;
   dataSource
-  constructor(private http: HttpClient,
+  constructor(private http: HttpClient,public spinner:NgxSpinnerService,
     public message: MatDialogRef<RejectPopup>, @Inject(MAT_DIALOG_DATA) public data: any, public leaveService: LeaveService, public router: Router, public snackBar: MatSnackBar) { }
   ngOnInit() {
     this.id = this.leaveService.getLeaveId();
@@ -124,10 +130,13 @@ export class RejectPopup {
 
   }
   rejectLeave() {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/leave/admin/' + this.id + '/false?rejectReason=' + this.reason)
         .subscribe((response: any) => {
           resolve(response);
+          this.spinner.hide();
+
           this.snackBar.open('Leave Rejected', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
@@ -135,6 +144,8 @@ export class RejectPopup {
           this.router.navigateByUrl('auth/leaves/leave-list');
         }, reject
         );
+        this.spinner.hide();
+
       this.message.close();
       this.getDetails(this.id);
     });

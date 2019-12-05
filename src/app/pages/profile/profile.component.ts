@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../user.service';
 import { PasswordDetails } from '../pages.model';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-profile',
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit {
   startDate: string;
   endDate: string;
   roleId:number;
-  constructor(private http: HttpClient, public empService: EmployeesService, public dialog: MatDialog, public userService: UserService, public snackBar: MatSnackBar, public router: Router) {
+  constructor(private http: HttpClient,public spinner:NgxSpinnerService, public empService: EmployeesService, public dialog: MatDialog, public userService: UserService, public snackBar: MatSnackBar, public router: Router) {
     this.employeeDetails = new EmployeeDetails();
   }
 
@@ -51,7 +52,7 @@ export class ProfileComponent implements OnInit {
     this.designation();
     this.shift();
     this.userRole();
-
+    
     this.getDetails(this.userId);
     this.user = new FormGroup({
       useractive: new FormControl('', [Validators.required]),
@@ -95,6 +96,9 @@ export class ProfileComponent implements OnInit {
       newPassword: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
     });
+    if(this.roleId != 1){
+      this.user.disable();
+    }
 
   }
   getDetails(id: number) {
@@ -107,10 +111,13 @@ export class ProfileComponent implements OnInit {
     });
   }
   updateDetails(employeeDetails) {
+    this.spinner.show();
     return new Promise((resolve, reject) => {
       this.http.post(Url.API_URL + 'api/employee/save', employeeDetails)
         .subscribe((response: any) => {
           resolve(response);
+          this.spinner.hide();
+
           this.snackBar.open('Updated Successful', 'OK', {
             duration: 2000,
             verticalPosition: 'top',
@@ -118,6 +125,8 @@ export class ProfileComponent implements OnInit {
           // this.router.navigateByUrl('auth/dashboard');
           this.getDetails(this.userId);
         }, reject => {
+          this.spinner.hide();
+
           this.snackBar.open('Invalid Format', 'OK', {
             duration: 2000,
             verticalPosition: 'top',

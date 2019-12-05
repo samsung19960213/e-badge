@@ -9,6 +9,7 @@ import { LeaveService } from '../../leaves/leaves.service';
 
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class WorkFromHomeComponent implements OnInit {
   filterValue: string;
   constructor(private http: HttpClient,
     public route: Router,
+    public spinner:NgxSpinnerService,
     public userService: UserService,
     public datePipe: DatePipe,
     public leaveService:LeaveService,
@@ -139,10 +141,13 @@ export class WorkFromHomeComponent implements OnInit {
         'checkOutTime': this.checkOutTime,
         'id': this.id
       };
+      this.spinner.show();
       return new Promise((resolve, error) => {
         this.http.post(Url.API_URL + 'api/attendance/save/checkouttime', checkoutDto)
           .subscribe((response: any) => {
             resolve(response);
+            this.spinner.hide();
+
             this.snackBar.open('Submitted Successfully', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
@@ -154,6 +159,8 @@ export class WorkFromHomeComponent implements OnInit {
               this.dataSource.data = data;
             })
           }, (error: any) => {
+            this.spinner.hide();
+
             this.snackBar.open('Checkout time is less than CheckIn time', 'OK', {
               duration: 2000,
               verticalPosition: 'top',
@@ -162,6 +169,7 @@ export class WorkFromHomeComponent implements OnInit {
       });
     }
     else {
+
       this.snackBar.open('Enter both Date And Time of Check-out', 'OK', {
         duration: 2000,
         verticalPosition: 'top',
