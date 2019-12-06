@@ -11,7 +11,8 @@
       <br><br>
       <form [formGroup]="workFromHomeRequest" fxLayout="column" fxFlex="100">
 
-        <div style="margin-top: 20px;margin-bottom: 30px"  fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
+        <div style="margin-top: 20px;margin-bottom: 30px" fxLayout="row" class="formField_sm"
+          fxLayoutAlign="center center" fxFlex="1 0 auto">
 
           <label>
             <input type="radio" [checked]='true' value='false' formControlName="leavetypeoption" [(ngModel)]="empcheck"
@@ -19,7 +20,7 @@
             <span>Apply work from home for myself</span>
           </label>
           <label *ngIf='roleId != 2'>
-            <input type="radio"  value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
+            <input type="radio" value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
               (ngModelChange)="onChangeofOptions($event)">
             <span>Apply work from home on behalf of Reportees</span>
           </label>
@@ -36,28 +37,36 @@
                 <span>&nbsp;&nbsp;{{emp.firstName}} {{emp.lastName}}</span>
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="workFromHomeRequest.controls.empType.hasError('required')" align="start" style="color: red;"
-              class="mat-body-1 center-align ">
+            <mat-error *ngIf="workFromHomeRequest.controls.empType.hasError('required')" align="start"
+              style="color: red;" class="mat-body-1 center-align ">
               This field is required
             </mat-error>
           </mat-form-field>
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
 
-            <mat-form-field fxFlex="30" class="form2Input">
-  
-              <input matInput type="date" [min]="today" placeholder="Start Date" formControlName="fromDate" name="fromDate"
-                [(ngModel)]="dataSource.requestFromDate">
-            </mat-form-field>
-            <mat-form-field fxFlex="30" class="form2Input">
-              <input matInput type="date" [min]="today" formControlName="toDate" name="toDate" placeholder="End Date"
-                [(ngModel)]="dataSource.requestToDate">
-            </mat-form-field>
-          </div>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" name="fromDate"
+              [(ngModel)]="dataSource.requestFromDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
 
-        
-        
-       
+
+
+          </mat-form-field>
+          <mat-form-field fxFlex="30" class="form2Input">
+            <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate" name="toDate"
+              [(ngModel)]="dataSource.requestToDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+
+
+          </mat-form-field>
+        </div>
+
+
+
+
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="60" class="form2Input">
             <textarea matInput type="text" formControlName="reason" name="reason" placeholder="Description"
@@ -66,20 +75,20 @@
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <div class="product-image media" fxLayoutAlign="center center">
-              <button mat-fab (click)="imgFileInput.click()" style="background:  #102646">
-                  <mat-icon>insert_photo</mat-icon>
-              </button>
-              <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="*/*" multiple>
+            <button mat-fab (click)="imgFileInput.click()" style="background:  #102646">
+              <mat-icon>insert_photo</mat-icon>
+            </button>
+            <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="*/*" multiple>
 
-              <img src="{{dataSource.docUrl}}" alt="{{fileName}}" *ngIf="dataSource.docUrl !== ''"
-                  height="80" width="100">
+            <img src="{{dataSource.docUrl}}" alt="{{fileName}}" *ngIf="dataSource.docUrl !== ''" height="80"
+              width="100">
           </div>
           <div>
-              <h2 class="text" style="text-align: center;font-size: 15px">Upload Doc</h2>
+            <h2 class="text" style="text-align: center;font-size: 15px">Upload Doc</h2>
           </div>
-      </div>
+        </div>
       </form>
-      
+
       <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center" fxFlex="1 0 auto">
         <div style="margin-top: 20px;margin-bottom: 30px;align-items: center;">
           <button mat-raised-button color="accent" fxFlex="100" style="width:150px !important;align-self: center;"

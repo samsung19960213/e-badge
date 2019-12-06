@@ -64,12 +64,18 @@
 
           <mat-form-field fxFlex="30" class="form2Input">
 
-            <input matInput [min]="today" type="date" placeholder="From Date" formControlName="fromDate" name="fromDate"
-              [(ngModel)]="dataSource.fromDate">
+              <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" name="fromDate" [(ngModel)]="dataSource.fromDate" >
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+
+           
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput type="date" formControlName="toDate" name="toDate" placeholder="To Date"
-              [(ngModel)]="dataSource.toDate">
+
+              <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate" name="toDate" [(ngModel)]="dataSource.toDate" >
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+           
           </mat-form-field>
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">

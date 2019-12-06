@@ -14,6 +14,7 @@ import {
         MatRadioModule,
         MatDialogModule,
         MatFormFieldModule,
+        MatDatepickerModule,
        } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
@@ -41,6 +42,7 @@ import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
         MatButtonModule,
         MatButtonToggleModule,
         MatInputModule,
+        MatDatepickerModule,
 
         MatToolbarModule,
         MatFormFieldModule,

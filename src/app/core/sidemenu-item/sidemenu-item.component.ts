@@ -16,15 +16,29 @@ export class SidemenuItemComponent implements OnInit {
     constructor(public userService: UserService) { }
 
     ngOnInit() {
-        if(this.userService.userroleId==1){
-            this.userId=1;
-        }else if(this.userService.userroleId==2){
-            this.userId=3;
-        }
-        else{
-            this.userId=2;
-        }
+        this.userId=this.userService.userroleId;
+        // if(this.userService.userroleId==1){
+        //     this.userId=1;
+        // }else if(this.userService.userroleId==2){
+        //     this.userId=3;
+        // }
+        // else{
+        //     this.userId=2;
+        // }
     }
+    // mainMenu(){
+    //    for ( var i=0;i <this.menu.user.length;i++){
+    //        if(this.menu.link==false && this.userId==this.menu.user[i])
+    //             return true;
+    //    }
+    // }
+
+    // subMenu(){
+    //     for ( var i=0;i <this.menu.user.length;i++){
+    //         if(this.menu.link!=false && this.userId==this.menu.user[i])
+    //              return true;
+    //     }
+    //  }
 
     openLink() {
         this.menu.open = this.menu.open;
