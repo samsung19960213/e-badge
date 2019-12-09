@@ -20,6 +20,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
+import { HelperModule } from "../helpers/HelperModule";
 
 
 @NgModule({
@@ -67,9 +68,10 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
         NgbModalModule,
         FlatpickrModule.forRoot(),
         CalendarModule.forRoot({
-          provide: DateAdapter,
-          useFactory: adapterFactory
-        })
+            provide: DateAdapter,
+            useFactory: adapterFactory
+        }),
+        HelperModule
     ],
     declarations: [
         ReportsComponent,
@@ -77,7 +79,7 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
         LeaveReportsComponent,
     ],
     exports: [],
-    providers: [ExcelService,{
+    providers: [ExcelService, {
         provide: HTTP_INTERCEPTORS,
         useClass: AuthInterceptor,
         multi: true,

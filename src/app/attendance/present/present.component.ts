@@ -15,6 +15,7 @@ import { of } from 'rxjs';
 
 import { app } from 'firebase/app';
 import { AppComponent } from '../../app.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-present',
@@ -22,13 +23,13 @@ import { AppComponent } from '../../app.component';
   styleUrls: ['./present.component.scss']
 })
 export class PresentComponent implements OnInit {
-  public displayedColumns = ['employeeCode', 'Name', 'Department','reportingManagerName', 'Shift', 'Time'];
+  public displayedColumns = ['employeeCode', 'Name', 'Department', 'reportingManagerName', 'Shift', 'Time'];
   showNavListCode;
   ID: any;
   time: any[] = [];
   userId: number[] = [];
   searchTerm: string;
-  isLoading=true;
+  isLoading = true;
   date = new Date();
   selection = new SelectionModel<string>(true, []);
   dataSource: any;
@@ -42,7 +43,9 @@ export class PresentComponent implements OnInit {
     private http: HttpClient,
     public route: Router,
     public leaveService: LeaveService,
+    private spinnerService: NgxSpinnerService,
     public datePipe: DatePipe) { }
+
   ngOnInit() {
     this.roleId = this.userService.userId;
     this.dataSource = new MatTableDataSource<LateComersTable>()
@@ -75,11 +78,16 @@ export class PresentComponent implements OnInit {
     })
   }
   getData(fromDate: any) {
+    this.spinnerService.show();
     return new Promise((resolve, reject) => {
       this.http.get(Url.API_URL + 'api/attendance/findall/byGivenDate/' + fromDate + '/' + this.roleId)
         .subscribe((response: any) => {
+          this.spinnerService.hide();
           resolve(response);
-        }, reject);
+        }, reject => {
+          this.spinnerService.hide();
+          reject
+        });
 
     });
   }
