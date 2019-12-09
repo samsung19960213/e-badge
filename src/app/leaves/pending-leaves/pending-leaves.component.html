@@ -41,17 +41,17 @@
 
 				<ng-container matColumnDef="fromDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> From Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.fromDate | dateFormat }} </mat-cell>
 				</ng-container>
 				<!-- Color Column -->
 				<ng-container matColumnDef="toDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> To Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.toDate | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.toDate | dateFormat }} </mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="requestDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Applied Date </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestTime | date: 'longDate'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.requestTime | dateFormat }} </mat-cell>
 				</ng-container>
 
 				<ng-container matColumnDef="status">

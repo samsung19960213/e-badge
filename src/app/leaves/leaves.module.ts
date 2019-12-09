@@ -16,8 +16,9 @@ import { RejectModule } from "./leave-details/reject.module";
 import { PendingLeavesComponent } from "./pending-leaves/pending-leaves.component";
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 import { ApplyLeaveComponent } from './apply-leave/apply-leave.component';
-
-
+import { DateFormatPipe } from "../helpers/DateFormatPipe";
+import { DateTimeFormatPipe } from "../helpers/DateTimeFormatPipe";
+import { HelperModule } from "../helpers/HelperModule";
 
 @NgModule({
     imports: [
@@ -44,46 +45,41 @@ import { ApplyLeaveComponent } from './apply-leave/apply-leave.component';
         MatSortModule,
         MatPaginatorModule,
         CommonModule,
-		// FormsRouterModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatToolbarModule,
-		MatCardModule,
-		MatTabsModule,
+        // FormsRouterModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatTabsModule,
         MatIconModule,
         MatDialogModule,
-         MatInputModule,
-     MatDatepickerModule,
-     MatNativeDateModule,
-		 ReactiveFormsModule,
-         FormsModule,
-         MatProgressBarModule,
-         MatProgressSpinnerModule,
-         LeavesRouterModule,
-         RejectModule
-        
-        
-        
-     ],
-    declarations: [   
-    LeavesComponent,
-    LeaveListComponent,
-    LeaveDetailsComponent,
-    PendingLeavesComponent,
-    ApplyLeaveComponent,
-   
-       
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        LeavesRouterModule,
+        RejectModule,
+        HelperModule
+    ],
+    declarations: [
+        LeavesComponent,
+        LeaveListComponent,
+        LeaveDetailsComponent,
+        PendingLeavesComponent,
+        ApplyLeaveComponent
     ],
     entryComponents: [RejectPopup],
-    exports: [
-    ],
+    exports: [],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true,
         }
-        
+
     ]
 })
 export class LeavesModule {

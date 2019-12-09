@@ -13,6 +13,9 @@ import { UserService } from '../../user.service';
 import { delay } from 'rxjs/operators';
 import { of } from 'rxjs';
 
+import { app } from 'firebase/app';
+import { AppComponent } from '../../app.component';
+
 @Component({
   selector: 'app-present',
   templateUrl: './present.component.html',

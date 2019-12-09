@@ -47,14 +47,14 @@
           <!-- Progress Column -->
           <ng-container matColumnDef="Date" >
             <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource"> {{dataSource.date}} </mat-cell>
+            <mat-cell *matCellDef="let dataSource"> {{dataSource.date | dateFormat}} </mat-cell>
           </ng-container>
   
           <!-- Name Column -->
           
           <ng-container matColumnDef="Time">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Check In Time </mat-header-cell>
-            <mat-cell *matCellDef="let dataSource" > {{dataSource.checkInTime | date : 'shortTime'}} </mat-cell>
+            <mat-cell *matCellDef="let dataSource" > {{dataSource.checkInTime | dateTimeFormat}} </mat-cell>
           </ng-container>
           <!-- Color Column -->
           

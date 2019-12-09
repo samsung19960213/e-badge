@@ -59,7 +59,7 @@
 
         <ng-container matColumnDef="Time">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Check In Time </mat-header-cell>
-          <mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | date : 'shortTime'}} </mat-cell>
+          <mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | dateTimeFormat}} </mat-cell>
         </ng-container>
         <!-- Color Column -->
 

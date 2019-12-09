@@ -21,7 +21,7 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
 import { ApplyWorkFromHomeComponent } from './apply-work-from-home/apply-work-from-home.component';
 import { WorkFromHomeEmpListComponent } from './work-from-home-emp-list/work-from-home-emp-list.component';
 import { ImmediateWorkFromHomeComponent } from './immediate-work-from-home/immediate-work-from-home.component';
-
+import { HelperModule } from "../helpers/HelperModule";
 
 
 @NgModule({
@@ -64,6 +64,7 @@ import { ImmediateWorkFromHomeComponent } from './immediate-work-from-home/immed
         MatProgressBarModule,
         MatProgressSpinnerModule,
         AttendanceRouterModule,
+        HelperModule
     ],
     declarations: [
         AttendanceComponent,
@@ -76,7 +77,7 @@ import { ImmediateWorkFromHomeComponent } from './immediate-work-from-home/immed
         WorkFromHomeDetailsComponent,
         ApplyWorkFromHomeComponent,
         WorkFromHomeEmpListComponent,
-        ImmediateWorkFromHomeComponent,
+        ImmediateWorkFromHomeComponent
     ],
     exports: [
     ],

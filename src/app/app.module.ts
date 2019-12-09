@@ -26,7 +26,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeFilterPipe,
+    EmployeeFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -44,12 +44,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
       useFactory: adapterFactory
     })
   ],
+  exports: [],
   // entryComponents: [ExcelService],
-  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard, OfficeService,{
+  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard, OfficeService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
-}],
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

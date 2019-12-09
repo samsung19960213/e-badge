@@ -84,11 +84,11 @@
 				</ng-container>
 				<ng-container matColumnDef="checkInTime">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Check In Time </mat-header-cell>
-					<mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | date:'medium'}} </mat-cell>
+					<mat-cell *matCellDef="let dataSource"> {{dataSource.checkInTime | dateTimeFormat}} </mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="requestedcheckOutTime">
 						<mat-header-cell *matHeaderCellDef mat-sort-header>Requested Check-out-Time </mat-header-cell>
-						<mat-cell *matCellDef="let dataSource"> {{dataSource.checkOutTime | date:'medium' }} </mat-cell>
+						<mat-cell *matCellDef="let dataSource"> {{dataSource.checkOutTime | dateTimeFormat }} </mat-cell>
 					</ng-container>
 				<ng-container matColumnDef="checkoutDate">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> Check Out Date </mat-header-cell>
