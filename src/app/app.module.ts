@@ -23,6 +23,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AuthInterceptor } from './interceptor/fuseHttpInterceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,15 +43,22 @@ import { NgxSpinnerModule } from "ngx-spinner";
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
   ],
   exports: [],
   // entryComponents: [ExcelService],
-  providers: [EmployeesService, UserService, LeaveService, DatePipe, ReportsService, AuthGuard, OfficeService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true,
-  }],
+  providers: [EmployeesService,
+    UserService,
+    LeaveService,
+    DatePipe,
+    ReportsService,
+    AuthGuard,
+    OfficeService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
