@@ -30,9 +30,9 @@ export class BarGraphComponent implements OnInit {
     ngOnInit() {
         this.empID = this.userService.EmployeeID;
         this.getAttendance(this.empID);
-        setTimeout(() => {
-            this.createBarGraph();
-        }, 500)
+        // setTimeout(() => {
+        //     this.createBarGraph();
+        // }, 500)
     }
     getAttendance(id: number) {
         this.startDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
@@ -62,6 +62,7 @@ export class BarGraphComponent implements OnInit {
                         }
                     }
                     resolve(response);
+                    this.createBarGraph();
                     // console.log(this.dates);
                     // console.log(this.attendance);
                 }, reject);
