@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { LeaveService } from '../../leaves/leaves.service';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../user.service';
@@ -66,6 +66,15 @@ export class ApplyWorkFromHomeComponent implements OnInit {
           this.spinner.hide();
         }, reject);
     });
+  }
+
+  join(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.dataSource.requestFromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
+  }
+  end(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.dataSource.requestToDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
   }
 
   submitResponse(){

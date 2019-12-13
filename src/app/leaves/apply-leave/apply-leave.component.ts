@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDatepickerInputEvent } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { Leave } from './leave.model';
 import { UserService } from '../../user.service';
 import { Url } from '../../Url';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-apply-leave',
@@ -24,7 +25,7 @@ export class ApplyLeaveComponent implements OnInit {
   today:any;
   roleId:number;
 
-  constructor(public form: FormBuilder,
+  constructor(public form: FormBuilder, public datePipe: DatePipe,
     public http: HttpClient,
     public router: Router, public userService: UserService,
     public snackBar: MatSnackBar, private spinner: NgxSpinnerService) {
@@ -102,7 +103,14 @@ export class ApplyLeaveComponent implements OnInit {
 
     });
   }
+  join(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.dataSource.fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
 
+  }
+  end(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.dataSource.toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+
+  }
   applyLeave() {
       if (this.empcheck === 'false')
         this.dataSource.userId = this.userService.userId;
