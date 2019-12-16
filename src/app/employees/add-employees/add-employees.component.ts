@@ -35,7 +35,7 @@ export class AddEmployeesComponent implements OnInit {
   date = new FormControl(new Date());
   serializedDate = new FormControl((new Date()).toISOString())
   minDate = new Date(2000, 0, 1);
-  maxDate = new Date(2020, 0, 1);
+  maxDate = new Date();
   events: string[] = [];
   myFilter = (d: Date): boolean => {
     const day = d.getDay();

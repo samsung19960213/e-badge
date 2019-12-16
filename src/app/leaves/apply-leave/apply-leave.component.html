@@ -12,25 +12,19 @@
 
       <form [formGroup]="leaveRequest" fxLayout="column" fxFlex="100">
 
-        <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
-
-          <label>
-            <input type="radio" [checked]='true' value='false' formControlName="leavetypeoption" [(ngModel)]="empcheck"
-              (ngModelChange)="onChangeofOptions($event)">
-            <span>Apply leave for myself</span>
-          </label>
-          <label *ngIf='roleId != 2'>
-            <input type="radio"  value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
-              (ngModelChange)="onChangeofOptions($event)">
-            <span>Apply leave on behalf of Reportees</span>
-          </label>
-
-
+        <div fxLayout="row" style="margin-top: 20px;margin-bottom: 20px" class="formField_sm"
+          fxLayoutAlign="center center" fxFlex="1 0 auto" *ngIf='roleId != 2'>
+          <mat-radio-group fxFlex="60" aria-label="Select an option" class="form2Input"
+            formControlName="leavetypeoption" [(ngModel)]="empcheck" (change)="onChangeofOptions($event)">
+            <mat-radio-button [checked]='true' [value]='false'>Apply leave for myself</mat-radio-button>
+            <mat-radio-button [value]='true'>Apply leave on behalf of Reportees</mat-radio-button>
+          </mat-radio-group>
         </div>
-        <div fxLayout="row" *ngIf="empcheck !== 'false'" class="formField_sm" fxLayoutAlign="center center"
+
+        <div fxLayout="row" *ngIf="empcheck !== false" class="formField_sm" fxLayoutAlign="center center"
           fxFlex="1 0 auto">
 
-          <mat-form-field  fxFlex="60" class="form2Input">
+          <mat-form-field fxFlex="60" class="form2Input">
             <mat-select type="number" placeholder="Employe Name" [(ngModel)]="dataSource.userId"
               formControlName="empType" name="empType" required>
               <mat-option *ngFor="let emp of empArray" [value]="emp.userId">
@@ -64,18 +58,22 @@
 
           <mat-form-field fxFlex="30" class="form2Input">
 
-              <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" name="fromDate" [(ngModel)]="dataSource.fromDate" (dateInput)="join('input', $event)" (dateChange)="join('change', $event)">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="From Date" formControlName="fromDate"
+              name="fromDate" [(ngModel)]="dataSource.fromDate" (dateInput)="join('input', $event)"
+              (dateChange)="join('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
 
-           
+
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
 
-              <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate" name="toDate" [(ngModel)]="dataSource.toDate" (dateInput)="end('input', $event)" (dateChange)="end('change', $event)">
-              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-              <mat-datepicker #picker1></mat-datepicker>
-           
+            <input matInput [matDatepicker]="picker1" [min]="minDate" placeholder="To Date" formControlName="toDate"
+              name="toDate" [(ngModel)]="dataSource.toDate" (dateInput)="end('input', $event)"
+              (dateChange)="end('change', $event)">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+
           </mat-form-field>
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
@@ -88,32 +86,32 @@
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <mat-form-field fxFlex="60" class="form2Input">
-            
-              <textarea matInput type="text" formControlName="description" name="description" placeholder="Description"
+
+            <textarea matInput type="text" formControlName="description" name="description" placeholder="Description"
               [(ngModel)]="dataSource.description" rows="5"></textarea>
           </mat-form-field>
         </div>
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
           <div class="product-image media" fxLayoutAlign="center center">
-              <button mat-fab (click)="imgFileInput.click()" style="background:  #102646">
-                  <mat-icon>insert_photo</mat-icon>
-              </button>
-              <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="*/*" multiple>
+            <button mat-fab (click)="imgFileInput.click()" style="background:  #102646">
+              <mat-icon>insert_photo</mat-icon>
+            </button>
+            <input #imgFileInput hidden type="file" (change)="fileEvent($event)" accept="*/*" multiple>
 
-              <img src="{{dataSource.docUrl}}" alt="{{fileName}}" *ngIf="dataSource.docUrl !== ''"
-                  height="80" width="100">
+            <img src="{{dataSource.docUrl}}" alt="{{fileName}}" *ngIf="dataSource.docUrl !== ''" height="80"
+              width="100">
           </div>
           <div>
-              <h2 class="text" style="text-align: center;font-size: 15px">Upload Doc</h2>
+            <h2 class="text" style="text-align: center;font-size: 15px">Upload Doc</h2>
           </div>
-      </div>
+        </div>
 
       </form>
 
       <div style="margin-top: 20px;margin-bottom: 30px" fxLayoutAlign="center" fxFlex="1 0 auto">
         <div style="margin-top: 20px;margin-bottom: 30px;align-items: center;">
           <button mat-raised-button color="accent" fxFlex="100" style="width:150px !important;align-self: center;"
-           (click)="applyLeave()">Apply</button>
+            (click)="applyLeave()">Apply</button>
 
         </div>
       </div>

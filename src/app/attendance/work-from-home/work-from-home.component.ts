@@ -27,72 +27,75 @@ export class WorkFromHomeComponent implements OnInit {
   searchTerm: string;
   userModel: any;
   id: number;
-  employeeCode:string;
+  employeeCode: string;
   checkOutTime: string;
   checkOutData: string;
   date = new Date();
   year = this.date.getFullYear();
   month = this.date.getMonth();
-  firstDay = new Date(this.year,this.month , 1);
+  firstDay = new Date(this.year, this.month, 1);
   lastDay = new Date(this.year, this.month + 1, 0);
-  isLoading=true;
+  isLoading = true;
   startDate: string;
   endDate: string;
   dataSource: any;
   roleId: number;
-  workFromArray:Array<any> = [];
+  workFromArray: Array<any> = [];
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
   filterValue: string;
+
   constructor(private http: HttpClient,
     public route: Router,
-    public spinner:NgxSpinnerService,
+    public spinner: NgxSpinnerService,
     public userService: UserService,
     public datePipe: DatePipe,
-    public leaveService:LeaveService,
+    public leaveService: LeaveService,
     public snackBar: MatSnackBar) { }
+
   ngOnInit() {
-    this.roleId=this.userService.userroleId;
-   
+    this.roleId = this.userService.userroleId;
+
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     this.dataSource = new MatTableDataSource<Employeetable>();
-    if(this.roleId === 2){
-      this.displayedColumns = ['requestDate', 'requestFromDate', 'requestToDate','approvedBy',  'status'];
+    if (this.roleId === 2) {
+      this.displayedColumns = ['requestDate', 'requestFromDate', 'requestToDate', 'approvedBy', 'status'];
       this.workFromHomeListForUser(fromDate, toDate).then(data => {
         this.dataSource.data = data;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        
-      })
-    }else{
-      this.displayedColumns = ['Edit','requestedUserCode','requestedUser','reportingManagerName', 'requestFromDate', 'requestToDate',  'status'];
 
-    this.workFromHomeList(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-      
-    })
-  }
+      })
+    } else {
+      this.displayedColumns = ['Edit', 'requestedUserCode', 'requestedUser', 'reportingManagerName', 'requestFromDate', 'requestToDate', 'status'];
+
+      this.workFromHomeList(fromDate, toDate).then(data => {
+        this.dataSource.data = data;
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+
+      })
+    }
   }
   fromDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let toDate = this.datePipe.transform(this.lastDay, 'yyyy-MM-dd');
     let fromDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    if(this.roleId === 2){
+    if (this.roleId === 2) {
       this.workFromHomeListForUser(fromDate, toDate).then(data => {
         this.dataSource.data = data;
       })
-    }else{
-    this.workFromHomeList(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
-    })
-  }
+    } else {
+      this.workFromHomeList(fromDate, toDate).then(data => {
+        this.dataSource.data = data;
+      })
+    }
   }
   workFromHomeListForUser(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + "api/attendance/workfromhome/user?employeeId="+this.userService.EmployeeID + "&fromDate=" + fromDate + "&toDate=" + toDate)
+      this.http.get(Url.API_URL + "api/attendance/workfromhome/user?employeeId=" + this.userService.EmployeeID + "&fromDate=" + fromDate + "&toDate=" + toDate)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
@@ -101,7 +104,7 @@ export class WorkFromHomeComponent implements OnInit {
 
   workFromHomeList(fromDate: any, toDate: any) {
     return new Promise((resolve, reject) => {
-      this.http.get(Url.API_URL + "api/attendance/workfromhome/all?employeeId="+this.userService.EmployeeID + "&fromDate=" + fromDate + "&toDate=" + toDate)
+      this.http.get(Url.API_URL + "api/attendance/workfromhome/all?employeeId=" + this.userService.EmployeeID + "&fromDate=" + fromDate + "&toDate=" + toDate)
         .subscribe((response: any) => {
           resolve(response);
         }, reject);
@@ -110,15 +113,15 @@ export class WorkFromHomeComponent implements OnInit {
   toDate(type: string, event: MatDatepickerInputEvent<Date>) {
     let fromDate = this.datePipe.transform(this.firstDay, 'yyyy-MM-dd');
     let toDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    if(this.roleId === 2){
+    if (this.roleId === 2) {
       this.workFromHomeListForUser(fromDate, toDate).then(data => {
         this.dataSource.data = data;
       })
-    }else{
-    this.workFromHomeList(fromDate, toDate).then(data => {
-      this.dataSource.data = data;
-    })
-  }
+    } else {
+      this.workFromHomeList(fromDate, toDate).then(data => {
+        this.dataSource.data = data;
+      })
+    }
   }
   firstDate(): Promise<any> {
     let latest_date = this.datePipe.transform(this.date, 'yyyy-MM-dd');
@@ -181,22 +184,22 @@ export class WorkFromHomeComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  edit(id:number){
+  edit(id: number) {
     this.leaveService.setWorkId(id);
-    this.route.navigateByUrl('auth/attendance/work-from-home-details' );
+    this.route.navigateByUrl('auth/attendance/work-from-home-details');
   }
-  workFromHomeDetails(id:number) {
+  workFromHomeDetails(id: number) {
     this.leaveService.setPrevPage("work-from-home")
-   this.leaveService.setWorkId(id);
-  this.route.navigateByUrl('auth/attendance/work-from-home-details' );
+    this.leaveService.setWorkId(id);
+    this.route.navigateByUrl('auth/attendance/work-from-home-details');
   }
 }
 export interface Employeetable {
   employeeCode: string;
   firstName: string;
   date: string;
-  status:string;
-  comments:string;
+  status: string;
+  comments: string;
   lastName: string;
   checkInTime: string;
   designation: string;

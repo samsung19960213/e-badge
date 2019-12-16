@@ -19,11 +19,13 @@ export class ApplyLeaveComponent implements OnInit {
   dataSource: any;
   LeaveArray: any[];
   companyId: number;
-  empcheck = 'false';
+  empcheck = false;
   employeeId: number;
   empArray: any[];
-  today:any;
-  roleId:number;
+  today: any;
+  roleId: number;
+  minDate = new Date();
+
 
   constructor(public form: FormBuilder, public datePipe: DatePipe,
     public http: HttpClient,
@@ -36,7 +38,7 @@ export class ApplyLeaveComponent implements OnInit {
     const now = new Date()
 
     this.today = new Date().toJSON().split('T')[0];
-    console.log("date "+this.today)
+    console.log("date " + this.today)
     this.leaveRequest = new FormGroup({
       fromDate: new FormControl('', [Validators.required]),
       toDate: new FormControl('', [Validators.required]),
@@ -48,14 +50,19 @@ export class ApplyLeaveComponent implements OnInit {
     });
     this.companyId = this.userService.companyId;
     this.employeeId = this.userService.EmployeeID;
-    this.roleId=this.userService.userroleId;
+    this.roleId = this.userService.userroleId;
     this.EmployeeList();
     this.LeaveList();
 
+    if (this.roleId != 2) {
+      this.minDate = null;
+    } else {
+      this.minDate.setMonth(new Date().getMonth() - 1);
+    }
 
   }
 
-  fileName:string;
+  fileName: string;
   //image upload
   fileEvent(fileInput: any) {
     let windows: any = window;
@@ -66,7 +73,7 @@ export class ApplyLeaveComponent implements OnInit {
     AWSService.config.region = Url.AWS_BucketRegion;
     let bucket = new AWSService.S3({ params: { Bucket: Url.AWS_BucketName_Leaves } });
     let params = { Key: file.name, Body: file };
-    this.fileName=file.name;
+    this.fileName = file.name;
     let fileEveThis = this;
     bucket.upload(params, function (error, response) {
 
@@ -112,35 +119,35 @@ export class ApplyLeaveComponent implements OnInit {
 
   }
   applyLeave() {
-      if (this.empcheck === 'false')
-        this.dataSource.userId = this.userService.userId;
-      else {
-        this.dataSource.status = "APPROVED";
-        this.dataSource.actionBy = this.userService.userId
-      }
-      this.spinner.show();
-      console.log(this.dataSource)
-      return new Promise((resolve, error) => {
-        this.http.post(Url.API_URL + 'api/leave/save', this.dataSource)
-          .subscribe((response: any) => {
-            resolve(response);
-            this.spinner.hide();
-            this.snackBar.open('Submitted Successfully', 'OK', {
-              duration: 2000,
-              verticalPosition: 'top',
-            });
-
-
-            this.router.navigateByUrl('auth/leaves/leave-list');
-
-          }, (error: any) => {
-            this.spinner.hide();
-            this.snackBar.open('Something went wrong while sendig request', 'OK', {
-              duration: 2000,
-              verticalPosition: 'top',
-            });
+    if (this.empcheck === false)
+      this.dataSource.userId = this.userService.userId;
+    else {
+      this.dataSource.status = "APPROVED";
+      this.dataSource.actionBy = this.userService.userId
+    }
+    this.spinner.show();
+    console.log(this.dataSource)
+    return new Promise((resolve, error) => {
+      this.http.post(Url.API_URL + 'api/leave/save', this.dataSource)
+        .subscribe((response: any) => {
+          resolve(response);
+          this.spinner.hide();
+          this.snackBar.open('Submitted Successfully', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
           });
-      });
-    
+
+
+          this.router.navigateByUrl('auth/leaves/leave-list');
+
+        }, (error: any) => {
+          this.spinner.hide();
+          this.snackBar.open('Something went wrong while sendig request', 'OK', {
+            duration: 2000,
+            verticalPosition: 'top',
+          });
+        });
+    });
+
   }
 }

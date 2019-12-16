@@ -62,7 +62,7 @@
                             name="userdateOfBirth" required> -->
 
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input matInput [matDatepicker]="picker" placeholder="Date Of Birth" [(ngModel)]="employeeDetails.dateOfBirth" formControlName="userdateOfBirth" (dateInput)="DOB('input', $event)" (dateChange)="DOB('change', $event)" name="userdateOfBirth" required>
+                        <input matInput [matDatepicker]="picker"  [max]="maxDate" placeholder="Date Of Birth" [(ngModel)]="employeeDetails.dateOfBirth" formControlName="userdateOfBirth" (dateInput)="DOB('input', $event)" (dateChange)="DOB('change', $event)" name="userdateOfBirth" required>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="userForm.controls.userlastName.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">
@@ -234,7 +234,7 @@
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
 
-                        <input matInput type="string" [matDatepicker]="pickerJoin" placeholder="Join Date" [(ngModel)]="employeeDetails.formerCompanyJoinDate" (dateInput)="join('input', $event)" (dateChange)="join('change', $event)" formControlName="userformerComapnyJoinDate"
+                        <input matInput type="string" [matDatepicker]="pickerJoin" [max]="maxDate" placeholder="Join Date" [(ngModel)]="employeeDetails.formerCompanyJoinDate" (dateInput)="join('input', $event)" (dateChange)="join('change', $event)" formControlName="userformerComapnyJoinDate"
                             name="userformerComapnyJoinDate">
                         <mat-datepicker-toggle matSuffix [for]="pickerJoin"></mat-datepicker-toggle>
                         <mat-datepicker #pickerJoin></mat-datepicker>
@@ -243,7 +243,7 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field fxFlex="30" class="form2Input">
-                        <input type="string" matInput [matDatepicker]="pickerEnd" placeholder="End Date" [(ngModel)]="employeeDetails.formerCompanyEndDate" formControlName="userformerCompanyEndDate" (dateInput)="end('input', $event)" (dateChange)="end('change', $event)" name="userformerCompanyEndDate">
+                        <input type="string" matInput [matDatepicker]="pickerEnd" [max]="maxDate" placeholder="End Date" [(ngModel)]="employeeDetails.formerCompanyEndDate" formControlName="userformerCompanyEndDate" (dateInput)="end('input', $event)" (dateChange)="end('change', $event)" name="userformerCompanyEndDate">
                         <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
                         <mat-datepicker #pickerEnd></mat-datepicker>
                         <mat-error *ngIf="userForm.controls.userformerCompanyEndDate.hasError('required')" align="start" style="color: red;" class="mat-body-1 center-align ">

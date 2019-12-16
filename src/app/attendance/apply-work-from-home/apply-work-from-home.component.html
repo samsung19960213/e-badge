@@ -12,22 +12,17 @@
       <form [formGroup]="workFromHomeRequest" fxLayout="column" fxFlex="100">
 
         <div style="margin-top: 20px;margin-bottom: 30px" fxLayout="row" class="formField_sm"
-          fxLayoutAlign="center center" fxFlex="1 0 auto">
-
-          <label>
-            <input type="radio" [checked]='true' value='false' formControlName="leavetypeoption" [(ngModel)]="empcheck"
-              (ngModelChange)="onChangeofOptions($event)">
-            <span>Apply work from home for myself</span>
-          </label>
-          <label *ngIf='roleId != 2'>
-            <input type="radio" value='true' formControlName="leavetypeoption" [(ngModel)]="empcheck"
-              (ngModelChange)="onChangeofOptions($event)">
-            <span>Apply work from home on behalf of Reportees</span>
-          </label>
-
-
+          fxLayoutAlign="center center" fxFlex="1 0 auto" *ngIf='roleId != 2'>
+          <mat-radio-group fxFlex="60" aria-label="Select an option" class="form2Input"
+            formControlName="leavetypeoption" [(ngModel)]="empcheck" (change)="onChangeofOptions($event)">
+            <mat-radio-button [checked]='true' [value]='false'>Apply work
+              from home for myself</mat-radio-button>
+            <mat-radio-button [value]='true'>Apply work
+              from home on behalf of Reportees</mat-radio-button>
+          </mat-radio-group>
         </div>
-        <div fxLayout="row" *ngIf="empcheck !== 'false'" class="formField_sm" fxLayoutAlign="center center"
+
+        <div fxLayout="row" *ngIf="empcheck !== false" class="formField_sm" fxLayoutAlign="center center"
           fxFlex="1 0 auto">
 
           <mat-form-field fxFlex="60" class="form2Input">
@@ -46,7 +41,8 @@
         <div fxLayout="row" class="formField_sm" fxLayoutAlign="center center" fxFlex="1 0 auto">
 
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput [matDatepicker]="picker" placeholder="From Date" formControlName="fromDate" name="fromDate" (dateInput)="join('input', $event)" (dateChange)="join('change', $event)"
+            <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="From Date" formControlName="fromDate"
+              name="fromDate" (dateInput)="join('input', $event)" (dateChange)="join('change', $event)"
               [(ngModel)]="dataSource.requestFromDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -55,7 +51,8 @@
 
           </mat-form-field>
           <mat-form-field fxFlex="30" class="form2Input">
-            <input matInput [matDatepicker]="picker1" placeholder="To Date" formControlName="toDate" name="toDate" (dateInput)="end('input', $event)" (dateChange)="end('change', $event)"
+            <input matInput [matDatepicker]="picker1" [min]="minDate" placeholder="To Date" formControlName="toDate"
+              name="toDate" (dateInput)="end('input', $event)" (dateChange)="end('change', $event)"
               [(ngModel)]="dataSource.requestToDate">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>

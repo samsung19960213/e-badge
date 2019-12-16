@@ -20,27 +20,27 @@ import { ImmediateWorkFromHomeComponent } from "./immediate-work-from-home/immed
 
 
 const attendanceRoutes: Routes = [
-  { path: 'work-from-home-details', component:  WorkFromHomeDetailsComponent},
-  { path: 'work-from-home', component:  WorkFromHomeComponent},
-  { path: 'monthly-absentees', component:  MonthlyAbsenteesListComponent},
-    { path: 'absentees', component:  AbsenteesComponent},
-    { path: 'present', component:  PresentComponent},
-    {path: 'late-comers', component: LateComersComponent},
-    {path:'checkout-request', component: CheckoutRequestComponent},
-    {path:'applyWFH',component:ApplyWorkFromHomeComponent},
-    { path: 'emp/work-from-home', component:  WorkFromHomeEmpListComponent},
-    {path:'immediate/work-from-home',component:ImmediateWorkFromHomeComponent},
-    {path:'' , component: AttendanceComponent},
- 
-  
+  { path: 'work-from-home-details', component: WorkFromHomeDetailsComponent },
+  { path: 'work-from-home', component: WorkFromHomeComponent },
+  { path: 'monthly-absentees', component: MonthlyAbsenteesListComponent },
+  { path: 'absentees', component: AbsenteesComponent },
+  { path: 'present', component: PresentComponent },
+  { path: 'late-comers', component: LateComersComponent },
+  { path: 'checkout-request', component: CheckoutRequestComponent },
+  { path: 'apply-wfh', component: ApplyWorkFromHomeComponent },
+  { path: 'emp/work-from-home', component: WorkFromHomeEmpListComponent },
+  { path: 'immediate/work-from-home', component: ImmediateWorkFromHomeComponent },
+  { path: '', component: AttendanceComponent },
+
+
 ];
 
 @NgModule({
-imports: [
-  RouterModule.forChild(attendanceRoutes)
-],
-exports: [
-  RouterModule
-]
+  imports: [
+    RouterModule.forChild(attendanceRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
-export class AttendanceRouterModule {}
+export class AttendanceRouterModule { }

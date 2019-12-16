@@ -118,7 +118,7 @@ export const adminMenu = [
             {
                 'name': 'Apply W-F-Home',
                 'icon': 'home',
-                'link': 'attendance/applyWFH',
+                'link': 'attendance/apply-wfh',
                 'open': false,
                 'user':[1,2,3],
 
@@ -151,7 +151,7 @@ export const adminMenu = [
         'sub': [
             {
                 'name': 'Apply Leave',
-                'link': 'leaves/applyLeave',
+                'link': 'leaves/apply-leave',
                 'icon': 'drafts',
                 'user':[1,2,3],
                 'chip': false,
@@ -316,7 +316,7 @@ export const hrManagerMenu = [
             {
                 'name': 'Apply W-F-Home',
                 'icon': 'home',
-                'link': 'attendance/applyWFH',
+                'link': 'attendance/apply-wfh',
                 'open': false,
                 'user':[1,2,3],
 
@@ -349,7 +349,7 @@ export const hrManagerMenu = [
         'sub': [
             {
                 'name': 'Apply Leave',
-                'link': 'leaves/applyLeave',
+                'link': 'leaves/apply-leave',
                 'icon': 'drafts',
                 'user':[1,2,3],
                 'chip': false,
@@ -501,7 +501,7 @@ export const reportingManagerMenu = [
             {
                 'name': 'Apply W-F-Home',
                 'icon': 'home',
-                'link': 'attendance/applyWFH',
+                'link': 'attendance/apply-wfh',
                 'open': false,
                 'user':[1,2,3],
 
@@ -534,7 +534,7 @@ export const reportingManagerMenu = [
         'sub': [
             {
                 'name': 'Apply Leave',
-                'link': 'leaves/applyLeave',
+                'link': 'leaves/apply-leave',
                 'icon': 'drafts',
                 'user':[1,2,3],
                 'chip': false,
@@ -633,7 +633,7 @@ export const userMenu = [
             {
                 'name': 'Apply W-F-Home',
                 'icon': 'home',
-                'link': 'attendance/applyWFH',
+                'link': 'attendance/apply-wfh',
                 'open': false,
                 'user':[1,2,3],
 
@@ -658,7 +658,7 @@ export const userMenu = [
         'sub': [
             {
                 'name': 'Apply Leave',
-                'link': 'leaves/applyLeave',
+                'link': 'leaves/apply-leave',
                 'icon': 'drafts',
                 'user':[1,2,3],
                 'chip': false,

@@ -11,11 +11,12 @@ import { EmployeesTableComponent } from "./employees-table/employees-table.compo
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ActiveEmployeesComponent } from "./active-employees/active-employees.component";
 import { DeactivatedEmployeesComponent } from './deactivated-employees/deactivated-employees.component';
-import { EmployeeDetailsComponent, MessagePopup} from "./employee-details/employee-details.component";
+import { EmployeeDetailsComponent, MessagePopup } from "./employee-details/employee-details.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { EmployeesService } from "./employees.service";
 import { MessagePopupModule } from "./employee-details/messagePopup.module";
 import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
+import { HelperModule } from "../helpers/HelperModule";
 
 @NgModule({
     imports: [
@@ -41,36 +42,36 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
         MatProgressBarModule,
         MatProgressSpinnerModule,
         CommonModule,
-		// FormsRouterModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatToolbarModule,
-		MatCardModule,
-		MatTabsModule,
+        // FormsRouterModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatTabsModule,
         MatIconModule,
         MatDialogModule,
         MatDatepickerModule,
         MatNativeDateModule,
         MatSortModule,
         MatPaginatorModule,
-         MatInputModule,
-         MatPaginatorModule,
-		 ReactiveFormsModule,
-		 FormsModule,
-         EmployeesRouterModule,
-         MessagePopupModule
-        
-     ],
-    declarations: [   
+        MatInputModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        FormsModule,
+        EmployeesRouterModule,
+        MessagePopupModule,
+        HelperModule
+    ],
+    declarations: [
         AddEmployeesComponent,
         EmployeesComponent,
         EmployeesTableComponent,
         ActiveEmployeesComponent,
         DeactivatedEmployeesComponent,
         EmployeeDetailsComponent,
-      
-   
-       
+
+
+
     ],
     entryComponents: [MessagePopup],
     exports: [
@@ -81,7 +82,7 @@ import { AuthInterceptor } from "../interceptor/fuseHttpInterceptor";
             useClass: AuthInterceptor,
             multi: true,
         }
-        
+
     ]
 })
 export class EmployeesModule {

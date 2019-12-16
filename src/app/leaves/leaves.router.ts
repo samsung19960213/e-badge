@@ -18,7 +18,7 @@ const employeesRoutes: Routes = [
     { path: 'leave-list', component: LeaveListComponent},
     { path: 'leave-details', component: LeaveDetailsComponent},
     {path: 'pending-leaves', component: PendingLeavesComponent},
-    {path:'applyLeave',component:ApplyLeaveComponent}
+    {path:'apply-leave',component:ApplyLeaveComponent}
   
 ];
 
