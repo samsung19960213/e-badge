@@ -7,7 +7,14 @@ export const adminMenu = [
         'chip': { 'value': 1, 'color': 'accent' },
 
     },
+    {
+        'name': 'Holidays',
+        'icon': 'list',
+        'link': '/auth/pages/holidays',
+        'user':[1,2,3] ,
+        
 
+    },
     {
         'name': 'Office',
         'icon': 'work',
@@ -214,7 +221,14 @@ export const hrManagerMenu = [
         'chip': { 'value': 1, 'color': 'accent' },
 
     },
+    {
+        'name': 'Holidays',
+        'icon': 'list',
+        'link': '/auth/pages/holidays',
+        'user':[1,2,3] ,
+        
 
+    },
     {
         'name': 'Employees',
         'icon': 'people',
@@ -413,7 +427,14 @@ export const reportingManagerMenu = [
 
     },
 
-    
+    {
+        'name': 'Holidays',
+        'icon': 'list',
+        'link': '/auth/pages/holidays',
+        'user':[1,2,3] ,
+        
+
+    },
 
 
     {
@@ -598,6 +619,15 @@ export const userMenu = [
 
     },
 
+
+    {
+        'name': 'Holidays',
+        'icon': 'list',
+        'link': '/auth/pages/holidays',
+        'user':[1,2,3] ,
+        
+
+    },
     
 
     

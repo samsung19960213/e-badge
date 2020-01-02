@@ -1,0 +1,40 @@
+.table-header {
+	background-color: white;
+	color:black;
+	padding: 0 5px;
+}
+.table-container {
+	padding: 5px 15px 15px 15px;
+}
+.table-component-holder {
+	border: 1px solid #102646;
+	background-color: white;
+}
+mat-header-cell{
+background-color: #102646;
+color:white;
+}
+mat-header-cell,mat-cell,mat-form-field,input,h1,h2,h3,h4,h5,h6,p{
+	font-family:light;
+}
+.button-header {
+	background-color: #385e97;
+	color: white;
+	padding: 0 5px;
+}
+.button-container {
+	padding: 5px 15px 15px 15px;
+}
+.button-component-holder {
+	border: 1px solid #385e97;
+	background-color: white;
+
+	h4 {
+		color: #385e97;
+		margin: 14px 0;
+	}
+
+	mat-divider {
+		margin-bottom: 10px;
+	}
+}

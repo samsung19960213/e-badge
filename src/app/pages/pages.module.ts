@@ -15,6 +15,10 @@ import {
         MatDialogModule,
         MatFormFieldModule,
         MatDatepickerModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
        } from '@angular/material';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
@@ -28,6 +32,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
+import { HolidaysComponent } from './holidays/holidays.component';
 
 @NgModule({
     imports: [
@@ -43,7 +48,11 @@ import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
         MatButtonToggleModule,
         MatInputModule,
         MatDatepickerModule,
-
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatProgressSpinnerModule,
         MatToolbarModule,
         MatFormFieldModule,
         MatIconModule,
@@ -58,7 +67,8 @@ import { AuthInterceptor } from '../interceptor/fuseHttpInterceptor';
         ContactComponent,
         AboutComponent,
         ServicesComponent,
-        ProfileComponent
+        ProfileComponent,
+        HolidaysComponent
     ],
     exports: [
     ],
