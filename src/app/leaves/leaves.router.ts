@@ -6,6 +6,7 @@ import { LeaveListComponent } from "./leave-list/leave-list.component";
 import { LeaveDetailsComponent } from "./leave-details/leave-details.component";
 import { PendingLeavesComponent } from "./pending-leaves/pending-leaves.component";
 import { ApplyLeaveComponent } from "./apply-leave/apply-leave.component";
+import { LeaveComponent } from "./leave/leave.component";
 
 
 
@@ -18,7 +19,8 @@ const employeesRoutes: Routes = [
     { path: 'leave-list', component: LeaveListComponent},
     { path: 'leave-details', component: LeaveDetailsComponent},
     {path: 'pending-leaves', component: PendingLeavesComponent},
-    {path:'apply-leave',component:ApplyLeaveComponent}
+    {path:'apply-leave',component:ApplyLeaveComponent},
+    {path:'add-leave',component:LeaveComponent}
   
 ];
 

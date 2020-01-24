@@ -19,6 +19,7 @@ import { ApplyLeaveComponent } from './apply-leave/apply-leave.component';
 import { DateFormatPipe } from "../helpers/DateFormatPipe";
 import { DateTimeFormatPipe } from "../helpers/DateTimeFormatPipe";
 import { HelperModule } from "../helpers/HelperModule";
+import { LeaveComponent } from './leave/leave.component';
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import { HelperModule } from "../helpers/HelperModule";
         LeaveListComponent,
         LeaveDetailsComponent,
         PendingLeavesComponent,
-        ApplyLeaveComponent
+        ApplyLeaveComponent,
+        LeaveComponent
     ],
     entryComponents: [RejectPopup],
     exports: [],

@@ -15,14 +15,8 @@ export const adminMenu = [
         
 
     },
-    {
-        'name': 'Office',
-        'icon': 'work',
-        'link': '/auth/office',
-        'open': false,
-        'user': [1]
-    },
-
+    
+    
 
     {
         'name': 'Employees',
@@ -208,7 +202,34 @@ export const adminMenu = [
         ],
 
     },
+    {
+        'name': 'Settings',
+        'icon': 'build',
+        'link': false,
+        'open': false,
+        'user':[1,2],
+        'sub': [
+            {
+                'name': 'Office',
+                'icon': 'work',
+                'link': '/auth/office',
+                'open': false,
+                'user': [1]
+            },
 
+            {
+                'name': 'Leave',
+                'link': 'leaves/add-leave',
+                'icon': 'inbox',
+                'user': [1,2],
+                'chip': false,
+                'open': false,
+            },
+            
+
+
+        ]
+    },
 
 ];
 
